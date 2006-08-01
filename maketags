@@ -32,7 +32,11 @@ else
 	DIRS="$@"
 fi
 
-echo "Making tags for $DIRS"
+if [ -n "${KERNEL}" ]; then
+	echo "Making kernel tags for $DIRS"
+else
+	echo "Making tags for $DIRS"
+fi
 find $DIRS -name "*.c" -or -name "*.cpp" -or -name "*.cxx" -or -name "*.h++" -or -name "*.hxx" -or -name "*.hh" -or -name "*.H" -or -name "*.C" -or -name "*.c++" -or -name "*.cc" -or -name "*.h" > cscope.files
 cscope -q -L ${KERNEL} -i cscope.files
 exuberant-ctags -L- < cscope.files
