@@ -1,0 +1,42 @@
+#!/bin/bash
+#
+# Recursively make tags file for all c, cpp, C, c++, h files
+#
+
+USAGE="[-hk] [<directories>]"
+LONGUSAGE="\t-h\tPrint this help message
+\t-k\tKernel database (no system includes)
+\t<directories>\tDirectories to scan (defaults to '.')"
+
+source ~/bin/scripts/functions.sh
+
+while getopts ":hk" option; do
+	case ${option} in
+		k ) KERNEL="-k";;
+		h ) usage;;
+		\? ) usage "Invalid argument ${OPTARG}";;
+		* ) usage "Invalid argument ${option}";;
+	esac
+done
+
+# Store how we got here, so vim can re-run the same arguments
+echo "$0 $@" > ".#maketags.dfg"
+
+if [ "${OPTIND}" != "0" ]; then
+	shift $((OPTIND-1))
+fi
+
+if [ -z "$1" ]; then
+	DIRS="."
+else
+	DIRS="$@"
+fi
+
+echo "DIRS ${DIRS}"
+echo "KERNEL ${KERNEL}"
+exit
+
+echo "Making tags for $DIRS"
+find $DIRS -name "*.c" -or -name "*.cpp" -or -name "*.cxx" -or -name "*.h++" -or -name "*.hxx" -or -name "*.hh" -or -name "*.H" -or -name "*.C" -or -name "*.c++" -or -name "*.cc" -or -name "*.h" > cscope.files
+cscope -q -L ${KERNEL} -i cscope.files
+exuberant-ctags -L- < cscope.files
