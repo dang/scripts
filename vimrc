@@ -23,10 +23,16 @@ set tw=89
 set shiftwidth=4
 set tabstop=4
 "
-" Syllables's cinoptions
+"" Syllables's cinoptions
 "set cinoptions=t0
 "set tw=100
 "set tw=89
+"set shiftwidth=8
+"set tabstop=8
+"
+"" Works cinoptions
+"set cinoptions=:0,+.5s,(.5s,u0,U1,t0,M1
+"set tw=80
 "set shiftwidth=8
 "set tabstop=8
 
@@ -34,8 +40,7 @@ set wildmode=longest,list,full
 set autowrite
 "set splitbelow
 set splitright
-"Fix up man command
-runtime ftplugin/man.vim
+"set formatoptions=tcoq
 command Reload checktime
 command Cvsblame exe "!cvsblame " . expand("%") . " " . line(".")
 " Movement
@@ -44,6 +49,7 @@ map J j
 map K k
 map L l
 noremap U J
+
 "function InsertTabWrapper()
 "	let col = col('.') - 1
 "	if !col || getline('.')[col - 1] !~ '\k'
@@ -68,10 +74,7 @@ if has("cscope")
     	cs add $CSCOPE_DB
 	endif
 	set csverb
-	map <C-P> :cs find 3 <C-R>=expand("<cword>")<CR><CR>
 	map <C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
-	map <C-O> :cs find 4 <C-R>=expand("<cword>")<CR><CR>
-	map <C-P> :cs find 7 <C-R>=expand("<cword>")<CR><CR>
 	function Csre()
 		if filereadable('.#maketags.dfg')
 			silent !sh .\#maketags.dfg
@@ -110,15 +113,30 @@ autocmd BufNewFile,BufRead *.cpp   set cindent
 autocmd BufNewFile,BufRead *.cxx  set cindent
 autocmd BufNewFile,BufRead *.h    set cindent
 autocmd BufNewFile,BufRead *.java set cindent
+"autocmd BufNewFile,BufRead *.java set cinoptions= cindent ts=3 sw=3
 autocmd BufNewFile,BufRead *akefile*    set noexpandtab
 autocmd BufNewFile,BufRead *.py   set ts=4 sw=4 expandtab
+autocmd BufNewFile,BufRead *.y.unf set cindent
+autocmd BufNewFile,BufRead *.auto.unf set formatoptions-=t ts=4 tw=0
+autocmd BufNewFile,BufRead *.cfg.unf set formatoptions-=t ts=4 tw=0
+autocmd BufNewFile,BufRead *.auto set formatoptions-=t tw=0
+autocmd BufNewFile,BufRead *.cfg set formatoptions-=t ts=4 tw=0
+autocmd BufNewFile,BufRead *.map set formatoptions-=t  ts=8
 autocmd BufNewFile,BufRead *.pl   set nocst
 autocmd BufNewFile,BufRead *.pm   set nocst
+autocmd BufNewFile,BufRead *.perl   set nocst
+autocmd BufNewFile,BufRead *.ksh  set tw=0
+autocmd BufNewFile,BufRead *.conf  set tw=0
+autocmd BufNewFile,BufRead distbuild  set tw=0
+autocmd BufNewFile,BufRead *.doxygen setfiletype doxygen
 if version >= 500
 
   " I like highlighting strings inside C comments
   let c_comment_numbers = 1
   let c_comment_types = 1
+  let c_comment_strings = 1
+  "unlet! c_comment_types
+  "unlet! c_comment_strings
   let c_comment_date_time = 1
   let c_warn_nested_comments=1
   let c_minlines=100
@@ -131,6 +149,13 @@ if version >= 500
   let c_syntax_for_h=1
   let c_no_names=1
   let c_no_octal=1
+  let yacc_uses_cpp=1
+  unlet! c_cpp_comments "Must come after C99
+
+  " Doxygen highlighting
+  "let g:doxygen_enhanced_color = 1
+  let doxygen_javadoc_autobrief = 1
+  let doxygen_end_punctuation = '[.\n]'
 
   " Switch on syntax highlighting.
   syntax on
@@ -160,23 +185,23 @@ if version >= 500
   "highlight Normal ctermbg=black ctermfg=lightgrey
   "highlight NonText ctermfg=lightred
   "highlight Statement ctermfg=lightblue 
-  highlight Comment		ctermfg=blue
+  highlight Comment	ctermfg=blue
   highlight Constant	ctermfg=darkred
-  highlight Special		ctermfg=darkmagenta
+  highlight Special	ctermfg=darkmagenta
   highlight Identifier	ctermfg=darkcyan
   highlight Statement	ctermfg=yellow 
-  highlight PreProc		ctermfg=magenta 
-  highlight Type		ctermfg=green 
+  highlight PreProc	ctermfg=magenta 
+  highlight Type	ctermfg=green 
   highlight Underlined	ctermfg=red 
-  highlight Ignore		ctermfg=white 
-  highlight Error		ctermfg=black		ctermbg=red
-  highlight Todo		ctermfg=black		ctermbg=yellow
-  highlight Search		ctermfg=black		ctermbg=blue
-  highlight DiffAdd		ctermfg=black		ctermbg=blue
+  highlight Ignore	ctermfg=white 
+  highlight Error	ctermfg=black		ctermbg=red
+  highlight Todo	ctermfg=black		ctermbg=yellow
+  highlight Search	ctermfg=black		ctermbg=blue
+  highlight DiffAdd	ctermfg=black		ctermbg=blue
   highlight DiffChange	ctermfg=black		ctermbg=darkmagenta
   highlight DiffDelete	ctermfg=black		ctermbg=darkcyan
   highlight DiffText	ctermfg=black		ctermbg=darkred
-  highlight Folded		ctermfg=darkblue	ctermbg=gray
+  highlight Folded	ctermfg=darkblue	ctermbg=gray
   highlight FoldColumn	ctermfg=darkblue	ctermbg=gray
 
   "highlight PreProc ctermfg=Red
