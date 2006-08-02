@@ -77,9 +77,9 @@ if has("cscope")
 	map <C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
 	function Csre()
 		if filereadable('.#maketags.dfg')
-			silent !sh .\#maketags.dfg
+			!sh .\#maketags.dfg
 		else
-			silent !maketags
+			!maketags
 		endif
 		set nocsverb
 		cs kill 0

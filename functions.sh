@@ -17,10 +17,10 @@ usage() {
 	else
 		myusage="No usage given"
 	fi
-	echo "`basename $0` ${myusage}"
 	if [ -n "$1" ]; then
 		echo "$@"
 	fi
+	echo "`basename $0` ${myusage}"
 	if [ -n "${LONGUSAGE}" ]; then
 		echo -e "${LONGUSAGE}"
 	fi
