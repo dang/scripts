@@ -1,0 +1,89 @@
+#!/bin/bash
+#
+# Bump a package in the gnome overlay
+#
+
+# Set usage output
+USAGE="[-hcb] <basename> <old-version> <new-version>"
+LONGUSAGE="\t-h\tPrint this help message
+\t-b\tBuild package.
+\t-c\tCommit package when done.
+\t<basename>\tName of package (${P})
+\t<old-version>\tOld package version (old ${PVR})
+\t<new-version>\tNew package version (new ${PVR})"
+
+# Standard functions
+source ${HOME}/bin/scripts/functions.sh
+
+# Parse arguments
+while getopts ":hcb" option; do
+	case ${option} in
+		c ) COMMIT="yes";;
+		b ) BUILD="yes";;
+		h ) usage;;
+		\? ) usage "Invalid argument ${OPTARG}";;
+		* ) usage "Invalid argument ${option}";;
+	esac
+done
+
+if [ "${OPTIND}" != "0" ]; then
+	shift $((OPTIND-1))
+fi
+
+function gecd() {
+	cd /home/portage/overlays/gnome/`PORTDIR=/home/portage/overlays/gnome herdstat -f $*` || die "gecd failed"
+}
+
+
+BASENAME=$1
+OLDVER=$2
+NEWVER=$3
+OLDEBUILD=${BASENAME}-${OLDVER}.ebuild
+OLDDIGEST=files/digest-${BASENAME}-${OLDVER}
+NEWEBUILD=${BASENAME}-${NEWVER}.ebuild
+NEWDIGEST=files/digest-${BASENAME}-${NEWVER}
+
+TMPDIR="/home/src/build"
+DISTDIR="/home/portage/distfiles"
+
+gecd ${BASENAME}
+EBUILDDIR=$(pwd)
+
+# Sanity check old setup
+[ -f ${OLDEBUILD} ] || die "${OLDEBUILD} doesn't exist"
+[ -f ${OLDDIGEST} ] || die "${OLDDIGEST} doesn't exist"
+
+echo "Removing ${OLDEBUILD} and ${OLDDIGEST}"
+echo "Adding ${NEWEBUILD} and ${NEWDIGEST}"
+
+# Make ebuild change
+cp ${OLDEBUILD} ${NEWEBUILD} || die "cp failed"
+svn rm ${OLDEBUILD} ${OLDDIGEST} || die "svn rm failed"
+echangelog "Bump to ${NEWVER}" || die "echangelog failed"
+ebuild ${NEWEBUILD} digest || die "digest failed"
+[ -f ${NEWDIGEST} ] || die "${NEWDIGEST} doesn't exist"
+
+# Open up the new ebuild and the configure.(in|ac) to check for new deps
+cd ${TMPDIR} || die "No ${TMPDIR}"
+duntarball ${DISTDIR}/${BASENAME}-${NEWVER}.tar.bz2 || duntarball ${DISTDIR}/${BASENAME}-${NEWVER}.tar.gz
+gvim -f -geometry 177x47 -O ${EBUILDDIR}/${NEWEBUILD} ${BASENAME}-${NEWVER}/configure.*
+rm -rf ${BASENAME}-${NEWVER}
+cd -
+
+# Now re-digest in case the ebuild changed
+ebuild ${NEWEBUILD} digest || die "digest failed"
+
+if [ -n ${BUILD} ]; then
+	# We were told to build it
+	sudo emerge ${BASENAME} || die "emerge failed"
+fi
+
+# Add to svn
+svn add ${NEWEBUILD} ${NEWDIGEST} || die "svn add failed"
+if [ -n "${COMMIT}" ]; then
+	# We were told to commit it
+	svn commit -m "Bump to ${NEWVER}" || die "svn commit failed"
+fi
+
+# Tell user we're done
+notify-send -t 0 "Done" "${NEWEBUILD}"

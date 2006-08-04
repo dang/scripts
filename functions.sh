@@ -42,7 +42,7 @@ usage() {
 #\t<directories>\tDirectories to scan (defaults to '.')"
 #
 ## Standard functions
-#source ~/bin/scripts/functions.sh
+#source ${HOME}/bin/scripts/functions.sh
 #
 ## Parse arguments
 #while getopts ":hkf:" option; do
