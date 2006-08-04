@@ -1,25 +1,41 @@
 #!/bin/bash
 #
-# Bump a package in the gnome overlay
+# Bump a package in an overlay
 #
 
+#
+# Local parameters
+# tmp directory for extracting packages to look for deps
+TMPDIR="/home/src/build"
+# Dist file directory
+DISTDIR="/home/portage/distfiles"
+# PORTDIR
+PORTDIR="/home/portage/overlays/gnome"
+
+
 # Set usage output
-USAGE="[-hcb] <basename> <old-version> <new-version>"
+USAGE="[-hcb][-p <portdir>] [-t <tmpdir>] [-d <distdir>]  <basename> <old-version> <new-version>"
 LONGUSAGE="\t-h\tPrint this help message
 \t-b\tBuild package.
 \t-c\tCommit package when done.
-\t<basename>\tName of package (${P})
-\t<old-version>\tOld package version (old ${PVR})
-\t<new-version>\tNew package version (new ${PVR})"
+\t-p <portdir>\tPORTDIR to act on (default ${PORTDIR})
+\t-t <tmpdir>\tTMP directory to extract packages to (default ${TMPDIR})
+\t-d <distdir>\tLocation distfiles are downloaded to (default ${DISTDIR})
+\t<basename>\tName of package (\${P})
+\t<old-version>\tOld package version (old \${PVR})
+\t<new-version>\tNew package version (new \${PVR})"
 
 # Standard functions
 source ${HOME}/bin/scripts/functions.sh
 
 # Parse arguments
-while getopts ":hcb" option; do
+while getopts ":hcbp:d:t:" option; do
 	case ${option} in
 		c ) COMMIT="yes";;
 		b ) BUILD="yes";;
+		p ) PORTDIR=${OPTARG};;
+		t ) TMPDIR=${OPTARG};;
+		d ) DISTDIR=${OPTARG};;
 		h ) usage;;
 		\? ) usage "Invalid argument ${OPTARG}";;
 		* ) usage "Invalid argument ${option}";;
@@ -31,9 +47,12 @@ if [ "${OPTIND}" != "0" ]; then
 fi
 
 function gecd() {
-	cd /home/portage/overlays/gnome/`PORTDIR=/home/portage/overlays/gnome herdstat -f $*` || die "gecd failed"
+	cd ${PORTDIR}/`PORTDIR=${PORTDIR} herdstat -f $*` || die "gecd failed"
 }
 
+if [ -z "$3" ]; then
+	usage "Missing arguments"
+fi
 
 BASENAME=$1
 OLDVER=$2
@@ -43,9 +62,6 @@ OLDDIGEST=files/digest-${BASENAME}-${OLDVER}
 NEWEBUILD=${BASENAME}-${NEWVER}.ebuild
 NEWDIGEST=files/digest-${BASENAME}-${NEWVER}
 
-TMPDIR="/home/src/build"
-DISTDIR="/home/portage/distfiles"
-
 gecd ${BASENAME}
 EBUILDDIR=$(pwd)
 
@@ -53,6 +69,7 @@ EBUILDDIR=$(pwd)
 [ -f ${OLDEBUILD} ] || die "${OLDEBUILD} doesn't exist"
 [ -f ${OLDDIGEST} ] || die "${OLDDIGEST} doesn't exist"
 
+echo "In repo ${PORTDIR}:"
 echo "Removing ${OLDEBUILD} and ${OLDDIGEST}"
 echo "Adding ${NEWEBUILD} and ${NEWDIGEST}"
 
@@ -73,7 +90,7 @@ cd -
 # Now re-digest in case the ebuild changed
 ebuild ${NEWEBUILD} digest || die "digest failed"
 
-if [ -n ${BUILD} ]; then
+if [ -n "${BUILD}" ]; then
 	# We were told to build it
 	sudo emerge ${BASENAME} || die "emerge failed"
 fi
