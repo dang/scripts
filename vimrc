@@ -4,8 +4,8 @@ behave xterm
 set selectmode=mouse
 map Q Igqq
 " I keep hitting <F1> and screwing up my window.
-map <F1> :nohlsearch
-map <F2> :nohlsearch
+map <F1> :nohlsearch<CR>
+map <F2> :nohlsearch<CR>
 imap <F1> <esc>
 set incsearch
 set wrapscan
