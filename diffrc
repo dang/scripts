@@ -1,0 +1,6 @@
+*cscope*
+tags
+*.orig
+*.rej
+CVS
+.#maketags.dfg
