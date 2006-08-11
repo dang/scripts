@@ -16,6 +16,7 @@ set backspace=2
 "set guioptions+=T
 set visualbell t_vb=
 "set lines=72
+set scrolloff=4
 
 " Dan's cinoptions
 set cinoptions={1s,t0
@@ -129,6 +130,7 @@ autocmd BufNewFile,BufRead *.ksh  set tw=0
 autocmd BufNewFile,BufRead *.conf  set tw=0
 autocmd BufNewFile,BufRead distbuild  set tw=0
 autocmd BufNewFile,BufRead *.doxygen setfiletype doxygen
+autocmd BufNewFile,BufRead *.gdb  set tw=0 noai syntax=gdb
 if version >= 500
 
   " I like highlighting strings inside C comments
