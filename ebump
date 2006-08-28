@@ -11,13 +11,18 @@ TMPDIR="/home/src/build"
 DISTDIR="/home/portage/distfiles"
 # PORTDIR
 PORTDIR="/home/portage/overlays/gnome"
+# VCS - default to unknown
+VCS="unknown"
+# Remove old versions?
+RMOLD="yes"
 
 
 # Set usage output
-USAGE="[-hcb][-p <portdir>] [-t <tmpdir>] [-d <distdir>]  <basename> <old-version> <new-version>"
+USAGE="[-hcbk][-p <portdir>] [-t <tmpdir>] [-d <distdir>]  <basename> <old-version> <new-version>"
 LONGUSAGE="\t-h\tPrint this help message
 \t-b\tBuild package.
 \t-c\tCommit package when done.
+\t-k\tKeep old versions.
 \t-p <portdir>\tPORTDIR to act on (default ${PORTDIR})
 \t-t <tmpdir>\tTMP directory to extract packages to (default ${TMPDIR})
 \t-d <distdir>\tLocation distfiles are downloaded to (default ${DISTDIR})
@@ -29,10 +34,11 @@ LONGUSAGE="\t-h\tPrint this help message
 source ${HOME}/bin/scripts/functions.sh
 
 # Parse arguments
-while getopts ":hcbp:d:t:" option; do
+while getopts ":hcbkp:d:t:" option; do
 	case ${option} in
 		c ) COMMIT="yes";;
 		b ) BUILD="yes";;
+		k ) RMOLD="no";;
 		p ) PORTDIR=${OPTARG};;
 		t ) TMPDIR=${OPTARG};;
 		d ) DISTDIR=${OPTARG};;
@@ -46,8 +52,59 @@ if [ "${OPTIND}" != "0" ]; then
 	shift $((OPTIND-1))
 fi
 
+# cd to a package location by name in a portdir
 function gecd() {
 	cd ${PORTDIR}/`PORTDIR=${PORTDIR} herdstat -f $*` || die "gecd failed"
+}
+
+# Detect which VCS is in use
+function vcs_detect() {
+	if [ -d "${PORTDIR}/.svn" ]; then
+		VCS="svn"
+	elif [ -d "${PORTDIR}/CVS" ]; then
+		VCS="cvs"
+	fi
+
+	if [ "${VCS}" == "unknown" ]; then
+		die "Unknwon VCS for ${PORTDIR}"
+	fi
+}
+
+# Delete something from a VCS
+function vcs_rm() {
+	if [ "${RMOLD}" == "no" ]; then
+		return
+	fi
+	if [ "${VCS}" == "svn" ]; then
+		svn rm $* || die "svn rm failed"
+	elif [ "${VCS}" == "cvs" ]; then
+		rm $* || die "cvs rm failed (rm)"
+		cvs rm $* || die "cvs rm failed (cvs rm)"
+	else
+		die "Unknown VCS ${VCS}"
+	fi
+}
+
+# Add something to a VCS
+function vcs_add() {
+	if [ "${VCS}" == "svn" ]; then
+		svn add $* || die "svn add failed"
+	elif [ "${VCS}" == "cvs" ]; then
+		cvs add $* || die "cvs add failed"
+	else
+		die "Unknown VCS ${VCS}"
+	fi
+}
+
+# commit something to a VCS
+function vcs_commit() {
+	if [ "${VCS}" == "svn" ]; then
+		svn commit -m "$*" || die "svn commit failed"
+	elif [ "${VCS}" == "cvs" ]; then
+		repoman --commitmsg "$*" commit || die "cvs add failed"
+	else
+		die "Unknown VCS ${VCS}"
+	fi
 }
 
 if [ -z "$3" ]; then
@@ -69,16 +126,20 @@ EBUILDDIR=$(pwd)
 [ -f ${OLDEBUILD} ] || die "${OLDEBUILD} doesn't exist"
 [ -f ${OLDDIGEST} ] || die "${OLDDIGEST} doesn't exist"
 
+vcs_detect
+
 echo "In repo ${PORTDIR}:"
 echo "Removing ${OLDEBUILD} and ${OLDDIGEST}"
 echo "Adding ${NEWEBUILD} and ${NEWDIGEST}"
 
 # Make ebuild change
 cp ${OLDEBUILD} ${NEWEBUILD} || die "cp failed"
-svn rm ${OLDEBUILD} ${OLDDIGEST} || die "svn rm failed"
-echangelog "Bump to ${NEWVER}" || die "echangelog failed"
+vcs_rm ${OLDEBUILD} ${OLDDIGEST}
 ebuild ${NEWEBUILD} digest || die "digest failed"
 [ -f ${NEWDIGEST} ] || die "${NEWDIGEST} doesn't exist"
+# Add to VCS
+vcs_add ${NEWEBUILD} ${NEWDIGEST}
+echangelog "Bump to ${NEWVER}" || die "echangelog failed"
 
 # Open up the new ebuild and the configure.(in|ac) to check for new deps
 cd ${TMPDIR} || die "No ${TMPDIR}"
@@ -95,11 +156,9 @@ if [ -n "${BUILD}" ]; then
 	sudo emerge ${BASENAME} || die "emerge failed"
 fi
 
-# Add to svn
-svn add ${NEWEBUILD} ${NEWDIGEST} || die "svn add failed"
 if [ -n "${COMMIT}" ]; then
 	# We were told to commit it
-	svn commit -m "Bump to ${NEWVER}" || die "svn commit failed"
+	vcs_commit "Bump to ${NEWVER}"
 fi
 
 # Tell user we're done
