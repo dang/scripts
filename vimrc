@@ -2,7 +2,7 @@ set nocompatible
 "set columns=80
 behave xterm
 set selectmode=mouse
-map Q Igqq
+map Q Igqq<CR>
 " I keep hitting <F1> and screwing up my window.
 map <F1> :nohlsearch<CR>
 map <F2> :nohlsearch<CR>
@@ -18,11 +18,17 @@ set visualbell t_vb=
 "set lines=72
 set scrolloff=4
 
-" Dan's cinoptions
-set cinoptions={1s,t0
-set tw=89
-set shiftwidth=4
-set tabstop=4
+"" Dan's cinoptions
+"set cinoptions={1s,t0
+"set tw=89
+"set shiftwidth=4
+"set tabstop=4
+"
+" GNOME cinoptions
+set tw=80
+set shiftwidth=8
+set tabstop=8
+set cinoptions=(0
 "
 "" Syllables's cinoptions
 "set cinoptions=t0
