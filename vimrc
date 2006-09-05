@@ -100,6 +100,7 @@ map <F4> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 "Spelling 
 function Spell()
 	setlocal spell spelllang=en_us
+	setlocal spell spellcapcheck=
 endfunction
 command Spell call Spell()
 
