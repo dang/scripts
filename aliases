@@ -1,0 +1,420 @@
+# .ALIASES -- script that sets up many handy command shortcuts.
+# Called from ".TCSHRC" file.
+#
+# Created by Daniel Gryniewicz 
+#
+alias onfigure="./configure --disable-nls"
+#
+# cd
+#alias cd="pushd"
+alias cd..="cd .."
+#
+# ls
+alias ls="/bin/ls -s -h --color=auto"
+alias la="ls -a"
+alias ll="ls -al"
+#
+# cp
+alias cp="cp --sparse=always"
+#
+# df
+alias df="df -h"
+#
+# grep
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+#
+# control
+alias j="jobs -l"
+# Linux only
+alias ps="/bin/ps -o user,pid,ppid,class,nice,nlwp,start,stat,tty,rss,cputime,args ww"
+function psg {
+				ps --pid $(pgrep -d, -f $*)
+		}
+#function psg {
+#                ps auwwx | head -1;
+#                ps auwwx | grep $* | grep -v grep;
+#		}
+alias pss="ps ax | sort | more"
+alias psme="ps ax | grep $USER"
+alias psall="ps ax"
+#function slay {
+#                set j=`ps ax|grep $*|head -1`; kill -9 `echo $j[1]`;
+#							}
+alias slay="echo use pkill"
+alias nuke="kill -9"
+alias x="exit"
+alias lo="logout"
+#
+# utilities
+alias md="mkdir -p"
+alias rd="rmdir"
+alias which="alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde"
+#alias mktar="tar -cvf"
+alias mktbz="tar -cjvf"
+alias mktgz="tar -czvf"
+#alias untar="tar -xvf"
+#alias untgz="tar zxf"
+#alias untbz="tar jxf"
+alias untar="echo Use duntarball"
+#alias mktar="echo Use duntarball"
+alias untgz="echo Use duntarball"
+alias untbz="echo Use duntarball"
+#function untbz {
+#                bzip2 -cd $* | tar xfv -;
+#		}
+alias rezip="gunzip *.gz && bzip2 *.tar"
+function manf {
+                nroff -man $* | less -sr;
+		}
+# For some reason, the new terminfo entries don't work
+alias man="TERM=xterm-old man"
+function ws {
+                w $* |sort|more;
+		}
+# alias whois="/usr/ucb/whois -h rs.internic.net"
+if [ $SHELL = "/bin/ksh" ]; then
+	unalias rm
+fi
+alias diff="/usr/bin/diff --exclude-from=\"$HOME/.diffrc\" -u"
+# The bloody bc does *integer* math be default!
+alias bc="bc -l"
+#
+# gotta have it
+alias new=". $HOME/.aliases"
+#
+# Terminal Reset Command -- Fixes screen when it gets messy (ie. wierd font)
+function terr
+	{
+	echo "c";
+	stty echo
+	}
+
+alias cvs="colorcvs"
+#
+# Dan"s personal aliases. These come and go, and are specific to the system.
+#
+function mpgcat {
+	cat $@ | mencoder -noidx -ovc copy -oac copy -o output.mpg -
+}
+#function 2avi {
+#	mencoder  "$1" -idx -ovc divx4 -oac mp3lame -o "$2"
+#}
+alias ripdvd="mencoder -dvd 1 -alang en -ovc lavc -lavcopts vcodec=mpeg4:vhq:vbitrate=1800 -oac copy -vop scale -zoom -xy 640 -o "
+function ripdvd2pass {
+		mencoder dvd://$1 -alang en -ovc lavc -lavcopts vcodec=mpeg4:vbitrate=1000:mbd=0:vpass=1:vqmin=2:vqmax=31:turbo:autoaspect -vop lavcdeint -oac copy $3 $4 -o $2
+		mencoder dvd://$1 -alang en -ovc lavc -lavcopts vcodec=mpeg4:vbitrate=1000:mbd=0:vpass=2:vqmin=2:vqmax=31:autoaspect -vop lavcdeint -oac copy $3 $4 -o $2
+	}
+function ripdvd2passmp3 {
+		mencoder dvd://$1 -alang en -ovc lavc -vop lavcdeint -lavcopts vcodec=mpeg4:vbitrate=1000:mbd=0:vpass=1:vqmin=2:vqmax=31:turbo:autoaspect -oac mp3lame $3 $4 -o $2
+		mencoder dvd://$1 -alang en -ovc lavc -vop lavcdeint -lavcopts vcodec=mpeg4:vbitrate=1000:mbd=0:vpass=2:vqmin=2:vqmax=31:autoaspect -oac mp3lame $3 $4 -o $2
+	}
+#function ripdvd2pass {
+#		mencoder -dvd 1 -alang en -ovc lavc -lavcopts vcodec=mpeg4:vhq:vbitrate=1800 -oac copy -vop scale -zoom -xy 640 -o $* -pass 1
+#		mencoder -dvd 1 -alang en -ovc lavc -lavcopts vcodec=mpeg4:vhq:vbitrate=1800 -oac copy -vop scale -zoom -xy 640 -o $* -pass 2
+#	}
+alias mp='mplayer -alang eng -slang eng'
+#alias dvd="mp -ni -alang en dvd://"
+function dvd {
+	mp ni $2 $3 -alang en dvd://$1
+	}
+function dvddeint {
+	mp -vop pp=lb $2 $3 -alang en dvd://$1
+	}
+function dvdiso {
+	mp -alang en dvd://$2 -dvd-device $1
+	}
+alias vcd="mp -vcd 1 -ni -alang en"
+#alias vcd="mp -vo xv -ao sdl -vcd 1 -framedrop -ni -nofs"
+#alias vcd="mp -vcd 1"
+#alias mp='mplayer'
+alias mp2="mp -vf scale=w=2:h=-2 -zoom"
+function mpmulti {
+	for i in $@; do
+		mp -fs $i
+	done
+}
+alias mpdeint="mp -vf pp=lp"
+# These are the aliases for things that need root.
+alias reboot="fetchmail -q; sudo chvt 1; sync; sync; sudo shutdown -r now"
+alias halt="sudo shutdown -h now"
+alias suspend="sudo /home/dang/bin/suspend"
+alias wakeup="sudo kbdrate -r 30"
+function fdcp {
+                mount /mnt/floppy;
+				cp $* /mnt/floppy;
+				umount /mnt/floppy;
+		}
+#
+# These are just useful aliases, in no specific order
+# alias edit="vim"
+alias apollossh="ssh -f -N -L 6969:localhost:6969 fprintf.homeunix.net"
+#alias jabberssh="ssh -f -N -L 5222:localhost:5222 dang.nexthop.com"
+#alias imapssh="sudo ssh -f -N -L 143:mail.corp.nexthop.com:143 dang.nexthop.com"
+#alias smtpssh="sudo ssh -f -N -L 25:mail.nexthop.com:25 dang.nexthop.com"
+#alias sshforw="sudo ssh -f -N -R 2222:localhost:22 root@poseidon.fprintf.net"
+#alias sshforwmarvin="sudo ssh -f -N -R 2222:localhost:22 root@marvin.nexthop.com"
+alias sshvnc="ssh -f -N -L 5905:localhost:5905 marvin.nexthop.com"
+alias sylssh="ssh -a4 root@hera.fprintf.net"
+eval `dircolors -b ~/.dir_colors` # set up color-ls variables
+unset autologout
+alias telent=telnet
+
+# RPM
+alias rpu="sudo rpm -Uvh"
+alias rprm="sudo rpm -e"
+function rpq {
+                rpm -qa | grep -i $*;
+		}
+alias rpqd='rpm -q --queryformat "%{NAME}\n%{DESCRIPTION}\n"'
+
+# CD burning
+alias burn="sudo cdrecord -tao -v -eject dev=/dev/cdrom speed=24 -isosize"
+alias burnslow="sudo cdrecord -tao -v -eject dev=/dev/cdrom speed=1 -isosize"
+alias burnrw="sudo cdrecord -tao -v -eject dev=/dev/cdrom blank=fast speed=24 -isosize"
+
+# backup my homedirectory to nemesis
+alias testbackup="( rsync --rsh=ssh -avznS --delete --delete-excluded --exclude=\"tmp\" --exclude=\".ccache\" --exclude=\"Cache\" --exclude=\"xxx\" --exclude=\"Downloads\" /home/dang/ apollo:/storage/backup/dang/dang/; rsync --rsh=ssh -avznS --delete /home/src/cvsroot/ apollo:/storage/backup/dang/cvsroot/ )"
+alias backup="( rsync --rsh=ssh -avzS --delete --delete-excluded --exclude=\"tmp\" --exclude=\".ccache\" --exclude=\"Cache\" --exclude=\"xxx\" --exclude=\"Downloads\" /home/dang/ apollo:/storage/backup/dang/dang/; rsync --rsh=ssh -avzS --delete /home/src/cvsroot/ apollo:/storage/backup/dang/cvsroot/ )"
+#alias backup="( rsync --rsh=ssh -avzS --delete --delete-excluded --exclude=\"vmware\" --exclude=\"tmp\" --exclude=\".ccache\" --exclude=\"Cache\" --exclude=\"xxx\" --exclude=\"Downloads\" /home/dang/ zeus:/home/dang )"
+
+##
+# These are development related aliases.
+function cppgrep {
+		find . -name "*.c" -or -name "*.cpp" -exec grep -H "$@" "{}" ";"
+}
+function cgrep {
+		find . -name "*.c" -exec grep -H "$@" "{}" ";"
+}
+function chgrep {
+		find . -name "*.[ch]" -exec grep -H "$@" "{}" ";"
+}
+function hgrep {
+		find . -name "*.h" -exec grep -H "$@" "{}" ";"
+}
+function dgrep {
+		find . -name "*$1*" -exec grep -H "$2 $3 $4 $5 $6 $7" "{}" ";"
+}
+function igrep {
+		find . -iname "*$1*" -exec grep -H "$2 $3 $4 $5 $6 $7" "{}" ";"
+}
+function ebgrep {
+		find . -iname "*.ebuild" -exec grep -H "$@" "{}" ";"
+}
+function grepall {
+		find . -type f -exec grep -H "$@" "{}" ";"
+}
+function cleanuppatch {
+	find . -name "*.orig" -exec rm {} \;
+	find . -name "*.rej" -exec rm {} \;
+}
+
+# Gentoo related aliases
+alias emerge='sudo emerge'
+alias unmerge='emerge --unmerge'
+alias eresume='emerge --resume'
+alias eskipfirst='emerge --resume --skipfirst'
+alias edistmon='DISTCC_DIR=/home/portage/portage/.distcc sudo distccmon-gnome'
+alias schedbatch='sudo schedtool -D -e sudo -u dang'
+alias schediso='sudo schedtool -I -e sudo -u dang'
+ecommit() {
+	cvs up
+	echangelog "$@"
+	repoman --commitmsg "$@" commit
+}
+function dkwstable {
+	/usr/bin/cvs up &&
+	ekeyword amd64 $1 &&
+	echangelog "Marked stable on amd64 $2" &&
+	ebuild $1 digest &&
+	repoman full &&
+	repoman commit --commitmsg "Marked stable on amd64 $2"
+}
+
+function dkwunstable {
+	/usr/bin/cvs up &&
+	ekeyword ~amd64 $1 &&
+	echangelog "Marked ~amd64 $2" &&
+	ebuild $1 digest &&
+	repoman full &&
+	repoman commit --commitmsg "Marked ~amd64 $2"
+}
+
+function erevbump() {
+	/usr/bin/cvs up
+	cvs add $1.ebuild files/digest-$1
+	echangelog "Revbump $2"
+	repoman --commitmsg "Revbump $2" commit
+}
+
+alias meta="herdstat -Nm"
+function ebcd() {
+	herdstat -f $*
+	cd /usr/portage/`herdstat -f $*`
+}
+
+function gencd() {
+	herdstat -f $*
+	cd /home/portage/overlays/gentopia/`PORTDIR=/home/portage/overlays/gentopia herdstat -f $*`
+}
+
+function dangcd() {
+	herdstat -f $*
+	cd /home/portage/overlays/dangtopia/`PORTDIR=/home/portage/overlays/dangtopia herdstat -f $*`
+}
+
+function gecd() {
+	herdstat -f $*
+	cd /home/portage/overlays/gnome/`PORTDIR=/home/portage/overlays/gnome herdstat -f $*`
+}
+
+function devcd() {
+	herdstat -f $*
+	cd /home/portage/overlays/dev-overlay/`PORTDIR=/home/portage/overlays/dev-overlay herdstat -f $*`
+}
+
+alias genpatch="svnpatchset /home/portage/overlays/gentopia/ /home/dang/tmp/gentopia-patches"
+
+function emailstable() {
+	grep KEYWORD $1 | sed 's/KEYWORDS="//' | sed 's/"//' | sed 's/ /\n/g' | awk '(/~/) {printf "%s@gentoo.org, ", $0} END {printf "\n"}' | sed 's/~//g'
+}
+
+
+# Mail
+# Removed spamassassin -d 
+function unspam {
+	echo Pre...
+	evo-filter < $HOME/000spam.txt | spamassassin -d | bogofilter -vv
+	evo-filter < $HOME/000spam.txt | spamassassin -d | bogofilter -Sn
+	echo Post...
+	evo-filter < $HOME/000spam.txt | spamassassin -d | bogofilter -vv
+}
+function respam {
+	echo Pre...
+	evo-filter < $HOME/000spam.txt | spamassassin -d | bogofilter -vv
+	evo-filter < $HOME/000spam.txt | spamassassin -d | bogofilter -Ns
+	echo Post...
+	evo-filter < $HOME/000spam.txt | spamassassin -d | bogofilter -vv
+	cat $HOME/000spam.txt | spamassassin -d | grep -v X-Bogosity >> $HOME/Mail/spam-bogofilter
+}
+alias checkspam="evo-filter < $HOME/000spam.txt | spamassassin -d | bogofilter -vv"
+#alias unspam="spamassassin -d < $HOME/000spam.txt | evo-filter | bogofilter -Sn"
+#alias respam="spamassassin -d < $HOME/000spam.txt | evo-filter | bogofilter -Ns"
+
+# Misc
+alias gryps="ssh dang@gryps.grex.org"
+alias grex="ssh -t dang@gryps.grex.org ssh grex"
+alias xlock="sleep 2; xscreensaver-command -lock"
+alias webcol="webcollage -root -v > $HOME/.webcollage 2>/dev/null </dev/null &"
+#alias update="cvs up -dA"
+alias :e="vim"
+alias gvim="gvim -geometry 90x53"
+function html {
+                lynx -dump -force_html $* | less
+		}
+alias powersave="sudo /home/dang/bin/powersave"
+alias powerburn="sudo /home/dang/bin/powerburn"
+function netstart {
+#	sudo /etc/init.d/dnsmasq start
+	sudo /etc/init.d/sshd start
+	sudo /etc/init.d/portmap start
+	sudo /etc/init.d/ntp-client start
+	sudo /etc/init.d/ntpd start
+	#sudo /etc/init.d/famd start
+	sudo /etc/init.d/distccd start
+#	sudo /etc/init.d/boa start
+}
+function ntpfix {
+	sudo /etc/init.d/ntpd stop
+	sudo /etc/init.d/ntp-client restart
+	sudo /etc/init.d/ntpd start
+}
+function pcmciastart {
+	sudo /etc/init.d/pcmcia zap
+	sleep 1
+	sudo /etc/init.d/pcmcia start
+}
+
+function ipwfix {
+	sudo /etc/init.d/net.eth1 stop
+	sleep 4
+	sudo /etc/init.d/net.eth1 start
+}
+
+function ipwkick {
+	sudo /etc/init.d/net.eth1 stop
+	sudo rmmod ipw2200
+	sleep 4
+	sudo modprobe ipw2200
+}
+
+# Mount my encrypted loop filesystem
+#function securemount {
+#	echo "Sudo passwd:"
+#	sudo echo "sudo done"
+#	echo "Secure key:"
+#	sudo losetup -e blowfish-256 /dev/loop/2 $HOME/private/.secure.loop
+#	sudo mount /dev/loop/2 $HOME/private/secure
+#}
+#function securemount {
+#	echo "Secure key:"
+#	sudo losetup -e serpent256 -K $HOME/private/.secure.loop.key /dev/loop/2 $HOME/private/.secure.loop
+#	sudo mount /dev/loop/2 $HOME/private/secure
+#}
+# Unmount my encrypted loop filesystem
+#function secureumount {
+#	sudo umount $HOME/private/secure
+#	sudo losetup -d /dev/loop/2
+#}
+
+# Fix dnsmasq
+function dnsmasqfix {
+	sudo cp /etc/resolv.conf /etc/resolv.dnsmasq
+	sudo /etc/init.d/dnsmasq restart
+}
+
+alias screenshot="import -frame"
+function resize {
+	convert -scale 450x450 $1 $1;
+}
+
+# Build snapshot of prism54 drivers
+function buildprism54 {
+	sudo make KDIR=/usr/src/linux-`uname -r`/ clean modules install
+}
+
+alias mailcheck="ssh fprintf.homeunix.net \"tail /var/log/fetchmail.log\""
+alias btdownload="btdownloadcurses.py --max_upload_rate 5 --url"
+alias netfix="sudo /etc/init.d/net.eth1 restart"
+alias gamespeed="sudo speedfreq -p 800"
+alias keyfix="xmodmap ~/.keys.dfg"
+alias danosmount="sudo losetup /dev/loop/0 /home/dang/src/danos/kernel/image/image; sudo mount /dev/loop/0 /home/dang/src/danos/kernel/image/mnt"
+alias danosumount="sudo umount /home/dang/src/danos/kernel/image/mnt; sudo losetup -d /dev/loop/0"
+
+function newsfilter {
+	repeatget "http://submissions.newsfilter.org/uploads/$*" 5 1
+}
+
+alias gnomecvs="cvs -d :pserver:anonymous@anoncvs.gnome.org:/cvs/gnome"
+alias thanatosvnc="vncviewer -via nemesis.fprintf.net thanatos.fprintf.net:1"
+alias poseidonvnc="vncviewer -via nemesis.fprintf.net poseidon.fprintf.net:1"
+alias backuptorrents="rsync --rsh=ssh -avzS /home/dang/Downloads/torrent apollo:/storage/xxx/"
+
+function cookiegrep {
+	grep $@ ${HOME}/.mozilla/firefox/4rl18vit.default/hostperm.1
+}
+
+alias cookieedit="vim ${HOME}/.mozilla/firefox/4rl18vit.default/hostperm.1"
+
+alias devel-chroots-stable="TERM=xterm screen sudo devel-chroots stable"
+alias devel-chroots-x86="TERM=xterm linux32 screen sudo devel-chroots x86"
+alias devel-chroots-maemo="TERM=xterm linux32 screen sudo devel-chroots maemo"
+#alias devel-chroots-x86-test="TERM=xterm linux32 screen sudo devel-chroots x86-test"
+#alias devel-chroots-i386="TERM=xterm linux32 screen sudo devel-chroots i386" 
+#alias devel-chroots-gnome-1-4="TERM=xterm screen sudo devel-chroots gnome-1-4"
+alias devel-chroots-gcc40="TERM=xterm screen sudo devel-chroots gcc40"
+alias devel-chroots-gnome-light="TERM=xterm screen sudo devel-chroots gnome-light"
+
+# Fucking imagemagick has broken font handling
+alias display="display -auto-orient -font '-bitstream-bitstream vera sans-*-r-*-*-*-*-*-*-*-*-iso8859-1'"
+alias xv="display -geometry +0+0 -resize 1278x766\>"
