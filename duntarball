@@ -1,0 +1,61 @@
+#!/bin/bash
+#
+# Untar a tarball regardless of it's compression format (or lack thereof)
+#
+
+source ${HOME}/bin/functions.sh
+
+if [ -z "${1}" ]; then
+	die "Usage: ${0} [ --patch ] <tarball>"
+fi
+
+if [ "${1}" == "--patch" ]; then
+	PATCH="yes"
+	TARBALL=${2}
+else
+	TARBALL=${1}
+fi
+
+if [ -z ${TARBALL} ]; then
+	die "Usage: ${0} [ --patch ] <tarball>"
+fi
+
+FILETYPE=`file "${TARBALL}"`
+
+if echo "${FILETYPE}" | grep gzip >/dev/null; then
+	CMD="tar zpxf"
+	if [ -n "$(echo ${TARBALL} | grep tar)" ]; then
+		EXT=".tar.gz"
+	else
+		EXT=".tgz"
+	fi
+elif echo "${FILETYPE}" | grep bzip2 >/dev/null; then
+	CMD="tar jpxf"
+	if [ -n "$(echo ${TARBALL} | grep tar)" ]; then
+		EXT=".tar.bz2"
+	elif [ -n "$(echo ${TARBALL} | grep tbz2)" ]; then
+		EXT=".tbz2"
+	else
+		EXT=".tbz"
+	fi
+elif echo "${FILETYPE}" | grep tar >/dev/null; then
+	CMD="tar pxf"
+	EXT=".tar"
+elif echo "${FILETYPE}" | grep Zip >/dev/null; then
+	CMD="unzip"
+	EXT=".zip"
+elif echo "${FILETYPE}" | grep RAR >/dev/null; then
+	CMD="unrar e"
+	EXT=".rar"
+else
+	echo "${0}: ${1} not recognized"
+	echo "FILETYPE: ${FILETYPE}"
+	exit
+fi
+${CMD} "${TARBALL}" || die "${CMD} failed"
+
+if [ -n "${PATCH}" ]; then
+	BASENAME=$(basename ${TARBALL} ${EXT})
+	mv ${BASENAME} ${BASENAME}.orig || die "mv failed"
+	${CMD} "${TARBALL}" || die "${CMD} failed"
+fi
