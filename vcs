@@ -1,0 +1,105 @@
+#!/bin/bash
+#
+# Run VCS commands.  Abstracts away the actual VCS being used.  Currently
+# available: add, remove, commit
+#
+
+# Do it for real
+PRETEND="no"
+# Default commit message
+COMMITMSG="Forgot the commit message"
+
+# Set usage output
+USAGE="[-hp] <command>"
+LONGUSAGE="\t-h\tPrint this help message
+\t-p\tPretend
+\t<command>\t Command to run.
+\tAvailable commands:
+\t\tadd <files>\tAdd file(s) to the VCS
+\t\trm <files>\tRemove file(s) from the VCS and the filesystem
+\t\tcommit [-h] [-m <commitmsg>] [<files>]\tCommit to the VCS"
+
+# Standard functions
+source ${HOME}/bin/scripts/functions.sh
+
+# Parse arguments
+while getopts ":hp" option; do
+	case ${option} in
+		p ) PRETEND="yes";;
+		h ) usage;;
+		\? ) usage "Invalid argument ${OPTARG}";;
+		* ) usage "Invalid argument ${option}";;
+	esac
+done
+
+if [ "${OPTIND}" != "0" ]; then
+	shift $((OPTIND-1))
+fi
+
+# Get command
+if [ -z "$1" ]; then
+	usage "No command"
+else
+	CMD="$1"
+	shift 1
+fi
+
+# Process command line based on command
+case "${CMD}" in
+	add|rm)
+		if [ -z "$*" ]; then
+			usage "${CMD} needs file(s)"
+		fi
+		FILES="$@"
+		;;
+	commit)
+		while getopts ":hm:" option; do
+			case ${option} in
+				m ) COMMITMSG=${OPTARG};;
+				h ) usage;;
+				\? ) usage "Invalid argument ${OPTARG}";;
+				* ) usage "Invalid argument ${option}";;
+			esac
+		done
+
+		if [ "${OPTIND}" != "0" ]; then
+			shift $((OPTIND-1))
+		fi
+		if [ -n "$@" ]; then
+			FILES="$@"
+		fi
+		;;
+	*)
+		usage "Unknown command ${CMD}"
+		;;
+esac
+
+# Detect the vcs
+PORTDIR="."
+vcs_detect
+
+# Run the command
+case "${CMD}" in
+	add)
+		if [ "${PRETEND}" == "yes" ]; then
+			echo vcs_add ${FILES}
+		else
+			vcs_add ${FILES}
+		fi
+		;;
+	rm)
+		if [ "${PRETEND}" == "yes" ]; then
+			echo vcs_rm ${FILES}
+		else
+			vcs_rm ${FILES}
+		fi
+		;;
+	commit)
+		if [ "${PRETEND}" == "yes" ]; then
+			echo vcs_commit ${COMMITMSG}
+		else
+			vcs_commit ${COMMITMSG}
+		fi
+		;;
+esac
+

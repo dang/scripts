@@ -11,8 +11,6 @@ TMPDIR="/home/src/build"
 DISTDIR="/home/portage/distfiles"
 # PORTDIR
 PORTDIR="/home/portage/overlays/gnome"
-# VCS - default to unknown
-VCS="unknown"
 # Remove old versions?
 RMOLD="yes"
 
@@ -57,56 +55,6 @@ function gecd() {
 	cd ${PORTDIR}/`PORTDIR=${PORTDIR} herdstat -f $*` || die "gecd failed"
 }
 
-# Detect which VCS is in use
-function vcs_detect() {
-	if [ -d "${PORTDIR}/.svn" ]; then
-		VCS="svn"
-	elif [ -d "${PORTDIR}/CVS" ]; then
-		VCS="cvs"
-	fi
-
-	if [ "${VCS}" == "unknown" ]; then
-		die "Unknwon VCS for ${PORTDIR}"
-	fi
-}
-
-# Delete something from a VCS
-function vcs_rm() {
-	if [ "${RMOLD}" == "no" ]; then
-		return
-	fi
-	if [ "${VCS}" == "svn" ]; then
-		svn rm $* || die "svn rm failed"
-	elif [ "${VCS}" == "cvs" ]; then
-		rm $* || die "cvs rm failed (rm)"
-		cvs rm $* || die "cvs rm failed (cvs rm)"
-	else
-		die "Unknown VCS ${VCS}"
-	fi
-}
-
-# Add something to a VCS
-function vcs_add() {
-	if [ "${VCS}" == "svn" ]; then
-		svn add $* || die "svn add failed"
-	elif [ "${VCS}" == "cvs" ]; then
-		cvs add $* || die "cvs add failed"
-	else
-		die "Unknown VCS ${VCS}"
-	fi
-}
-
-# commit something to a VCS
-function vcs_commit() {
-	if [ "${VCS}" == "svn" ]; then
-		svn commit -m "$*" || die "svn commit failed"
-	elif [ "${VCS}" == "cvs" ]; then
-		repoman --commitmsg "$*" commit || die "cvs add failed"
-	else
-		die "Unknown VCS ${VCS}"
-	fi
-}
-
 if [ -z "$3" ]; then
 	usage "Missing arguments"
 fi
@@ -127,14 +75,19 @@ EBUILDDIR=$(pwd)
 [ -f ${OLDDIGEST} ] || die "${OLDDIGEST} doesn't exist"
 
 vcs_detect
+vcs_update
 
 echo "In repo ${PORTDIR}:"
-echo "Removing ${OLDEBUILD} and ${OLDDIGEST}"
+if [ "${RMOLD}" == "yes" ]; then
+	echo "Removing ${OLDEBUILD} and ${OLDDIGEST}"
+fi
 echo "Adding ${NEWEBUILD} and ${NEWDIGEST}"
 
 # Make ebuild change
 cp ${OLDEBUILD} ${NEWEBUILD} || die "cp failed"
-vcs_rm ${OLDEBUILD} ${OLDDIGEST}
+if [ "${RMOLD}" == "yes" ]; then
+	vcs_rm ${OLDEBUILD} ${OLDDIGEST}
+fi
 ebuild ${NEWEBUILD} digest || die "digest failed"
 [ -f ${NEWDIGEST} ] || die "${NEWDIGEST} doesn't exist"
 # Add to VCS

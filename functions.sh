@@ -60,3 +60,79 @@ usage() {
 #fi
 #
 # Remaining arguments are in $1, $2, etc. as normal
+# Detect which VCS is in use
+
+#
+# VCS functions.
+# These functions wrap svn/cvs/etc, so that scripts don't have to care
+
+# VCS - default to unknown
+VCS="unknown"
+
+# Detect the VCS.  Call this first.
+function vcs_detect() {
+	if [ -d "${PORTDIR}/.svn" ]; then
+		VCS="svn"
+	elif [ -d "${PORTDIR}/CVS" ]; then
+		VCS="cvs"
+	fi
+
+	if [ "${VCS}" == "unknown" ]; then
+		die "Unknwon VCS for ${PORTDIR}"
+	fi
+}
+
+# Delete something from a VCS
+function vcs_rm() {
+	if [ "${VCS}" == "svn" ]; then
+		svn rm $* || die "svn rm failed"
+	elif [ "${VCS}" == "cvs" ]; then
+		rm $* || die "cvs rm failed (rm)"
+		cvs rm $* || die "cvs rm failed (cvs rm)"
+	else
+		die "Unknown VCS ${VCS}"
+	fi
+}
+
+# Add something to a VCS
+function vcs_add() {
+	if [ "${VCS}" == "svn" ]; then
+		svn add $* || die "svn add failed"
+	elif [ "${VCS}" == "cvs" ]; then
+		cvs add $* || die "cvs add failed"
+	else
+		die "Unknown VCS ${VCS}"
+	fi
+}
+
+# commit something to a VCS
+function vcs_commit() {
+	if [ "${VCS}" == "svn" ]; then
+		svn commit -m "$*" || die "svn commit failed"
+	elif [ "${VCS}" == "cvs" ]; then
+		repoman --commitmsg "$*" commit || die "cvs add failed"
+	else
+		die "Unknown VCS ${VCS}"
+	fi
+}
+
+# update something in a VCS
+function vcs_update() {
+	if [ "${VCS}" == "svn" ]; then
+		svn up || die "svn commit failed"
+	elif [ "${VCS}" == "cvs" ]; then
+		cvs up || die "cvs add failed"
+	else
+		die "Unknown VCS ${VCS}"
+	fi
+}
+
+#
+# Portage related functions
+
+#
+# cd to a package location by name in a portdir
+function gecd() {
+	cd ${PORTDIR}/`PORTDIR=${PORTDIR} herdstat -f $*` || die "gecd failed"
+}
+
