@@ -156,7 +156,7 @@ alias apollossh="ssh -f -N -L 6969:localhost:6969 fprintf.homeunix.net"
 #alias sshforwmarvin="sudo ssh -f -N -R 2222:localhost:22 root@marvin.nexthop.com"
 alias sshvnc="ssh -f -N -L 5905:localhost:5905 marvin.nexthop.com"
 alias sylssh="ssh -a4 root@hera.fprintf.net"
-eval `dircolors -b ~/.dir_colors` # set up color-ls variables
+eval `dircolors -b ~/bin/scripts/dir_colors` # set up color-ls variables
 unset autologout
 alias telent=telnet
 
