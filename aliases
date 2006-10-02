@@ -38,6 +38,9 @@ function psg {
 alias pss="ps ax | sort | more"
 alias psme="ps ax | grep $USER"
 alias psall="ps ax"
+function schedtype {
+	schedtool $(pgrep -d, -f $*)
+	}
 #function slay {
 #                set j=`ps ax|grep $*|head -1`; kill -9 `echo $j[1]`;
 #							}
@@ -210,10 +213,12 @@ function cleanuppatch {
 }
 
 # Gentoo related aliases
-alias emerge='sudo emerge'
+# Don't alias emerge; toolsched doesn't work with sudo
+#alias emerge="sudo emerge"
 alias unmerge='emerge --unmerge'
 alias eresume='emerge --resume'
 alias eskipfirst='emerge --resume --skipfirst'
+alias etc-update='sudo etc-update'
 alias edistmon='DISTCC_DIR=/home/portage/portage/.distcc sudo distccmon-gnome'
 alias schedbatch='sudo schedtool -D -e sudo -u dang'
 alias schediso='sudo schedtool -I -e sudo -u dang'
@@ -260,7 +265,7 @@ function gencd() {
 
 function dangcd() {
 	herdstat -f $*
-	cd /home/portage/overlays/dangtopia/`PORTDIR=/home/portage/overlays/dangtopia herdstat -f $*`
+	cd /home/portage/overlays/dang/`PORTDIR=/home/portage/overlays/dangtopia herdstat -f $*`
 }
 
 function gecd() {
@@ -271,6 +276,17 @@ function gecd() {
 function devcd() {
 	herdstat -f $*
 	cd /home/portage/overlays/dev-overlay/`PORTDIR=/home/portage/overlays/dev-overlay herdstat -f $*`
+}
+
+function maintcd() {
+	herdstat -f $*
+	cd /home/portage/overlays/dang.overlays/maintainer/`PORTDIR=/home/portage/overlays/dev-overlay herdstat -f $*`
+}
+
+function eshowkwup() {
+	ebcd $*
+	vcs up
+	eshowkw $*
 }
 
 alias genpatch="svnpatchset /home/portage/overlays/gentopia/ /home/dang/tmp/gentopia-patches"
