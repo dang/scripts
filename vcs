@@ -17,7 +17,8 @@ LONGUSAGE="\t-h\tPrint this help message
 \tAvailable commands:
 \t\tadd <files>\tAdd file(s) to the VCS
 \t\trm <files>\tRemove file(s) from the VCS and the filesystem
-\t\tcommit [-h] [-m <commitmsg>] [<files>]\tCommit to the VCS"
+\t\tcommit [-h] [-m <commitmsg>] [<files>]\tCommit to the VCS
+\t\tup [<files>]\tUpdate files"
 
 # Standard functions
 source ${HOME}/bin/scripts/functions.sh
@@ -69,6 +70,8 @@ case "${CMD}" in
 			FILES="$@"
 		fi
 		;;
+	up)
+		;;
 	*)
 		usage "Unknown command ${CMD}"
 		;;
@@ -99,6 +102,13 @@ case "${CMD}" in
 			echo vcs_commit ${COMMITMSG}
 		else
 			vcs_commit ${COMMITMSG}
+		fi
+		;;
+	up)
+		if [ "${PRETEND}" == "yes" ]; then
+			echo vcs_update ${FILES}
+		else
+			vcs_update ${FILES}
 		fi
 		;;
 esac

@@ -119,9 +119,9 @@ function vcs_commit() {
 # update something in a VCS
 function vcs_update() {
 	if [ "${VCS}" == "svn" ]; then
-		svn up || die "svn commit failed"
+		svn up $* || die "svn commit failed"
 	elif [ "${VCS}" == "cvs" ]; then
-		cvs up || die "cvs add failed"
+		cvs up $* || die "cvs add failed"
 	else
 		die "Unknown VCS ${VCS}"
 	fi
