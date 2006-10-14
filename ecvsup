@@ -3,7 +3,7 @@
 # Sync portage tree via CVS
 #
 
-source ${HOME}/bin/functions.sh
+source ${HOME}/bin/scripts/functions.sh
 
 cd /usr/portage || die "no /usr/portage"
 cvs -q up -CPdA || die "cvs up failed"
