@@ -28,7 +28,7 @@
 #   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             #
 ###########################################################################
 
-source /sbin/functions.sh
+source ${HOME}/bin/scripts/functions.sh
 
 GNOME_OVERLAY="/home/portage/overlays/gnome"
 
@@ -41,7 +41,7 @@ function die() {
 	usage ""
 }
 
-/home/dang/bin/ecvsup || die "Error during ecvsup"
+${HOME}/bin/scripts/ecvsup || die "Error during ecvsup"
 tmpfile=$(mktemp)
 sudo cp /var/cache/eix ${tmpfile} || die "Error while copying cache-file to a save location."
 sudo update-eix                         || die "Problems with update-eix."

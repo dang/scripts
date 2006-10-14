@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# Sync portage tree via CVS
+#
+
+source ${HOME}/bin/functions.sh
+
+cd /usr/portage || die "no /usr/portage"
+cvs -q up -CPdA || die "cvs up failed"
+find /usr/portage -name '.#*' -exec rm {} \; || die "find .#* failed"
+cd /home/portage/overlays/dangtopia/ || die "no dangtopia"
+svn up || die "svn up of dangtopia failed"
+cd /home/portage/overlays/gnome/ || die "no gnome"
+svn up || die "svn up of gnome failed"
+sudo emerge --regen > /dev/null || die "emerge regen failed"
+sudo emerge --metadata || die "emerge metadata failed"
