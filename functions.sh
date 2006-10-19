@@ -85,7 +85,7 @@ function vcs_detect() {
 # Delete something from a VCS
 function vcs_rm() {
 	if [ "${VCS}" == "svn" ]; then
-		svn rm $* || die "svn rm failed"
+		svn rm --force $* || die "svn rm failed"
 	elif [ "${VCS}" == "cvs" ]; then
 		rm $* || die "cvs rm failed (rm)"
 		cvs rm $* || die "cvs rm failed (cvs rm)"
