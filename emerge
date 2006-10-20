@@ -1,0 +1,6 @@
+#!/bin/bash
+#
+# Run emerge with sudo, so toolsched can do it's work
+#
+
+sudo emerge $@
