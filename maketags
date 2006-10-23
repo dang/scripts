@@ -8,7 +8,7 @@ LONGUSAGE="\t-h\tPrint this help message
 \t-k\tKernel database (no system includes)
 \t<directories>\tDirectories to scan (defaults to '.')"
 
-source ~/bin/scripts/functions.sh
+source ${HOME}/bin/scripts/functions.sh
 
 while getopts ":hk" option; do
 	case ${option} in
@@ -21,6 +21,11 @@ done
 
 # Store how we got here, so vim can re-run the same arguments
 echo "$0 $@" > ".#maketags.dfg"
+
+# Get stuff from the .maketagsrc file
+if [ -f "${HOME}/.maketagsrc" ]; then
+	source ${HOME}/.maketagsrc
+fi
 
 if [ "${OPTIND}" != "0" ]; then
 	shift $((OPTIND-1))
@@ -37,6 +42,15 @@ if [ -n "${KERNEL}" ]; then
 else
 	echo "Making tags for $DIRS"
 fi
-find $DIRS -name "*.c" -or -name "*.cpp" -or -name "*.cxx" -or -name "*.h++" -or -name "*.hxx" -or -name "*.hh" -or -name "*.H" -or -name "*.C" -or -name "*.c++" -or -name "*.cc" -or -name "*.h" > cscope.files
+
+NAMES="-name *.c -or -name *.cpp -or -name *.cxx -or -name *.h++ -or -name *.hxx -or -name *.hh -or -name *.H -or -name *.C -or -name *.c++ -or -name *.cc -or -name *.h"
+
+if [ -n "${SKIPRE}" ]; then
+	echo "true"
+	find ${DIRS} ${NAMES} | egrep -v "${SKIPRE}" > cscope.files
+else
+	echo "false"
+	find ${DIRS} ${NAMES} > cscope.files
+fi
 cscope -q -L ${KERNEL} -i cscope.files
 exuberant-ctags -L- < cscope.files
