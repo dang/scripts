@@ -215,6 +215,7 @@ function cleanuppatch {
 # Gentoo related aliases
 # Don't alias emerge; toolsched doesn't work with sudo
 #alias emerge="sudo emerge"
+alias eix-sync='sudo eix-sync'
 alias unmerge='emerge --unmerge'
 alias eresume='emerge --resume'
 alias eskipfirst='emerge --resume --skipfirst'
