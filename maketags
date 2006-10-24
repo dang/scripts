@@ -43,14 +43,13 @@ else
 	echo "Making tags for $DIRS"
 fi
 
-NAMES="-name *.c -or -name *.cpp -or -name *.cxx -or -name *.h++ -or -name *.hxx -or -name *.hh -or -name *.H -or -name *.C -or -name *.c++ -or -name *.cc -or -name *.h"
+TMPFILE=`mktemp -t maketags.XXXXXXXXXX` || die "Couldn't make tempfile"
+find ${DIRS} -name "*.c" -or -name "*.cpp" -or -name "*.cxx" -or -name "*.h++" -or -name "*.hxx" -or -name "*.hh" -or -name "*.H" -or -name "*.C" -or -name "*.c++" -or -name "*.cc" -or -name "*.h" >> ${TMPFILE}
 
 if [ -n "${SKIPRE}" ]; then
-	echo "true"
-	find ${DIRS} ${NAMES} | egrep -v "${SKIPRE}" > cscope.files
+	egrep -v "${SKIPRE}" ${TMPFILE} > cscope.files
 else
-	echo "false"
-	find ${DIRS} ${NAMES} > cscope.files
+	cp ${TMPFILE} cscope.files
 fi
 cscope -q -L ${KERNEL} -i cscope.files
 exuberant-ctags -L- < cscope.files
