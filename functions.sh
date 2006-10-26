@@ -87,7 +87,11 @@ function vcs_rm() {
 	if [ "${VCS}" == "svn" ]; then
 		svn rm --force $* || die "svn rm failed"
 	elif [ "${VCS}" == "cvs" ]; then
-		rm $* || die "cvs rm failed (rm)"
+		for i in $*; do
+			if [ ! -d "${i}" ]; then
+				rm ${i} || die "cvs rm failed (rm)"
+			fi
+		done
 		cvs rm $* || die "cvs rm failed (cvs rm)"
 	else
 		die "Unknown VCS ${VCS}"

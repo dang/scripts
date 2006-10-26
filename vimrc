@@ -2,14 +2,14 @@ set nocompatible
 "set columns=80
 behave xterm
 set selectmode=mouse
-map Q Igqq<CR>
+map Q Igqq
 " I keep hitting <F1> and screwing up my window.
 map <F1> :nohlsearch<CR>
 map <F2> :nohlsearch<CR>
 imap <F1> <esc>
 set incsearch
 set wrapscan
-set viminfo=\'50,\"50,h,r/tmp
+set viminfo=\'50,\"50,h,r/tmp,r~/gated.log,r/var/tmp/gated.log
 set autoindent
 set noexpandtab
 set backspace=2
@@ -24,12 +24,6 @@ set scrolloff=4
 "set shiftwidth=4
 "set tabstop=4
 "
-" GNOME cinoptions
-set tw=80
-set shiftwidth=8
-set tabstop=8
-set cinoptions=(0
-"
 "" Syllables's cinoptions
 "set cinoptions=t0
 "set tw=100
@@ -37,11 +31,11 @@ set cinoptions=(0
 "set shiftwidth=8
 "set tabstop=8
 "
-"" Works cinoptions
-"set cinoptions=:0,+.5s,(.5s,u0,U1,t0,M1
-"set tw=80
-"set shiftwidth=8
-"set tabstop=8
+" Works cinoptions
+set cinoptions=:0,+.5s,(.5s,u0,U1,t0,M1
+set tw=80
+set shiftwidth=8
+set tabstop=8
 
 set wildmode=longest,list,full
 set autowrite
@@ -84,9 +78,9 @@ if has("cscope")
 	map <C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
 	function Csre()
 		if filereadable('.#maketags.dfg')
-			!sh .\#maketags.dfg
+			silent !sh .\#maketags.dfg
 		else
-			!maketags
+			silent !maketags
 		endif
 		set nocsverb
 		cs kill 0
@@ -137,7 +131,6 @@ autocmd BufNewFile,BufRead *.ksh  set tw=0
 autocmd BufNewFile,BufRead *.conf  set tw=0
 autocmd BufNewFile,BufRead distbuild  set tw=0
 autocmd BufNewFile,BufRead *.doxygen setfiletype doxygen
-autocmd BufNewFile,BufRead *.gdb  set tw=0 noai syntax=gdb
 if version >= 500
 
   " I like highlighting strings inside C comments
@@ -194,6 +187,7 @@ if version >= 500
   "highlight Normal ctermbg=black ctermfg=lightgrey
   "highlight NonText ctermfg=lightred
   "highlight Statement ctermfg=lightblue 
+  highlight Cursor	ctermfg=black		ctermbg=Yellow
   highlight Comment	ctermfg=blue
   highlight Constant	ctermfg=darkred
   highlight Special	ctermfg=darkmagenta
@@ -238,30 +232,6 @@ augroup gzip
   autocmd FileAppendPre			*.gz !mv <afile>:r <afile>
   autocmd FileAppendPost		*.gz !mv <afile> <afile>:r
   autocmd FileAppendPost		*.gz !gzip <afile>:r
-augroup END
-augroup bzip2
-  " Remove all bzip2 autocommands
-  au!
-
-  " Enable editing of bzipped files
-  "	  read:	set binary mode before reading the file
-  "		uncompress text in buffer after reading
-  "	 write:	compress file after writing
-  "	append:	uncompress file, append, compress file
-  autocmd BufReadPre,FileReadPre	*.bz2 set bin
-  autocmd BufReadPost,FileReadPost	*.bz2 let ch_save = &ch|set ch=2
-  autocmd BufReadPost,FileReadPost	*.bz2 '[,']!bunzip2
-  autocmd BufReadPost,FileReadPost	*.bz2 set nobin
-  autocmd BufReadPost,FileReadPost	*.bz2 let &ch = ch_save|unlet ch_save
-  autocmd BufReadPost,FileReadPost	*.bz2 execute ":doautocmd BufReadPost " . expand("%:r")
-
-  autocmd BufWritePost,FileWritePost	*.bz2 !mv <afile> <afile>:r
-  autocmd BufWritePost,FileWritePost	*.bz2 !bzip2 <afile>:r
-
-  autocmd FileAppendPre			*.bz2 !bunzip2 <afile>
-  autocmd FileAppendPre			*.bz2 !mv <afile>:r <afile>
-  autocmd FileAppendPost		*.bz2 !mv <afile> <afile>:r
-  autocmd FileAppendPost		*.bz2 !bzip2 <afile>:r
 augroup END
 
 endif
