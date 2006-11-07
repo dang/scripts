@@ -36,12 +36,6 @@ if [ -z "${NOOVERLAYS}" ]; then
 		vcs_update
 	done
 fi
-cd /home/portage/overlays/dangtopia/ || die "no dangtopia"
-svn up || die "svn up of dangtopia failed"
-cd /home/portage/overlays/gentopia/ || die "no gentopia"
-svn up || die "svn up of gentopia failed"
-cd /home/portage/overlays/gnome/ || die "no gnome"
-svn up || die "svn up of gnome failed"
 if [ -z "${FAST}" ]; then
 	sudo emerge --regen || die "emerge regen failed"
 	sudo emerge --metadata || die "emerge metadata failed"
