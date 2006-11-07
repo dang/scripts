@@ -20,6 +20,7 @@ USAGE="[-hcbk][-p <portdir>] [-t <tmpdir>] [-d <distdir>]  <basename> <old-versi
 LONGUSAGE="\t-h\tPrint this help message
 \t-b\tBuild package.
 \t-c\tCommit package when done.
+\t-C\tView ChangeLog when done.
 \t-k\tKeep old versions.
 \t-p <portdir>\tPORTDIR to act on (default ${PORTDIR})
 \t-t <tmpdir>\tTMP directory to extract packages to (default ${TMPDIR})
@@ -32,9 +33,10 @@ LONGUSAGE="\t-h\tPrint this help message
 source ${HOME}/bin/scripts/functions.sh
 
 # Parse arguments
-while getopts ":hcbkp:d:t:" option; do
+while getopts ":hcCbkp:d:t:" option; do
 	case ${option} in
 		c ) COMMIT="yes";;
+		C ) CHANGELOG="yes";;
 		b ) BUILD="yes";;
 		k ) RMOLD="no";;
 		p ) PORTDIR=${OPTARG};;
@@ -84,20 +86,29 @@ fi
 echo "Adding ${NEWEBUILD} and ${NEWDIGEST}"
 
 # Make ebuild change
-cp ${OLDEBUILD} ${NEWEBUILD} || die "cp failed"
-if [ "${RMOLD}" == "yes" ]; then
-	vcs_rm ${OLDEBUILD} ${OLDDIGEST}
+if [ "${OLDEBUILD}" != "${NEWEBUILD}" ]; then
+	cp ${OLDEBUILD} ${NEWEBUILD} || die "cp failed"
+	if [ "${RMOLD}" == "yes" ]; then
+		vcs_rm ${OLDEBUILD} ${OLDDIGEST}
+	fi
 fi
 ebuild ${NEWEBUILD} digest || die "digest failed"
 [ -f ${NEWDIGEST} ] || die "${NEWDIGEST} doesn't exist"
 # Add to VCS
-vcs_add ${NEWEBUILD} ${NEWDIGEST}
-echangelog "Bump to ${NEWVER}" || die "echangelog failed"
+if [ "${OLDEBUILD}" != "${NEWEBUILD}" ]; then
+	vcs_add ${NEWEBUILD} ${NEWDIGEST}
+fi
 
 # Open up the new ebuild and the configure.(in|ac) to check for new deps
 cd ${TMPDIR} || die "No ${TMPDIR}"
 duntarball ${DISTDIR}/${BASENAME}-${NEWVER}.tar.bz2 || duntarball ${DISTDIR}/${BASENAME}-${NEWVER}.tar.gz
 gvim -f -geometry 177x47 -O ${EBUILDDIR}/${NEWEBUILD} ${BASENAME}-${NEWVER}/configure.*
+if [ -n "${CHANGELOG}" ]; then
+	# Want the changelog
+	TEMPFILE=$(tempfile)
+	cp ${BASENAME}-${NEWVER}/ChangeLog ${TEMPFILE}
+fi
+
 rm -rf ${BASENAME}-${NEWVER}
 cd -
 
@@ -109,9 +120,22 @@ if [ -n "${BUILD}" ]; then
 	sudo emerge ${BASENAME} || die "emerge failed"
 fi
 
+VCS_COMMITFILE=$(tempfile)
+echo "Bump to ${NEWVER}" >> ${VCS_COMMITFILE}
+
+if [ -n "${CHANGELOG}" ]; then
+	gvim -f -geometry 177x47 -O ${TEMPFILE} ${VCS_COMMITFILE}
+	rm ${TEMPFILE}
+fi
+
+ECHANGELOG_EDITOR= echangelog-tng < ${VCS_COMMITFILE} || die "echangelog failed"
+# Re-digest
+ebuild ${NEWEBUILD} digest || die "digest failed"
+
 if [ -n "${COMMIT}" ]; then
 	# We were told to commit it
-	vcs_commit "Bump to ${NEWVER}"
+	# Uses VCS_COMMITFILE
+	vcs_commit
 fi
 
 # Tell user we're done

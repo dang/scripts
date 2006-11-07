@@ -79,7 +79,7 @@ function ws {
 if [ $SHELL = "/bin/ksh" ]; then
 	unalias rm
 fi
-alias diff="/usr/bin/diff --exclude-from=\"$HOME/.diffrc\" -u"
+alias diff="/usr/bin/diff --exclude-from=\"$HOME/.diffrc\" -up"
 # The bloody bc does *integer* math be default!
 alias bc="bc -l"
 #

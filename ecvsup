@@ -3,15 +3,46 @@
 # Sync portage tree via CVS
 #
 
+USAGE="[-hfn]"
+LONGUSAGE="\t-h\tPrint this help message
+\t-f\tFast update (no metadata regen)
+\t-n\tSkip updating overlays"
+
+# Standard functions
 source ${HOME}/bin/scripts/functions.sh
+
+# PORTDIR_OVERLAY
+source /etc/make.conf
+
+# Parse arguments
+while getopts ":hfn" option; do
+       case ${option} in
+               f ) FAST="yes";;
+               n ) NOOVERLAYS="yes";;
+               h ) usage;;
+               \? ) usage "Invalid argument ${OPTARG}";;
+               * ) usage "Invalid argument ${option}";;
+       esac
+done
 
 cd /usr/portage || die "no /usr/portage"
 # Removed -C, because it touches mtime of every file, causing a full regen
 cvs -q up -PdA || die "cvs up failed"
 find /usr/portage -name '.#*' -exec rm {} \; || die "find .#* failed"
+if [ -z "${NOOVERLAYS}" ]; then
+	for i in ${PORTDIR_OVERLAY}; do
+		cd ${i}
+		vcs_detect
+		vcs_update
+	done
+fi
 cd /home/portage/overlays/dangtopia/ || die "no dangtopia"
 svn up || die "svn up of dangtopia failed"
+cd /home/portage/overlays/gentopia/ || die "no gentopia"
+svn up || die "svn up of gentopia failed"
 cd /home/portage/overlays/gnome/ || die "no gnome"
 svn up || die "svn up of gnome failed"
-sudo emerge --regen || die "emerge regen failed"
-sudo emerge --metadata || die "emerge metadata failed"
+if [ -z "${FAST}" ]; then
+	sudo emerge --regen || die "emerge regen failed"
+	sudo emerge --metadata || die "emerge metadata failed"
+fi

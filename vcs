@@ -7,7 +7,7 @@
 # Do it for real
 PRETEND="no"
 # Default commit message
-COMMITMSG="Forgot the commit message"
+VCS_COMMITMSG="Forgot the commit message"
 
 # Set usage output
 USAGE="[-hp] <command>"
@@ -17,7 +17,7 @@ LONGUSAGE="\t-h\tPrint this help message
 \tAvailable commands:
 \t\tadd <files>\tAdd file(s) to the VCS
 \t\trm <files>\tRemove file(s) from the VCS and the filesystem
-\t\tcommit [-h] [-m <commitmsg>] [<files>]\tCommit to the VCS
+\t\tcommit [-h] [-m <commitmsg>] [-F <file>] [<files>]\tCommit to the VCS
 \t\tup [<files>]\tUpdate files"
 
 # Standard functions
@@ -54,9 +54,10 @@ case "${CMD}" in
 		FILES="$@"
 		;;
 	commit)
-		while getopts ":hm:" option; do
+		while getopts ":hm:F:" option; do
 			case ${option} in
-				m ) COMMITMSG=${OPTARG};;
+				m ) VCS_COMMITMSG=${OPTARG};;
+				F ) VCS_COMMITFILE=${OPTARG};;
 				h ) usage;;
 				\? ) usage "Invalid argument ${OPTARG}";;
 				* ) usage "Invalid argument ${option}";;
@@ -99,9 +100,9 @@ case "${CMD}" in
 		;;
 	commit)
 		if [ "${PRETEND}" == "yes" ]; then
-			echo vcs_commit ${COMMITMSG}
+			echo vcs_commit ${VCS_COMMITMSG} ${VCS_COMMITFILE}
 		else
-			vcs_commit ${COMMITMSG}
+			vcs_commit
 		fi
 		;;
 	up)

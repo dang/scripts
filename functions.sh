@@ -66,19 +66,26 @@ usage() {
 # VCS functions.
 # These functions wrap svn/cvs/etc, so that scripts don't have to care
 
+# Set VCS_FATAL_ERRORS if you want errors to be fatal.
+
 # VCS - default to unknown
 VCS="unknown"
 
 # Detect the VCS.  Call this first.
 function vcs_detect() {
-	if [ -d "${PORTDIR}/.svn" ]; then
+	VCS="unknown"
+	if [ -d "${PWD}/.svn" ]; then
 		VCS="svn"
-	elif [ -d "${PORTDIR}/CVS" ]; then
+	elif [ -d "${PWD}/CVS" ]; then
 		VCS="cvs"
 	fi
 
 	if [ "${VCS}" == "unknown" ]; then
-		die "Unknwon VCS for ${PORTDIR}"
+		if [ -n "${VCS_FATAL_ERRORS}" ]; then
+			die "Unknown VCS for ${PWD}"
+		else
+			echo "Unknown VCS for ${PWD}"
+		fi
 	fi
 }
 
@@ -94,7 +101,11 @@ function vcs_rm() {
 		done
 		cvs rm $* || die "cvs rm failed (cvs rm)"
 	else
-		die "Unknown VCS ${VCS}"
+		if [ -n "${VCS_FATAL_ERRORS}" ]; then
+			die "Unknown VCS for ${PWD}"
+		else
+			echo "Unknown VCS for ${PWD}"
+		fi
 	fi
 }
 
@@ -105,18 +116,36 @@ function vcs_add() {
 	elif [ "${VCS}" == "cvs" ]; then
 		cvs add $* || die "cvs add failed"
 	else
-		die "Unknown VCS ${VCS}"
+		if [ -n "${VCS_FATAL_ERRORS}" ]; then
+			die "Unknown VCS for ${PWD}"
+		else
+			echo "Unknown VCS for ${PWD}"
+		fi
 	fi
 }
 
 # commit something to a VCS
+# ${VCS_COMMITMSG} contains the commit message, ${VCS_COMMITFILE} contains the
+# file with the commit message.
 function vcs_commit() {
 	if [ "${VCS}" == "svn" ]; then
-		svn commit -m "$*" || die "svn commit failed"
+		if [ -n "${VCS_COMMITFILE}" ]; then
+			svn commit -F "${VCS_COMMITFILE}" || die "svn commit failed"
+		else
+			svn commit -m "${VCS_COMMITMSG}" || die "svn commit failed"
+		fi
 	elif [ "${VCS}" == "cvs" ]; then
-		repoman --commitmsg "$*" commit || die "cvs add failed"
+		if [ -n "${VCS_COMMITFILE}" ]; then
+			repoman --commitmsgfile "${VCS_COMMITFILE}" commit || die "cvs add failed"
+		else
+			repoman --commitmsg "${VCS_COMMITMSG}" commit || die "cvs add failed"
+		fi
 	else
-		die "Unknown VCS ${VCS}"
+		if [ -n "${VCS_FATAL_ERRORS}" ]; then
+			die "Unknown VCS for ${PWD}"
+		else
+			echo "Unknown VCS for ${PWD}"
+		fi
 	fi
 }
 
@@ -127,7 +156,11 @@ function vcs_update() {
 	elif [ "${VCS}" == "cvs" ]; then
 		cvs up $* || die "cvs add failed"
 	else
-		die "Unknown VCS ${VCS}"
+		if [ -n "${VCS_FATAL_ERRORS}" ]; then
+			die "Unknown VCS for ${PWD}"
+		else
+			echo "Unknown VCS for ${PWD}"
+		fi
 	fi
 }
 

@@ -1,47 +1,31 @@
 #!/bin/bash
-# Author: Emil Beinroth <emilbeinroth@gmx.net>
 
-###########################################################################
-#   eix is a small utility for searching ebuilds in the                   #
-#   Gentoo Linux portage system. It uses indexing to allow quick searches #
-#   in package descriptions with regular expressions.                     #
-#                                                                         #
-#   https://sourceforge.net/projects/eix                                  #
-#                                                                         #
-#   Copyright (c)                                                         #
-#     Wolfgang Frisch <xororand@users.sourceforge.net>                    #
-#     Emil Beinroth <emilbeinroth@gmx.net>                                #
-#                                                                         #
-#   This program is free software; you can redistribute it and/or modify  #
-#   it under the terms of the GNU General Public License as published by  #
-#   the Free Software Foundation; either version 2 of the License, or     #
-#   (at your option) any later version.                                   #
-#                                                                         #
-#   This program is distributed in the hope that it will be useful,       #
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of        #
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         #
-#   GNU General Public License for more details.                          #
-#                                                                         #
-#   You should have received a copy of the GNU General Public License     #
-#   along with this program; if not, write to the                         #
-#   Free Software Foundation, Inc.,                                       #
-#   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             #
-###########################################################################
+# Set usage output
+USAGE="[-hfn]"
+LONGUSAGE="\t-h\tPrint this help message
+\t-f\tFast update (no metadata regen)
+\t-n\tSkip updating overlays"
 
+# Standard functions
 source ${HOME}/bin/scripts/functions.sh
 
-GNOME_OVERLAY="/home/portage/overlays/gnome"
+ECVSUPARGS=""
+# Parse arguments
+while getopts ":hfn:" option; do
+       case ${option} in
+               f ) ECVSUPARGS="${ECVSUPARGS} -f";;
+               n ) ECVSUPARGS="${ECVSUPARGS} -n";;
+               h ) usage;;
+               \? ) usage "Invalid argument ${OPTARG}";;
+               * ) usage "Invalid argument ${option}";;
+       esac
+done
 
-function die() {
-	eerror "$@"
-	exit 1
-}
+if [ "${OPTIND}" != "0" ]; then
+       shift $((OPTIND-1))
+fi
 
-[ "${#}" -ne 0 ] && {
-	usage ""
-}
-
-${HOME}/bin/scripts/ecvsup || die "Error during ecvsup"
+${HOME}/bin/scripts/ecvsup ${ECVSUPARGS} || die "Error during ecvsup"
 tmpfile=$(mktemp)
 sudo cp /var/cache/eix ${tmpfile} || die "Error while copying cache-file to a save location."
 sudo update-eix                         || die "Problems with update-eix."
