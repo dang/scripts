@@ -1,0 +1,10 @@
+#!/bin/bash
+# Wrapper for dsync to be called from cron
+
+# First, set up my environment
+export HOME=/home/dang
+source ${HOME}/.profile
+
+# Sync portage
+${HOME}/bin/scripts/dsync || die "dsync failed"
+date >> ${HOME}/tmp/dsync.timestamps
