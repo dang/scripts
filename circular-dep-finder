@@ -1,0 +1,63 @@
+#!/usr/bin/python
+#
+# Sum up the numbers on standard input
+#
+
+import getopt, sys
+
+deplist = {}
+donelist = {}
+newindent = "..."
+
+def usage():
+    print sys.argv[0] + " [-h] [-n] <file>"
+
+def printdeps(key, indent):
+    if key in donelist:
+        print indent + "Recursion: " + key
+        return
+    donelist[key] = 1
+    print indent + key + ":"
+    for dep in deplist[key]:
+        printdeps(dep, indent + newindent)
+    del donelist[key]
+
+def main():
+    global newindent
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "hn", ["help", "noindent"])
+    except getopt.GetoptError:
+        # print help information and exit:
+        usage()
+        sys.exit(2)
+    for o, a in opts:
+        if (o in ("-n", "--noindent")):
+            newindent = ""
+        if (o in ("-h", "--help")):
+            usage()
+            sys.exit()
+    length = len(opts)
+    length += 1
+    if (length == len(sys.argv)):
+        usage()
+        sys.exit()
+    fname = sys.argv[length]
+    length += 1
+    if (length != len(sys.argv)):
+        usage()
+        sys.exit()
+    f = open(fname, "r")
+    for line in f:
+        words = line.split()
+        if words[4] == "depends":
+            key = words[2]
+            deplist[key] = []
+        else:
+            deplist[key].append(words[2])
+    
+    for key in deplist.keys():
+        donelist.clear()
+        printdeps(key, "")
+        
+if __name__ == "__main__":
+    main()
