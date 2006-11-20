@@ -423,14 +423,14 @@ function cookiegrep {
 
 alias cookieedit="vim ${HOME}/.mozilla/firefox/4rl18vit.default/hostperm.1"
 
-alias devel-chroots-stable="TERM=xterm screen sudo devel-chroots stable"
-alias devel-chroots-x86="TERM=xterm linux32 screen sudo devel-chroots x86"
-alias devel-chroots-maemo="TERM=xterm linux32 screen sudo devel-chroots maemo"
-#alias devel-chroots-x86-test="TERM=xterm linux32 screen sudo devel-chroots x86-test"
-#alias devel-chroots-i386="TERM=xterm linux32 screen sudo devel-chroots i386" 
-#alias devel-chroots-gnome-1-4="TERM=xterm screen sudo devel-chroots gnome-1-4"
-alias devel-chroots-gcc40="TERM=xterm screen sudo devel-chroots gcc40"
-alias devel-chroots-gnome-light="TERM=xterm screen sudo devel-chroots gnome-light"
+alias devel-chroots-stable="TERM=xterm screen -c /dev/null sudo devel-chroots stable"
+alias devel-chroots-x86="TERM=xterm linux32 screen -c /dev/null sudo devel-chroots x86"
+alias devel-chroots-maemo="TERM=xterm linux32 screen -c /dev/null sudo devel-chroots maemo"
+#alias devel-chroots-x86-test="TERM=xterm linux32 screen -c /dev/null sudo devel-chroots x86-test"
+#alias devel-chroots-i386="TERM=xterm linux32 screen -c /dev/null sudo devel-chroots i386" 
+#alias devel-chroots-gnome-1-4="TERM=xterm screen -c /dev/null sudo devel-chroots gnome-1-4"
+alias devel-chroots-gcc40="TERM=xterm screen -c /dev/null sudo devel-chroots gcc40"
+alias devel-chroots-gnome-light="TERM=xterm screen -c /dev/null sudo devel-chroots gnome-light"
 
 # Fucking imagemagick has broken font handling
 alias display="display -auto-orient -font '-bitstream-bitstream vera sans-*-r-*-*-*-*-*-*-*-*-iso8859-1'"
