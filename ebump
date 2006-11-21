@@ -68,6 +68,11 @@ OLDEBUILD=${BASENAME}-${OLDVER}.ebuild
 OLDDIGEST=files/digest-${BASENAME}-${OLDVER}
 NEWEBUILD=${BASENAME}-${NEWVER}.ebuild
 NEWDIGEST=files/digest-${BASENAME}-${NEWVER}
+if [ -n "${DISPLAY}" ]; then
+	VIM="gvim -f -geometry 177x47"
+else
+	VIM="vim"
+fi
 
 gecd ${BASENAME}
 EBUILDDIR=$(pwd)
@@ -102,7 +107,7 @@ fi
 # Open up the new ebuild and the configure.(in|ac) to check for new deps
 cd ${TMPDIR} || die "No ${TMPDIR}"
 duntarball ${DISTDIR}/${BASENAME}-${NEWVER}.tar.bz2 || duntarball ${DISTDIR}/${BASENAME}-${NEWVER}.tar.gz
-gvim -f -geometry 177x47 -O ${EBUILDDIR}/${NEWEBUILD} ${BASENAME}-${NEWVER}/configure.*
+${VIM} -O ${EBUILDDIR}/${NEWEBUILD} ${BASENAME}-${NEWVER}/configure.*
 if [ -n "${CHANGELOG}" ]; then
 	# Want the changelog
 	TEMPFILE=$(tempfile)
@@ -124,7 +129,7 @@ VCS_COMMITFILE=$(tempfile)
 echo "Bump to ${NEWVER}" >> ${VCS_COMMITFILE}
 
 if [ -n "${CHANGELOG}" ]; then
-	gvim -f -geometry 177x47 -O ${TEMPFILE} ${VCS_COMMITFILE}
+	${VIM} -O ${TEMPFILE} ${VCS_COMMITFILE}
 	rm ${TEMPFILE}
 fi
 
