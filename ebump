@@ -4,6 +4,12 @@
 #
 
 #
+# Fake functions to allow ebuild sourcing
+function inherit() {
+	true
+}
+
+#
 # Local parameters
 # tmp directory for extracting packages to look for deps
 TMPDIR="/home/src/build"
@@ -61,20 +67,25 @@ if [ -z "$3" ]; then
 	usage "Missing arguments"
 fi
 
-BASENAME=$1
-OLDVER=$2
-NEWVER=$3
-OLDEBUILD=${BASENAME}-${OLDVER}.ebuild
-OLDDIGEST=files/digest-${BASENAME}-${OLDVER}
-NEWEBUILD=${BASENAME}-${NEWVER}.ebuild
-NEWDIGEST=files/digest-${BASENAME}-${NEWVER}
+PN=$1
+PVR=$2
+NEW_PVR=$3
+
+PF=${PN}-${PVR}
+NEW_PF=${PN}-${NEW_PVR}
+PV=${PVR/-r*/}
+P=${PN}-${PV}
+OLDEBUILD=${PF}.ebuild
+OLDDIGEST=files/digest-${PF}
+NEWEBUILD=${NEW_PF}.ebuild
+NEWDIGEST=files/digest-${NEW_PF}
 if [ -n "${DISPLAY}" ]; then
 	VIM="gvim -f -geometry 177x47"
 else
 	VIM="vim"
 fi
 
-gecd ${BASENAME}
+gecd ${PN}
 EBUILDDIR=$(pwd)
 
 # Sanity check old setup
@@ -83,6 +94,12 @@ EBUILDDIR=$(pwd)
 
 vcs_detect
 vcs_update
+
+# Source the ebuild to get MY_P if it exists
+source ${OLDEBUILD}
+if [ -z "${MY_P}" ]; then
+	MY_P=${P}
+fi
 
 echo "In repo ${PORTDIR}:"
 if [ "${RMOLD}" == "yes" ]; then
@@ -106,15 +123,15 @@ fi
 
 # Open up the new ebuild and the configure.(in|ac) to check for new deps
 cd ${TMPDIR} || die "No ${TMPDIR}"
-duntarball ${DISTDIR}/${BASENAME}-${NEWVER}.tar.bz2 || duntarball ${DISTDIR}/${BASENAME}-${NEWVER}.tar.gz
-${VIM} -O ${EBUILDDIR}/${NEWEBUILD} ${BASENAME}-${NEWVER}/configure.*
+duntarball ${DISTDIR}/${MY_P}.tar.bz2 || duntarball ${DISTDIR}/${MY_P}.tar.gz
+${VIM} -O ${EBUILDDIR}/${NEWEBUILD} ${MY_P}/configure.*
 if [ -n "${CHANGELOG}" ]; then
 	# Want the changelog
 	TEMPFILE=$(tempfile)
-	cp ${BASENAME}-${NEWVER}/ChangeLog ${TEMPFILE}
+	cp ${MY_P}/ChangeLog ${TEMPFILE}
 fi
 
-rm -rf ${BASENAME}-${NEWVER}
+rm -rf ${MY_P}
 cd -
 
 # Now re-digest in case the ebuild changed
@@ -122,11 +139,11 @@ ebuild ${NEWEBUILD} digest || die "digest failed"
 
 if [ -n "${BUILD}" ]; then
 	# We were told to build it
-	sudo emerge ${BASENAME} || die "emerge failed"
+	sudo emerge ${PN} || die "emerge failed"
 fi
 
 VCS_COMMITFILE=$(tempfile)
-echo "Bump to ${NEWVER}" >> ${VCS_COMMITFILE}
+echo "Bump to ${NEW_PVR}" >> ${VCS_COMMITFILE}
 
 if [ -n "${CHANGELOG}" ]; then
 	${VIM} -O ${TEMPFILE} ${VCS_COMMITFILE}
