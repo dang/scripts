@@ -3,7 +3,6 @@
 #
 # Created by Daniel Gryniewicz 
 #
-alias onfigure="./configure --disable-nls"
 #
 # cd
 #alias cd="pushd"
@@ -21,7 +20,7 @@ alias cp="cp --sparse=always"
 alias df="df -h"
 #
 # grep
-alias grep='grep --color=auto'
+alias grep='egrep --color=auto'
 alias egrep='egrep --color=auto'
 #
 # control
@@ -68,10 +67,10 @@ alias untbz="echo Use duntarball"
 #		}
 alias rezip="gunzip *.gz && bzip2 *.tar"
 function manf {
-                nroff -man $* | less -sr;
+                nroff -man $* | $MANPAGER;
 		}
 # For some reason, the new terminfo entries don't work
-alias man="TERM=xterm-old man"
+#alias man="TERM=xterm-old man"
 function ws {
                 w $* |sort|more;
 		}
@@ -79,7 +78,7 @@ function ws {
 if [ $SHELL = "/bin/ksh" ]; then
 	unalias rm
 fi
-alias diff="/usr/bin/diff --exclude-from=\"$HOME/.diffrc\" -up"
+alias diff='/usr/bin/diff --exclude-from="${HOME}/.diffrc" -up'
 # The bloody bc does *integer* math be default!
 alias bc="bc -l"
 #
@@ -151,25 +150,16 @@ function fdcp {
 #
 # These are just useful aliases, in no specific order
 # alias edit="vim"
-alias apollossh="ssh -f -N -L 6969:localhost:6969 fprintf.homeunix.net"
-#alias jabberssh="ssh -f -N -L 5222:localhost:5222 dang.nexthop.com"
-#alias imapssh="sudo ssh -f -N -L 143:mail.corp.nexthop.com:143 dang.nexthop.com"
-#alias smtpssh="sudo ssh -f -N -L 25:mail.nexthop.com:25 dang.nexthop.com"
-#alias sshforw="sudo ssh -f -N -R 2222:localhost:22 root@poseidon.fprintf.net"
-#alias sshforwmarvin="sudo ssh -f -N -R 2222:localhost:22 root@marvin.nexthop.com"
-alias sshvnc="ssh -f -N -L 5905:localhost:5905 marvin.nexthop.com"
-alias sylssh="ssh -a4 root@hera.fprintf.net"
+alias vim="TERM=xterm-256color vim"
+alias :e="vim"
+alias gvim="gvim -geometry 90x53"
+function html {
+                lynx -dump -force_html $* | less
+		}
+alias sprt="enscript --media=Letter -2 -j -G -B --landscape --margins=::40:40"
 eval `dircolors -b ~/bin/scripts/dir_colors` # set up color-ls variables
 unset autologout
 alias telent=telnet
-
-# RPM
-alias rpu="sudo rpm -Uvh"
-alias rprm="sudo rpm -e"
-function rpq {
-                rpm -qa | grep -i $*;
-		}
-alias rpqd='rpm -q --queryformat "%{NAME}\n%{DESCRIPTION}\n"'
 
 # CD burning
 alias burn="sudo cdrecord -tao -v -eject dev=/dev/cdrom speed=24 -isosize"
@@ -296,50 +286,7 @@ function emailstable() {
 	grep KEYWORD $1 | sed 's/KEYWORDS="//' | sed 's/"//' | sed 's/ /\n/g' | awk '(/~/) {printf "%s@gentoo.org, ", $0} END {printf "\n"}' | sed 's/~//g'
 }
 
-
-# Mail
-# Removed spamassassin -d 
-function unspam {
-	echo Pre...
-	evo-filter < $HOME/000spam.txt | spamassassin -d | bogofilter -vv
-	evo-filter < $HOME/000spam.txt | spamassassin -d | bogofilter -Sn
-	echo Post...
-	evo-filter < $HOME/000spam.txt | spamassassin -d | bogofilter -vv
-}
-function respam {
-	echo Pre...
-	evo-filter < $HOME/000spam.txt | spamassassin -d | bogofilter -vv
-	evo-filter < $HOME/000spam.txt | spamassassin -d | bogofilter -Ns
-	echo Post...
-	evo-filter < $HOME/000spam.txt | spamassassin -d | bogofilter -vv
-	cat $HOME/000spam.txt | spamassassin -d | grep -v X-Bogosity >> $HOME/Mail/spam-bogofilter
-}
-alias checkspam="evo-filter < $HOME/000spam.txt | spamassassin -d | bogofilter -vv"
-#alias unspam="spamassassin -d < $HOME/000spam.txt | evo-filter | bogofilter -Sn"
-#alias respam="spamassassin -d < $HOME/000spam.txt | evo-filter | bogofilter -Ns"
-
-# Misc
-alias gryps="ssh dang@gryps.grex.org"
-alias grex="ssh -t dang@gryps.grex.org ssh grex"
-alias xlock="sleep 2; xscreensaver-command -lock"
 alias webcol="webcollage -root -v > $HOME/.webcollage 2>/dev/null </dev/null &"
-#alias update="cvs up -dA"
-alias :e="vim"
-alias gvim="gvim -geometry 90x53"
-function html {
-                lynx -dump -force_html $* | less
-		}
-alias powersave="sudo /home/dang/bin/powersave"
-alias powerburn="sudo /home/dang/bin/powerburn"
-function netstart {
-#	sudo /etc/init.d/dnsmasq start
-	sudo /etc/init.d/sshd start
-	sudo /etc/init.d/portmap start
-	sudo /etc/init.d/ntp-client start
-	sudo /etc/init.d/ntpd start
-	#sudo /etc/init.d/famd start
-	sudo /etc/init.d/distccd start
-#	sudo /etc/init.d/boa start
 }
 function ntpfix {
 	sudo /etc/init.d/ntpd stop
@@ -395,13 +342,6 @@ function resize {
 	convert -scale 450x450 $1 $1;
 }
 
-# Build snapshot of prism54 drivers
-function buildprism54 {
-	sudo make KDIR=/usr/src/linux-`uname -r`/ clean modules install
-}
-
-alias mailcheck="ssh fprintf.homeunix.net \"tail /var/log/fetchmail.log\""
-alias btdownload="btdownloadcurses.py --max_upload_rate 5 --url"
 alias netfix="sudo /etc/init.d/net.eth1 restart"
 alias gamespeed="sudo speedfreq -p 800"
 alias keyfix="xmodmap ~/.keys.dfg"
