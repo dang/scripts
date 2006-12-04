@@ -287,7 +287,6 @@ function emailstable() {
 }
 
 alias webcol="webcollage -root -v > $HOME/.webcollage 2>/dev/null </dev/null &"
-}
 function ntpfix {
 	sudo /etc/init.d/ntpd stop
 	sudo /etc/init.d/ntp-client restart
