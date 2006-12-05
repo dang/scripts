@@ -73,8 +73,8 @@ NEW_PVR=$3
 
 PF=${PN}-${PVR}
 NEW_PF=${PN}-${NEW_PVR}
-PV=${PVR/-r*/}
-P=${PN}-${PV}
+NEW_PV=${NEW_PVR/-r*/}
+NEW_P=${PN}-${NEW_PV}
 OLDEBUILD=${PF}.ebuild
 OLDDIGEST=files/digest-${PF}
 NEWEBUILD=${NEW_PF}.ebuild
@@ -98,7 +98,7 @@ vcs_update
 # Source the ebuild to get MY_P if it exists
 source ${OLDEBUILD}
 if [ -z "${MY_P}" ]; then
-	MY_P=${P}
+	MY_P=${NEW_P}
 fi
 
 echo "In repo ${PORTDIR}:"
@@ -139,7 +139,7 @@ ebuild ${NEWEBUILD} digest || die "digest failed"
 
 if [ -n "${BUILD}" ]; then
 	# We were told to build it
-	sudo emerge ${PN} || die "emerge failed"
+	emerge ${PN} || die "emerge failed"
 fi
 
 VCS_COMMITFILE=$(tempfile)
