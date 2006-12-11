@@ -37,6 +37,9 @@ function psg {
 alias pss="ps ax | sort | more"
 alias psme="ps ax | grep $USER"
 alias psall="ps ax"
+function smem {
+				smem.pl $(pidof $*)
+		}
 function schedtype {
 	schedtool $(pgrep -d, -f $*)
 	}
@@ -118,13 +121,19 @@ function ripdvd2passmp3 {
 alias mp='mplayer -alang eng -slang eng -osdlevel 3'
 #alias dvd="mp -ni -alang en dvd://"
 function dvd {
-	mp ni $2 $3 -alang en dvd://$1
+	TITLE=$1
+	shift
+	mp -alang en dvd://${TITLE} $@
 	}
 function dvddeint {
-	mp -vop pp=lb $2 $3 -alang en dvd://$1
+	TITLE=$1
+	shift
+	mp -vop pp=lb dvd://${TITLE} $@
 	}
 function dvdiso {
-	mp -alang en dvd://$2 -dvd-device $1
+	TITLE=$1
+	shift
+	mp dvd://${TITLE} -dvd-device $@
 	}
 alias vcd="mp -vcd 1 -ni -alang en"
 #alias vcd="mp -vo xv -ao sdl -vcd 1 -framedrop -ni -nofs"
@@ -142,11 +151,7 @@ alias reboot="fetchmail -q; sudo chvt 1; sync; sync; sudo shutdown -r now"
 alias halt="sudo shutdown -h now"
 alias suspend="sudo /home/dang/bin/suspend"
 alias wakeup="sudo kbdrate -r 30"
-function fdcp {
-                mount /mnt/floppy;
-				cp $* /mnt/floppy;
-				umount /mnt/floppy;
-		}
+
 #
 # These are just useful aliases, in no specific order
 # alias edit="vim"
@@ -191,9 +196,6 @@ function dgrep {
 function igrep {
 		find . -iname "*$1*" -exec grep -H "$2 $3 $4 $5 $6 $7" "{}" ";"
 }
-function ebgrep {
-		find . -iname "*.ebuild" -exec grep -H "$@" "{}" ";"
-}
 function grepall {
 		find . -type f -exec grep -H "$@" "{}" ";"
 }
@@ -213,41 +215,6 @@ alias etc-update='sudo etc-update'
 alias edistmon='DISTCC_DIR=/home/portage/portage/.distcc sudo distccmon-gnome'
 alias schedbatch='sudo schedtool -D -e sudo -u dang'
 alias schediso='sudo schedtool -I -e sudo -u dang'
-ecommit() {
-	cvs up
-	echangelog "$@"
-	repoman --commitmsg "$@" commit
-}
-function dkwstable {
-	/usr/bin/cvs up &&
-	ekeyword amd64 $1 &&
-	echangelog "Marked stable on amd64 $2" &&
-	ebuild $1 digest &&
-	repoman full &&
-	repoman commit --commitmsg "Marked stable on amd64 $2"
-}
-
-function dkwunstable {
-	/usr/bin/cvs up &&
-	ekeyword ~amd64 $1 &&
-	echangelog "Marked ~amd64 $2" &&
-	ebuild $1 digest &&
-	repoman full &&
-	repoman commit --commitmsg "Marked ~amd64 $2"
-}
-
-function erevbump() {
-	/usr/bin/cvs up
-	cvs add $1.ebuild files/digest-$1
-	echangelog "Revbump $2"
-	repoman --commitmsg "Revbump $2" commit
-}
-
-alias meta="herdstat -Nm"
-function ebcd() {
-	herdstat -f $*
-	cd /usr/portage/`herdstat -f $*`
-}
 
 function gencd() {
 	herdstat -f $*
@@ -264,20 +231,14 @@ function gecd() {
 	cd /home/portage/overlays/gnome/`PORTDIR=/home/portage/overlays/gnome herdstat -f $*`
 }
 
-function devcd() {
-	herdstat -f $*
-	cd /home/portage/overlays/dev-overlay/`PORTDIR=/home/portage/overlays/dev-overlay herdstat -f $*`
-}
-
 function maintcd() {
 	herdstat -f $*
-	cd /home/portage/overlays/dang.overlays/maintainer/`PORTDIR=/home/portage/overlays/dev-overlay herdstat -f $*`
+	cd /home/portage/overlays/dang.overlays/maintainer/`PORTDIR=/home/portage/overlays/dang.overlays/maintainer/ herdstat -f $*`
 }
 
-function eshowkwup() {
-	ebcd $*
-	vcs up
-	eshowkw $*
+function usercd() {
+	herdstat -f $*
+	cd /home/portage/overlays/dang.overlays/user/`PORTDIR=/home/portage/overlays/dang.overlays/user/ herdstat -f $*`
 }
 
 alias genpatch="svnpatchset /home/portage/overlays/gentopia/ /home/dang/tmp/gentopia-patches"
@@ -311,31 +272,6 @@ function ipwkick {
 	sudo modprobe ipw2200
 }
 
-# Mount my encrypted loop filesystem
-#function securemount {
-#	echo "Sudo passwd:"
-#	sudo echo "sudo done"
-#	echo "Secure key:"
-#	sudo losetup -e blowfish-256 /dev/loop/2 $HOME/private/.secure.loop
-#	sudo mount /dev/loop/2 $HOME/private/secure
-#}
-#function securemount {
-#	echo "Secure key:"
-#	sudo losetup -e serpent256 -K $HOME/private/.secure.loop.key /dev/loop/2 $HOME/private/.secure.loop
-#	sudo mount /dev/loop/2 $HOME/private/secure
-#}
-# Unmount my encrypted loop filesystem
-#function secureumount {
-#	sudo umount $HOME/private/secure
-#	sudo losetup -d /dev/loop/2
-#}
-
-# Fix dnsmasq
-function dnsmasqfix {
-	sudo cp /etc/resolv.conf /etc/resolv.dnsmasq
-	sudo /etc/init.d/dnsmasq restart
-}
-
 alias screenshot="import -frame"
 function resize {
 	convert -scale 450x450 $1 $1;
@@ -347,14 +283,8 @@ alias keyfix="xmodmap ~/.keys.dfg"
 alias danosmount="sudo losetup /dev/loop/0 /home/dang/src/danos/kernel/image/image; sudo mount /dev/loop/0 /home/dang/src/danos/kernel/image/mnt"
 alias danosumount="sudo umount /home/dang/src/danos/kernel/image/mnt; sudo losetup -d /dev/loop/0"
 
-function newsfilter {
-	repeatget "http://submissions.newsfilter.org/uploads/$*" 5 1
-}
-
-alias gnomecvs="cvs -d :pserver:anonymous@anoncvs.gnome.org:/cvs/gnome"
 alias thanatosvnc="vncviewer -via nemesis.fprintf.net thanatos.fprintf.net:1"
 alias poseidonvnc="vncviewer -via nemesis.fprintf.net poseidon.fprintf.net:1"
-alias backuptorrents="rsync --rsh=ssh -avzS /home/dang/Downloads/torrent apollo:/storage/xxx/"
 
 function cookiegrep {
 	grep $@ ${HOME}/.mozilla/firefox/4rl18vit.default/hostperm.1
@@ -362,15 +292,11 @@ function cookiegrep {
 
 alias cookieedit="vim ${HOME}/.mozilla/firefox/4rl18vit.default/hostperm.1"
 
-alias devel-chroots-stable="TERM=xterm screen -c /dev/null sudo devel-chroots stable"
-alias devel-chroots-x86="TERM=xterm linux32 screen -c /dev/null sudo devel-chroots x86"
-alias devel-chroots-maemo="TERM=xterm linux32 screen -c /dev/null sudo devel-chroots maemo"
-#alias devel-chroots-x86-test="TERM=xterm linux32 screen -c /dev/null sudo devel-chroots x86-test"
-#alias devel-chroots-i386="TERM=xterm linux32 screen -c /dev/null sudo devel-chroots i386" 
-#alias devel-chroots-gnome-1-4="TERM=xterm screen -c /dev/null sudo devel-chroots gnome-1-4"
-alias devel-chroots-gcc40="TERM=xterm screen -c /dev/null sudo devel-chroots gcc40"
-alias devel-chroots-gnome-light="TERM=xterm screen -c /dev/null sudo devel-chroots gnome-light"
-
 # Fucking imagemagick has broken font handling
 alias display="display -auto-orient -font '-bitstream-bitstream vera sans-*-r-*-*-*-*-*-*-*-*-iso8859-1'"
 alias xv="display -geometry +0+0 -resize 1278x766\>"
+
+# Source other aliases
+
+# Gentoo development aliases
+source ${HOME}/bin/scripts/gentoo-dev-aliases

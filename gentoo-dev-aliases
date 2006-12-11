@@ -1,0 +1,105 @@
+#
+# Aliases for gentoo development work
+
+# Get metadata about a package
+# Usage: meta <packagename>
+# Note: needs app-portage/herdstat
+alias meta="herdstat -Nm"
+
+# Changedir to the directory for a package
+# Usage: ebcd <packagename>
+# Note: needs app-portage/herdstat
+function ebcd() {
+	herdstat -f $*
+	cd /usr/portage/`herdstat -f $*`
+}
+
+# Commit the corrent directory
+# Usage: ecommit <changelog entry>
+ecommit() {
+	cvs up
+	echangelog "$@"
+	repoman --commitmsg "$@" commit
+}
+
+# Keyword something stable on amd64
+# Usage: dkwstable <ebuild> [<Extra changelog info>]
+# Example: dkwstable clamav-0.88.7.ebuild "for bug #157698"
+function dkwstable {
+	/usr/bin/cvs up &&
+	ekeyword amd64 $1 &&
+	echangelog "Marked stable on amd64 $2" &&
+	ebuild $1 digest &&
+	repoman full &&
+	repoman commit --commitmsg "Marked stable on amd64 $2"
+}
+
+# Keyword something unstable on amd64
+# Usage: dkwunstable <ebuild> [<Extra changelog info>]
+# Example: dkwunstable clamav-0.88.7.ebuild "for bug #157698"
+function dkwunstable {
+	/usr/bin/cvs up &&
+	ekeyword ~amd64 $1 &&
+	echangelog "Marked ~amd64 $2" &&
+	ebuild $1 digest &&
+	repoman full &&
+	repoman commit --commitmsg "Marked ~amd64 $2"
+}
+
+# Update a package and show it's keywords
+# Usage: eshokwup <packagename>
+# Example: eshowkwup clamav
+# app-antivirus/clamav
+# P ChangeLog
+# P Manifest
+# P clamav-0.88.6.ebuild
+# U clamav-0.88.7.ebuild
+# U files/digest-clamav-0.88.7
+# eywords for app-antivirus/clamav:
+# 
+#          | a a a h i m m p p p s s s s x x 
+#          | l m r p a 6 i p p p 3 h p p 8 8 
+#          | p d m p 6 8 p c c c 9   a a 6 6 
+#          | h 6   a 4 k s   6 - 0   r r   - 
+#          | a 4             4 m     c c   f 
+#          |                   a       -   b 
+#          |                   c       f   s 
+#          |                   o       b   d 
+#          |                   s       s     
+#          |                           d     
+# ---------+--------------------------------
+# 0.88.5   | + +   + +     + +       +   +   
+# 0.88.6   | ~ ~   ~ ~     ~ +       +   + ~ 
+# 0.88.7   | ~ ~   ~ ~     + +       +   + ~ 
+# 0.90_rc1 | ~ ~   ~ ~     ~ ~       ~   ~   
+# 0.90_rc2 | ~ ~   ~ ~     ~ ~       ~   ~   
+#
+# Note: Needs eshowkw
+function eshowkwup() {
+	ebcd $*
+	vcs up
+	eshowkw $*
+}
+
+# Aliases to run devel-chroots for particular chroots under screen
+# Usage: devel-chroots-<chroot>
+# Note: Needs dev-util/devel-chroots
+# Note: devel-chroots should be working for at least one chroot before trying
+# these; screen will exit if devel-chroot fails.
+# Note: screen doesn't like xterm-256color
+# Note: I have a .screenrc, which opens screens, so I need the -c /dev/null
+
+# Stable amd64 chroot
+alias devel-chroots-stable="TERM=xterm screen -c /dev/null sudo devel-chroots stable"
+
+# stable x86 chroot for making emul-linux-x86 packages
+alias devel-chroots-x86="TERM=xterm linux32 screen -c /dev/null sudo devel-chroots x86"
+
+# x86 chroot for maemo development
+alias devel-chroots-maemo="TERM=xterm linux32 screen -c /dev/null sudo devel-chroots maemo"
+
+# Recursively grep through ebuilds
+# Usage: ebgrep <pattern>
+function ebgrep {
+		find . -iname "*.ebuild" -exec grep -H "$@" "{}" ";"
+}

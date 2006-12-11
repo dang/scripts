@@ -51,5 +51,6 @@ if [ -n "${SKIPRE}" ]; then
 else
 	cp ${TMPFILE} cscope.files
 fi
+rm ${TMPFILE}
 cscope -q -L ${KERNEL} -i cscope.files
 exuberant-ctags -L- < cscope.files
