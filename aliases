@@ -294,7 +294,7 @@ alias cookieedit="vim ${HOME}/.mozilla/firefox/4rl18vit.default/hostperm.1"
 
 # Fucking imagemagick has broken font handling
 alias display="display -auto-orient -font '-bitstream-bitstream vera sans-*-r-*-*-*-*-*-*-*-*-iso8859-1'"
-alias xv="display -geometry +0+0 -resize 1278x766\>"
+alias xv="display -geometry +0+0 -resize 1278x766"
 
 # Source other aliases
 
