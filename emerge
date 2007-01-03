@@ -3,4 +3,8 @@
 # Run emerge with sudo, so toolsched can do it's work
 #
 
+# Stop beagle...
+beagle-shutdown
 sudo emerge $@
+# and restart it
+beagled --bg --replace > /dev/null 2>&1
