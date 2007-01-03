@@ -1,0 +1,6 @@
+#!/bin/bash
+#
+# Let svn diff return -p format
+#
+
+/usr/bin/diff -up --label "${3}" ${6} --label "${5}" ${7}
