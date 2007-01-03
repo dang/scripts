@@ -164,6 +164,21 @@ function vcs_update() {
 	fi
 }
 
+# get status on something in a VCS
+function vcs_status() {
+	if [ "${VCS}" == "svn" ]; then
+		svn status $* || die "svn commit failed"
+	elif [ "${VCS}" == "cvs" ]; then
+		cvs -n up $* || die "cvs add failed"
+	else
+		if [ -n "${VCS_FATAL_ERRORS}" ]; then
+			die "Unknown VCS for ${PWD}"
+		else
+			echo "Unknown VCS for ${PWD}"
+		fi
+	fi
+}
+
 #
 # Portage related functions
 
