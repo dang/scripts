@@ -68,17 +68,17 @@ if [ -z "$3" ]; then
 fi
 
 PN=$1
-PVR=$2
-NEW_PVR=$3
+OLD_PVR=$2
+PVR=$3
 
+OLD_PF=${PN}-${OLD_PVR}
 PF=${PN}-${PVR}
-NEW_PF=${PN}-${NEW_PVR}
-NEW_PV=${NEW_PVR/-r*/}
-NEW_P=${PN}-${NEW_PV}
-OLDEBUILD=${PF}.ebuild
-OLDDIGEST=files/digest-${PF}
-NEWEBUILD=${NEW_PF}.ebuild
-NEWDIGEST=files/digest-${NEW_PF}
+PV=${PVR/-r*/}
+P=${PN}-${PV}
+OLDEBUILD=${OLD_PF}.ebuild
+OLDDIGEST=files/digest-${OLD_PF}
+NEWEBUILD=${PF}.ebuild
+NEWDIGEST=files/digest-${PF}
 if [ -n "${DISPLAY}" ]; then
 	VIM="gvim -f -geometry 177x47"
 else
@@ -97,8 +97,10 @@ vcs_update
 
 # Source the ebuild to get MY_P if it exists
 source ${OLDEBUILD}
+echo ${OLDEBUILD}
+echo ${MY_P}
 if [ -z "${MY_P}" ]; then
-	MY_P=${NEW_P}
+	MY_P=${P}
 fi
 
 echo "In repo ${PORTDIR}:"
@@ -143,7 +145,7 @@ if [ -n "${BUILD}" ]; then
 fi
 
 VCS_COMMITFILE=$(tempfile)
-echo "Bump to ${NEW_PVR}" >> ${VCS_COMMITFILE}
+echo "Bump to ${PVR}" >> ${VCS_COMMITFILE}
 
 if [ -n "${CHANGELOG}" ]; then
 	${VIM} -O ${TEMPFILE} ${VCS_COMMITFILE}
