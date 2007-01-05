@@ -15,11 +15,25 @@ function inherit() {
 TMPDIR="/home/src/build"
 # Dist file directory
 DISTDIR="/home/portage/distfiles"
-# PORTDIR
-PORTDIR="/home/portage/overlays/gnome"
+# Default PORTDIR
+PORTDIR="/usr/portage"
 # Remove old versions?
 RMOLD="yes"
 
+# Get info from make.conf
+source /etc/make.conf
+
+# Get PORTDIR.  First, see if the PWD is in one of the directories in ${PORTDIR}
+# or ${PORTDIR_OVERLAY}  If it is, use that as PORTDIR.  Otherwise, fall back on
+# PORTDIR specified in /etc/make.conf, or on the default above.
+PWD=`pwd`
+for i in ${PORTDIR} ${PORTDIR_OVERLAY}; do
+	MY_PORTDIR=`echo ${PWD} | /bin/grep -Fo "${i}"`
+	if [ -n "${MY_PORTDIR}" ]; then
+		PORTDIR=${MY_PORTDIR}
+		break;
+	fi
+done
 
 # Set usage output
 USAGE="[-hcbk][-p <portdir>] [-t <tmpdir>] [-d <distdir>]  <basename> <old-version> <new-version>"
@@ -57,11 +71,6 @@ done
 if [ "${OPTIND}" != "0" ]; then
 	shift $((OPTIND-1))
 fi
-
-# cd to a package location by name in a portdir
-function gecd() {
-	cd ${PORTDIR}/`PORTDIR=${PORTDIR} herdstat -f $*` || die "gecd failed"
-}
 
 if [ -z "$3" ]; then
 	usage "Missing arguments"
@@ -159,6 +168,8 @@ ebuild ${NEWEBUILD} digest || die "digest failed"
 if [ -n "${COMMIT}" ]; then
 	# We were told to commit it
 	# Uses VCS_COMMITFILE
+	echo "Press any key to commit (now would be a good time to test...)"
+	read
 	vcs_commit
 fi
 
