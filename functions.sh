@@ -136,9 +136,9 @@ function vcs_commit() {
 		fi
 	elif [ "${VCS}" == "cvs" ]; then
 		if [ -n "${VCS_COMMITFILE}" ]; then
-			repoman --commitmsgfile "${VCS_COMMITFILE}" commit || die "cvs add failed"
+			repoman --commitmsgfile "${VCS_COMMITFILE}" commit || die "cvs comit failed"
 		else
-			repoman --commitmsg "${VCS_COMMITMSG}" commit || die "cvs add failed"
+			repoman --commitmsg "${VCS_COMMITMSG}" commit || die "cvs comit failed"
 		fi
 	else
 		if [ -n "${VCS_FATAL_ERRORS}" ]; then
@@ -152,9 +152,9 @@ function vcs_commit() {
 # update something in a VCS
 function vcs_update() {
 	if [ "${VCS}" == "svn" ]; then
-		svn up $* || die "svn commit failed"
+		svn up $* || die "svn update failed"
 	elif [ "${VCS}" == "cvs" ]; then
-		cvs up $* || die "cvs add failed"
+		cvs up $* || die "cvs update failed"
 	else
 		if [ -n "${VCS_FATAL_ERRORS}" ]; then
 			die "Unknown VCS for ${PWD}"
@@ -167,9 +167,24 @@ function vcs_update() {
 # get status on something in a VCS
 function vcs_status() {
 	if [ "${VCS}" == "svn" ]; then
-		svn status $* || die "svn commit failed"
+		svn status $* || die "svn status failed"
 	elif [ "${VCS}" == "cvs" ]; then
-		cvs -n up $* || die "cvs add failed"
+		cvs -n up $* || die "cvs status failed"
+	else
+		if [ -n "${VCS_FATAL_ERRORS}" ]; then
+			die "Unknown VCS for ${PWD}"
+		else
+			echo "Unknown VCS for ${PWD}"
+		fi
+	fi
+}
+
+# diff something in a VCS
+function vcs_diff() {
+	if [ "${VCS}" == "svn" ]; then
+		svn diff $* || die "svn diff failed"
+	elif [ "${VCS}" == "cvs" ]; then
+		cvs diff $* || die "cvs diff failed"
 	else
 		if [ -n "${VCS_FATAL_ERRORS}" ]; then
 			die "Unknown VCS for ${PWD}"
