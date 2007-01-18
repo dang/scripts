@@ -138,8 +138,10 @@ duntarball ${DISTDIR}/${MY_P}.tar.bz2 || duntarball ${DISTDIR}/${MY_P}.tar.gz
 ${VIM} -O ${EBUILDDIR}/${NEWEBUILD} ${MY_P}/configure.*
 if [ -n "${CHANGELOG}" ]; then
 	# Want the changelog
-	TEMPFILE=$(tempfile)
-	cp ${MY_P}/ChangeLog ${TEMPFILE}
+	CLTEMPFILE=$(tempfile)
+	cp ${MY_P}/ChangeLog ${CLTEMPFILE}
+	NTEMPFILE=$(tempfile)
+	cp ${MY_P}/NEWS ${NTEMPFILE}
 fi
 
 rm -rf ${MY_P}
@@ -157,8 +159,8 @@ VCS_COMMITFILE=$(tempfile)
 echo "Bump to ${PVR}" >> ${VCS_COMMITFILE}
 
 if [ -n "${CHANGELOG}" ]; then
-	${VIM} -O ${TEMPFILE} ${VCS_COMMITFILE}
-	rm ${TEMPFILE}
+	${VIM} -O ${CLTEMPFILE} ${VCS_COMMITFILE} -c "sp ${NTEMPFILE}"
+	rm ${CLTEMPFILE} ${NTEMPFILE}
 fi
 
 ECHANGELOG_EDITOR= echangelog-tng < ${VCS_COMMITFILE} || die "echangelog failed"
