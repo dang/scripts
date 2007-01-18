@@ -218,6 +218,9 @@ function cleanuppatch {
 	find . -name "*.orig" -exec rm {} \;
 	find . -name "*.rej" -exec rm {} \;
 }
+function vimreject {
+	vim -O ${1}?(.rej)
+}
 
 # Gentoo related aliases
 # Don't alias emerge; toolsched doesn't work with sudo
