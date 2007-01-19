@@ -2,7 +2,11 @@
 # Called from ".TCSHRC" file.
 #
 # Created by Daniel Gryniewicz 
+
 #
+# Make sure extended globbing is on
+shopt -s extglob
+
 #
 # cd
 #alias cd="pushd"
