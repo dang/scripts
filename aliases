@@ -238,30 +238,6 @@ alias edistmon='DISTCC_DIR=/home/portage/portage/.distcc sudo distccmon-gnome'
 alias schedbatch='sudo schedtool -D -e sudo -u dang'
 alias schediso='sudo schedtool -I -e sudo -u dang'
 
-function gencd() {
-	herdstat -f $*
-	cd /home/portage/overlays/gentopia/`PORTDIR=/home/portage/overlays/gentopia herdstat -f $*`
-}
-
-function dangcd() {
-	herdstat -f $*
-	cd /home/portage/overlays/dang/`PORTDIR=/home/portage/overlays/dangtopia herdstat -f $*`
-}
-
-function gecd() {
-	herdstat -f $*
-	cd /home/portage/overlays/gnome/`PORTDIR=/home/portage/overlays/gnome herdstat -f $*`
-}
-
-function maintcd() {
-	herdstat -f $*
-	cd /home/portage/overlays/dang.overlays/maintainer/`PORTDIR=/home/portage/overlays/dang.overlays/maintainer/ herdstat -f $*`
-}
-
-function usercd() {
-	herdstat -f $*
-	cd /home/portage/overlays/dang.overlays/user/`PORTDIR=/home/portage/overlays/dang.overlays/user/ herdstat -f $*`
-}
 
 alias genpatch="svnpatchset /home/portage/overlays/gentopia/ /home/dang/tmp/gentopia-patches"
 

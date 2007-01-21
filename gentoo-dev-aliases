@@ -10,8 +10,8 @@ alias meta="herdstat -Nm"
 # Usage: ebcd <packagename>
 # Note: needs app-portage/herdstat
 function ebcd() {
-	herdstat -f $*
-	cd /usr/portage/`herdstat -f $*`
+	herdstat -qf $*
+	cd /usr/portage/`herdstat -qf $*`
 }
 
 # Commit the corrent directory
@@ -103,3 +103,27 @@ alias devel-chroots-maemo="TERM=xterm linux32 screen -c /dev/null sudo devel-chr
 function ebgrep {
 		find . -iname "*.ebuild" -exec grep -H "$@" "{}" ";"
 }
+
+#
+# A set of specific ebcd functions for my commonly used overlays
+# Gnome Experimental
+function gecd() {
+	herdstat -qf $*
+	cd /home/portage/overlays/gnome/`PORTDIR=/home/portage/overlays/gnome herdstat -qf $*`
+}
+# Stuff I maintain
+function maintcd() {
+	herdstat -qf $*
+	cd /home/portage/overlays/dang.overlays/maintainer/`PORTDIR=/home/portage/overlays/dang.overlays/maintainer/ herdstat -qf $*`
+}
+# Stuff I don't maintain
+function usercd() {
+	herdstat -qf $*
+	cd /home/portage/overlays/dang.overlays/user/`PORTDIR=/home/portage/overlays/dang.overlays/user/ herdstat -qf $*`
+}
+# Gentopia
+function gencd() {
+	herdstat -qf $*
+	cd /home/portage/overlays/gentopia/`PORTDIR=/home/portage/overlays/gentopia herdstat -qf $*`
+}
+
