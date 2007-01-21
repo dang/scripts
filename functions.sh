@@ -199,7 +199,7 @@ function vcs_diff() {
 
 #
 # cd to a package location by name in a portdir
-function gecd() {
-	cd ${PORTDIR}/`PORTDIR=${PORTDIR} herdstat -qf $*` || die "gecd failed"
+function portcd() {
+	cd ${PORTDIR}/`PORTDIR=${PORTDIR} herdstat -qf $*` || die "portcd failed"
 }
 

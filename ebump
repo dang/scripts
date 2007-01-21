@@ -94,7 +94,7 @@ else
 	VIM="vim"
 fi
 
-gecd ${PN}
+portcd ${PN}
 EBUILDDIR=$(pwd)
 
 # Sanity check old setup
