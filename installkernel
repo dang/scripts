@@ -1,0 +1,29 @@
+#!/bin/bash
+
+UNAME=$1
+IMAGE=$2
+SYSMAP=$3
+CONFIG=`echo $SYSMAP | sed 's/System.map/.config/'`
+
+if [ -z `echo $UNAME | grep hardened` ]; then
+	IMAGEBASE=`basename $IMAGE`
+else
+	IMAGEBASE="`basename $IMAGE`-hardened"
+fi
+
+echo "uname $UNAME"
+echo "image $IMAGE"
+echo "imagebase $IMAGEBASE"
+echo "sysmap $SYSMAP"
+echo "config $CONFIG"
+
+rm -rf /lib/modules/$UNAME
+make modules_install
+
+cp $IMAGE /boot/$IMAGEBASE-$UNAME
+cp $SYSMAP /lib/modules/$UNAME/
+cp vmlinux /lib/modules/$UNAME/
+cp $CONFIG /boot/config-$UNAME
+cd /boot
+ln -sf $IMAGEBASE-$UNAME $IMAGEBASE.exp
+

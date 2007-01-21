@@ -1,0 +1,33 @@
+#!/bin/bash
+#
+# This script puts rotates the links in /boot
+#
+
+BZIMAGE=`readlink /boot/bzImage`
+CURVERSION=`echo $BZIMAGE | sed 's/bzImage-//'`
+BZIMAGEEXP=`readlink /boot/bzImage.exp`
+BZIMAGEOLD=`readlink /boot/bzImage.old`
+if [ -n "$BZIMAGEOLD" ]; then
+	OLDVERSION=`echo $BZIMAGEOLD | sed 's/bzImage-//'`
+	CONFIGOLD="config-$OLDVERSION"
+fi
+
+echo "bzImage.old -> $BZIMAGE"
+echo "bzImage -> $BZIMAGEEXP"
+if [ -n "$BZIMAGEOLD" ]; then
+	echo "removing $BZIMAGEOLD, $CONFIGOLD, and /lib/modules/$OLDVERSION"
+fi
+
+echo "Press any key to continue..."
+read
+
+cd /boot &&
+sudo rm bzImage &&
+sudo ln -s $BZIMAGEEXP bzImage &&
+sudo rm -f bzImage.old &&
+sudo ln -s $BZIMAGE bzImage.old &&
+if [ -n "$BZIMAGEOLD" ]; then
+	sudo rm -f $BZIMAGEOLD $CONFIGOLD
+	sudo rm -rf /lib/modules/$OLDVERSION
+fi
+echo "done"
