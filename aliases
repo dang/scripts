@@ -144,7 +144,7 @@ function dvdiso {
 	shift
 	mp dvd://${TITLE} -dvd-device $@
 	}
-alias vcd="mp -vcd 1 -ni -alang en"
+alias vcd="mp vcd://1 -ni -alang en"
 #alias vcd="mp -vo xv -ao sdl -vcd 1 -framedrop -ni -nofs"
 #alias vcd="mp -vcd 1"
 #alias mp='mplayer'
