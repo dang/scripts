@@ -11,7 +11,8 @@ LONGUSAGE="\t-h\tPrint this help message
 # Standard functions
 source ${HOME}/bin/scripts/functions.sh
 
-# PORTDIR_OVERLAY
+# PORTDIR and PORTDIR_OVERLAY
+source /etc/make.globals
 source /etc/make.conf
 
 # Parse arguments
@@ -25,10 +26,10 @@ while getopts ":hfn" option; do
        esac
 done
 
-cd /usr/portage || die "no /usr/portage"
+cd ${PORTDIR} || die "no ${PORTDIR}"
 # Removed -C, because it touches mtime of every file, causing a full regen
 cvs -q up -PdA || die "cvs up failed"
-find /usr/portage -name '.#*' -exec rm {} \; || die "find .#* failed"
+find ${PORTDIR} -name '.#*' -exec rm {} \; || die "find .#* failed"
 if [ -z "${NOOVERLAYS}" ]; then
 	for i in ${PORTDIR_OVERLAY}; do
 		cd ${i}
