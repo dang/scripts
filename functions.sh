@@ -164,6 +164,28 @@ function vcs_update() {
 	fi
 }
 
+# update something in a VCS, checking the results to see if there's conflicts
+function vcs_update_check_conflicts() {
+	if [ "${VCS}" == "svn" ]; then
+		OUTPUT=`svn up $*` || die "svn update failed"
+		STATUS=`echo ${OUTPUT} | grep "\<C\>"`
+		echo ${OUTPUT}
+	elif [ "${VCS}" == "cvs" ]; then
+		OUTPUT=`cvs up $*` || die "cvs update failed"
+		STATUS=`echo ${OUTPUT} | grep "\<C\>"`
+		echo ${OUTPUT}
+	else
+		if [ -n "${VCS_FATAL_ERRORS}" ]; then
+			die "Unknown VCS for ${PWD}"
+		else
+			echo "Unknown VCS for ${PWD}"
+		fi
+	fi
+	if [ -n "${STATUS}" ]; then
+		die "There were conflicts"
+	fi
+}
+
 # get status on something in a VCS
 function vcs_status() {
 	if [ "${VCS}" == "svn" ]; then
@@ -192,14 +214,5 @@ function vcs_diff() {
 			echo "Unknown VCS for ${PWD}"
 		fi
 	fi
-}
-
-#
-# Portage related functions
-
-#
-# cd to a package location by name in a portdir
-function portcd() {
-	cd ${PORTDIR}/`PORTDIR=${PORTDIR} herdstat -qf $*` || die "portcd failed"
 }
 

@@ -1,0 +1,65 @@
+#!/bin/bash
+#
+# Bump a package in an overlay
+#
+
+# Portage functions
+source ${HOME}/bin/scripts/portage-functions.sh
+
+#
+# Default Local parameters
+# Remove old versions?
+RMOLD="yes"
+
+# Set usage output
+USAGE="[-hp][-m <commitmsg>] [<commitmsg>]"
+LONGUSAGE="\t-h\tPrint this help message
+\t-p\tPretend; don't actually commit.
+\t-m <commitmsg>\tCommit message.
+\t<commitmsg>\tCommit message.  Overrides -m"
+
+# Standard functions
+source ${HOME}/bin/scripts/functions.sh
+
+# Parse arguments
+while getopts ":hpm:" option; do
+	case ${option} in
+		p ) PRETEND="yes";;
+		m ) COMMITMSG=${OPTARG};;
+		h ) usage;;
+		\? ) usage "Invalid argument ${OPTARG}";;
+		* ) usage "Invalid argument ${option}";;
+	esac
+done
+
+if [ "${OPTIND}" != "0" ]; then
+	shift $((OPTIND-1))
+fi
+
+if [ -n "$*" ]; then
+	COMMITMSG="$*"
+fi
+
+if [ -z "${COMMITMSG}" ]; then
+	usage "No commit message"
+fi
+
+vcs_detect
+PWD=`pwd`
+
+if [ -n "${PRETEND}" ]; then
+	echo "committing ${PWD} with message \"${COMMITMSG}\""
+	vcs_status
+	exit
+fi
+
+vcs_update_check_conflicts
+EBUILDS=`vcs status | grep ebuild | awk '{print $2}'`
+echangelog-tng "${COMMITMSG}" || die "echangelog died"
+for i in ${EBUILDS}; do
+	ebuild $i digest || die "digest failed"
+done
+vcs_commit
+
+# Tell user we're done
+#notify-send -t 0 "Done" "${NEWEBUILD}"

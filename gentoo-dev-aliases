@@ -16,11 +16,11 @@ function ebcd() {
 
 # Commit the corrent directory
 # Usage: ecommit <changelog entry>
-ecommit() {
-	cvs up
-	echangelog "$@"
-	repoman --commitmsg "$@" commit
-}
+#ecommit() {
+#	cvs up
+#	echangelog "$@"
+#	repoman --commitmsg "$@" commit
+#}
 
 # Keyword something stable on amd64
 # Usage: dkwstable <ebuild> [<Extra changelog info>]

@@ -3,37 +3,15 @@
 # Bump a package in an overlay
 #
 
-#
-# Fake functions to allow ebuild sourcing
-function inherit() {
-	true
-}
+# Portage functions
+source ${HOME}/bin/scripts/portage-functions.sh
 
 #
 # Local parameters
 # tmp directory for extracting packages to look for deps
 TMPDIR="/home/src/build"
-# Dist file directory
-DISTDIR="/home/portage/distfiles"
-# Default PORTDIR
-PORTDIR="/usr/portage"
 # Remove old versions?
 RMOLD="yes"
-
-# Get info from make.conf
-source /etc/make.conf
-
-# Get PORTDIR.  First, see if the PWD is in one of the directories in ${PORTDIR}
-# or ${PORTDIR_OVERLAY}  If it is, use that as PORTDIR.  Otherwise, fall back on
-# PORTDIR specified in /etc/make.conf, or on the default above.
-PWD=`pwd`
-for i in ${PORTDIR} ${PORTDIR_OVERLAY}; do
-	MY_PORTDIR=`echo ${PWD} | /bin/grep -Fo "${i}"`
-	if [ -n "${MY_PORTDIR}" ]; then
-		PORTDIR=${MY_PORTDIR}
-		break;
-	fi
-done
 
 # Set usage output
 USAGE="[-hcbk][-p <portdir>] [-t <tmpdir>] [-d <distdir>]  <basename> <old-version> <new-version>"
