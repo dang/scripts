@@ -6,5 +6,7 @@
 # Stop beagle...
 beagle-shutdown
 sudo emerge $@
+retval=$?
 # and restart it
 beagled --bg --replace > /dev/null 2>&1
+exit $?
