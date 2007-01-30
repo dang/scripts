@@ -14,12 +14,13 @@ TMPDIR="/home/src/build"
 RMOLD="yes"
 
 # Set usage output
-USAGE="[-hcbk][-p <portdir>] [-t <tmpdir>] [-d <distdir>]  <basename> <old-version> <new-version>"
+USAGE="[-hcbkn][-p <portdir>] [-t <tmpdir>] [-d <distdir>]  <basename> <old-version> <new-version>"
 LONGUSAGE="\t-h\tPrint this help message
 \t-b\tBuild package.
 \t-c\tCommit package when done.
 \t-C\tView ChangeLog when done.
 \t-k\tKeep old versions.
+\t-n\tNo VCS interactions
 \t-p <portdir>\tPORTDIR to act on (default ${PORTDIR})
 \t-t <tmpdir>\tTMP directory to extract packages to (default ${TMPDIR})
 \t-d <distdir>\tLocation distfiles are downloaded to (default ${DISTDIR})
@@ -31,12 +32,13 @@ LONGUSAGE="\t-h\tPrint this help message
 source ${HOME}/bin/scripts/functions.sh
 
 # Parse arguments
-while getopts ":hcCbkp:d:t:" option; do
+while getopts ":hcCbknp:d:t:" option; do
 	case ${option} in
 		c ) COMMIT="yes";;
 		C ) CHANGELOG="yes";;
 		b ) BUILD="yes";;
 		k ) RMOLD="no";;
+		n ) NOVCS="yes";;
 		p ) PORTDIR=${OPTARG};;
 		t ) TMPDIR=${OPTARG};;
 		d ) DISTDIR=${OPTARG};;
@@ -74,13 +76,17 @@ fi
 
 portcd ${PN}
 EBUILDDIR=$(pwd)
+port_category
 
 # Sanity check old setup
 [ -f ${OLDEBUILD} ] || die "${OLDEBUILD} doesn't exist"
 [ -f ${OLDDIGEST} ] || die "${OLDDIGEST} doesn't exist"
 
-vcs_detect
-vcs_update
+if [ -z "${NOVCS}" ]; then
+	vcs_detect
+	vcs_update
+fi
+
 
 # Source the ebuild to get MY_P if it exists
 source ${OLDEBUILD}
@@ -100,14 +106,20 @@ echo "Adding ${NEWEBUILD} and ${NEWDIGEST}"
 if [ "${OLDEBUILD}" != "${NEWEBUILD}" ]; then
 	cp ${OLDEBUILD} ${NEWEBUILD} || die "cp failed"
 	if [ "${RMOLD}" == "yes" ]; then
-		vcs_rm ${OLDEBUILD} ${OLDDIGEST}
+		if [ -z "${NOVCS}" ]; then
+			vcs_rm ${OLDEBUILD} ${OLDDIGEST}
+		else
+			rm ${OLDEBUILD} ${OLDDIGEST}
+		fi
 	fi
 fi
 ebuild ${NEWEBUILD} digest || die "digest failed"
 [ -f ${NEWDIGEST} ] || die "${NEWDIGEST} doesn't exist"
 # Add to VCS
 if [ "${OLDEBUILD}" != "${NEWEBUILD}" ]; then
-	vcs_add ${NEWEBUILD} ${NEWDIGEST}
+	if [ -z "${NOVCS}" ]; then
+		vcs_add ${NEWEBUILD} ${NEWDIGEST}
+	fi
 fi
 
 # Open up the new ebuild and the configure.(in|ac) to check for new deps
@@ -130,7 +142,7 @@ ebuild ${NEWEBUILD} digest || die "digest failed"
 
 if [ -n "${BUILD}" ]; then
 	# We were told to build it
-	emerge ${PN} || die "emerge failed"
+	emerge ${PORT_CATEGORY}/${PN} || die "emerge failed"
 fi
 
 VCS_COMMITFILE=$(tempfile)
@@ -150,7 +162,9 @@ if [ -n "${COMMIT}" ]; then
 	# Uses VCS_COMMITFILE
 	echo "Press any key to commit (now would be a good time to test...)"
 	read
-	vcs_commit
+	if [ -z "${NOVCS}" ]; then
+		vcs_commit
+	fi
 fi
 
 # Tell user we're done
