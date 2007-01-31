@@ -25,7 +25,7 @@ source ${HOME}/bin/scripts/functions.sh
 while getopts ":hpm:" option; do
 	case ${option} in
 		p ) PRETEND="yes";;
-		m ) COMMITMSG=${OPTARG};;
+		m ) VCS_COMMITMSG=${OPTARG};;
 		h ) usage;;
 		\? ) usage "Invalid argument ${OPTARG}";;
 		* ) usage "Invalid argument ${option}";;
@@ -37,10 +37,10 @@ if [ "${OPTIND}" != "0" ]; then
 fi
 
 if [ -n "$*" ]; then
-	COMMITMSG="$*"
+	VCS_COMMITMSG="$*"
 fi
 
-if [ -z "${COMMITMSG}" ]; then
+if [ -z "${VCS_COMMITMSG}" ]; then
 	usage "No commit message"
 fi
 
@@ -48,14 +48,18 @@ vcs_detect
 PWD=`pwd`
 
 if [ -n "${PRETEND}" ]; then
-	echo "committing ${PWD} with message \"${COMMITMSG}\""
+	echo "committing ${PWD} with message \"${VCS_COMMITMSG}\""
 	vcs_status
 	exit
 fi
 
 vcs_update_check_conflicts
 EBUILDS=`vcs status | grep ebuild | awk '{print $2}'`
-echangelog-tng "${COMMITMSG}" || die "echangelog died"
+if [ "${VCS}" == "cvs" ]; then
+	echangelog "${VCS_COMMITMSG}" || die "echangelog died"
+else
+	echangelog-tng "${VCS_COMMITMSG}" || die "echangelog died"
+fi
 for i in ${EBUILDS}; do
 	ebuild $i digest || die "digest failed"
 done
