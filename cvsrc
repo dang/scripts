@@ -1,0 +1,4 @@
+cvs -q
+diff -u -p
+rdiff -u
+update -PdA
