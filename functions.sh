@@ -191,7 +191,7 @@ function vcs_status() {
 	if [ "${VCS}" == "svn" ]; then
 		svn status $* || die "svn status failed"
 	elif [ "${VCS}" == "cvs" ]; then
-		cvs -n up $* || die "cvs status failed"
+		cvs -nq up $* || die "cvs status failed"
 	else
 		if [ -n "${VCS_FATAL_ERRORS}" ]; then
 			die "Unknown VCS for ${PWD}"
