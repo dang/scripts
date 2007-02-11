@@ -142,7 +142,7 @@ ebuild ${NEWEBUILD} digest || die "digest failed"
 
 if [ -n "${BUILD}" ]; then
 	# We were told to build it
-	emerge ${PORT_CATEGORY}/${PN} || die "emerge failed"
+	emerge --oneshot "=${PORT_CATEGORY}/${PN}-${PVR}" || die "emerge failed"
 fi
 
 VCS_COMMITFILE=$(tempfile)
