@@ -38,6 +38,9 @@ function psg {
 #                ps auwwx | head -1;
 #                ps auwwx | grep $* | grep -v grep;
 #		}
+function psu {
+				ps --pid $(pgrep -d, -u $*)
+		}
 alias pss="ps ax | sort | more"
 alias psme="ps ax | grep $USER"
 alias psall="ps ax"
