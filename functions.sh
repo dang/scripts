@@ -126,7 +126,8 @@ function vcs_add() {
 
 # commit something to a VCS
 # ${VCS_COMMITMSG} contains the commit message, ${VCS_COMMITFILE} contains the
-# file with the commit message.
+# file with the commit message.  Use VCS_REPOMAN_OPTS to pass options to
+# repoman.
 function vcs_commit() {
 	if [ "${VCS}" == "svn" ]; then
 		if [ -n "${VCS_COMMITFILE}" ]; then
@@ -136,9 +137,9 @@ function vcs_commit() {
 		fi
 	elif [ "${VCS}" == "cvs" ]; then
 		if [ -n "${VCS_COMMITFILE}" ]; then
-			repoman --commitmsgfile "${VCS_COMMITFILE}" commit || die "cvs comit failed"
+			repoman ${VCS_REPOMAN_OPTS} --commitmsgfile "${VCS_COMMITFILE}" commit || die "cvs comit failed"
 		else
-			repoman --commitmsg "${VCS_COMMITMSG}" commit || die "cvs comit failed"
+			repoman ${VCS_REPOMAN_OPTS} --commitmsg "${VCS_COMMITMSG}" commit || die "cvs comit failed"
 		fi
 	else
 		if [ -n "${VCS_FATAL_ERRORS}" ]; then

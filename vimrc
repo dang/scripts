@@ -19,10 +19,10 @@ set visualbell t_vb=
 set scrolloff=4
 
 "" Dan's cinoptions
-"set cinoptions={1s,t0
-"set tw=89
-"set shiftwidth=4
-"set tabstop=4
+set cinoptions={1s,t0
+set tw=100
+set shiftwidth=4
+set tabstop=4
 "
 "" Syllables's cinoptions
 "set cinoptions=t0
@@ -32,10 +32,10 @@ set scrolloff=4
 "set tabstop=8
 "
 " Works cinoptions
-set cinoptions=:0,+.5s,(.5s,u0,U1,t0,M1
-set tw=80
-set shiftwidth=8
-set tabstop=8
+"set cinoptions=:0,+.5s,(.5s,u0,U1,t0,M1
+"set tw=80
+"set shiftwidth=8
+"set tabstop=8
 
 set wildmode=longest,list,full
 set autowrite

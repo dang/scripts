@@ -12,19 +12,21 @@ source ${HOME}/bin/scripts/portage-functions.sh
 RMOLD="yes"
 
 # Set usage output
-USAGE="[-hp][-m <commitmsg>] [<commitmsg>]"
+USAGE="[-hpI][-m <commitmsg>] [<commitmsg>]"
 LONGUSAGE="\t-h\tPrint this help message
 \t-p\tPretend; don't actually commit.
 \t-m <commitmsg>\tCommit message.
+\t-I\tIgnore arches; pass -I to repoman.
 \t<commitmsg>\tCommit message.  Overrides -m"
 
 # Standard functions
 source ${HOME}/bin/scripts/functions.sh
 
 # Parse arguments
-while getopts ":hpm:" option; do
+while getopts ":hpIm:" option; do
 	case ${option} in
 		p ) PRETEND="yes";;
+		I ) VCS_REPOMAN_OPTS="-I";;
 		m ) VCS_COMMITMSG=${OPTARG};;
 		h ) usage;;
 		\? ) usage "Invalid argument ${OPTARG}";;
