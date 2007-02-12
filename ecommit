@@ -56,11 +56,18 @@ if [ -n "${PRETEND}" ]; then
 fi
 
 vcs_update_check_conflicts
-EBUILDS=`vcs status | grep ebuild | awk '{print $2}'`
+EBUILDS=`vcs status | grep -v "^R" | grep ebuild | awk '{print $2}'`
 if [ "${VCS}" == "cvs" ]; then
 	echangelog "${VCS_COMMITMSG}" || die "echangelog died"
 else
 	echangelog-tng "${VCS_COMMITMSG}" || die "echangelog died"
+fi
+if [ -z "${EBUILDS}" ]; then
+	# Probably only removing things
+	EBUILDS=`/bin/ls *.ebuild`
+fi
+if [ -z "${EBUILDS}" ]; then
+	die "no ebuilds to digest?"
 fi
 for i in ${EBUILDS}; do
 	ebuild $i digest || die "digest failed"
