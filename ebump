@@ -153,7 +153,11 @@ if [ -n "${CHANGELOG}" ]; then
 	rm ${CLTEMPFILE} ${NTEMPFILE}
 fi
 
-ECHANGELOG_EDITOR= echangelog-tng < ${VCS_COMMITFILE} || die "echangelog failed"
+if [ "${VCS}" == "cvs" ]; then
+	ECHANGELOG_EDITOR= echangelog < ${VCS_COMMITFILE} || die "echangelog failed"
+else
+	ECHANGELOG_EDITOR= echangelog-tng < ${VCS_COMMITFILE} || die "echangelog failed"
+fi
 # Re-digest
 ebuild ${NEWEBUILD} digest || die "digest failed"
 
