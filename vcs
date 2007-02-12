@@ -37,6 +37,7 @@ done
 
 if [ "${OPTIND}" != "0" ]; then
 	shift $((OPTIND-1))
+	OPTIND=1
 fi
 
 # Get command
@@ -69,7 +70,7 @@ case "${CMD}" in
 		if [ "${OPTIND}" != "0" ]; then
 			shift $((OPTIND-1))
 		fi
-		if [ -n "$@" ]; then
+		if [ -n "$*" ]; then
 			FILES="$@"
 		fi
 		;;
@@ -108,9 +109,13 @@ case "${CMD}" in
 		;;
 	commit)
 		if [ "${PRETEND}" == "yes" ]; then
-			echo vcs_commit ${VCS_COMMITMSG} ${VCS_COMMITFILE}
+			if [ -n "${VCS_COMMITFILE}" ]; then
+				echo "vcs_commit -F ${VCS_COMMITFILE} ${FILES}"
+			else
+				echo "vcs_commit -m \"${VCS_COMMITMSG}\" ${FILES}"
+			fi
 		else
-			vcs_commit
+			vcs_commit ${FILES}
 		fi
 		;;
 	up)

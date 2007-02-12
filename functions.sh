@@ -131,15 +131,15 @@ function vcs_add() {
 function vcs_commit() {
 	if [ "${VCS}" == "svn" ]; then
 		if [ -n "${VCS_COMMITFILE}" ]; then
-			svn commit -F "${VCS_COMMITFILE}" || die "svn commit failed"
+			svn commit -F "${VCS_COMMITFILE}" $* || die "svn commit failed"
 		else
-			svn commit -m "${VCS_COMMITMSG}" || die "svn commit failed"
+			svn commit -m "${VCS_COMMITMSG}" $* || die "svn commit failed"
 		fi
 	elif [ "${VCS}" == "cvs" ]; then
 		if [ -n "${VCS_COMMITFILE}" ]; then
-			repoman ${VCS_REPOMAN_OPTS} --commitmsgfile "${VCS_COMMITFILE}" commit || die "cvs comit failed"
+			repoman ${VCS_REPOMAN_OPTS} --commitmsgfile "${VCS_COMMITFILE}" commit $* || die "cvs comit failed"
 		else
-			repoman ${VCS_REPOMAN_OPTS} --commitmsg "${VCS_COMMITMSG}" commit || die "cvs comit failed"
+			repoman ${VCS_REPOMAN_OPTS} --commitmsg "${VCS_COMMITMSG}" commit $* || die "cvs comit failed"
 		fi
 	else
 		if [ -n "${VCS_FATAL_ERRORS}" ]; then
