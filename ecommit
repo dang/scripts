@@ -43,11 +43,11 @@ if [ -n "$*" ]; then
 fi
 
 if [ -z "${VCS_COMMITMSG}" ]; then
-	usage "No commit message"
+	VCS_COMMITFILE=$(tempfile)
+	${EDITOR:-vim} ${VCS_COMMITFILE}
 fi
 
 vcs_detect
-PWD=`pwd`
 
 if [ -n "${PRETEND}" ]; then
 	echo "committing ${PWD} with message \"${VCS_COMMITMSG}\""
@@ -57,11 +57,7 @@ fi
 
 vcs_update_check_conflicts
 EBUILDS=`vcs status | grep -v "^R" | grep ebuild | awk '{print $2}'`
-if [ "${VCS}" == "cvs" ]; then
-	echangelog "${VCS_COMMITMSG}" || die "echangelog died"
-else
-	echangelog-tng "${VCS_COMMITMSG}" || die "echangelog died"
-fi
+vcs_echangelog
 if [ -z "${EBUILDS}" ]; then
 	# Probably only removing things
 	EBUILDS=`/bin/ls *.ebuild`
@@ -73,6 +69,7 @@ for i in ${EBUILDS}; do
 	ebuild $i digest || die "digest failed"
 done
 vcs_commit
+rm -f ${VCS_COMMITFILE}
 
 # Tell user we're done
 #notify-send -t 0 "Done" "${NEWEBUILD}"

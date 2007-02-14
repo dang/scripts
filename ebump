@@ -153,11 +153,8 @@ if [ -n "${CHANGELOG}" ]; then
 	rm ${CLTEMPFILE} ${NTEMPFILE}
 fi
 
-if [ "${VCS}" == "cvs" ]; then
-	ECHANGELOG_EDITOR= echangelog < ${VCS_COMMITFILE} || die "echangelog failed"
-else
-	ECHANGELOG_EDITOR= echangelog-tng < ${VCS_COMMITFILE} || die "echangelog failed"
-fi
+vcs_echangelog
+
 # Re-digest
 ebuild ${NEWEBUILD} digest || die "digest failed"
 
@@ -170,6 +167,8 @@ if [ -n "${COMMIT}" ]; then
 		vcs_commit
 	fi
 fi
+
+rm -f ${VCS_COMMITFILE}
 
 # Tell user we're done
 notify-send -t 0 "Done" "${NEWEBUILD}"

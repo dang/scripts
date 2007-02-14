@@ -217,3 +217,17 @@ function vcs_diff() {
 	fi
 }
 
+# Do a changelog
+function vcs_echangelog() { 
+	if [ "${VCS}" == "cvs" ]; then
+		VCS_ECHANGELOG=echangelog
+	else
+		VCS_ECHANGELOG=echangelog-tng
+	fi
+
+	if [ -n "${VCS_COMMITFILE}" ]; then
+		ECHANGELOG_EDITOR= ${VCS_ECHANGELOG} < ${VCS_COMMITFILE} || die "${VCS_ECHANGELOG} failed"
+	elif [ -n "${VCS_COMMITMSG}" ]; then
+		${VCS_ECHANGELOG} "${VCS_COMMITMSG}" || die "${VCS_ECHANGELOG} died"
+	fi
+}
