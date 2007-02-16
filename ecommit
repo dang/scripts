@@ -56,7 +56,7 @@ if [ -n "${PRETEND}" ]; then
 fi
 
 vcs_update_check_conflicts
-EBUILDS=`vcs status | grep -v "^R" | grep ebuild | awk '{print $2}'`
+EBUILDS=`vcs status | grep -v "^R" | | grep -v "^D" | grep ebuild | awk '{print $2}'`
 vcs_echangelog
 if [ -z "${EBUILDS}" ]; then
 	# Probably only removing things
