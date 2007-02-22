@@ -52,10 +52,23 @@ else
 	echo "FILETYPE: ${FILETYPE}"
 	exit
 fi
-${CMD} "${TARBALL}" || die "${CMD} failed"
+
+BASENAME=$(basename ${TARBALL} ${EXT})
+if [ ! -d ${BASENAME} ]; then
+	${CMD} "${TARBALL}" || die "${CMD} failed"
+fi
 
 if [ -n "${PATCH}" ]; then
-	BASENAME=$(basename ${TARBALL} ${EXT})
-	mv ${BASENAME} ${BASENAME}.orig || die "mv failed"
-	${CMD} "${TARBALL}" || die "${CMD} failed"
+	if [ -d ${BASENAME} ]; then
+		# Directory exists; get a .orig
+		TEMPNAME=$(tempfile -d .)
+		rm -f ${TEMPNAME}
+		mv ${BASENAME} ${TEMPNAME} || die "mv ${BASENAME} ${TEMPNAME} failed"
+		${CMD} "${TARBALL}" || die "${CMD} failed"
+		mv ${BASENAME} ${BASENAME}.orig || die "mv failed"
+		mv ${TEMPNAME} ${BASENAME} || die "mv ${TEMPNAME} ${BASENAME} failed"
+	else
+		mv ${BASENAME} ${BASENAME}.orig || die "mv failed"
+		${CMD} "${TARBALL}" || die "${CMD} failed"
+	fi
 fi
