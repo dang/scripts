@@ -14,13 +14,14 @@ TMPDIR="/home/src/build"
 RMOLD="yes"
 
 # Set usage output
-USAGE="[-hcbkn][-p <portdir>] [-t <tmpdir>] [-d <distdir>]  <basename> <old-version> <new-version>"
+USAGE="[-hbcCkns][-p <portdir>] [-t <tmpdir>] [-d <distdir>]  <basename> <old-version> <new-version>"
 LONGUSAGE="\t-h\tPrint this help message
 \t-b\tBuild package.
 \t-c\tCommit package when done.
 \t-C\tView ChangeLog when done.
 \t-k\tKeep old versions.
 \t-n\tNo VCS interactions
+\t-s\tSave KEYWORDS; don't make all arch ~arch
 \t-p <portdir>\tPORTDIR to act on (default ${PORTDIR})
 \t-t <tmpdir>\tTMP directory to extract packages to (default ${TMPDIR})
 \t-d <distdir>\tLocation distfiles are downloaded to (default ${DISTDIR})
@@ -32,13 +33,14 @@ LONGUSAGE="\t-h\tPrint this help message
 source ${HOME}/bin/scripts/functions.sh
 
 # Parse arguments
-while getopts ":hcCbknp:d:t:" option; do
+while getopts ":hbcCknsp:d:t:" option; do
 	case ${option} in
+		b ) BUILD="yes";;
 		c ) COMMIT="yes";;
 		C ) CHANGELOG="yes";;
-		b ) BUILD="yes";;
 		k ) RMOLD="no";;
 		n ) NOVCS="yes";;
+		s ) SAVEARCH="yes";;
 		p ) PORTDIR=${OPTARG};;
 		t ) TMPDIR=${OPTARG};;
 		d ) DISTDIR=${OPTARG};;
@@ -80,7 +82,9 @@ port_category
 
 # Sanity check old setup
 [ -f ${OLDEBUILD} ] || die "${OLDEBUILD} doesn't exist"
-[ -f ${OLDDIGEST} ] || die "${OLDDIGEST} doesn't exist"
+if [ "${OLDDIGEST}" != "${NEWDIGEST}" ]; then
+	[ -f ${OLDDIGEST} ] || die "${OLDDIGEST} doesn't exist"
+fi
 
 if [ -z "${NOVCS}" ]; then
 	vcs_detect
@@ -105,6 +109,9 @@ echo "Adding ${NEWEBUILD} and ${NEWDIGEST}"
 # Make ebuild change
 if [ "${OLDEBUILD}" != "${NEWEBUILD}" ]; then
 	cp ${OLDEBUILD} ${NEWEBUILD} || die "cp failed"
+	if [ -z "${SAVEARCH}" ]; then
+		ekeyword ~all ${NEWEBUILD} || die "ekeyword failed"
+	fi
 	if [ "${RMOLD}" == "yes" ]; then
 		if [ -z "${NOVCS}" ]; then
 			vcs_rm ${OLDEBUILD} ${OLDDIGEST}
