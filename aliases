@@ -27,6 +27,9 @@ alias df="df -h"
 alias grep='egrep --color=auto'
 alias egrep='egrep --color=auto'
 #
+# du
+alias diskusage='sudo du -hx --max-depth 1 .'
+#
 # control
 alias j="jobs -l"
 # Linux only
