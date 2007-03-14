@@ -28,7 +28,7 @@ alias grep='egrep --color=auto'
 alias egrep='egrep --color=auto'
 #
 # du
-alias diskusage='sudo du -hx --max-depth 1 .'
+alias diskusage='sudo du -mx --max-depth 1 . | sort -g'
 #
 # control
 alias j="jobs -l"
@@ -59,7 +59,7 @@ function schedtype {
 function schedretype {
 	MODE=$1
 	shift
-	schedtool ${MODE} $(pgrep -d, -f $*)
+	sudo schedtool ${MODE} $(pgrep -d, -f $*)
 	}
 #function slay {
 #                set j=`ps ax|grep $*|head -1`; kill -9 `echo $j[1]`;
