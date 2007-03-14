@@ -11,7 +11,7 @@ source ${HOME}/bin/scripts/functions.sh
 
 ECVSUPARGS=""
 # Parse arguments
-while getopts ":hfn:" option; do
+while getopts ":hfn" option; do
        case ${option} in
                f ) ECVSUPARGS="${ECVSUPARGS} -f";;
                n ) ECVSUPARGS="${ECVSUPARGS} -n";;
