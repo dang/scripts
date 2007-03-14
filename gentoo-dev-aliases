@@ -101,7 +101,7 @@ alias devel-chroots-maemo="TERM=xterm linux32 screen -c /dev/null sudo devel-chr
 # Recursively grep through ebuilds
 # Usage: ebgrep <pattern>
 function ebgrep {
-		find . -iname "*.ebuild" -exec grep -H "$@" "{}" ";"
+		find -L . -iname "*.ebuild" -exec grep -H "$@" "{}" ";"
 }
 
 #
