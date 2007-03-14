@@ -12,22 +12,24 @@ source ${HOME}/bin/scripts/portage-functions.sh
 RMOLD="yes"
 
 # Set usage output
-USAGE="[-hpI][-m <commitmsg>] [<commitmsg>]"
+USAGE="[-hpIn][-m <commitmsg>] [<commitmsg>]"
 LONGUSAGE="\t-h\tPrint this help message
 \t-p\tPretend; don't actually commit.
 \t-m <commitmsg>\tCommit message.
 \t-I\tIgnore arches; pass -I to repoman.
+\t-n\tDon't digest.  Pass if you've removed all ebuilds
 \t<commitmsg>\tCommit message.  Overrides -m"
 
 # Standard functions
 source ${HOME}/bin/scripts/functions.sh
 
 # Parse arguments
-while getopts ":hpIm:" option; do
+while getopts ":hpInm:" option; do
 	case ${option} in
 		p ) PRETEND="yes";;
 		I ) VCS_REPOMAN_OPTS="-I";;
 		m ) VCS_COMMITMSG=${OPTARG};;
+		n ) NODIGEST="yes";;
 		h ) usage;;
 		\? ) usage "Invalid argument ${OPTARG}";;
 		* ) usage "Invalid argument ${option}";;
@@ -58,16 +60,18 @@ fi
 vcs_update_check_conflicts
 EBUILDS=`vcs status | grep -v "^R" | grep -v "^D" | grep ebuild | awk '{print $2}'`
 vcs_echangelog
-if [ -z "${EBUILDS}" ]; then
-	# Probably only removing things
-	EBUILDS=`/bin/ls *.ebuild`
+if [ -z "${NODIGEST}" ]; then
+	if [ -z "${EBUILDS}" ]; then
+		# Probably only removing things
+		EBUILDS=`/bin/ls *.ebuild`
+	fi
+	if [ -z "${EBUILDS}" ]; then
+		die "no ebuilds to digest?"
+	fi
+	for i in ${EBUILDS}; do
+		ebuild $i digest || die "digest failed"
+	done
 fi
-if [ -z "${EBUILDS}" ]; then
-	die "no ebuilds to digest?"
-fi
-for i in ${EBUILDS}; do
-	ebuild $i digest || die "digest failed"
-done
 vcs_commit
 rm -f ${VCS_COMMITFILE}
 
