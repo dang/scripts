@@ -231,3 +231,22 @@ function vcs_echangelog() {
 		${VCS_ECHANGELOG} "${VCS_COMMITMSG}" || die "${VCS_ECHANGELOG} died"
 	fi
 }
+
+# See if a file is under version control
+function vcs_is_added() {
+	if [ "${VCS}" == "svn" ]; then
+		OUTPUT=$(svn info $@ | grep Path:)
+	elif [ "${VCS}" == "cvs" ]; then
+		OUTPUT=$(cvs status $@ 2>/dev/null | grep Status | grep -v Unknown)
+	else
+		if [ -n "${VCS_FATAL_ERRORS}" ]; then
+			die "Unknown VCS for ${PWD}"
+		else
+			echo "Unknown VCS for ${PWD}"
+		fi
+	fi
+	if [ -z "${OUTPUT}" ]; then
+		return 1
+	fi
+	return 0
+}
