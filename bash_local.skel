@@ -1,0 +1,21 @@
+# extra local shell customizations
+#
+# These are from athena, to be used as an example
+#
+# Copy into #{HOME}/.bash_local
+
+# Local path
+PATH=/usr/bin/wrappers:$HOME/bin/toolsched:$PATH:/usr/games/bin:/sbin:/usr/sbin:/usr/local/sbin:.
+export PATH
+
+# For test building syllable on athena
+export ATHEOS_INCLUDE_PATH=/home/os/syllable/darcs/current/sys/include
+export ATHEOS_SRC=/home/os/syllable/darcs/current
+
+COLOR1=32
+COLOR2=34
+
+# This is a gentoo development box, set up the gentoo aliases here
+source ${SCRIPTS}/gentoo-dev-aliases
+# and allow core files
+ulimit -c unlimited
