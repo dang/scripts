@@ -15,9 +15,6 @@ source ${SCRIPTS}/aliases
 # Give group write by default
 umask 002
 
-# no core files (override in .bash_local)
-ulimit -c 0
-
 # Environment for various things
 export LC_ALL=en_US.utf8
 export LC_COLLATE=C
@@ -67,6 +64,10 @@ PS1='[${COLOR1};1m[\t \h] [${COLOR2};1m\W[0m${PCHAR} '
 #PS1='\[\033[${COLOR1};1m\][\A \h] \[\033[${COLOR2};1m\]\W\[\033[0m\]${PCHAR} '
 #PS1='\[\033[01;${COLOR1}m\][\A \h]\[\033[01;${COLOR2}m\] \W\[\033[00m\]${PCHAR} '
 #PS1='\[\033[01;${COLOR1}m\]\D{%H:%M%S} \h\[\033[01;${COLOR2}m\] \W \[\033[00m\]${PCHAR} '
+
+# Core file size
+[ -z "${CORESIZE}" ] && CORESIZE=0
+ulimit -c ${CORESIZE}
 
 # Bash completion addons
 [ -f /etc/profile.d/bash-completion ] && . /etc/profile.d/bash-completion

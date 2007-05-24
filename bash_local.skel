@@ -18,4 +18,4 @@ COLOR2=34
 # This is a gentoo development box, set up the gentoo aliases here
 source ${SCRIPTS}/gentoo-dev-aliases
 # and allow core files
-ulimit -c unlimited
+CORESIZE=unlimited
