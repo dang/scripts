@@ -9,7 +9,7 @@ map <F2> :nohlsearch<CR>
 imap <F1> <esc>
 set incsearch
 set wrapscan
-set viminfo=\'50,\"50,h,r/tmp,r~/gated.log,r/var/tmp/gated.log,r.git/COMMIT_EDITMSG
+set viminfo=\'50,\"50,h,r/tmp,r~/gated.log,r/var/tmp/gated.log
 set autoindent
 set noexpandtab
 set backspace=2

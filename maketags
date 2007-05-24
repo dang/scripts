@@ -8,7 +8,7 @@ LONGUSAGE="\t-h\tPrint this help message
 \t-k\tKernel database (no system includes)
 \t<directories>\tDirectories to scan (defaults to '.')"
 
-source ${HOME}/bin/scripts/functions.sh
+source ${SCRIPTS}/functions.sh
 
 while getopts ":hk" option; do
 	case ${option} in

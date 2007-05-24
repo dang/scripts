@@ -11,7 +11,7 @@ LONGUSAGE="\t-h, --help\n\t\tPrint this help message
 \t<archive>\n\t\tPath to archive to extract"
 
 # Standard functions
-source ${HOME}/bin/scripts/functions.sh
+source ${SCRIPTS}/functions.sh
 
 # Script name
 ME=$(basename $0)

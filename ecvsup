@@ -9,7 +9,7 @@ LONGUSAGE="\t-h\tPrint this help message
 \t-n\tSkip updating overlays"
 
 # Standard functions
-source ${HOME}/bin/scripts/functions.sh
+source ${SCRIPTS}/functions.sh
 
 # PORTDIR and PORTDIR_OVERLAY
 source /etc/make.globals

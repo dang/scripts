@@ -23,7 +23,7 @@ LONGUSAGE="\t-h\tPrint this help message
 \t\tdiff [<files>]\tDiff files"
 
 # Standard functions
-source ${HOME}/bin/scripts/functions.sh
+source ${SCRIPTS}/functions.sh
 
 # Parse arguments
 while getopts ":hp" option; do

@@ -4,7 +4,7 @@
 #
 
 # Portage functions
-source ${HOME}/bin/scripts/portage-functions.sh
+source ${SCRIPTS}/portage-functions.sh
 
 #
 # Local parameters
@@ -30,7 +30,7 @@ LONGUSAGE="\t-h\tPrint this help message
 \t<new-version>\tNew package version (new \${PVR})"
 
 # Standard functions
-source ${HOME}/bin/scripts/functions.sh
+source ${SCRIPTS}/functions.sh
 
 # Parse arguments
 while getopts ":hbcCknsp:d:t:" option; do
