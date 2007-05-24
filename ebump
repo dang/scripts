@@ -127,7 +127,7 @@ if [ -z "${NOVCS}" ]; then
 	if [ "${OLDEBUILD}" != "${NEWEBUILD}" ]; then
 		vcs_add ${NEWEBUILD} ${NEWDIGEST}
 	fi
-	if [ ! vcs_is_added Manifest ]; then
+	if ! vcs_is_added Manifest; then
 		vcs_add Manifest
 	fi
 fi
