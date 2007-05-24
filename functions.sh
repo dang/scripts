@@ -20,6 +20,8 @@ usage() {
 	if [ -n "$1" ]; then
 		echo "$@"
 	fi
+	echo ""
+	echo "Usage:"
 	echo "`basename $0` ${myusage}"
 	if [ -n "${LONGUSAGE}" ]; then
 		echo -e "${LONGUSAGE}"
@@ -28,7 +30,52 @@ usage() {
 }
 
 #
-# Script template:
+# Script templates:
+
+#
+# Long options, using getopt(1)
+
+##!/bin/bash
+##
+## Script that does something
+##
+#
+## Set usage output
+#USAGE="[-h |--help] [-k | --kernel] [-f <file> | --file=<file>] [<directories>]"
+#LONGUSAGE="\t-h, --help\n\t\tPrint this help message
+#\t-k, --kernel\n\t\tKernel database (no system includes)
+#\t-f <file>, --file=<file>\n\t\tstore output into <file>
+#\t<directories>\n\t\tDirectories to scan (defaults to '.')"
+#
+## Standard functions
+#source ${HOME}/bin/scripts/functions.sh
+#
+## Script name
+#ME=$(basename $0)
+#
+## Parse arguments
+#ARGS=`getopt -o hkf: --long help,kernel,file: -n "${ME}" -- "$@"`
+#
+#if [ $? != 0 ] ; then
+#	usage 
+#fi
+#eval set -- "$ARGS"
+#
+#while true ; do
+#	case "$1" in
+#		-h|--help) usage; shift ;;
+#		-k|--kernel) KERNEL="yes"; shift ;;
+#		-f|--file) FILE=$2 ; shift 2 ;;
+#		--) shift ; break ;;
+#		* ) usage "Invalid argument $1";;
+#	esac
+#done
+#
+# Remaining arguments are in $1, $2, etc. as normal
+
+
+#
+# Short args using getopts
 
 ##!/bin/bash
 ##
@@ -39,6 +86,7 @@ usage() {
 #USAGE="[-hk] [-f <file>] [<directories>]"
 #LONGUSAGE="\t-h\tPrint this help message
 #\t-k\tKernel database (no system includes)
+#\t-f <file>\store output into <file>
 #\t<directories>\tDirectories to scan (defaults to '.')"
 #
 ## Standard functions
@@ -60,7 +108,6 @@ usage() {
 #fi
 #
 # Remaining arguments are in $1, $2, etc. as normal
-# Detect which VCS is in use
 
 #
 # VCS functions.
