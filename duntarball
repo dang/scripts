@@ -1,74 +1,57 @@
 #!/bin/bash
 #
-# Untar a tarball regardless of it's compression format (or lack thereof)
+# Unpack an archive regardless of it's compression format (or lack thereof)
 #
 
+# Set usage output
+USAGE="[-h |--help] [-p | --patch] [-d <dir> | --directory=<dir>] <archive>"
+LONGUSAGE="\t-h, --help\n\t\tPrint this help message
+\t-p, --patch\n\t\tExtract twice, once with .orig appended to the dir
+\t-d <dir>, --directory=<dir>\n\t\textract to <dir>
+\t<archive>\n\t\tPath to archive to extract"
+
+# Standard functions
 source ${HOME}/bin/scripts/functions.sh
 
-if [ -z "${1}" ]; then
-	die "Usage: ${0} [ --patch ] <tarball>"
+# Script name
+ME=$(basename $0)
+
+# Parse arguments
+ARGS=`getopt -o hpd: --long help,patch,directory: -n "${ME}" -- "$@"`
+
+if [ $? != 0 ] ; then
+	usage
+fi
+eval set -- "$ARGS"
+
+while true ; do
+	case "$1" in
+		-h|--help) usage; shift ;;
+		-p|--patch) PATCH="yes"; shift ;;
+		-d|--directory) DIR=$2 ; shift 2 ;;
+		--) shift ; break ;;
+		* ) usage "Invalid argument $1";;
+	esac
+done
+
+# Remaining arguments are in $1, $2, etc. as normal
+ARCHIVE=${1}
+
+if [ -z ${ARCHIVE} ]; then
+	usage "Must give an archive"
 fi
 
-if [ "${1}" == "--patch" ]; then
-	PATCH="yes"
-	TARBALL=${2}
-else
-	TARBALL=${1}
-fi
-
-if [ -z ${TARBALL} ]; then
-	die "Usage: ${0} [ --patch ] <tarball>"
-fi
-
-FILETYPE=`file "${TARBALL}"`
-
-if echo "${FILETYPE}" | grep gzip >/dev/null; then
-	CMD="tar zpxf"
-	if [ -n "$(echo ${TARBALL} | grep tar)" ]; then
-		EXT=".tar.gz"
-	else
-		EXT=".tgz"
-	fi
-elif echo "${FILETYPE}" | grep bzip2 >/dev/null; then
-	CMD="tar jpxf"
-	if [ -n "$(echo ${TARBALL} | grep tar)" ]; then
-		EXT=".tar.bz2"
-	elif [ -n "$(echo ${TARBALL} | grep tbz2)" ]; then
-		EXT=".tbz2"
-	else
-		EXT=".tbz"
-	fi
-elif echo "${FILETYPE}" | grep tar >/dev/null; then
-	CMD="tar pxf"
-	EXT=".tar"
-elif echo "${FILETYPE}" | grep Zip >/dev/null; then
-	CMD="unzip"
-	EXT=".zip"
-elif echo "${FILETYPE}" | grep RAR >/dev/null; then
-	CMD="unrar e"
-	EXT=".rar"
-else
-	echo "${0}: ${1} not recognized"
-	echo "FILETYPE: ${FILETYPE}"
-	exit
-fi
-
-BASENAME=$(basename ${TARBALL} ${EXT})
-if [ ! -d ${BASENAME} ]; then
-	${CMD} "${TARBALL}" || die "${CMD} failed"
-fi
+TMP=$(tempfile)
+atool -xq --save-outdir=$TMP "${ARCHIVE}" 2>/dev/null
+DIRNAME=$(cat ${TMP})
 
 if [ -n "${PATCH}" ]; then
-	if [ -d ${BASENAME} ]; then
-		# Directory exists; get a .orig
-		TEMPNAME=$(tempfile -d .)
-		rm -f ${TEMPNAME}
-		mv ${BASENAME} ${TEMPNAME} || die "mv ${BASENAME} ${TEMPNAME} failed"
-		${CMD} "${TARBALL}" || die "${CMD} failed"
-		mv ${BASENAME} ${BASENAME}.orig || die "mv failed"
-		mv ${TEMPNAME} ${BASENAME} || die "mv ${TEMPNAME} ${BASENAME} failed"
+	if [ -n "${DIRNAME}" ]; then
+		mv "${DIRNAME}" "${DIRNAME}.orig"
+		atool -xq "${ARCHIVE}" 2>/dev/null
 	else
-		mv ${BASENAME} ${BASENAME}.orig || die "mv failed"
-		${CMD} "${TARBALL}" || die "${CMD} failed"
+		die "Failed to extract .orig version: \"${DIRNAME}\""
 	fi
 fi
+echo ${DIRNAME}
+rm ${TMP}
