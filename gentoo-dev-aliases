@@ -26,24 +26,28 @@ function ebcd() {
 # Usage: dkwstable <ebuild> [<Extra changelog info>]
 # Example: dkwstable clamav-0.88.7.ebuild "for bug #157698"
 function dkwstable {
+	EBUILD=$1
+	shift
 	/usr/bin/cvs up &&
-	ekeyword amd64 $1 &&
-	echangelog "Marked stable on amd64 $2" &&
-	ebuild $1 digest &&
+	ekeyword amd64 ${EBUILD} &&
+	echangelog "Marked stable on amd64 $@" &&
+	ebuild ${EBUILD} digest &&
 	repoman full &&
-	repoman commit --commitmsg "Marked stable on amd64 $2"
+	repoman commit -I --commitmsg "Marked stable on amd64 $@"
 }
 
 # Keyword something unstable on amd64
 # Usage: dkwunstable <ebuild> [<Extra changelog info>]
 # Example: dkwunstable clamav-0.88.7.ebuild "for bug #157698"
 function dkwunstable {
+	EBUILD=$1
+	shift
 	/usr/bin/cvs up &&
-	ekeyword ~amd64 $1 &&
-	echangelog "Marked ~amd64 $2" &&
-	ebuild $1 digest &&
+	ekeyword ~amd64 ${EBUILD} &&
+	echangelog "Marked ~amd64 $@" &&
+	ebuild ${EBUILD} digest &&
 	repoman full &&
-	repoman commit --commitmsg "Marked ~amd64 $2"
+	repoman commit -I --commitmsg "Marked ~amd64 $@"
 }
 
 # Update a package and show it's keywords
@@ -76,7 +80,9 @@ function dkwunstable {
 #
 # Note: Needs eshowkw
 function eshowkwup() {
-	ebcd $*
+	if [ -n "$*" ]; then
+		ebcd $*
+	fi
 	vcs up
 	eshowkw $*
 }
