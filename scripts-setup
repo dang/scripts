@@ -24,34 +24,37 @@ function cmd_exists {
 cmd_exists sed
 cmd_exists git
 
-SCRIPTDIR=${PWD}
-RELSCRIPT=$(echo ${PWD} | sed "s#${HOME}##")
-if [ "${SCRIPTDIR}" != "${RELSCRIPT}" ]; then
-	LNTARGET=".${RELSCRIPT}"
-else
-	LNTARGET=${SCRIPTDIR}
+if [ -z "${1}" ]; then
+	echo "no directory given"
+	die "usage: scripts-setup <directory>"
 fi
 
+if [ "$1" == "." ]; then
+	SCRIPTDIR=${PWD}
+else
+	SCRIPTDIR=$1
+fi
 
 # Check for conflicts
-for i in ${CPFILES} ${LNFILES} scripts; do
+for i in ${LNFILES} scripts; do
 	[ -a "${HOME}/.${i}" ] && die "${HOME}/.${i} exists; not continuing"
 done
 
-if [ ! -d .git ]; then
-	git clone --bare ${REPO} 
+if [ ! -d "${SCRIPTDIR}/.git" ]; then
+	cd $(dirname "${SCRIPTDIR}")
+	git clone ${REPO} $(basename ${SCRIPTDIR})
 fi
-if [ ! -d .git ]; then
+if [ ! -d "${SCRIPTDIR}/.git" ]; then
 	echo "Failed to clone scripts repo from ${REPO}"
 	exit 2
 fi
 
 cd ${HOME}
 # Set up .scripts symlink
-ln -s ${LNTARGET} .scripts
+ln -s ${SCRIPTDIR} .scripts
 
 for FILE in ${CPFILES}; do
-	cp ".scripts/${FILE}" ".${FILE}"
+	[ -a ".${FILE}" ] || cp ".scripts/${FILE}" ".${FILE}"
 done
 for FILE in ${LNFILES}; do
 	ln -s ".scripts/${FILE}" ".${FILE}"
