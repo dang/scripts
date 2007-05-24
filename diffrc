@@ -4,3 +4,4 @@ tags
 *.rej
 CVS
 .#maketags.dfg
+.svn
