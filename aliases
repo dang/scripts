@@ -33,7 +33,7 @@ alias diskusage='sudo du -mx --max-depth 1 . | sort -g'
 # control
 alias j="jobs -l"
 # Linux only
-alias ps="/bin/ps -o user,pid,ppid,class,nice,nlwp,start,stat,tty,rss,cputime,args ww"
+alias ps="/bin/ps -o user,pid,ppid,class,nice,nlwp,sgi_p,start,stat,tty,rss,cputime,args ww"
 function psg {
 				ps --pid $(pgrep -d, -f $*)
 		}
@@ -164,11 +164,16 @@ function mpmulti {
 		mp -fs $i
 	done
 }
-alias mpdeint="mp -vf pp=lp"
+alias mpdeint="mp -vf pp=ci"
 # These are the aliases for things that need root.
 alias reboot="fetchmail -q; sudo chvt 1; sync; sync; sudo shutdown -r now"
 alias halt="sudo shutdown -h now"
-alias suspend="sudo /home/dang/bin/suspend"
+function suspend {
+	# Lock the screen (must be done as me)
+	gnome-screensaver-command -l
+	sudo /home/dang/bin/suspend
+}
+#alias suspend="sudo /home/dang/bin/suspend"
 alias wakeup="sudo kbdrate -r 30"
 
 #
@@ -303,6 +308,21 @@ alias cookieedit="vim ${HOME}/.mozilla/firefox/4rl18vit.default/hostperm.1"
 # Fucking imagemagick has broken font handling
 alias display="display -auto-orient -font '-bitstream-bitstream vera sans-*-r-*-*-*-*-*-*-*-*-iso8859-1'"
 alias xv="display -geometry +0+0 -resize 1278x766"
+
+function reniceX {
+	sudo renice -12 -p $(pgrep X)
+}
+
+function reniceevo {
+#	renice-X
+	sudo renice -10 -p $(pgrep evolution)
+}
+
+# play simialar artists...
+function last_fm_similar {
+	artist=$(echo $* | sed 's/ /+/g')
+	shell-fm lastfm://artist/${artist}/similarartists
+}
 
 # Source other aliases
 
