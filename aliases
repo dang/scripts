@@ -186,7 +186,7 @@ function html {
                 lynx -dump -force_html $* | less
 		}
 alias sprt="enscript --media=Letter -2 -j -G -B --landscape --margins=::40:40"
-eval `dircolors -b ~/bin/scripts/dir_colors` # set up color-ls variables
+eval `dircolors -b ${SCRIPTS}/dir_colors` # set up color-ls variables
 unset autologout
 alias telent=telnet
 
