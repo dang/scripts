@@ -39,10 +39,10 @@ for i in ${CPFILES} ${LNFILES} scripts; do
 done
 
 if [ ! -d .git ]; then
-	git clone ${REPO} .
+	git clone --bare ${REPO} 
 fi
 if [ ! -d .git ]; then
-	echo "Failed to pull scripts repo from ${REPO}"
+	echo "Failed to clone scripts repo from ${REPO}"
 	exit 2
 fi
 
