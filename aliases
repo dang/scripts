@@ -104,7 +104,7 @@ alias diff='/usr/bin/diff --exclude-from="${HOME}/bin/scripts/diffrc" -up'
 alias bc="bc -l"
 #
 # gotta have it
-alias new=". $HOME/.aliases"
+alias new=". ${SCRIPTS}/aliases"
 #
 # Terminal Reset Command -- Fixes screen when it gets messy (ie. wierd font)
 function terr
@@ -324,7 +324,3 @@ function last_fm_similar {
 	shell-fm lastfm://artist/${artist}/similarartists
 }
 
-# Source other aliases
-
-# Gentoo development aliases
-source ${HOME}/bin/scripts/gentoo-dev-aliases
