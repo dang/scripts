@@ -99,12 +99,12 @@ function ws {
 if [ $SHELL = "/bin/ksh" ]; then
 	unalias rm
 fi
-alias diff='/usr/bin/diff --exclude-from="${SCRIPTS}/diffrc" -up'
+alias diff='/usr/bin/diff --exclude-from="${HOME}/.scripts/diffrc" -up'
 # The bloody bc does *integer* math be default!
 alias bc="bc -l"
 #
 # gotta have it
-alias new=". ${SCRIPTS}/aliases"
+alias new=". ${HOME}/.scripts/aliases"
 #
 # Terminal Reset Command -- Fixes screen when it gets messy (ie. wierd font)
 function terr
@@ -186,7 +186,7 @@ function html {
                 lynx -dump -force_html $* | less
 		}
 alias sprt="enscript --media=Letter -2 -j -G -B --landscape --margins=::40:40"
-eval `dircolors -b ${SCRIPTS}/dir_colors` # set up color-ls variables
+eval `dircolors -b ${HOME}/.scripts/dir_colors` # set up color-ls variables
 unset autologout
 alias telent=telnet
 

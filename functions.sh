@@ -48,7 +48,7 @@ usage() {
 #\t<directories>\n\t\tDirectories to scan (defaults to '.')"
 #
 ## Standard functions
-#source ${SCRIPTS}/functions.sh
+#source ${HOME}/.scripts/functions.sh
 #
 ## Script name
 #ME=$(basename $0)
@@ -90,7 +90,7 @@ usage() {
 #\t<directories>\tDirectories to scan (defaults to '.')"
 #
 ## Standard functions
-#source ${SCRIPTS}/functions.sh
+#source ${HOME}/.scripts/functions.sh
 #
 ## Parse arguments
 #while getopts ":hkf:" option; do

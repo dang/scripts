@@ -1,0 +1,61 @@
+#!/bin/bash
+#
+# Setup a new account with the scripts.  To be run in the directory you want the scripts.
+#
+# Requires: git, sed
+#
+
+REPO="git://apollo.fprintf.net/scripts"
+LNFILES="bashrc cvsrc profile gvimrc"
+CPFILES="bash_local vimrc"
+
+function die {
+	echo "$@"
+	exit 1
+}
+
+function cmd_exists {
+	which $1 > /dev/null 2>&1
+	if [ "$?" == "1" ]; then
+		die "You don't have $1 installed, sorry"
+	fi
+}
+
+cmd_exists sed
+cmd_exists git
+
+SCRIPTDIR=${PWD}
+RELSCRIPT=$(echo ${PWD} | sed "s#${HOME}##")
+if [ "${SCRIPTDIR}" != "${RELSCRIPT}" ]; then
+	LNTARGET=".${RELSCRIPT}"
+else
+	LNTARGET=${SCRIPTDIR}
+fi
+
+
+# Check for conflicts
+for i in ${CPFILES} ${LNFILES} scripts; do
+	[ -a "${HOME}/.${i}" ] && die "${HOME}/.${i} exists; not continuing"
+done
+
+if [ ! -d .git ]; then
+	git clone ${REPO} .
+fi
+if [ ! -d .git ]; then
+	echo "Failed to pull scripts repo from ${REPO}"
+	exit 2
+fi
+
+cd ${HOME}
+# Set up .scripts symlink
+ln -s ${LNTARGET} .scripts
+
+for FILE in ${CPFILES}; do
+	cp ".scripts/${FILE}" ".${FILE}"
+done
+for FILE in ${LNFILES}; do
+	ln -s ".scripts/${FILE}" ".${FILE}"
+done
+
+echo "Done."
+echo "You need to edit ${HOME}/.bash_local for your your local settings"

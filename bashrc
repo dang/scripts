@@ -6,11 +6,11 @@
 # git://apollo.fprintf.net/scripts
 export SCRIPTS=${HOME}/bin/scripts
 
-# Set up path.  Need ${SCRIPTS} and ~/bin
-export PATH=${SCRIPTS}:${HOME}/bin:${PATH}
+# Set up path.  Need ${HOME}/.scripts and ~/bin
+export PATH=${HOME}/.scripts:${HOME}/bin:${PATH}
 
 # Set up the main aliases
-source ${SCRIPTS}/aliases
+source ${HOME}/.scripts/aliases
 
 # Give group write by default
 umask 002

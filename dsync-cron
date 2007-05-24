@@ -6,8 +6,8 @@ export HOME=/home/dang
 source ${HOME}/.profile
 
 # Standard functions
-source ${SCRIPTS}/functions.sh
+source ${HOME}/.scripts/functions.sh
 
 # Sync portage
-${SCRIPTS}/dsync || die "dsync failed"
+${HOME}/.scripts/dsync || die "dsync failed"
 date >> ${HOME}/tmp/dsync.timestamps
