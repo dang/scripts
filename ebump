@@ -134,17 +134,20 @@ fi
 
 # Open up the new ebuild and the configure.(in|ac) to check for new deps
 cd ${TMPDIR} || die "No ${TMPDIR}"
-duntarball ${DISTDIR}/${MY_P}.tar.bz2 || duntarball ${DISTDIR}/${MY_P}.tar.gz
-${VIM} -O ${EBUILDDIR}/${NEWEBUILD} ${MY_P}/configure.*
+[ -f ${DISTDIR}/${MY_P}.tar.bz2 ] && EXT="tar.bz2"
+[ -f ${DISTDIR}/${MY_P}.tar.gz ] && EXT="tar.gz"
+[ -f ${DISTDIR}/${MY_P}.tgz ] && EXT="tgz"
+DIRNAME=$(duntarball ${DISTDIR}/${MY_P}.${EXT})
+${VIM} -O ${EBUILDDIR}/${NEWEBUILD} ${DIRNAME}/configure.*
 if [ -n "${CHANGELOG}" ]; then
 	# Want the changelog
 	CLTEMPFILE=$(tempfile)
-	cp ${MY_P}/ChangeLog ${CLTEMPFILE}
+	cp ${DIRNAME}/ChangeLog ${CLTEMPFILE}
 	NTEMPFILE=$(tempfile)
-	cp ${MY_P}/NEWS ${NTEMPFILE}
+	cp ${DIRNAME}/NEWS ${NTEMPFILE}
 fi
 
-rm -rf ${MY_P}
+rm -rf ${DIRNAME}
 cd -
 
 # Now re-digest in case the ebuild changed
