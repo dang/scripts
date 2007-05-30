@@ -215,13 +215,13 @@ function vcs_update() {
 # update something in a VCS, checking the results to see if there's conflicts
 function vcs_update_check_conflicts() {
 	if [ "${VCS}" == "svn" ]; then
-		OUTPUT=`svn up $*` || die "svn update failed"
+		OUTPUT="$(svn up $*)" || die "svn update failed"
 		STATUS=`echo ${OUTPUT} | grep "\<C\>"`
-		echo ${OUTPUT}
+		echo "${OUTPUT}"
 	elif [ "${VCS}" == "cvs" ]; then
-		OUTPUT=`cvs up $*` || die "cvs update failed"
+		OUTPUT="$(cvs up $*)" || die "cvs update failed"
 		STATUS=`echo ${OUTPUT} | grep "\<C\>"`
-		echo ${OUTPUT}
+		echo "${OUTPUT}"
 	else
 		if [ -n "${VCS_FATAL_ERRORS}" ]; then
 			die "Unknown VCS for ${PWD}"
