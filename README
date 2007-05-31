@@ -1,0 +1,9 @@
+dang's scripts
+
+These are my scripts.  I use them for all of my accounts everywhere.  They consist of:
+
+- bash .files (.profile, .bashrc, .bash_local)
+- aliases (aliases, gentoo-dev-aliases)
+- gentoo scripts
+
+See http://apollo.fprintf.net/scripts/ for installation.
