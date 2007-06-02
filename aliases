@@ -147,7 +147,7 @@ function dvd {
 function dvddeint {
 	TITLE=$1
 	shift
-	mp -vop pp=lb dvd://${TITLE} $@
+	mp -vf pp=ci dvd://${TITLE} $@
 	}
 function dvdiso {
 	TITLE=$1
