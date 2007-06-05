@@ -104,7 +104,12 @@ alias diff='/usr/bin/diff --exclude-from="${HOME}/.scripts/diffrc" -up'
 alias bc="bc -l"
 #
 # gotta have it
-alias new=". ${HOME}/.scripts/aliases"
+export ALIASFILES="${HOME}/.scripts/aliases"
+function new {
+	for i in ${ALIASFILES}; do
+		source $i
+	done
+}
 #
 # Terminal Reset Command -- Fixes screen when it gets messy (ie. wierd font)
 function terr
