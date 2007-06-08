@@ -6,7 +6,7 @@
 #
 
 REPO="git://apollo.fprintf.net/scripts"
-LNFILES="bashrc cvsrc profile gvimrc"
+LNFILES="bashrc cvsrc profile gvimrc inputrc"
 CPFILES="bash_local vimrc"
 
 function die {
