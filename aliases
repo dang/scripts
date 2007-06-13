@@ -329,3 +329,9 @@ function last_fm_similar {
 	shell-fm lastfm://artist/${artist}/similarartists
 }
 
+# gpg times out a lot, when getting keys from keyservers; run in a loop
+function gpg_get_key {
+	while ! $(gpg --recv-key $*); do
+		echo "try again"
+	done
+}
