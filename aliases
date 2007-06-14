@@ -35,20 +35,20 @@ alias j="jobs -l"
 # Linux only
 alias ps="/bin/ps -o user,pid,ppid,class,nice,nlwp,sgi_p,start,stat,tty,rss,cputime,args ww"
 function psg {
-				ps --pid $(pgrep -d, -f $*)
+				ps --pid $(pgrep -d, -f $*) | grep $*
 		}
 #function psg {
 #                ps auwwx | head -1;
 #                ps auwwx | grep $* | grep -v grep;
 #		}
 function psu {
-				ps --pid $(pgrep -d, -u $*)
+				ps --pid $(pgrep -d, -u $*) | grep $*
 		}
 function pspid {
-				ps --pid $*
+				ps --pid $* | grep $*
 		}
 alias pss="ps ax | sort | more"
-alias psme="ps ax | grep $USER"
+alias psme="psu $USER"
 alias psall="ps ax"
 function smem {
 				smem.pl $(pidof $*)
