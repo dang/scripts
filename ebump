@@ -14,7 +14,7 @@ TMPDIR="/home/src/build"
 RMOLD="yes"
 
 # Set usage output
-USAGE="[-hbcCkns][-p <portdir>] [-t <tmpdir>] [-d <distdir>]  <basename> <old-version> <new-version>"
+USAGE="[-hbcCknsT][-p <portdir>] [-t <tmpdir>] [-d <distdir>]  <basename> <old-version> <new-version>"
 LONGUSAGE="\t-h\tPrint this help message
 \t-b\tBuild package.
 \t-c\tCommit package when done.
@@ -22,6 +22,7 @@ LONGUSAGE="\t-h\tPrint this help message
 \t-k\tKeep old versions.
 \t-n\tNo VCS interactions
 \t-s\tSave KEYWORDS; don't make all arch ~arch
+\t-T\tDon't run tests
 \t-p <portdir>\tPORTDIR to act on (default ${PORTDIR})
 \t-t <tmpdir>\tTMP directory to extract packages to (default ${TMPDIR})
 \t-d <distdir>\tLocation distfiles are downloaded to (default ${DISTDIR})
@@ -41,6 +42,7 @@ while getopts ":hbcCknsp:d:t:" option; do
 		k ) RMOLD="no";;
 		n ) NOVCS="yes";;
 		s ) SAVEARCH="yes";;
+		T ) NOTESTS="no";;
 		p ) PORTDIR=${OPTARG};;
 		t ) TMPDIR=${OPTARG};;
 		d ) DISTDIR=${OPTARG};;
@@ -153,9 +155,14 @@ cd -
 # Now re-digest in case the ebuild changed
 ebuild ${NEWEBUILD} digest || die "digest failed"
 
+
 if [ -n "${BUILD}" ]; then
 	# We were told to build it
-	emerge --oneshot "=${PORT_CATEGORY}/${PN}-${PVR}" || die "emerge failed"
+	if [ -z "${NOTESTS}" ]; then
+		FEATURES=test emerge --oneshot "=${PORT_CATEGORY}/${PN}-${PVR}" || die "emerge failed"
+	else
+		emerge --oneshot "=${PORT_CATEGORY}/${PN}-${PVR}" || die "emerge failed"
+	fi
 fi
 
 VCS_COMMITFILE=$(tempfile)
