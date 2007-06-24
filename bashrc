@@ -1,11 +1,5 @@
 # skeleton .bashrc
 
-#
-# First set up the scripts dir.  This is where you checked out one of:
-# git+ssh://apollo.fprintf.net/pub/scm/scripts
-# git://apollo.fprintf.net/scripts
-export SCRIPTS=${HOME}/bin/scripts
-
 # Set up path.  Need ${HOME}/.scripts and ~/bin
 export PATH=${HOME}/.scripts:${HOME}/bin:${PATH}
 
