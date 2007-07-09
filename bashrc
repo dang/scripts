@@ -68,6 +68,3 @@ ulimit -c ${CORESIZE}
 
 # ssh/gpg
 eval `keychain --quiet --eval`
-
-# funny...
-fortune -a
