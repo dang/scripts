@@ -76,7 +76,7 @@ if has("cscope")
 	endif
 	set csverb
 	map <C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
-	function Csre()
+	function Csrebuild()
 		if filereadable('.#maketags.dfg')
 			silent !sh .\#maketags.dfg
 		else
@@ -86,8 +86,17 @@ if has("cscope")
 		cs kill 0
 		cs add cscope.out
 		set csverb
+		redraw!
 	endfunction
-	command Csre call Csre()
+	command Csrebuild call Csrebuild()
+	function Csload()
+		set nocsverb
+		cs kill 0
+		cs add cscope.out
+		set csverb
+		redraw!
+	endfunction
+	command Csload call Csload()
 endif
 map <F4> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
@@ -131,6 +140,7 @@ autocmd BufNewFile,BufRead *.ksh  set tw=0
 autocmd BufNewFile,BufRead *.conf  set tw=0
 autocmd BufNewFile,BufRead distbuild  set tw=0
 autocmd BufNewFile,BufRead *.doxygen setfiletype doxygen
+autocmd BufNewFile,BufRead *.stderr setfiletype gcc
 if version >= 500
 
   " I like highlighting strings inside C comments
@@ -191,7 +201,7 @@ if version >= 500
   highlight Comment	ctermfg=blue
   highlight Constant	ctermfg=darkred
   highlight Special	ctermfg=darkmagenta
-  highlight Identifier	ctermfg=darkcyan
+  highlight Identifier	cterm=NONE	ctermfg=darkcyan
   highlight Statement	ctermfg=yellow 
   highlight PreProc	ctermfg=magenta 
   highlight Type	ctermfg=green 
