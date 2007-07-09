@@ -14,5 +14,6 @@
 
 # This is a gentoo development box, set up the gentoo aliases here
 #source ${HOME}/.scripts/gentoo-dev-aliases
+#export ALIASFILES="${ALIASFILES} ${HOME}/.scripts/gentoo-dev-aliases"
 # and allow core files
 #CORESIZE=unlimited
