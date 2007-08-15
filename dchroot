@@ -15,7 +15,7 @@
 BASEDIR="/home/chroots"
 
 # Set usage output
-USAGE="[-h |--help] [-a | --autostop] [-o | --overlays] [-p | --noportage] [-s | --noscreen ] [-b <basedir> | --basedir=<basedir>] <chrootname> start | stop"
+USAGE="[-h |--help] [-a | --autostop] [-o | --overlays] [-p | --noportage] [-s | --noscreen ] [-b <basedir> | --basedir=<basedir>] <chrootname> start | stop | join"
 LONGUSAGE="\t-h, --help\n\t\tPrint this help message
 \t-a, --autostop\n\t\tAutomatically stop when screen exits
 \t-o, --overlays\n\t\tMount overlays too
@@ -23,7 +23,7 @@ LONGUSAGE="\t-h, --help\n\t\tPrint this help message
 \t-s, --noscreen\n\t\tDon't start screen
 \t-b <basedir>, --basedir=<basedir>\n\t\tSet the base directory for chroots
 \t<chrootname>\n\t\tName of the chroot
-\tstart | stop\n\t\tStart or stop the chroot"
+\tstart | stop | join\n\t\tStart, stop, or join the chroot"
 
 # Standard functions
 source ${HOME}/.scripts/functions.sh
@@ -58,7 +58,7 @@ fi
 CHROOTNAME=${1}
 
 if [ -z "${2}" ]; then
-	usage "Must give start or stop"
+	usage "Must give start, stop, or join"
 fi
 CMD=${2}
 
@@ -66,7 +66,6 @@ SYS_MOUNT_DIRS="/proc /dev"
 
 if [ -f ${HOME}/.dchroot/rc.d/${CHROOTNAME} ]; then
 	source ${HOME}/.dchroot/rc.d/${CHROOTNAME}
-	echo "sourcing..."
 fi
 
 CHROOTDIR="${BASEDIR}/${CHROOTNAME}"
@@ -102,6 +101,10 @@ if [ -z "${NOPORTAGE}" ]; then
 	fi
 fi
 
+if [ -z "${NOSCREEN}" ]; then
+	SCREEN="screen -S ${CHROOTNAME} -t ${CHROOTNAME}"
+fi
+
 function start() 
 {
 	# Mount system directories
@@ -116,9 +119,6 @@ function start()
 	
 	# Now, start screen and chroot
 	cd ${BUILDDIR}
-	if [ -z "${NOSCREEN}" ]; then
-		SCREEN="screen -S ${CHROOTNAME} -t ${CHROOTNAME}"
-	fi
 	${SCREEN} sudo -H chroot ${CHROOTDIR} /bin/bash -l
 
 	if [ -n "${AUTOSTOP}" ]; then
@@ -149,12 +149,26 @@ function stop()
 	fi
 }
 
+function join()
+{
+	if [ -z "$(grep ${BASEDIR} /proc/mounts)" ]; then
+		die "${ME} ${BASENAME} is not running; use \"start\" rather than \"join\""
+	fi
+
+	# Now, start screen and chroot
+	cd ${BUILDDIR}
+	${SCREEN} sudo -H chroot ${CHROOTDIR} /bin/bash -l
+}
+
 case "${CMD}" in
 	start)
 		start
 		;;
 	stop)
 		stop
+		;;
+	join)
+		join
 		;;
 	*)
 		usage "unknown command ${CMD}"
