@@ -62,7 +62,7 @@ if [ -z "${2}" ]; then
 fi
 CMD=${2}
 
-SYS_MOUNT_DIRS="/proc"
+SYS_MOUNT_DIRS="/proc /dev"
 
 if [ -f ${HOME}/.dchroot/rc.d/${CHROOTNAME} ]; then
 	source ${HOME}/.dchroot/rc.d/${CHROOTNAME}
