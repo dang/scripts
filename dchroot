@@ -3,6 +3,15 @@
 # Chroot script
 #
 
+#
+# You can make a directory tree in ${HOME}/.dchroot/rc.d/ containing files named for chroots.  These
+# will be sourced,  allowing you to make local, persistant modifications.  The most useful
+# things to do here are:
+#
+# Set USER_MOUNT_DIRS to a space separated string of directories to bind-mount into the chroot
+# Set BASEDIR to some other base directory
+# Set NOPORTAGE, NOSCREEN, AUTOSTOP, or OVERLAYS to avoid having to use command line options
+
 BASEDIR="/home/chroots"
 
 # Set usage output
@@ -35,8 +44,8 @@ while true ; do
 		-h|--help) usage; shift ;;
 		-a|--autostop) AUTOSTOP="yes"; shift ;;
 		-o|--overlays) OVERLAYS="yes"; shift ;;
-		-p|--noportage) NOPORTAGE="no"; shift ;;
-		-s|--noscreen) NOSCREEN="no"; shift ;;
+		-p|--noportage) NOPORTAGE="yes"; shift ;;
+		-s|--noscreen) NOSCREEN="yes"; shift ;;
 		-b|--basedir) BASEDIR=$2 ; shift 2 ;;
 		--) shift ; break ;;
 		* ) usage "Invalid argument $1";;
