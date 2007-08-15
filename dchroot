@@ -1,0 +1,154 @@
+#!/bin/bash
+#
+# Chroot script
+#
+
+BASEDIR="/home/chroots"
+
+# Set usage output
+USAGE="[-h |--help] [-a | --autostop] [-o | --overlays] [-p | --noportage] [-s | --noscreen ] [-b <basedir> | --basedir=<basedir>] <chrootname> start | stop"
+LONGUSAGE="\t-h, --help\n\t\tPrint this help message
+\t-a, --autostop\n\t\tAutomatically stop when screen exits
+\t-o, --overlays\n\t\tMount overlays too
+\t-p, --noportage\n\t\tDon't mount portage directories
+\t-s, --noscreen\n\t\tDon't start screen
+\t-b <basedir>, --basedir=<basedir>\n\t\tSet the base directory for chroots
+\t<chrootname>\n\t\tName of the chroot
+\tstart | stop\n\t\tStart or stop the chroot"
+
+# Standard functions
+source ${HOME}/.scripts/functions.sh
+
+# Script name
+ME=$(basename $0)
+
+# Parse arguments
+ARGS=`getopt -o haopsb: --long help,autostop,overlays,noportage,noscreen,basedir: -n "${ME}" -- "$@"`
+
+if [ $? != 0 ] ; then
+	usage 
+fi
+eval set -- "$ARGS"
+
+while true ; do
+	case "$1" in
+		-h|--help) usage; shift ;;
+		-a|--autostop) AUTOSTOP="yes"; shift ;;
+		-o|--overlays) OVERLAYS="yes"; shift ;;
+		-p|--noportage) NOPORTAGE="no"; shift ;;
+		-s|--noscreen) NOSCREEN="no"; shift ;;
+		-b|--basedir) BASEDIR=$2 ; shift 2 ;;
+		--) shift ; break ;;
+		* ) usage "Invalid argument $1";;
+	esac
+done
+
+if [ -z "${1}" ]; then
+	usage "Must give chrootname"
+fi
+CHROOTNAME=${1}
+
+if [ -z "${2}" ]; then
+	usage "Must give start or stop"
+fi
+CMD=${2}
+
+SYS_MOUNT_DIRS="/proc"
+
+if [ -f ${HOME}/.dchroot/rc.d/${CHROOTNAME} ]; then
+	source ${HOME}/.dchroot/rc.d/${CHROOTNAME}
+	echo "sourcing..."
+fi
+
+CHROOTDIR="${BASEDIR}/${CHROOTNAME}"
+if [ ! -d ${CHROOTDIR} ]; then
+	usage "${CHROOTDIR} does't exist"
+fi
+
+if [ -z "${NOPORTAGE}" ]; then
+	source ${BASEDIR}/${CHROOTNAME}/etc/make.globals
+	source ${BASEDIR}/${CHROOTNAME}/etc/make.conf
+	# Re-source after portage stuff, so that it can override
+	if [ -f ${HOME}/.dchroot.rc.d/${CHROOTNAME} ]; then
+		source ${HOME}/.dchroot.rc.d/${CHROOTNAME}
+	fi
+	
+	if [ -z "${PORTDIR}" ]; then
+		die "No PORTDIR.  Are /etc/make.globals and /etc/make.conf broken?"
+	fi
+	SYS_MOUNT_DIRS="${SYS_MOUNT_DIRS} ${PORTDIR}"
+	if [ -z "${PORTAGE_TMPDIR}" ]; then
+		die "No PORTAGE_TMPDIR.  Are /etc/make.globals and /etc/make.conf broken?"
+	fi
+	SYS_MOUNT_DIRS="${SYS_MOUNT_DIRS} ${PORTAGE_TMPDIR}"
+	if [ -z "${DISTDIR}" ]; then
+		die "No DISTDIR.  Are /etc/make.globals and /etc/make.conf broken?"
+	fi
+	SYS_MOUNT_DIRS="${SYS_MOUNT_DIRS} ${DISTDIR}"
+
+	if [ -n "${OVERLAYS}" ]; then
+		for dir in ${PORTDIR_OVERLAY}; do
+			SYS_MOUNT_DIRS="${SYS_MOUNT_DIRS} ${dir}"
+		done
+	fi
+fi
+
+function start() 
+{
+	# Mount system directories
+	for dir in ${SYS_MOUNT_DIRS}; do
+		sudo mount -o bind ${dir} ${CHROOTDIR}/${dir} || die "Mount of ${dir} failed"
+	done
+	# Mount user directories
+	for dir in ${USER_MOUNT_DIRS}; do
+		sudo mount -o bind ${dir} ${CHROOTDIR}/${dir} || die "Mount of ${dir} failed"
+	done
+	sudo cp /etc/resolv.conf ${CHROOTDIR}/etc || die "Couldn't cp /etc/resolv.conf"
+	
+	# Now, start screen and chroot
+	cd ${BUILDDIR}
+	if [ -z "${NOSCREEN}" ]; then
+		SCREEN="screen -S ${CHROOTNAME} -t ${CHROOTNAME}"
+	fi
+	${SCREEN} sudo -H chroot ${CHROOTDIR} /bin/bash -l
+
+	if [ -n "${AUTOSTOP}" ]; then
+		stop
+	fi
+}
+
+function stop() 
+{
+	SCREENUP=$(screen -ls | grep ${CHROOTNAME} | awk '{print $1}')
+	if [ -n "${SCREENUP}" ]; then
+		screen -S ${SCREENUP} -X quit
+	fi
+	# Unmount system directories
+	for dir in ${SYS_MOUNT_DIRS}; do
+		UMOUNT_DIRS="${UMOUNT_DIRS} ${CHROOTDIR}/${dir}"
+	done
+	# Mount user directories
+	for dir in ${USER_MOUNT_DIRS}; do
+		UMOUNT_DIRS="${UMOUNT_DIRS} ${CHROOTDIR}/${dir}"
+	done
+	sudo umount ${UMOUNT_DIRS} > /dev/null 2>&1
+
+	# catchall
+	DIRS=$(grep ${BASEDIR} /proc/mounts | awk '{print $2}')
+	if [ ! -z "${DIRS}" ]; then
+		sudo umount ${DIRS}
+	fi
+}
+
+case "${CMD}" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	*)
+		usage "unknown command ${CMD}"
+		;;
+esac
+	
