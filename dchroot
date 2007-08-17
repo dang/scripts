@@ -119,7 +119,7 @@ function start()
 	
 	# Now, start screen and chroot
 	cd ${BUILDDIR}
-	${SCREEN} sudo -H chroot ${CHROOTDIR} /bin/bash -l
+	${USER_PRE_COMMAND} ${SCREEN} sudo -H chroot ${CHROOTDIR} /bin/bash -l
 
 	if [ -n "${AUTOSTOP}" ]; then
 		stop
