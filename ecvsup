@@ -8,6 +8,8 @@ LONGUSAGE="\t-h\tPrint this help message
 \t-f\tFast update (no metadata regen)
 \t-n\tSkip updating overlays"
 
+HERDSXMLDIR="/home/os/gentoo/gentoo/xml/htdocs/proj/en/metastructure/herds"
+
 # Standard functions
 source ${HOME}/.scripts/functions.sh
 
@@ -37,6 +39,8 @@ if [ -z "${NOOVERLAYS}" ]; then
 		vcs_update
 	done
 fi
+cd ${HERDSXMLDIR} || die "${HERDSXMLDIR} doesn't exist"
+vcs up herds.xml || die "Failed to update herds.xml"
 if [ -z "${FAST}" ]; then
 	sudo emerge --regen || die "emerge regen failed"
 	sudo emerge --metadata || die "emerge metadata failed"
