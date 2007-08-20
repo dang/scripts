@@ -11,6 +11,7 @@
 # Set USER_MOUNT_DIRS to a space separated string of directories to bind-mount into the chroot
 # Set BASEDIR to some other base directory
 # Set NOPORTAGE, NOSCREEN, AUTOSTOP, or OVERLAYS to avoid having to use command line options
+# Set USER_PRE_COMMAND to some command to run before chroot, say "linux32"
 
 BASEDIR="/home/chroots"
 
@@ -119,7 +120,7 @@ function start()
 	
 	# Now, start screen and chroot
 	cd ${BUILDDIR}
-	${USER_PRE_COMMAND} ${SCREEN} sudo -H chroot ${CHROOTDIR} /bin/bash -l
+	${SCREEN} ${USER_PRE_COMMAND} sudo -H chroot ${CHROOTDIR} /bin/bash -l
 
 	if [ -n "${AUTOSTOP}" ]; then
 		stop
