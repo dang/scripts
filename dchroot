@@ -144,7 +144,7 @@ function stop()
 	sudo umount ${UMOUNT_DIRS} > /dev/null 2>&1
 
 	# catchall
-	DIRS=$(grep ${BASEDIR} /proc/mounts | awk '{print $2}')
+	DIRS=$(grep ${CHROOTDIR} /proc/mounts | awk '{print $2}')
 	if [ ! -z "${DIRS}" ]; then
 		sudo umount ${DIRS}
 	fi
@@ -152,7 +152,7 @@ function stop()
 
 function join()
 {
-	if [ -z "$(grep ${BASEDIR} /proc/mounts)" ]; then
+	if [ -z "$(grep ${CHROOTDIR} /proc/mounts)" ]; then
 		die "${ME} ${BASENAME} is not running; use \"start\" rather than \"join\""
 	fi
 
