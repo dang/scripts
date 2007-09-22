@@ -114,6 +114,7 @@ usage() {
 # These functions wrap svn/cvs/etc, so that scripts don't have to care
 
 # Set VCS_FATAL_ERRORS if you want errors to be fatal.
+# Set VCS_FAKE if you want file operations without actual VCS operations
 
 # VCS - default to unknown
 VCS="unknown"
@@ -127,48 +128,75 @@ function vcs_detect() {
 		VCS="cvs"
 	fi
 
+	if [ -n "${VCS_FAKE}" ]; then
+		VCS="fake"
+	fi
+
 	if [ "${VCS}" == "unknown" ]; then
 		if [ -n "${VCS_FATAL_ERRORS}" ]; then
 			die "Unknown VCS for ${PWD}"
 		else
 			echo "Unknown VCS for ${PWD}"
+			VCS="fake"
 		fi
 	fi
 }
 
 # Delete something from a VCS
 function vcs_rm() {
-	if [ "${VCS}" == "svn" ]; then
-		svn rm --force $* || die "svn rm failed"
-	elif [ "${VCS}" == "cvs" ]; then
-		for i in $*; do
-			if [ ! -d "${i}" ]; then
-				rm ${i} || die "cvs rm failed (rm)"
+	case "${VCS}" in
+		svn)
+			svn rm --force $* || die "svn rm failed"
+			;;
+		cvs)
+			for i in $*; do
+				if [ ! -d "${i}" ]; then
+					rm ${i} || die "cvs rm failed (rm)"
+				fi
+			done
+			cvs rm $* || die "cvs rm failed (cvs rm)"
+			;;
+		fake)
+			for i in $*; do
+				if [ ! -d "${i}" ]; then
+					rm ${i} || die "rm $i failed"
+				fi
+			done
+			for i in $*; do
+				if [ -d "${i}" ]; then
+					rmdir ${i} || die "rmdir $i failed"
+				fi
+			done
+			;;
+		*)
+			if [ -n "${VCS_FATAL_ERRORS}" ]; then
+				die "Unknown VCS for ${PWD}"
+			else
+				echo "Unknown VCS for ${PWD}"
 			fi
-		done
-		cvs rm $* || die "cvs rm failed (cvs rm)"
-	else
-		if [ -n "${VCS_FATAL_ERRORS}" ]; then
-			die "Unknown VCS for ${PWD}"
-		else
-			echo "Unknown VCS for ${PWD}"
-		fi
-	fi
+			;;
+	esac
 }
 
 # Add something to a VCS
 function vcs_add() {
-	if [ "${VCS}" == "svn" ]; then
-		svn add $* || die "svn add failed"
-	elif [ "${VCS}" == "cvs" ]; then
-		cvs add $* || die "cvs add failed"
-	else
-		if [ -n "${VCS_FATAL_ERRORS}" ]; then
-			die "Unknown VCS for ${PWD}"
-		else
-			echo "Unknown VCS for ${PWD}"
-		fi
-	fi
+	case "${VCS}" in
+		svn)
+			svn add $* || die "svn add failed"
+			;;
+		cvs)
+			cvs add $* || die "cvs add failed"
+			;;
+		fake)
+			;;
+		*)
+			if [ -n "${VCS_FATAL_ERRORS}" ]; then
+				die "Unknown VCS for ${PWD}"
+			else
+				echo "Unknown VCS for ${PWD}"
+			fi
+			;;
+	esac
 }
 
 # commit something to a VCS
@@ -176,101 +204,141 @@ function vcs_add() {
 # file with the commit message.  Use VCS_REPOMAN_OPTS to pass options to
 # repoman.
 function vcs_commit() {
-	if [ "${VCS}" == "svn" ]; then
-		if [ -n "${VCS_COMMITFILE}" ]; then
-			svn commit -F "${VCS_COMMITFILE}" $* || die "svn commit failed"
-		else
-			svn commit -m "${VCS_COMMITMSG}" $* || die "svn commit failed"
-		fi
-	elif [ "${VCS}" == "cvs" ]; then
-		if [ -n "${VCS_COMMITFILE}" ]; then
-			repoman ${VCS_REPOMAN_OPTS} --commitmsgfile "${VCS_COMMITFILE}" commit $* || die "cvs comit failed"
-		else
-			repoman ${VCS_REPOMAN_OPTS} --commitmsg "${VCS_COMMITMSG}" commit $* || die "cvs comit failed"
-		fi
-	else
-		if [ -n "${VCS_FATAL_ERRORS}" ]; then
-			die "Unknown VCS for ${PWD}"
-		else
-			echo "Unknown VCS for ${PWD}"
-		fi
-	fi
+	case "${VCS}" in
+		svn)
+			if [ -n "${VCS_COMMITFILE}" ]; then
+				svn commit -F "${VCS_COMMITFILE}" $* || die "svn commit failed"
+			else
+				svn commit -m "${VCS_COMMITMSG}" $* || die "svn commit failed"
+			fi
+			;;
+		cvs)
+			if [ -n "${VCS_COMMITFILE}" ]; then
+				repoman ${VCS_REPOMAN_OPTS} --commitmsgfile "${VCS_COMMITFILE}" commit $* || die "cvs comit failed"
+			else
+				repoman ${VCS_REPOMAN_OPTS} --commitmsg "${VCS_COMMITMSG}" commit $* || die "cvs comit failed"
+			fi
+			;;
+		fake)
+			;;
+		*)
+			if [ -n "${VCS_FATAL_ERRORS}" ]; then
+				die "Unknown VCS for ${PWD}"
+			else
+				echo "Unknown VCS for ${PWD}"
+			fi
+			;;
+	esac
 }
 
 # update something in a VCS
 function vcs_update() {
-	if [ "${VCS}" == "svn" ]; then
-		svn up $* || die "svn update failed"
-	elif [ "${VCS}" == "cvs" ]; then
-		cvs up $* || die "cvs update failed"
-	else
-		if [ -n "${VCS_FATAL_ERRORS}" ]; then
-			die "Unknown VCS for ${PWD}"
-		else
-			echo "Unknown VCS for ${PWD}"
-		fi
-	fi
+	case "${VCS}" in
+		svn)
+			svn up $* || die "svn update failed"
+			;;
+		cvs)
+			cvs up $* || die "cvs update failed"
+			;;
+		fake)
+			;;
+		*)
+			if [ -n "${VCS_FATAL_ERRORS}" ]; then
+				die "Unknown VCS for ${PWD}"
+			else
+				echo "Unknown VCS for ${PWD}"
+			fi
+			;;
+	esac
 }
 
 # update something in a VCS, checking the results to see if there's conflicts
 function vcs_update_check_conflicts() {
-	if [ "${VCS}" == "svn" ]; then
-		OUTPUT="$(svn up $*)" || die "svn update failed"
-		STATUS=`echo ${OUTPUT} | grep "\<C\>"`
-		echo "${OUTPUT}"
-	elif [ "${VCS}" == "cvs" ]; then
-		OUTPUT="$(cvs up $*)" || die "cvs update failed"
-		STATUS=`echo ${OUTPUT} | grep "\<C\>"`
-		echo "${OUTPUT}"
-	else
-		if [ -n "${VCS_FATAL_ERRORS}" ]; then
-			die "Unknown VCS for ${PWD}"
-		else
-			echo "Unknown VCS for ${PWD}"
-		fi
-	fi
-	if [ -n "${STATUS}" ]; then
-		die "There were conflicts"
-	fi
+	case "${VCS}" in
+		svn)
+			OUTPUT="$(svn up $*)" || die "svn update failed"
+			STATUS=`echo ${OUTPUT} | grep "\<C\>"`
+			echo "${OUTPUT}"
+			;;
+		cvs)
+			OUTPUT="$(cvs up $*)" || die "cvs update failed"
+			STATUS=`echo ${OUTPUT} | grep "\<C\>"`
+			echo "${OUTPUT}"
+			;;
+		fake)
+			;;
+		*)
+			if [ -n "${VCS_FATAL_ERRORS}" ]; then
+				die "Unknown VCS for ${PWD}"
+			else
+				echo "Unknown VCS for ${PWD}"
+			fi
+			;;
+	esac
 }
 
 # get status on something in a VCS
 function vcs_status() {
-	if [ "${VCS}" == "svn" ]; then
-		svn status $* || die "svn status failed"
-	elif [ "${VCS}" == "cvs" ]; then
-		cvs -nq up $* || die "cvs status failed"
-	else
-		if [ -n "${VCS_FATAL_ERRORS}" ]; then
-			die "Unknown VCS for ${PWD}"
-		else
-			echo "Unknown VCS for ${PWD}"
-		fi
-	fi
+	case "${VCS}" in
+		svn)
+			svn status $* || die "svn status failed"
+			;;
+		cvs)
+			cvs -nq up $* || die "cvs status failed"
+			;;
+		fake)
+			;;
+		*)
+			if [ -n "${VCS_FATAL_ERRORS}" ]; then
+				die "Unknown VCS for ${PWD}"
+			else
+				echo "Unknown VCS for ${PWD}"
+			fi
+			;;
+	esac
 }
 
 # diff something in a VCS
 function vcs_diff() {
-	if [ "${VCS}" == "svn" ]; then
-		svn diff $* || die "svn diff failed"
-	elif [ "${VCS}" == "cvs" ]; then
-		cvs diff $* || die "cvs diff failed"
-	else
-		if [ -n "${VCS_FATAL_ERRORS}" ]; then
-			die "Unknown VCS for ${PWD}"
-		else
-			echo "Unknown VCS for ${PWD}"
-		fi
-	fi
+	case "${VCS}" in
+		svn)
+			svn diff $* || die "svn diff failed"
+			;;
+		cvs)
+			cvs diff $* || die "cvs diff failed"
+			;;
+		fake)
+			;;
+		*)
+			if [ -n "${VCS_FATAL_ERRORS}" ]; then
+				die "Unknown VCS for ${PWD}"
+			else
+				echo "Unknown VCS for ${PWD}"
+			fi
+			;;
+	esac
 }
 
 # Do a changelog
 function vcs_echangelog() { 
-	if [ "${VCS}" == "cvs" ]; then
-		VCS_ECHANGELOG=echangelog
-	else
-		VCS_ECHANGELOG=echangelog-tng
-	fi
+	case "${VCS}" in
+		svn)
+			VCS_ECHANGELOG=echangelog
+			;;
+		cvs)
+			VCS_ECHANGELOG=echangelog-tng
+			;;
+		fake)
+			VCS_ECHANGELOG=echangelog
+			;;
+		*)
+			if [ -n "${VCS_FATAL_ERRORS}" ]; then
+				die "Unknown VCS for ${PWD}"
+			else
+				echo "Unknown VCS for ${PWD}"
+			fi
+			;;
+	esac
 
 	if [ -n "${VCS_COMMITFILE}" ]; then
 		ECHANGELOG_EDITOR= ${VCS_ECHANGELOG} < ${VCS_COMMITFILE} || die "${VCS_ECHANGELOG} failed"
@@ -281,19 +349,52 @@ function vcs_echangelog() {
 
 # See if a file is under version control
 function vcs_is_added() {
-	if [ "${VCS}" == "svn" ]; then
-		OUTPUT=$(svn info $@ | grep Path:)
-	elif [ "${VCS}" == "cvs" ]; then
-		OUTPUT=$(cvs status $@ 2>/dev/null | grep Status | grep -v Unknown)
-	else
-		if [ -n "${VCS_FATAL_ERRORS}" ]; then
-			die "Unknown VCS for ${PWD}"
-		else
-			echo "Unknown VCS for ${PWD}"
-		fi
-	fi
+	case "${VCS}" in
+		svn)
+			OUTPUT=$(svn info $@ | grep Path:)
+			;;
+		cvs)
+			OUTPUT=$(cvs status $@ 2>/dev/null | grep Status | grep -v Unknown)
+			;;
+		fake)
+			OUTPUT="foo"
+			;;
+		*)
+			if [ -n "${VCS_FATAL_ERRORS}" ]; then
+				die "Unknown VCS for ${PWD}"
+			else
+				echo "Unknown VCS for ${PWD}"
+			fi
+			;;
+	esac
+
 	if [ -z "${OUTPUT}" ]; then
 		return 1
 	fi
 	return 0
+}
+
+# Move a file from one name to another
+function vcs_mv() {
+	case "${VCS}" in
+		svn)
+			svn mv $1 $2 || die "svn mv failed"
+			;;
+		cvs)
+			# CVS doesn't do move...
+			cp $1 $2 || die "cp failed"
+			vcs_add $2 || die "cvs add failed"
+			vcs_rm $1 || die "cvs rm failed"
+			;;
+		fake)
+			mv $1 $2 || die "mv failed"
+			;;
+		*)
+			if [ -n "${VCS_FATAL_ERRORS}" ]; then
+				die "Unknown VCS for ${PWD}"
+			else
+				echo "Unknown VCS for ${PWD}"
+			fi
+			;;
+	esac
 }
