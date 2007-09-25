@@ -326,10 +326,10 @@ function vcs_echangelog() {
 			VCS_ECHANGELOG=echangelog
 			;;
 		cvs)
-			VCS_ECHANGELOG=echangelog-tng
+			VCS_ECHANGELOG=echangelog
 			;;
 		fake)
-			VCS_ECHANGELOG=echangelog
+			VCS_ECHANGELOG="echo fake " 
 			;;
 		*)
 			if [ -n "${VCS_FATAL_ERRORS}" ]; then
