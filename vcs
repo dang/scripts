@@ -21,7 +21,8 @@ LONGUSAGE="\t-h\tPrint this help message
 \t\tup [<files>]\tUpdate files
 \t\tstatus [<files>]\tGet status on files
 \t\tdiff [<files>]\tDiff files
-\t\tmv <source> <dest>\tmove a file"
+\t\tmv <source> <dest>\tmove a file
+\t\tcp <source> <dest>\tcopy a file"
 
 # Standard functions
 source ${HOME}/.scripts/functions.sh
@@ -83,7 +84,7 @@ case "${CMD}" in
 	diff)
 		FILES="$@"
 		;;
-	mv)
+	mv|cp)
 		if [ -z "$1" ]; then
 			usage "${CMD} needs files"
 		fi
@@ -145,6 +146,13 @@ case "${CMD}" in
 			echo vcs_mv ${@}
 		else
 			vcs_mv ${@}
+		fi
+		;;
+	cp)
+		if [ "${PRETEND}" == "yes" ]; then
+			echo vcs_cp ${@}
+		else
+			vcs_cp ${@}
 		fi
 		;;
 esac

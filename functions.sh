@@ -398,3 +398,26 @@ function vcs_mv() {
 			;;
 	esac
 }
+# Copy a file from one name to another
+function vcs_cp() {
+	case "${VCS}" in
+		svn)
+			svn cp $1 $2 || die "svn cp failed"
+			;;
+		cvs)
+			# CVS doesn't do copy...
+			cp $1 $2 || die "cp failed"
+			vcs_add $2 || die "cvs add failed"
+			;;
+		fake)
+			cp $1 $2 || die "cp failed"
+			;;
+		*)
+			if [ -n "${VCS_FATAL_ERRORS}" ]; then
+				die "Unknown VCS for ${PWD}"
+			else
+				echo "Unknown VCS for ${PWD}"
+			fi
+			;;
+	esac
+}
