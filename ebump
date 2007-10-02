@@ -14,7 +14,7 @@ TMPDIR="/home/src/build"
 RMOLD="yes"
 
 # Set usage output
-USAGE="[-hbcCknsT][-p <portdir>] [-t <tmpdir>] [-d <distdir>]  <basename> <old-version> <new-version>"
+USAGE="[-hbcCknsT][-p <portdir>] [-t <tmpdir>] [-d <distdir>]  [<basename> <old-version> <new-version>]"
 LONGUSAGE="\t-h\tPrint this help message
 \t-b\tBuild package.
 \t-c\tCommit package when done.
@@ -28,19 +28,20 @@ LONGUSAGE="\t-h\tPrint this help message
 \t-d <distdir>\tLocation distfiles are downloaded to (default ${DISTDIR})
 \t<basename>\tName of package (\${P})
 \t<old-version>\tOld package version (old \${PVR})
-\t<new-version>\tNew package version (new \${PVR})"
+\t<new-version>\tNew package version (new \${PVR})
+\tIf none of <basename> <old-version> <new-version> is given, ebump tries to guess what to bump"
 
 # Standard functions
 source ${HOME}/.scripts/functions.sh
 
 # Parse arguments
-while getopts ":hbcCknsp:d:t:" option; do
+while getopts ":hbcCknsp:d:t:T" option; do
 	case ${option} in
 		b ) BUILD="yes";;
 		c ) COMMIT="yes";;
 		C ) CHANGELOG="yes";;
 		k ) RMOLD="no";;
-		n ) NOVCS="yes";;
+		n ) VCS_FAKE="yes";;
 		s ) SAVEARCH="yes";;
 		T ) NOTESTS="no";;
 		p ) PORTDIR=${OPTARG};;
@@ -57,12 +58,34 @@ if [ "${OPTIND}" != "0" ]; then
 fi
 
 if [ -z "$3" ]; then
-	usage "Missing arguments"
+	usage "You must give package information"
+	exit
+	# Try to guess...
+	TMPNAME=$(/bin/ls *.ebuild)
+	FOUND=no
+	for i in ${TMPNAME}; do
+		if [ "${FOUND}" != "no" ]; then
+			usage "Could not get ebuild to bump; please specify"
+		fi
+		FOUND=$i
+	done
+	TMPNAME=$(basename ${FOUND} .ebuild)
+	PN=$(splitname pn ${TMPNAME})
+	OLD_PVR=$(splitname pvr ${TMPNAME})
+	rev=$(splitname revision ${TMPNAME})
+	if [ "${rev}" == "0" ]; then
+		# No -r revision; bump the last number in version
+		PV=$(splitname pv ${TMPNAME})
+	else
+		# bump -r
+		((rev++))
+		PVR="$(splitname pv ${TMPNAME})-r${rev}"
+	fi
+else
+	PN=$1
+	OLD_PVR=$2
+	PVR=$3
 fi
-
-PN=$1
-OLD_PVR=$2
-PVR=$3
 
 OLD_PF=${PN}-${OLD_PVR}
 PF=${PN}-${PVR}
@@ -88,11 +111,8 @@ if [ "${OLDDIGEST}" != "${NEWDIGEST}" ]; then
 	[ -f ${OLDDIGEST} ] || die "${OLDDIGEST} doesn't exist"
 fi
 
-if [ -z "${NOVCS}" ]; then
-	vcs_detect
-	vcs_update
-fi
-
+vcs_detect
+vcs_update
 
 # Source the ebuild to get MY_P if it exists
 source ${OLDEBUILD}
@@ -110,29 +130,24 @@ echo "Adding ${NEWEBUILD} and ${NEWDIGEST}"
 
 # Make ebuild change
 if [ "${OLDEBUILD}" != "${NEWEBUILD}" ]; then
-	cp ${OLDEBUILD} ${NEWEBUILD} || die "cp failed"
+	if [ "${RMOLD}" == "yes" ]; then
+		vcs_mv ${OLDEBUILD} ${NEWEBUILD}
+		vcs_mv ${OLDDIGEST} ${NEWDIGEST}
+	else
+		vcs_cp ${OLDEBUILD} ${NEWEBUILD}
+		vcs_cp ${OLDDIGEST} ${NEWDIGEST}
+	fi
 	if [ -z "${SAVEARCH}" ]; then
 		ekeyword ~all ${NEWEBUILD} || die "ekeyword failed"
-	fi
-	if [ "${RMOLD}" == "yes" ]; then
-		if [ -z "${NOVCS}" ]; then
-			vcs_rm ${OLDEBUILD} ${OLDDIGEST}
-		else
-			rm ${OLDEBUILD} ${OLDDIGEST}
-		fi
-	fi
-fi
-ebuild ${NEWEBUILD} digest || die "digest failed"
-[ -f ${NEWDIGEST} ] || die "${NEWDIGEST} doesn't exist"
-# Add to VCS
-if [ -z "${NOVCS}" ]; then
-	if [ "${OLDEBUILD}" != "${NEWEBUILD}" ]; then
-		vcs_add ${NEWEBUILD} ${NEWDIGEST}
 	fi
 	if ! vcs_is_added Manifest; then
 		vcs_add Manifest
 	fi
 fi
+
+# digest new ebuild
+ebuild ${NEWEBUILD} digest || die "digest failed"
+[ -f ${NEWDIGEST} ] || die "${NEWDIGEST} doesn't exist"
 
 # Open up the new ebuild and the configure.(in|ac) to check for new deps
 cd ${TMPDIR} || die "No ${TMPDIR}"
@@ -183,9 +198,7 @@ if [ -n "${COMMIT}" ]; then
 	# Uses VCS_COMMITFILE
 	echo "Press any key to commit (now would be a good time to test...)"
 	read
-	if [ -z "${NOVCS}" ]; then
-		vcs_commit
-	fi
+	vcs_commit
 fi
 
 rm -f ${VCS_COMMITFILE}
