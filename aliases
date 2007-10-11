@@ -188,7 +188,7 @@ alias vim="TERM=xterm-256color vim"
 alias :e="vim"
 alias gvim="gvim -geometry 90x53"
 function html {
-                lynx -dump -force_html $* | less
+                links -dump -force-html $* | less
 		}
 alias sprt="enscript --media=Letter -2 -j -G -B --landscape --margins=::40:40"
 eval `dircolors -b ${HOME}/.scripts/dir_colors` # set up color-ls variables
