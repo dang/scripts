@@ -54,7 +54,7 @@ if [ -z "${COLOR1}" ]; then
 	COLOR1=34
 	COLOR2=31
 fi
-PS1='[${COLOR1};1m[\t \h] [${COLOR2};1m\W[0m${PCHAR} '
+PS1='[${COLOR1};1m[\A \h] [${COLOR2};1m\W[0m${PCHAR} '
 #PS1='\[\033[${COLOR1};1m\][\A \h] \[\033[${COLOR2};1m\]\W\[\033[0m\]${PCHAR} '
 #PS1='\[\033[01;${COLOR1}m\][\A \h]\[\033[01;${COLOR2}m\] \W\[\033[00m\]${PCHAR} '
 #PS1='\[\033[01;${COLOR1}m\]\D{%H:%M%S} \h\[\033[01;${COLOR2}m\] \W \[\033[00m\]${PCHAR} '
