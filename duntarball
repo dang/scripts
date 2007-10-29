@@ -55,5 +55,3 @@ if [ -n "${PATCH}" ]; then
 fi
 echo ${DIRNAME}
 rm ${TMP}
-# Clean up leftover dirs...
-rm -rf Unpack-*
