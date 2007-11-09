@@ -208,35 +208,35 @@ alias backup="( rsync --rsh=ssh -avzS --delete --delete-excluded --exclude=\"tmp
 ##
 # These are development related aliases.
 function cppgrep {
-	find . -name "*.c" -or -name "*.cpp" -exec grep -H "$@" "{}" ";"
+	find . "(" -name "*.c" -or -name "*.cpp" ")" -exec grep --color=auto -H "$@" "{}" ";"
 }
 function hppgrep {
-	find . -name "*.c" -or -name "*.hpp" -exec grep -H "$@" "{}" ";"
+	find . "(" -name "*.h" -or -name "*.hpp" ")" -exec grep --color=auto -H "$@" "{}" ";"
 }
 function chppgrep {
-	find . -name "*.c" -or -name "*.[ch]pp" -exec grep -H "$@" "{}" ";"
+	find . "(" -name "*.[ch]" -or -name "*.[ch]pp" ")" -exec grep --color=auto -H "$@" "{}" ";"
 }
 function cgrep {
-	find . -name "*.c" -exec grep -H "$@" "{}" ";"
+	find . -name "*.c" -exec grep --color=auto -H "$@" "{}" ";"
 }
 function chgrep {
-	find . -name "*.[ch]" -exec grep -H "$@" "{}" ";"
+	find . -name "*.[ch]" -exec grep --color=auto -H "$@" "{}" ";"
 }
 function hgrep {
-	find . -name "*.h" -exec grep -H "$@" "{}" ";"
+	find . -name "*.h" -exec grep --color=auto -H "$@" "{}" ";"
 }
 function dgrep {
 	PATTERN=$1
 	shift
-	find . -name "*${PATTERN}*" -exec grep -H "$@" "{}" ";"
+	find . -name "*${PATTERN}*" -exec grep --color=auto -H "$@" "{}" ";"
 }
 function igrep {
 	PATTERN=$1
 	shift
-	find . -iname "*${PATTERN}*" -exec grep -H "$@" "{}" ";"
+	find . -iname "*${PATTERN}*" -exec grep --color=auto -H "$@" "{}" ";"
 }
 function grepall {
-	find . -type f -exec grep -H "$@" "{}" ";"
+	find . -type f -exec grep --color=auto -H "$@" "{}" ";"
 }
 function cleanuppatch {
 	find . -name "*.orig" -exec rm {} \;
