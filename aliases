@@ -335,3 +335,9 @@ function gpg_get_key {
 		echo "try again"
 	done
 }
+
+function screen_named {
+	SCREENNAME=${1}
+	shift
+	screen -S ${SCREENNAME} -t ${SCREENNAME} $@
+}
