@@ -66,7 +66,7 @@ PCOLORN="\[\033[0m\]"
 PS1="${PCOLOR1}[${PCOLOR1}\A${PCOLOR1}\
 ${PCOLOR1} ${PCOLOR1}\h${PCOLOR1}]\
  ${PCOLOR2}\W\
-$NO_COLOUR>$NO_COLOUR "
+${PCOLORN}>${PCOLORN} "
 
 # Core file size
 [ -z "${CORESIZE}" ] && CORESIZE=0
