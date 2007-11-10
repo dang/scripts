@@ -54,10 +54,19 @@ if [ -z "${COLOR1}" ]; then
 	COLOR1=34
 	COLOR2=31
 fi
-PS1='[${COLOR1};1m[\A \h] [${COLOR2};1m\W[0m${PCHAR} '
+PCOLOR1="\[\033[1;${COLOR1}m\]"
+PCOLOR2="\[\033[1;${COLOR2}m\]"
+PCOLORN="\[\033[0m\]"
+#PS1="${PCOLOR1}[${PCOLOR2}\$(date +%H%M)${PCOLOR1}][\h] ${PCOLOR2}\w${PCOLORN}${PCHAR} "
+#PS1='\e[1;${COLOR1}m[\A \h] \e[1;${COLOR2}m\W\e[0m${PCHAR} '
+#PS1='[${COLOR1};1m[\A \h] [${COLOR2};1m\W[0m${PCHAR} '
 #PS1='\[\033[${COLOR1};1m\][\A \h] \[\033[${COLOR2};1m\]\W\[\033[0m\]${PCHAR} '
 #PS1='\[\033[01;${COLOR1}m\][\A \h]\[\033[01;${COLOR2}m\] \W\[\033[00m\]${PCHAR} '
 #PS1='\[\033[01;${COLOR1}m\]\D{%H:%M%S} \h\[\033[01;${COLOR2}m\] \W \[\033[00m\]${PCHAR} '
+PS1="${PCOLOR1}[${PCOLOR1}\A${PCOLOR1}\
+${PCOLOR1} ${PCOLOR1}\h${PCOLOR1}]\
+ ${PCOLOR2}\W\
+$NO_COLOUR>$NO_COLOUR "
 
 # Core file size
 [ -z "${CORESIZE}" ] && CORESIZE=0
