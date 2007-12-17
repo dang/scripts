@@ -1,6 +1,7 @@
 set guioptions-=T
 set columns=80
-set guifont=Bitstream\ Vera\ Sans\ Mono\ 11
+set tw=78
+set guifont=Bitstream\ Vera\ Sans\ Mono\ 7
 
 if version >= 500
 
