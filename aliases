@@ -175,7 +175,7 @@ alias reboot="fetchmail -q; sudo chvt 1; sync; sync; sudo shutdown -r now"
 alias halt="sudo shutdown -h now"
 function suspend {
 	# Lock the screen (must be done as me)
-	gnome-screensaver-command -l
+	#gnome-screensaver-command -l
 	sudo /home/dang/bin/suspend
 }
 #alias suspend="sudo /home/dang/bin/suspend"
