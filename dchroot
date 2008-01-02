@@ -69,14 +69,16 @@ if [ -f ${HOME}/.dchroot/rc.d/${CHROOTNAME} ]; then
 	source ${HOME}/.dchroot/rc.d/${CHROOTNAME}
 fi
 
-CHROOTDIR="${BASEDIR}/${CHROOTNAME}"
+if [ -z "${CHROOTDIR}" ]; then
+	CHROOTDIR="${BASEDIR}/${CHROOTNAME}"
+fi
 if [ ! -d ${CHROOTDIR} ]; then
 	usage "${CHROOTDIR} does't exist"
 fi
 
 if [ -z "${NOPORTAGE}" ]; then
-	source ${BASEDIR}/${CHROOTNAME}/etc/make.globals
-	source ${BASEDIR}/${CHROOTNAME}/etc/make.conf
+	source ${CHROOTDIR}/etc/make.globals
+	source ${CHROOTDIR}/etc/make.conf
 	# Re-source after portage stuff, so that it can override
 	if [ -f ${HOME}/.dchroot.rc.d/${CHROOTNAME} ]; then
 		source ${HOME}/.dchroot.rc.d/${CHROOTNAME}
