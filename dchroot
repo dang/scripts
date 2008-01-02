@@ -114,6 +114,10 @@ function start()
 	done
 	# Mount user directories
 	for dir in ${USER_MOUNT_DIRS}; do
+		if [[ "${dir}" =~ "${BASEDIR}" ]]; then
+			dir=${dir/${BASEDIR}/}
+		else
+		fi
 		sudo mount -o bind ${dir} ${CHROOTDIR}/${dir} || die "Mount of ${dir} failed"
 	done
 	sudo cp /etc/resolv.conf ${CHROOTDIR}/etc || die "Couldn't cp /etc/resolv.conf"
