@@ -378,7 +378,7 @@ function vcs_is_added() {
 function vcs_mv() {
 	case "${VCS}" in
 		svn)
-			svn mv $1 $2 || die "svn mv failed"
+			svn mv ${FORCE} $1 $2 || die "svn mv failed"
 			;;
 		cvs)
 			# CVS doesn't do move...

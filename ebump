@@ -12,6 +12,8 @@ source ${HOME}/.scripts/portage-functions.sh
 TMPDIR="/home/src/build"
 # Remove old versions?
 RMOLD="yes"
+# Force VCS actions
+FORCE="--force"
 
 # Set usage output
 USAGE="[-hbcCknsT][-p <portdir>] [-t <tmpdir>] [-d <distdir>]  [<basename> <old-version> <new-version>]"
