@@ -110,7 +110,8 @@ port_category
 # Sanity check old setup
 [ -f ${OLDEBUILD} ] || die "${OLDEBUILD} doesn't exist"
 if [ "${OLDDIGEST}" != "${NEWDIGEST}" ]; then
-	[ -f ${OLDDIGEST} ] || die "${OLDDIGEST} doesn't exist"
+	# Traditional digests are not necessary anymore...
+	[ -f ${OLDDIGEST} ] || NODIGEST="skip"
 fi
 
 vcs_detect
@@ -134,10 +135,14 @@ echo "Adding ${NEWEBUILD} and ${NEWDIGEST}"
 if [ "${OLDEBUILD}" != "${NEWEBUILD}" ]; then
 	if [ "${RMOLD}" == "yes" ]; then
 		vcs_mv ${OLDEBUILD} ${NEWEBUILD}
-		vcs_mv ${OLDDIGEST} ${NEWDIGEST}
+		if [ -z "${NODIGEST}" ]; then
+			vcs_mv ${OLDDIGEST} ${NEWDIGEST}
+		fi
 	else
 		vcs_cp ${OLDEBUILD} ${NEWEBUILD}
-		vcs_cp ${OLDDIGEST} ${NEWDIGEST}
+		if [ -z "${NODIGEST}" ]; then
+			vcs_cp ${OLDDIGEST} ${NEWDIGEST}
+		fi
 	fi
 	if [ -z "${SAVEARCH}" ]; then
 		ekeyword ~all ${NEWEBUILD} || die "ekeyword failed"
@@ -149,7 +154,6 @@ fi
 
 # digest new ebuild
 ebuild ${NEWEBUILD} digest || die "digest failed"
-[ -f ${NEWDIGEST} ] || die "${NEWDIGEST} doesn't exist"
 
 # Open up the new ebuild and the configure.(in|ac) to check for new deps
 cd ${TMPDIR} || die "No ${TMPDIR}"

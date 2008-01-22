@@ -58,7 +58,7 @@ if [ -n "${PRETEND}" ]; then
 fi
 
 vcs_update_check_conflicts
-EBUILDS=`vcs status | grep -v "^R" | grep -v "^D" | grep ebuild | awk '{print $2}'`
+EBUILDS=`vcs status | grep -v "^R" | grep -v "^D" | grep ebuild  | sed 's/#\s*//' | grep -v renamed | awk '{print $2}'`
 vcs_echangelog
 if [ -z "${NODIGEST}" ]; then
 	if [ -z "${EBUILDS}" ]; then
@@ -69,7 +69,8 @@ if [ -z "${NODIGEST}" ]; then
 		die "no ebuilds to digest?"
 	fi
 	for i in ${EBUILDS}; do
-		ebuild $i digest || die "digest failed"
+		ii = $(basename $i)
+		ebuild $ii digest || die "digest failed"
 	done
 fi
 vcs_commit

@@ -124,6 +124,8 @@ function vcs_detect() {
 	VCS="unknown"
 	if [ -d "${PWD}/.svn" ]; then
 		VCS="svn"
+	elif [ -n "$(git rev-parse --git-dir)" ]; then
+		VCS="git"
 	elif [ -d "${PWD}/CVS" ]; then
 		VCS="cvs"
 	fi
@@ -142,11 +144,52 @@ function vcs_detect() {
 	fi
 }
 
-# Delete something from a VCS
-function vcs_rm() {
+# Internal setup, called at the beginning of each function.  Sets up local variables.
+function vcs_int_setup() {
 	case "${VCS}" in
 		svn)
-			svn rm --force $* || die "svn rm failed"
+			if [ -n "${VCS_FORCE}" ]; then
+				VCS_INT_FORCE="--force"
+			else
+				VCS_INT_FORCE=""
+			fi
+			;;
+		git)
+			if [ -n "${VCS_FORCE}" ]; then
+				VCS_INT_FORCE="-f"
+			else
+				VCS_INT_FORCE=""
+			fi
+			;;
+		cvs)
+			if [ -n "${VCS_FORCE}" ]; then
+				VCS_INT_FORCE="-f"
+			else
+				VCS_INT_FORCE=""
+			fi
+			;;
+		fake)
+			VCS_INT_FORCE=""
+			;;
+		*)
+			if [ -n "${VCS_FATAL_ERRORS}" ]; then
+				die "Unknown VCS for ${PWD}"
+			else
+				echo "Unknown VCS for ${PWD}"
+			fi
+			;;
+	esac
+}
+
+# Delete something from a VCS
+function vcs_rm() {
+	vcs_int_setup
+	case "${VCS}" in
+		svn)
+			svn rm ${VCS_INT_FORCE} $* || die "svn rm failed"
+			;;
+		git)
+			git rm ${VCS_INT_FORCE} $* || die "git rm failed"
 			;;
 		cvs)
 			for i in $*; do
@@ -180,9 +223,13 @@ function vcs_rm() {
 
 # Add something to a VCS
 function vcs_add() {
+	vcs_int_setup
 	case "${VCS}" in
 		svn)
 			svn add $* || die "svn add failed"
+			;;
+		git)
+			git add $* || die "git add failed"
 			;;
 		cvs)
 			cvs add $* || die "cvs add failed"
@@ -204,12 +251,20 @@ function vcs_add() {
 # file with the commit message.  Use VCS_REPOMAN_OPTS to pass options to
 # repoman.
 function vcs_commit() {
+	vcs_int_setup
 	case "${VCS}" in
 		svn)
 			if [ -n "${VCS_COMMITFILE}" ]; then
 				svn commit -F "${VCS_COMMITFILE}" $* || die "svn commit failed"
 			else
 				svn commit -m "${VCS_COMMITMSG}" $* || die "svn commit failed"
+			fi
+			;;
+		git)
+			if [ -n "${VCS_COMMITFILE}" ]; then
+				git commit -a -F "${VCS_COMMITFILE}" $* || die "git commit failed"
+			else
+				git commit -a -m "${VCS_COMMITMSG}" $* || die "git commit failed"
 			fi
 			;;
 		cvs)
@@ -233,9 +288,13 @@ function vcs_commit() {
 
 # update something in a VCS
 function vcs_update() {
+	vcs_int_setup
 	case "${VCS}" in
 		svn)
 			svn up $* || die "svn update failed"
+			;;
+		git)
+			git pull $* || die "git pull failed"
 			;;
 		cvs)
 			cvs up $* || die "cvs update failed"
@@ -254,9 +313,15 @@ function vcs_update() {
 
 # update something in a VCS, checking the results to see if there's conflicts
 function vcs_update_check_conflicts() {
+	vcs_int_setup
 	case "${VCS}" in
 		svn)
 			OUTPUT="$(svn up $*)" || die "svn update failed"
+			STATUS=`echo ${OUTPUT} | grep "\<C\>"`
+			echo "${OUTPUT}"
+			;;
+		git)
+			OUTPUT="$(git pull $*)" || die "git pull failed"
 			STATUS=`echo ${OUTPUT} | grep "\<C\>"`
 			echo "${OUTPUT}"
 			;;
@@ -279,9 +344,13 @@ function vcs_update_check_conflicts() {
 
 # get status on something in a VCS
 function vcs_status() {
+	vcs_int_setup
 	case "${VCS}" in
 		svn)
 			svn status $* || die "svn status failed"
+			;;
+		git)
+			git status $*
 			;;
 		cvs)
 			cvs -nq up $* || die "cvs status failed"
@@ -300,9 +369,13 @@ function vcs_status() {
 
 # diff something in a VCS
 function vcs_diff() {
+	vcs_int_setup
 	case "${VCS}" in
 		svn)
 			svn diff $* || die "svn diff failed"
+			;;
+		git)
+			git diff $* || die "git diff failed"
 			;;
 		cvs)
 			cvs diff $* || die "cvs diff failed"
@@ -321,8 +394,12 @@ function vcs_diff() {
 
 # Do a changelog
 function vcs_echangelog() { 
+	vcs_int_setup
 	case "${VCS}" in
 		svn)
+			VCS_ECHANGELOG=echangelog
+			;;
+		git)
 			VCS_ECHANGELOG=echangelog
 			;;
 		cvs)
@@ -349,9 +426,13 @@ function vcs_echangelog() {
 
 # See if a file is under version control
 function vcs_is_added() {
+	vcs_int_setup
 	case "${VCS}" in
 		svn)
 			OUTPUT=$(svn info $@ | grep Path:)
+			;;
+		git)
+			OUTPUT=$(git log $@ | grep commit)
 			;;
 		cvs)
 			OUTPUT=$(cvs status $@ 2>/dev/null | grep Status | grep -v Unknown)
@@ -376,9 +457,13 @@ function vcs_is_added() {
 
 # Move a file from one name to another
 function vcs_mv() {
+	vcs_int_setup
 	case "${VCS}" in
 		svn)
-			svn mv ${FORCE} $1 $2 || die "svn mv failed"
+			svn mv ${VCS_INT_FORCE} $1 $2 || die "svn mv failed"
+			;;
+		git)
+			git mv ${VCS_INT_FORCE} $1 $2 || die "git mv failed"
 			;;
 		cvs)
 			# CVS doesn't do move...
@@ -400,9 +485,15 @@ function vcs_mv() {
 }
 # Copy a file from one name to another
 function vcs_cp() {
+	vcs_int_setup
 	case "${VCS}" in
 		svn)
 			svn cp $1 $2 || die "svn cp failed"
+			;;
+		git)
+			# Can't copy in git yet...
+			cp $1 $2 || die "cp failed"
+			vcs_add $2 || die "git add failed"
 			;;
 		cvs)
 			# CVS doesn't do copy...
