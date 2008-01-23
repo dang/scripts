@@ -69,7 +69,7 @@ if [ -z "${NODIGEST}" ]; then
 		die "no ebuilds to digest?"
 	fi
 	for i in ${EBUILDS}; do
-		ii = $(basename $i)
+		ii=$(basename $i)
 		ebuild $ii digest || die "digest failed"
 	done
 fi
