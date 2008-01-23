@@ -1,0 +1,8 @@
+keycode  49 = underscore asciitilde
+keycode  20 = minus grave
+! Esc on caps lock :-))
+remove Lock = Caps_Lock
+keysym Caps_Lock = Escape
+! left alt is borked; use win key instead
+keycode  115 = Alt_L
+!keysym Super_L = Alt_L
