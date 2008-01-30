@@ -22,6 +22,7 @@ LONGUSAGE="\t-h\tPrint this help message
 \t\tstatus [<files>]\tGet status on files
 \t\tdiff [<files>]\tDiff files
 \t\tmv <source> <dest>\tmove a file
+\t\trevert [<files>]\trevert to last checked in state
 \t\tcp <source> <dest>\tcopy a file"
 
 # Standard functions
@@ -84,6 +85,9 @@ case "${CMD}" in
 	diff)
 		FILES="$@"
 		;;
+	revert)
+		FILES="$@"
+		;;
 	mv|cp)
 		if [ -z "$1" ]; then
 			usage "${CMD} needs files"
@@ -140,6 +144,9 @@ case "${CMD}" in
 		;;
 	diff)
 		vcs_diff ${FILES}
+		;;
+	revert)
+		vcs_revert ${FILES}
 		;;
 	mv)
 		if [ "${PRETEND}" == "yes" ]; then

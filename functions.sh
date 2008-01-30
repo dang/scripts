@@ -512,3 +512,29 @@ function vcs_cp() {
 			;;
 	esac
 }
+# Revert to last checked in state
+function vcs_revert() {
+	vcs_int_setup
+	case "${VCS}" in
+		svn)
+			svn revert $* || die "svn revert failed"
+			;;
+		git)
+			git reset --hard HEAD $* || die "git reset failed"
+			;;
+		cvs)
+			# CVS doesn't do revert...
+			rm $* || die "rm failed"
+			vcs_up $* || die "cvs up failed"
+			;;
+		fake)
+			;;
+		*)
+			if [ -n "${VCS_FATAL_ERRORS}" ]; then
+				die "Unknown VCS for ${PWD}"
+			else
+				echo "Unknown VCS for ${PWD}"
+			fi
+			;;
+	esac
+}
