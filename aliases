@@ -196,8 +196,8 @@ unset autologout
 alias telent=telnet
 
 # CD burning
-alias burn="sudo cdrecord -tao -v -eject dev=/dev/cdrom speed=24 -isosize"
-alias burnslow="sudo cdrecord -tao -v -eject dev=/dev/cdrom speed=1 -isosize"
+alias burn="sudo cdrecord -tao -v -eject dev=/dev/cdrom -isosize"
+alias burnslow="sudo cdrecord -tao -v -eject dev=/dev/cdrom speed=0 -isosize"
 alias burnrw="sudo cdrecord -tao -v -eject dev=/dev/cdrom blank=fast speed=24 -isosize"
 
 # backup my homedirectory to nemesis
