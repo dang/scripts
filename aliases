@@ -236,7 +236,7 @@ function igrep {
 	find . -iname "*${PATTERN}*" -exec grep --color=auto -H "$@" "{}" ";"
 }
 function grepall {
-	find . -type f -exec grep --color=auto -H "$@" "{}" ";"
+	find . -regextype posix-extended ! \( -regex '.*cscope.*' -o -regex '.*tags.*' -o -regex '.*\.orig' -o -regex '.*\.rej' -o -regex '.*CVS.*' -o -regex '.*\.#maketags.dfg' -o -regex '.*\.svn.*' -o -regex '.*\.git.*' \) -exec grep --color=auto -H "$@" "{}" ";"
 }
 function cleanuppatch {
 	find . -name "*.orig" -exec rm {} \;
