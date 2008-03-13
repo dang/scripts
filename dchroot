@@ -193,7 +193,7 @@ case "${CMD}" in
 		join
 		;;
 	run)
-		run
+		run $@
 		;;
 	*)
 		usage "unknown command ${CMD}"
