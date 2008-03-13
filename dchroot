@@ -63,6 +63,9 @@ if [ -z "${2}" ]; then
 fi
 CMD=${2}
 
+# We want parameters for run
+shift 2
+
 SYS_MOUNT_DIRS="/proc /dev"
 
 if [ -f ${HOME}/.dchroot/rc.d/${CHROOTNAME} ]; then
@@ -168,6 +171,17 @@ function join()
 	${SCREEN} sudo -H chroot ${CHROOTDIR} /bin/bash -l
 }
 
+function run()
+{
+	if [ -z "$(grep ${CHROOTDIR} /proc/mounts)" ]; then
+		die "${ME} ${BASENAME} is not running; \"start\" must be run before \"run\""
+	fi
+
+	# Now, run the command in the chroot
+	cd ${BUILDDIR}
+	sudo -H chroot ${CHROOTDIR} /bin/bash -l -c "$*"
+}
+
 case "${CMD}" in
 	start)
 		start
@@ -177,6 +191,9 @@ case "${CMD}" in
 		;;
 	join)
 		join
+		;;
+	run)
+		run
 		;;
 	*)
 		usage "unknown command ${CMD}"
