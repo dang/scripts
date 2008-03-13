@@ -10,15 +10,17 @@
 #
 # Set USER_MOUNT_DIRS to a space separated string of directories to bind-mount into the chroot
 # Set BASEDIR to some other base directory
-# Set NOPORTAGE, NOSCREEN, AUTOSTOP, or OVERLAYS to avoid having to use command line options
+# Set NOPORTAGE, NOSCREEN, AUTOSTOP, DETACHED, or OVERLAYS to avoid having to
+# use command line options
 # Set USER_PRE_COMMAND to some command to run before chroot, say "linux32"
 
 BASEDIR="/home/chroots"
 
 # Set usage output
-USAGE="[-h |--help] [-a | --autostop] [-o | --overlays] [-p | --noportage] [-s | --noscreen ] [-b <basedir> | --basedir=<basedir>] <chrootname> start | stop | join | run"
+USAGE="[-h |--help] [-a | --autostop] [-d | --detached] [-o | --overlays] [-p | --noportage] [-s | --noscreen ] [-b <basedir> | --basedir=<basedir>] <chrootname> start | stop | join | run"
 LONGUSAGE="\t-h, --help\n\t\tPrint this help message
 \t-a, --autostop\n\t\tAutomatically stop when screen exits
+\t-d, --detached\n\t\tStart screen detached (ignored for noscreen or autostop)
 \t-o, --overlays\n\t\tMount overlays too
 \t-p, --noportage\n\t\tDon't mount portage directories
 \t-s, --noscreen\n\t\tDon't start screen
@@ -33,7 +35,7 @@ source ${HOME}/.scripts/functions.sh
 ME=$(basename $0)
 
 # Parse arguments
-ARGS=`getopt -o haopsb: --long help,autostop,overlays,noportage,noscreen,basedir: -n "${ME}" -- "$@"`
+ARGS=`getopt -o hadopsb: --long help,autostop,detached,overlays,noportage,noscreen,basedir: -n "${ME}" -- "$@"`
 
 if [ $? != 0 ] ; then
 	usage 
@@ -44,6 +46,7 @@ while true ; do
 	case "$1" in
 		-h|--help) usage; shift ;;
 		-a|--autostop) AUTOSTOP="yes"; shift ;;
+		-d|--detached) DETACHED="yes"; shift ;;
 		-o|--overlays) OVERLAYS="yes"; shift ;;
 		-p|--noportage) NOPORTAGE="yes"; shift ;;
 		-s|--noscreen) NOSCREEN="yes"; shift ;;
@@ -109,6 +112,11 @@ fi
 
 if [ -z "${NOSCREEN}" ]; then
 	SCREEN="screen -S ${CHROOTNAME} -t ${CHROOTNAME}"
+	if [ -z "${AUTOSTOP}" ]; then
+		if [ -n "${DETACHED}" ]; then
+			SCREEN="${SCREEN} -d -m"
+		fi
+	fi
 fi
 
 function start() 
