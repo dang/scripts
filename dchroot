@@ -16,7 +16,7 @@
 BASEDIR="/home/chroots"
 
 # Set usage output
-USAGE="[-h |--help] [-a | --autostop] [-o | --overlays] [-p | --noportage] [-s | --noscreen ] [-b <basedir> | --basedir=<basedir>] <chrootname> start | stop | join"
+USAGE="[-h |--help] [-a | --autostop] [-o | --overlays] [-p | --noportage] [-s | --noscreen ] [-b <basedir> | --basedir=<basedir>] <chrootname> start | stop | join | run"
 LONGUSAGE="\t-h, --help\n\t\tPrint this help message
 \t-a, --autostop\n\t\tAutomatically stop when screen exits
 \t-o, --overlays\n\t\tMount overlays too
@@ -24,7 +24,7 @@ LONGUSAGE="\t-h, --help\n\t\tPrint this help message
 \t-s, --noscreen\n\t\tDon't start screen
 \t-b <basedir>, --basedir=<basedir>\n\t\tSet the base directory for chroots
 \t<chrootname>\n\t\tName of the chroot
-\tstart | stop | join\n\t\tStart, stop, or join the chroot"
+\tstart | stop | join | run\n\t\tStart, stop, or join the chroot, or run a command in it"
 
 # Standard functions
 source ${HOME}/.scripts/functions.sh
