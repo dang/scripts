@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# Script that runs a test emerge from clean
+#
+
+OUTDIR="${HOME}/gnome-test"
+mkdir -p ${OUTDIR}/failed
+
+for i in $(cat ~/pkglist); do
+	if gnome-test $i | tee ${OUTDIR}/current; then
+		echo "good"
+	else
+		echo "bad"
+		FNAME=$(echo $i | sed 's#/#:#')
+		mv ${OUTDIR}/current ${OUTDIR}/failed/${FNAME}
+	fi
+done
