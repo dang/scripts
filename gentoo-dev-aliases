@@ -15,8 +15,10 @@ alias meta="herdstat -Nm"
 # Note: needs app-portage/herdstat
 function ebcd() {
 	herdstat -qf $*
+	SAVEDIR=${PWD}
 	cd /usr/portage/
 	cd /usr/portage/`herdstat -qf $*`
+	export OLDPWD=${SAVEDIR}
 }
 
 # Commit the corrent directory
@@ -120,25 +122,33 @@ function ebgrep {
 # Gnome Experimental
 function gecd() {
 	herdstat -qf $*
+	SAVEDIR=${PWD}
 	cd /home/portage/overlays/gnome/
 	cd /home/portage/overlays/gnome/`herdstat -qf $*`
+	export OLDPWD=${SAVEDIR}
 }
 # Stuff I maintain
 function maintcd() {
 	herdstat -qf $*
+	SAVEDIR=${PWD}
 	cd /home/portage/overlays/dang.overlays/maintainer/
 	cd /home/portage/overlays/dang.overlays/maintainer/`PORTDIR=/home/portage/overlays/dang.overlays/maintainer/ herdstat -qf $*`
+	export OLDPWD=${SAVEDIR}
 }
 # Stuff I don't maintain
 function usercd() {
 	herdstat -qf $*
+	SAVEDIR=${PWD}
 	cd /home/portage/overlays/dang.overlays/user/
 	cd /home/portage/overlays/dang.overlays/user/`PORTDIR=/home/portage/overlays/dang.overlays/user/ herdstat -qf $*`
+	export OLDPWD=${SAVEDIR}
 }
 # Gentopia
 function gencd() {
 	herdstat -qf $*
+	SAVEDIR=${PWD}
 	cd /home/portage/overlays/gentopia/
 	cd /home/portage/overlays/gentopia/`PORTDIR=/home/portage/overlays/gentopia herdstat -qf $*`
+	export OLDPWD=${SAVEDIR}
 }
 
