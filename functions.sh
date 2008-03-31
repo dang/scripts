@@ -525,7 +525,7 @@ function vcs_revert() {
 		cvs)
 			# CVS doesn't do revert...
 			rm $* || die "rm failed"
-			vcs_up $* || die "cvs up failed"
+			vcs_update $* || die "cvs up failed"
 			;;
 		fake)
 			;;
