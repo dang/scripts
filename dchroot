@@ -162,10 +162,14 @@ function stop()
 	sudo umount ${UMOUNT_DIRS} > /dev/null 2>&1
 
 	# catchall
+	UMOUNT_DIRS=""
 	DIRS=$(grep ${CHROOTDIR} /proc/mounts | awk '{print $2}')
-	if [ ! -z "${DIRS}" ]; then
-		sudo umount ${DIRS}
-	fi
+	for i in ${DIRS}; do
+		if [ "${i}" != "${CHROOTDIR}"  ]; then
+			UMOUNT_DIRS="${UMOUNT_DIRS} ${i}"
+		fi
+	done
+	sudo umount ${UMOUNT_DIRS}
 }
 
 function join()
