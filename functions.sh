@@ -266,6 +266,7 @@ function vcs_commit() {
 			else
 				git commit -a -m "${VCS_COMMITMSG}" $* || die "git commit failed"
 			fi
+			git push || die "git push failed"
 			;;
 		cvs)
 			if [ -n "${VCS_COMMITFILE}" ]; then
