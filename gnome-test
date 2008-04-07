@@ -37,6 +37,7 @@ done
 PACKAGE=$1
 CHROOT_BASE="/opt/chroots"
 CHROOT_NAME="gnome"
+CHROOT_DIR="${CHROOT_BASE}/${CHROOT_NAME}"
 
 cd ${CHROOT_BASE} || die "no ${CHROOT_BASE}"
 
@@ -44,10 +45,10 @@ cd ${CHROOT_BASE} || die "no ${CHROOT_BASE}"
 echo "Testing ${PACKAGE}"
 dchroot ${CHROOT_NAME} stop
 if [ -z "${NOTMPFS}" ]; then
-	sudo umount -f ${CHROOT_NAME}
-	sudo mount -t tmpfs shm ${CHROOT_NAME}
+	sudo umount -f ${CHROOT_DIR}
+	sudo mount -t tmpfs shm ${CHROOT_DIR}
 else
-	sudo rm -rf ${CHROOT_NAME}
+	sudo rm -rf ${CHROOT_DIR}
 fi
 sudo tar xjf ${CHROOT_NAME}-current.tar.bz2
 dchroot -d ${CHROOT_NAME} start
@@ -60,5 +61,9 @@ else
 fi
 
 dchroot ${CHROOT_NAME} stop
+
+if [ -z "${NOTMPFS}" ]; then
+	sudo umount -f ${CHROOT_DIR}
+fi
 
 exit ${retval}
