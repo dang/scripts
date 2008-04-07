@@ -3,15 +3,60 @@
 # Script that runs a test emerge from clean
 #
 
-OUTDIR="${HOME}/gnome-test"
-mkdir -p ${OUTDIR}/failed
+BASEDIR="${HOME}/gnome-test"
+DATE=$(date "+%F-%T")
+OUTDIR="${BASEDIR}/${DATE}"
 
-for i in $(cat ~/pkglist); do
+# Set usage output
+USAGE="[-h |--help] [<test-directory>]"
+LONGUSAGE="\t-h, --help\n\t\tPrint this help message
+\t<test-directory>\n\t\tDirectory to work in; defaults to ${BASEDIR}/date"
+
+# Standard functions
+source ${HOME}/.scripts/functions.sh
+
+# Script name
+ME=$(basename $0)
+
+# Parse arguments
+ARGS=`getopt -o h --long help -n "${ME}" -- "$@"`
+
+if [ $? != 0 ] ; then
+	usage 
+fi
+eval set -- "$ARGS"
+
+while true ; do
+	case "$1" in
+		-h|--help) usage; shift ;;
+		--) shift ; break ;;
+		* ) usage "Invalid argument $1";;
+	esac
+done
+
+# Remaining arguments are in $1, $2, etc. as normal
+if [ -n "${1}" ]; then
+	OUTDIR=${1}
+fi
+
+if [ ! -d ${OUTDIR} ]; then
+	mkdir -p ${OUTDIR}/failed
+	mkdir -p ${OUTDIR}/succeeded
+	cp ${BASEDIR}/pkglist ${OUTDIR}
+fi
+
+for i in $(cat ${OUTDIR}/pkglist); do
+	FNAME=$(echo $i | sed 's#/#:#')
 	if gnome-test $i | tee ${OUTDIR}/current; then
 		echo "good"
+		mv ${OUTDIR}/current ${OUTDIR}/succeeded/${FNAME}
 	else
 		echo "bad"
-		FNAME=$(echo $i | sed 's#/#:#')
 		mv ${OUTDIR}/current ${OUTDIR}/failed/${FNAME}
 	fi
+	echo ${i} >> ${OUTDIR}/finished
 done
+
+DONECOUNT=$(wc -l ${OUTDIR}/finished)
+vim -i NONE -c "${DONECOUNT}d" -c "wq" ${OUTDIR}/pkglist
+
