@@ -4,8 +4,9 @@
 #
 
 # Set usage output
-USAGE="[-h |--help] <atom>"
+USAGE="[-h |--help] [-n | --no-tmpfs ] <atom>"
 LONGUSAGE="\t-h, --help\n\t\tPrint this help message
+\t-n, --no-tmpfs\n\t\tDo not mount tmpfs
 \t<atom>\n\t\tDepend atom to emerge"
 
 # Standard functions
@@ -25,6 +26,7 @@ eval set -- "$ARGS"
 while true ; do
 	case "$1" in
 		-h|--help) usage; shift ;;
+		-n|--no-tmpfs) NOTMPFS="yes"; shift ;;
 		--) shift ; break ;;
 		* ) usage "Invalid argument $1";;
 	esac
@@ -41,7 +43,12 @@ cd ${CHROOT_BASE} || die "no ${CHROOT_BASE}"
 # clean up
 echo "Testing ${PACKAGE}"
 dchroot ${CHROOT_NAME} stop
-sudo rm -rf ${CHROOT_NAME}
+if [ -z "${NOTMPFS}" ]; then
+	sudo umount -f ${CHROOT_NAME}
+	sudo mount -t tmpfs shm ${CHROOT_NAME}
+else
+	sudo rm -rf ${CHROOT_NAME}
+fi
 sudo tar xjf ${CHROOT_NAME}-current.tar.bz2
 dchroot -d ${CHROOT_NAME} start
 dchroot ${CHROOT_NAME} run -- emerge -v ${PACKAGE}
