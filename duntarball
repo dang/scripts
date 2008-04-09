@@ -37,7 +37,7 @@ done
 # Remaining arguments are in $1, $2, etc. as normal
 ARCHIVE=${1}
 
-if [ -z ${ARCHIVE} ]; then
+if [ -z "${ARCHIVE}" ]; then
 	usage "Must give an archive"
 fi
 
