@@ -48,13 +48,13 @@ fi
 for i in $(cat ${OUTDIR}/pkglist); do
 	FNAME=$(echo $i | sed 's#/#:#')
 	if gnome-test $i | tee ${OUTDIR}/current; then
-		echo "good"
+		RESULT="succeeded"
 		mv ${OUTDIR}/current ${OUTDIR}/succeeded/${FNAME}
 	else
-		echo "bad"
+		RESULT="failed"
 		mv ${OUTDIR}/current ${OUTDIR}/failed/${FNAME}
 	fi
-	echo ${i} >> ${OUTDIR}/finished
+	echo "${i} ${RESULT}" >> ${OUTDIR}/finished
 done
 
 DONECOUNT=$(wc -l ${OUTDIR}/finished)
