@@ -45,6 +45,9 @@ if [ ! -d ${OUTDIR} ]; then
 	cp ${BASEDIR}/pkglist ${OUTDIR}
 fi
 
+# We need the whole pipe to fail if gnome-test fails
+set -o pipefail
+
 for i in $(cat ${OUTDIR}/pkglist); do
 	FNAME=$(echo $i | sed 's#/#:#')
 	if gnome-test $i | tee ${OUTDIR}/current; then
@@ -57,6 +60,6 @@ for i in $(cat ${OUTDIR}/pkglist); do
 	echo "${i} ${RESULT}" >> ${OUTDIR}/finished
 done
 
-DONECOUNT=$(wc -l ${OUTDIR}/finished)
+DONECOUNT=$(cat ${OUTDIR}/finished | wc -l)
 vim -i NONE -c "${DONECOUNT}d" -c "wq" ${OUTDIR}/pkglist
 
