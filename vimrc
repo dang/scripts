@@ -101,7 +101,7 @@ set tabstop=8
 " Check to see if a file has changed from under us
 command Reload checktime
 " Blame in svn for the current line
-command Svnblame exe "!svnblame " . expand("%") . " " . line(".")
+command Vcsblame exe "!vcsblame --line "  . line(".") . " " . expand("%")
 
 "
 " cscope settings

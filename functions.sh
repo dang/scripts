@@ -539,3 +539,57 @@ function vcs_revert() {
 			;;
 	esac
 }
+# annotate a file
+function vcs_annotate() {
+	vcs_int_setup
+	case "${VCS}" in
+		svn)
+			svn annotate $* || die "svn annotate failed"
+			;;
+		git)
+			git annotate $* | awk '{$4=""; $5=""; $6=""; print $0}' || die "git annotate failed"
+			;;
+		cvs)
+			# CVS doesn't do revert...
+			cvs annotate $* || die "cvs annotate failed"
+			;;
+		fake)
+			;;
+		*)
+			if [ -n "${VCS_FATAL_ERRORS}" ]; then
+				die "Unknown VCS for ${PWD}"
+			else
+				echo "Unknown VCS for ${PWD}"
+			fi
+			;;
+	esac
+}
+
+# get log messages for a file
+function vcs_log() {
+	vcs_int_setup
+	VERSION=$1
+	shift
+	case "${VCS}" in
+		svn)
+			svn log -r ${VERSION} $* || die "svn log failed"
+			;;
+		git)
+			git log -r ${VERSION} $* || die "git log failed"
+			;;
+		cvs)
+			# CVS doesn't do revert...
+			cvs log -r ${VERSION} $* || die "cvs annotate failed"
+			;;
+		fake)
+			;;
+		*)
+			if [ -n "${VCS_FATAL_ERRORS}" ]; then
+				die "Unknown VCS for ${PWD}"
+			else
+				echo "Unknown VCS for ${PWD}"
+			fi
+			;;
+	esac
+}
+

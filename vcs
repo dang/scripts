@@ -79,13 +79,7 @@ case "${CMD}" in
 		;;
 	up)
 		;;
-	status)
-		FILES="$@"
-		;;
-	diff)
-		FILES="$@"
-		;;
-	revert)
+	status|diff|revert|annotate|log)
 		FILES="$@"
 		;;
 	mv|cp)
@@ -147,6 +141,12 @@ case "${CMD}" in
 		;;
 	revert)
 		vcs_revert ${FILES}
+		;;
+	annotate)
+		vcs_annotate ${FILES}
+		;;
+	log)
+		vcs_log ${FILES}
 		;;
 	mv)
 		if [ "${PRETEND}" == "yes" ]; then
