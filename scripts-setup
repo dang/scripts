@@ -5,7 +5,7 @@
 # Requires: git, sed
 #
 
-REPO="git://apollo.fprintf.net/scripts"
+REPO="git://github.com/dang/scripts.git"
 LNFILES="bashrc cvsrc profile gvimrc inputrc"
 CPFILES="bash_local vimrc"
 
