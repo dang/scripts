@@ -55,7 +55,7 @@ if [ -z "${LINE}" ]; then
 	echo "No version" > ${LOGNAME}
 	LINE="0"
 else
-	VERSION=`awk "(NR == ${LINE}){print \$1}" ${BLAMENAME}`
+	VERSION=`awk '(NR == line){print $1}' line=${LINE} ${BLAMENAME}`
 	echo "VERSION ${VERSION}"
 	vcs_log ${VERSION} ${FILENAME} > ${LOGNAME}
 fi
