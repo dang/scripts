@@ -1,0 +1,65 @@
+#!/bin/bash
+#
+# Script that blames a file
+#
+
+# Set usage output
+USAGE="[-h |--help] [-l <line> | --line=<number>] [-t <tag> | --tag=<tag>] [<file>]"
+LONGUSAGE="\t-h, --help\n\t\tPrint this help message
+\t-l <line>, --line=<number>\n\t\tLook up version at <number> and print it's info
+\t-t <tag>, --tag=<tag>\n\t\tUse speecified tag
+\t<file>\n\t\tFile to annotate"
+
+# Standard functions
+source ${HOME}/.scripts/functions.sh
+
+# Script name
+ME=$(basename $0)
+
+# Parse arguments
+ARGS=`getopt -o hl:t: --long help,line:,tag: -n "${ME}" -- "$@"`
+
+if [ $? != 0 ] ; then
+	usage 
+fi
+eval set -- "$ARGS"
+
+while true ; do
+	case "$1" in
+		-h|--help) usage; shift ;;
+		-l|--line) LINE=$2 ; shift 2 ;;
+		-t|--tag) TAG=$2 ; shift 2 ;;
+		--) shift ; break ;;
+		* ) usage "Invalid argument $1";;
+	esac
+done
+
+# Remaining arguments are in $1, $2, etc. as normal
+
+if [ -z "$1" ]; then
+	usage
+fi
+
+vcs_detect
+
+#
+# Arguments
+FILENAME=$1
+BLAMENAME=`tempfile`
+LOGNAME=`tempfile`
+
+vcs_annotate $FILENAME > $BLAMENAME
+
+echo "line ${LINE}"
+if [ -z "${LINE}" ]; then
+	echo "No version" > ${LOGNAME}
+	LINE="0"
+else
+	VERSION=`awk "(NR == ${LINE}){print \$1}" ${BLAMENAME}`
+	echo "VERSION ${VERSION}"
+	vcs_log ${VERSION} ${FILENAME} > ${LOGNAME}
+fi
+
+vim +${LINE} -o ${BLAMENAME} ${LOGNAME}
+rm ${BLAMENAME} ${LOGNAME}
+
