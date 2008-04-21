@@ -5,6 +5,10 @@
 export HOME=/home/dang
 source ${HOME}/.profile
 
+DFGcleanup() {
+	echo "$(date): $@" >> ${HOME}/tmp/dsync.timestamps
+}
+
 # Standard functions
 source ${HOME}/.scripts/functions.sh
 

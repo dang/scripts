@@ -34,6 +34,9 @@ cvs -q up -PdA || die "cvs up failed"
 find ${PORTDIR} -name '.#*' -exec rm {} \; || die "find .#* failed"
 if [ -z "${NOOVERLAYS}" ]; then
 	for i in ${PORTDIR_OVERLAY}; do
+		echo ""
+		echo "updating $i"
+		echo ""
 		cd ${i}
 		vcs_detect
 		vcs_update
