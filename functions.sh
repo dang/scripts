@@ -5,7 +5,7 @@
 die() {
 	echo "$@"
 	if [ ! -z "$(declare -F | grep "DFGcleanup")" ]; then
-		DFGcleanup
+		DFGcleanup "$@"
 	fi
 	exit 1
 }
