@@ -1,8 +1,15 @@
+!
+! This is designed to work with some gnome keymappings.  Here's what you set:
+! Pick Generic 104-key PC for the model, and USA for the layout.  Then, under
+! Layout Options, choose Left Alt is swapped with Left Win (for my broken
+! laptop).  Unfortunately, you can't use gnome to make capslock *also* be
+! escape, just swap it with escape, so this does that, and swaps _ and `.
+
 keycode  49 = underscore asciitilde
 keycode  20 = minus grave
 ! Esc on caps lock :-))
 remove Lock = Caps_Lock
 keysym Caps_Lock = Escape
 ! left alt is borked; use win key instead
-keycode  115 = Alt_L
+!keycode  115 = Alt_L
 !keysym Super_L = Alt_L
