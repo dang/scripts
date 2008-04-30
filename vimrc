@@ -24,6 +24,8 @@ map <F1> :nohlsearch<CR>
 map <F2> :nohlsearch<CR>
 " I accidentally hit F1 when aiming for escape.  Map F1 to escape in insert mode
 imap <F1> <esc>
+
+" Mappings for QWERTY
 " Map keys to move between split windows
 map H h
 map J j
@@ -31,6 +33,9 @@ map K k
 map L l
 " Since I mapped J to move between splits, remap U to join lines
 noremap U J
+
+" Mappings for Colemak
+"set langmap=fe,pr,gt,jy,lu,ui,yo,\;p,rs,sd,tf,dg,nj,ek,il,o\;,kn,FE,PR,GT,JY,LU,UI,YO,:P,RS,SD,TF,DG,NJ,EK,IL,O:,KN
 
 "
 " Behavior settings
