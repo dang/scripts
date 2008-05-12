@@ -341,4 +341,6 @@ function screen_named {
 	screen -S ${SCREENNAME} -t ${SCREENNAME} $@
 }
 
-alias git-add-modified="git add $(git status | grep modified | awk '{print $3}')"
+function git-add-modified {
+	git add $(git status | grep modified | awk '{print $3}')
+}
