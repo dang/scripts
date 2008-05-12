@@ -340,3 +340,5 @@ function screen_named {
 	shift
 	screen -S ${SCREENNAME} -t ${SCREENNAME} $@
 }
+
+alias git-add-modified="git add $(git status | grep modified | awk '{print $3}')"
