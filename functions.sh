@@ -401,7 +401,8 @@ function vcs_echangelog() {
 			VCS_ECHANGELOG=echangelog
 			;;
 		git)
-			VCS_ECHANGELOG=echangelog
+			# Don't use echangelog on git
+			return
 			;;
 		cvs)
 			VCS_ECHANGELOG=echangelog
@@ -521,7 +522,13 @@ function vcs_revert() {
 			svn revert $* || die "svn revert failed"
 			;;
 		git)
-			git reset --hard HEAD $* || die "git reset failed"
+			if [ -n "$*" ] ; then
+				FILES="$*"
+			else
+				# git uses checkout . for recursive revert
+				FILES="."
+			fi
+			git checkout ${FILES} || die "git checkout failed"
 			;;
 		cvs)
 			# CVS doesn't do revert...
