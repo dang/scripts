@@ -554,7 +554,7 @@ function vcs_annotate() {
 			svn annotate $* || die "svn annotate failed"
 			;;
 		git)
-			git annotate $* | awk '{$4=""; $5=""; $6=""; print $0}' || die "git annotate failed"
+			git annotate $* | sed -r 's/\<([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5][0-9])\>//' | sed 's/ +0000//' || die "git annotate failed"
 			;;
 		cvs)
 			# CVS doesn't do revert...
