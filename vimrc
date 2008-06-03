@@ -198,6 +198,12 @@ autocmd BufNewFile,BufRead *.conf  set tw=0
 autocmd BufNewFile,BufRead distbuild  set tw=0
 autocmd BufNewFile,BufRead *.doxygen setfiletype doxygen
 autocmd BufNewFile,BufRead *.stderr setfiletype gcc
+autocmd BufNewFile,BufRead *.vala set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
+autocmd BufNewFile,BufRead *.vala set cindent
+autocmd BufNewFile,BufRead *.vala            setfiletype vala
+autocmd BufNewFile,BufRead *.vapi set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
+autocmd BufNewFile,BufRead *.vapi set cindent
+autocmd BufNewFile,BufRead *.vapi            setfiletype vala
 
 
 "
@@ -353,3 +359,6 @@ autocmd FileAppendPre			*.bz2 !mv <afile>:r <afile>
 autocmd FileAppendPost		*.bz2 !mv <afile> <afile>:r
 autocmd FileAppendPost		*.bz2 !bzip2 <afile>:r
 augroup END
+
+" Needs to be after syntax is turned on
+autocmd! Syntax vala source $VIM/vim71/syntax/cs.vim
