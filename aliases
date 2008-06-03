@@ -292,7 +292,7 @@ function ipwkick {
 
 alias screenshot="import -frame"
 function resize {
-	convert -scale 450x450 $1 $1;
+	convert -scale 450x450 "$1" "$1";
 }
 
 alias netfix="sudo /etc/init.d/net.eth1 restart"
