@@ -1,23 +1,24 @@
 #
 # Aliases for gentoo development work
 
+source "${HOME}/.scripts/functions.sh"
+source "${HOME}/.scripts/portage-functions.sh"
+
 #
 # Make new source this too
 export ALIASFILES="${ALIASFILES} ${HOME}/.scripts/gentoo-dev-aliases"
 
 # Get metadata about a package
 # Usage: meta <packagename>
-# Note: needs app-portage/herdstat
-alias meta="herdstat -Nm"
+# Note: needs sys-apps/pkgcore
+alias meta="pquery --repo /usr/portage -nv --attr herds --attr maintainers --attr license"
 
 # Changedir to the directory for a package
 # Usage: ebcd <packagename>
-# Note: needs app-portage/herdstat
+# Note: needs sys-apps/pkgcore
 function ebcd() {
-	herdstat -qf $*
 	SAVEDIR=${PWD}
-	cd /usr/portage/
-	cd /usr/portage/`herdstat -qf $*`
+	PORTDIR=/usr/portage portcd $*
 	export OLDPWD=${SAVEDIR}
 }
 
@@ -121,34 +122,26 @@ function ebgrep {
 # A set of specific ebcd functions for my commonly used overlays
 # Gnome Experimental
 function gecd() {
-	herdstat -qf $*
 	SAVEDIR=${PWD}
-	cd /home/portage/overlays/gnome/
-	cd /home/portage/overlays/gnome/`herdstat -qf $*`
+	PORTDIR=/home/portage/overlays/gnome portcd $*
 	export OLDPWD=${SAVEDIR}
 }
 # Stuff I maintain
 function maintcd() {
-	herdstat -qf $*
 	SAVEDIR=${PWD}
-	cd /home/portage/overlays/dang.overlays/maintainer/
-	cd /home/portage/overlays/dang.overlays/maintainer/`PORTDIR=/home/portage/overlays/dang.overlays/maintainer/ herdstat -qf $*`
+	PORTDIR=/home/portage/overlays/dang.overlays/maintainer portcd $*
 	export OLDPWD=${SAVEDIR}
 }
 # Stuff I don't maintain
 function usercd() {
-	herdstat -qf $*
 	SAVEDIR=${PWD}
-	cd /home/portage/overlays/dang.overlays/user/
-	cd /home/portage/overlays/dang.overlays/user/`PORTDIR=/home/portage/overlays/dang.overlays/user/ herdstat -qf $*`
+	PORTDIR=/home/portage/overlays/dang.overlays/user portcd $*
 	export OLDPWD=${SAVEDIR}
 }
-# Gentopia
-function gencd() {
-	herdstat -qf $*
+# kvm
+function kcd() {
 	SAVEDIR=${PWD}
-	cd /home/portage/overlays/gentopia/
-	cd /home/portage/overlays/gentopia/`PORTDIR=/home/portage/overlays/gentopia herdstat -qf $*`
+	PORTDIR=/home/portage/overlays/kvm portcd $*
 	export OLDPWD=${SAVEDIR}
 }
 

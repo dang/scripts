@@ -2,7 +2,7 @@
 #
 # Useful functions and setup for scripts dealing with portage.
 #
-# Needs: herdstat
+# Needs: sys-apps/pkgcore
 #
 # Note: this sources make.conf and make.defaults
 #
@@ -35,8 +35,8 @@ done
 # cd to a package location by name in a portdir
 function portcd() {
 	PORTCD_PWD=`pwd`
-	PORTCD_HERDSTAT=`PORTDIR=${PORTDIR} herdstat -qf $*`
-	for i in ${PORTCD_HERDSTAT}; do
+	PORTCD_PQUERY=`pquery --repo ${PORTDIR} -nm $*`
+	for i in ${PORTCD_PQUERY}; do
 		cd ${PORTDIR}/$i || die "couldn't cd to $i"
 		if [ "${PORTCD_PWD}" == "${PWD}" ]; then
 			PORTCD_FOUND="yes"
