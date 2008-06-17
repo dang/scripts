@@ -36,15 +36,15 @@ done
 function portcd() {
 	PORTCD_PWD=`pwd`
 	PORTCD_PQUERY=`pquery --repo ${PORTDIR} -nm $*`
+	PORTCD_MULTI=
 	for i in ${PORTCD_PQUERY}; do
 		cd ${PORTDIR}/$i || die "couldn't cd to $i"
 		if [ "${PORTCD_PWD}" == "${PWD}" ]; then
-			PORTCD_FOUND="yes"
 			break;
 		elif [ -z "${PORTCD_MULTI}" ]; then
 			PORTCD_MULTI="yes"
 		else
-			die "Multiple directories for $*"
+			die "Multiple directories for $*: ${PORTCD_PQUERY}"
 		fi
 	done
 }

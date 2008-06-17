@@ -13,13 +13,31 @@ export ALIASFILES="${ALIASFILES} ${HOME}/.scripts/gentoo-dev-aliases"
 # Note: needs sys-apps/pkgcore
 alias meta="pquery --repo /usr/portage -nv --attr herds --attr maintainers --attr license"
 
+# Replace "die" so it doesn't kill my shell
+function die() {
+	echo "$@"
+}
+
+# Changedir to the directory for a package, the shell version
+# Usage: sportcd <packagename>
+# Note: needs sys-apps/pkgcore
+function sportcd() {
+	SAVEDIR=${PWD}
+	SPORTDIR="$1"
+	shift
+	if [ -n "$*" ]; then
+		PORTDIR=${SPORTDIR} portcd $*
+	else
+		cd ${SPORTDIR}
+	fi
+	export OLDPWD=${SAVEDIR}
+}
+
 # Changedir to the directory for a package
 # Usage: ebcd <packagename>
 # Note: needs sys-apps/pkgcore
 function ebcd() {
-	SAVEDIR=${PWD}
-	PORTDIR=/usr/portage portcd $*
-	export OLDPWD=${SAVEDIR}
+	sportcd /usr/portage $*
 }
 
 # Commit the corrent directory
@@ -122,26 +140,18 @@ function ebgrep {
 # A set of specific ebcd functions for my commonly used overlays
 # Gnome Experimental
 function gecd() {
-	SAVEDIR=${PWD}
-	PORTDIR=/home/portage/overlays/gnome portcd $*
-	export OLDPWD=${SAVEDIR}
+	sportcd /home/portage/overlays/gnome $*
 }
 # Stuff I maintain
 function maintcd() {
-	SAVEDIR=${PWD}
-	PORTDIR=/home/portage/overlays/dang.overlays/maintainer portcd $*
-	export OLDPWD=${SAVEDIR}
+	sportcd /home/portage/overlays/dang.overlays/maintainer $*
 }
 # Stuff I don't maintain
 function usercd() {
-	SAVEDIR=${PWD}
-	PORTDIR=/home/portage/overlays/dang.overlays/user portcd $*
-	export OLDPWD=${SAVEDIR}
+	sportcd /home/portage/overlays/dang.overlays/user $*
 }
 # kvm
 function kcd() {
-	SAVEDIR=${PWD}
-	PORTDIR=/home/portage/overlays/kvm portcd $*
-	export OLDPWD=${SAVEDIR}
+	sportcd /home/portage/overlays/kvm $*
 }
 
