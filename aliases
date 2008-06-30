@@ -330,8 +330,10 @@ function last_fm_similar {
 
 # gpg times out a lot, when getting keys from keyservers; run in a loop
 function gpg_get_key {
-	while ! $(gpg --recv-key $*); do
+	rv=$(gpg --recv-key $*)
+	while [ -z "${rv}" ]; do
 		echo "try again"
+		rv=$(gpg --recv-key $*)
 	done
 }
 
