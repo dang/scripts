@@ -12,8 +12,9 @@ source ${HOME}/.scripts/portage-functions.sh
 RMOLD="yes"
 
 # Set usage output
-USAGE="[-hpIn][-m <commitmsg>] [<commitmsg>]"
+USAGE="[-hfpIn][-m <commitmsg>] [<commitmsg>]"
 LONGUSAGE="\t-h\tPrint this help message
+\t-f\tForce; pass -f to repoman.
 \t-p\tPretend; don't actually commit.
 \t-m <commitmsg>\tCommit message.
 \t-I\tIgnore arches; pass -I to repoman.
@@ -24,10 +25,11 @@ LONGUSAGE="\t-h\tPrint this help message
 source ${HOME}/.scripts/functions.sh
 
 # Parse arguments
-while getopts ":hpInm:" option; do
+while getopts ":hfpInm:" option; do
 	case ${option} in
 		p ) PRETEND="yes";;
-		I ) VCS_REPOMAN_OPTS="-I";;
+		f ) VCS_REPOMAN_OPTS="${VCS_REPOMAN_OPTS} -f";;
+		I ) VCS_REPOMAN_OPTS="${VCS_REPOMAN_OPTS} -I";;
 		m ) VCS_COMMITMSG=${OPTARG};;
 		n ) NODIGEST="yes";;
 		h ) usage;;
