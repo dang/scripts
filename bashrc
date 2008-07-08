@@ -12,7 +12,7 @@ umask 002
 # Environment for various things
 export LC_ALL=en_US.utf8
 export LC_COLLATE=C
-export LESS="-efgimnrsX -j2 -z-3"
+export LESS="-eFfgimnrsX -j2 -z-3"
 export CVS_RSH=ssh
 export MANPAGER="less -sr"
 export LESSCHARSET="utf-8"
