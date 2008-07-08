@@ -123,6 +123,10 @@ if has("cscope")
 	elseif $CSCOPE_DB != ""
 	cs add $CSCOPE_DB
 	endif
+	" Try adding the system cscope file
+	if filereadable("/usr/src/debug/cscope.out")
+	    cs add /usr/src/debug/cscope.out /usr/src/debug
+	endif
 	set csverb
 	map <C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
 	function Csrebuild()
@@ -134,6 +138,9 @@ if has("cscope")
 		set nocsverb
 		cs kill 0
 		cs add cscope.out
+		if filereadable("/usr/src/debug/cscope.out")
+			cs add /usr/src/debug/cscope.out /sur/src/debug
+		endif
 		set csverb
 		redraw!
 	endfunction
