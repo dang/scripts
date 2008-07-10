@@ -3,6 +3,9 @@
 # Set up path.  Need ${HOME}/.scripts and ~/bin
 export PATH=${HOME}/.scripts:${HOME}/bin:${PATH}
 
+# Bash completion addons
+[ -f /etc/profile.d/bash-completion ] && . /etc/profile.d/bash-completion
+
 # Set up the main aliases
 source ${HOME}/.scripts/aliases
 
@@ -71,9 +74,6 @@ ${PCOLORN}${PCHAR}${PCOLORN} "
 # Core file size
 [ -z "${CORESIZE}" ] && CORESIZE=0
 ulimit -c ${CORESIZE}
-
-# Bash completion addons
-[ -f /etc/profile.d/bash-completion ] && . /etc/profile.d/bash-completion
 
 # ssh/gpg
 eval `keychain --quiet --eval`
