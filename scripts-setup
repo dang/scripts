@@ -7,7 +7,7 @@
 
 REPO="git://github.com/dang/scripts.git"
 LNFILES="bashrc cvsrc profile gvimrc inputrc"
-CPFILES="bash_local vimrc"
+CPFILES="bash_local vimrc gitconfig"
 
 function die {
 	echo "$@"
