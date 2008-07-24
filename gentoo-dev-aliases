@@ -59,7 +59,7 @@ function dkwstable {
 	echangelog "Marked stable on amd64 $@" &&
 	ebuild ${EBUILD} digest &&
 	repoman full &&
-	repoman commit -I --commitmsg "Marked stable on amd64 $@"
+	repoman commit --commitmsg "Marked stable on amd64 $@"
 }
 
 # Keyword something unstable on amd64
@@ -73,7 +73,7 @@ function dkwunstable {
 	echangelog "Marked ~amd64 $@" &&
 	ebuild ${EBUILD} digest &&
 	repoman full &&
-	repoman commit -I --commitmsg "Marked ~amd64 $@"
+	repoman commit --commitmsg "Marked ~amd64 $@"
 }
 
 # Update a package and show it's keywords
