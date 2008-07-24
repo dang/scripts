@@ -80,6 +80,8 @@ let g:EnhCommentifyUserMode='yes'
 " Cindent options
 "
 
+"" Don't set these anymore.  Put them in .project.vim in the same directory as
+"" cscope files
 "" Dan's cinoptions
 "set cinoptions={1s,t0
 "set tw=100
@@ -94,10 +96,10 @@ let g:EnhCommentifyUserMode='yes'
 "set tabstop=8
 "
 " Gated cinoptions
-set cinoptions=:0,+.5s,(.5s,u0,U1,t0,M1
-set tw=80
-set shiftwidth=8
-set tabstop=8
+"set cinoptions=:0,+.5s,(.5s,u0,U1,t0,M1
+"set tw=80
+"set shiftwidth=8
+"set tabstop=8
 
 "
 " Special commands
@@ -249,9 +251,11 @@ let yacc_uses_cpp=1
 unlet! c_cpp_comments "Must come after C99
 
 "
-" Doxygen highlighting (see .vim/syntax/doxygen.vim)
+" Doxygen highlighting 
 "
 
+" Turn it on
+let g:load_doxygen_syntax=1
 "let g:doxygen_enhanced_color = 1
 " Use highlight autobrief (first line is @brief, even without the tag)
 let doxygen_javadoc_autobrief = 1

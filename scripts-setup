@@ -6,7 +6,7 @@
 #
 
 REPO="git://github.com/dang/scripts.git"
-LNFILES="bashrc cvsrc profile gvimrc inputrc"
+LNFILES="bashrc cvsrc profile gvimrc inputrc vim"
 CPFILES="bash_local vimrc gitconfig"
 
 function die {
