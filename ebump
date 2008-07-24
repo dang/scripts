@@ -25,6 +25,7 @@ LONGUSAGE="\t-h\tPrint this help message
 \t-n\tNo VCS interactions
 \t-s\tSave KEYWORDS; don't make all arch ~arch
 \t-T\tDon't run tests
+\t-P\tDon't push in git
 \t-p <portdir>\tPORTDIR to act on (default ${PORTDIR})
 \t-t <tmpdir>\tTMP directory to extract packages to (default ${TMPDIR})
 \t-d <distdir>\tLocation distfiles are downloaded to (default ${DISTDIR})
@@ -37,7 +38,7 @@ LONGUSAGE="\t-h\tPrint this help message
 source ${HOME}/.scripts/functions.sh
 
 # Parse arguments
-while getopts ":hbcCknsp:d:t:T" option; do
+while getopts ":hbcCknsPp:d:t:T" option; do
 	case ${option} in
 		b ) BUILD="yes";;
 		c ) COMMIT="yes";;
@@ -45,6 +46,7 @@ while getopts ":hbcCknsp:d:t:T" option; do
 		k ) RMOLD="no";;
 		n ) VCS_FAKE="yes";;
 		s ) SAVEARCH="yes";;
+		P ) VCS_NOPUSH="nopush";;
 		T ) NOTESTS="no";;
 		p ) PORTDIR=${OPTARG};;
 		t ) TMPDIR=${OPTARG};;
@@ -187,7 +189,7 @@ if [ -n "${BUILD}" ]; then
 fi
 
 VCS_COMMITFILE=$(tempfile)
-echo "Bump to ${PVR}" >> ${VCS_COMMITFILE}
+echo "Bump to ${P}" >> ${VCS_COMMITFILE}
 
 if [ -n "${CHANGELOG}" ]; then
 	${VIM} -O ${CLTEMPFILE} ${VCS_COMMITFILE} -c "sp ${NTEMPFILE}"
