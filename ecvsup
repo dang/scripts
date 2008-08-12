@@ -3,10 +3,11 @@
 # Sync portage tree via CVS
 #
 
-USAGE="[-hfn]"
+USAGE="[-hfnv]"
 LONGUSAGE="\t-h\tPrint this help message
 \t-f\tFast update (no metadata regen)
-\t-n\tSkip updating overlays"
+\t-n\tSkip updating overlays
+\t-v\tBe verbose"
 
 HERDSXMLDIR="/home/os/gentoo/gentoo/xml/htdocs/proj/en/metastructure/herds"
 
@@ -18,33 +19,44 @@ source /etc/make.globals
 source /etc/make.conf
 
 # Parse arguments
-while getopts ":hfn" option; do
+while getopts ":hfnv" option; do
        case ${option} in
                f ) FAST="yes";;
                n ) NOOVERLAYS="yes";;
+               v ) VERBOSE="yes";;
                h ) usage;;
                \? ) usage "Invalid argument ${OPTARG}";;
                * ) usage "Invalid argument ${option}";;
        esac
 done
 
+function trace() {
+	if [ -n "${VERBOSE}" ]; then
+		echo ""
+		echo $@
+		echo ""
+	fi
+}
+
 cd ${PORTDIR} || die "no ${PORTDIR}"
 # Removed -C, because it touches mtime of every file, causing a full regen
+trace "Updating ${PORTDIR}"
 cvs -q up -PdA || die "cvs up failed"
 find ${PORTDIR} -name '.#*' -exec rm {} \; || die "find .#* failed"
 if [ -z "${NOOVERLAYS}" ]; then
 	for i in ${PORTDIR_OVERLAY}; do
-		echo ""
-		echo "updating $i"
-		echo ""
+		trace "updating $i"
 		cd ${i}
 		vcs_detect
 		vcs_update
 	done
 fi
-cd ${HERDSXMLDIR} || die "${HERDSXMLDIR} doesn't exist"
-vcs up herds.xml || die "Failed to update herds.xml"
+#cd ${HERDSXMLDIR} || die "${HERDSXMLDIR} doesn't exist"
+#trace "updating herds.xml"
+#vcs up herds.xml || die "Failed to update herds.xml"
 if [ -z "${FAST}" ]; then
+	trace "emerge --regen"
 	sudo emerge --regen || die "emerge regen failed"
+	trace "emerge --metadata"
 	sudo emerge --metadata || die "emerge metadata failed"
 fi
