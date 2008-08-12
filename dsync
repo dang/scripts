@@ -1,22 +1,24 @@
 #!/bin/bash
 
 # Set usage output
-USAGE="[-hfn]"
+USAGE="[-hcfov]"
 LONGUSAGE="\t-h\tPrint this help message
 \t-c\tSkip regen of system cscope
 \t-f\tFast update (no metadata regen)
-\t-o\tSkip updating overlays"
+\t-o\tSkip updating overlays
+\t-v\tBe verbose"
 
 # Standard functions
 source ${HOME}/.scripts/functions.sh
 
 ECVSUPARGS=""
 # Parse arguments
-while getopts ":hfn" option; do
+while getopts ":hcfov" option; do
        case ${option} in
                c ) NOSYSCSCOPE="y";;
                f ) ECVSUPARGS="${ECVSUPARGS} -f";;
                o ) ECVSUPARGS="${ECVSUPARGS} -n";;
+               v ) ECVSUPARGS="${ECVSUPARGS} -v";;
                h ) usage;;
                \? ) usage "Invalid argument ${OPTARG}";;
                * ) usage "Invalid argument ${option}";;
