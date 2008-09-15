@@ -372,4 +372,4 @@ autocmd FileAppendPost		*.bz2 !bzip2 <afile>:r
 augroup END
 
 " Needs to be after syntax is turned on
-autocmd! Syntax vala source $VIM/vim71/syntax/cs.vim
+"autocmd! Syntax vala source $VIM/vim71/syntax/cs.vim
