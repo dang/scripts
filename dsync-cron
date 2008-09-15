@@ -14,5 +14,5 @@ source ${HOME}/.scripts/functions.sh
 
 echo "$(date) begin dsync" >> ${HOME}/tmp/dsync.timestamps
 # Sync portage
-${HOME}/.scripts/dsync -v > ${HOME}/tmp/dsync.log || die "dsync failed"
+${HOME}/.scripts/dsync -v > ${HOME}/tmp/dsync.log 2>&1 || die "dsync failed"
 date >> ${HOME}/tmp/dsync.timestamps
