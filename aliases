@@ -370,3 +370,4 @@ function git_tar ()
     echo $tar
 }
 
+alias qdepends="qdepends -Q"
