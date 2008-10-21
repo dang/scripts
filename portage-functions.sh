@@ -35,16 +35,18 @@ done
 # cd to a package location by name in a portdir
 function portcd() {
 	PORTCD_PWD=`pwd`
-	PORTCD_PQUERY=`pquery --repo ${PORTDIR} -nm $*`
+	#PORTCD_QUERY=`pquery --repo ${PORTDIR} -nm $*`
+	PORTCD_QUERY=`eix -p --only-names $*`
+	echo "$PORTCD_QUERY"
 	PORTCD_MULTI=
-	for i in ${PORTCD_PQUERY}; do
+	for i in ${PORTCD_QUERY}; do
 		cd ${PORTDIR}/$i || die "couldn't cd to $i"
 		if [ "${PORTCD_PWD}" == "${PWD}" ]; then
 			break;
 		elif [ -z "${PORTCD_MULTI}" ]; then
 			PORTCD_MULTI="yes"
 		else
-			die "Multiple directories for $*: ${PORTCD_PQUERY}"
+			die "Multiple directories for $*: ${PORTCD_QUERY}"
 		fi
 	done
 }
