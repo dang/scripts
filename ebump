@@ -16,11 +16,12 @@ RMOLD="yes"
 FORCE="--force"
 
 # Set usage output
-USAGE="[-hbcCknsT][-p <portdir>] [-t <tmpdir>] [-d <distdir>]  [<basename> <old-version> <new-version>]"
+USAGE="[-hbcCiknsT][-p <portdir>] [-t <tmpdir>] [-d <distdir>] <old-ebuild> [<new-version>]"
 LONGUSAGE="\t-h\tPrint this help message
 \t-b\tBuild package.
 \t-c\tCommit package when done.
 \t-C\tView ChangeLog when done.
+\t-i\tBump in place (same version)
 \t-k\tKeep old versions.
 \t-n\tNo VCS interactions
 \t-s\tSave KEYWORDS; don't make all arch ~arch
@@ -29,20 +30,20 @@ LONGUSAGE="\t-h\tPrint this help message
 \t-p <portdir>\tPORTDIR to act on (default ${PORTDIR})
 \t-t <tmpdir>\tTMP directory to extract packages to (default ${TMPDIR})
 \t-d <distdir>\tLocation distfiles are downloaded to (default ${DISTDIR})
-\t<basename>\tName of package (\${P})
-\t<old-version>\tOld package version (old \${PVR})
-\t<new-version>\tNew package version (new \${PVR})
+\t<old-ebuild>\tOld ebuild name (\${P}.ebuild)
+\t[<new-version>]\tNew package version (new \${PVR})  If not given, will bump last version field.
 \tIf none of <basename> <old-version> <new-version> is given, ebump tries to guess what to bump"
 
 # Standard functions
 source ${HOME}/.scripts/functions.sh
 
 # Parse arguments
-while getopts ":hbcCknsPp:d:t:T" option; do
+while getopts ":hbcCiknsPp:d:t:T" option; do
 	case ${option} in
 		b ) BUILD="yes";;
 		c ) COMMIT="yes";;
 		C ) CHANGELOG="yes";;
+		i ) INPLACE="yes";;
 		k ) RMOLD="no";;
 		n ) VCS_FAKE="yes";;
 		s ) SAVEARCH="yes";;
@@ -61,34 +62,46 @@ if [ "${OPTIND}" != "0" ]; then
 	shift $((OPTIND-1))
 fi
 
-if [ -z "$3" ]; then
+if [ -z "$1" ]; then
 	usage "You must give package information"
 	exit
-	# Try to guess...
-	TMPNAME=$(/bin/ls *.ebuild)
-	FOUND=no
-	for i in ${TMPNAME}; do
-		if [ "${FOUND}" != "no" ]; then
-			usage "Could not get ebuild to bump; please specify"
-		fi
-		FOUND=$i
-	done
-	TMPNAME=$(basename ${FOUND} .ebuild)
-	PN=$(splitname pn ${TMPNAME})
-	OLD_PVR=$(splitname pvr ${TMPNAME})
-	rev=$(splitname revision ${TMPNAME})
-	if [ "${rev}" == "0" ]; then
-		# No -r revision; bump the last number in version
-		PV=$(splitname pv ${TMPNAME})
-	else
+fi
+
+if [ -n "$3" ]; then
+	usage "Old format <name> <old-pvr> <new-pvr>"
+	exit
+fi
+
+PN=$(qatom $1 | awk '{print $2}')
+OLD_PV=$(qatom $1 | awk '{print $3}')
+OLD_R=$(qatom $1 | awk '{print $4}')
+if [ -n "${OLD_R}" ]; then
+	OLD_PVR="${OLD_PV}-${OLD_R}"
+else
+	OLD_PVR="${OLD_PV}"
+fi
+
+if [ -n "${INPLACE}" ]; then
+	PVR="${OLD_PVR}"
+elif [ -z "$2" ]; then
+	if [ -n "${OLD_R}" ]; then
 		# bump -r
-		((rev++))
-		PVR="$(splitname pv ${TMPNAME})-r${rev}"
+		R=$(echo ${OLD_R} | sed 's/r//')
+		R=$(($R + 1))
+		PVR=${OLD_PV}-r${R}
+	else
+		# bump PV
+		LAST=$(echo ${OLD_PV} | awk -F . '{print $NF}')
+		LAST=$((${LAST} + 1))
+		TMP="$(echo ${OLD_PV} | awk -F . '{OFS="."; NF--; print $0}')"
+		if [ -n "${TMP}" ]; then
+			PVR=${TMP}.${LAST}
+		else
+			PVR=${LAST}
+		fi
 	fi
 else
-	PN=$1
-	OLD_PVR=$2
-	PVR=$3
+	PVR="${2}"
 fi
 
 OLD_PF=${PN}-${OLD_PVR}
@@ -104,6 +117,9 @@ if [ -n "${DISPLAY}" ]; then
 else
 	VIM="vim"
 fi
+
+echo "bumping ${OLD_PF} to ${PF}; confirm now"
+read
 
 portcd ${PN}
 EBUILDDIR=$(pwd)
