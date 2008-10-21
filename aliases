@@ -201,7 +201,7 @@ alias burnslow="sudo cdrecord -tao -v -eject dev=/dev/cdrom speed=0 -isosize"
 alias burnrw="sudo cdrecord -tao -v -eject dev=/dev/cdrom blank=fast speed=24 -isosize"
 
 # All the common rsync commands
-alias backup="rsync --rsh=ssh -avzS --delete "
+alias backup="rsync --rsh=ssh -avzS --progress --delete "
 #alias backup="( rsync --rsh=ssh -avzS --delete --delete-excluded --exclude=\"vmware\" --exclude=\"tmp\" --exclude=\".ccache\" --exclude=\"Cache\" --exclude=\"xxx\" --exclude=\"Downloads\" /home/dang/ zeus:/home/dang )"
 
 ##
@@ -253,7 +253,7 @@ alias unmerge='emerge --unmerge'
 alias eresume='emerge --resume'
 alias eskipfirst='emerge --resume --skipfirst'
 alias etc-update='sudo etc-update'
-alias edistmon='DISTCC_DIR=/home/portage/portage/.distcc sudo distccmon-gnome'
+alias edistmon='DISTCC_DIR=/home/portage/portage/.distcc distccmon-gnome'
 alias schedbatch='sudo schedtool -D -e sudo -u dang'
 alias schediso='sudo schedtool -I -e sudo -u dang'
 
