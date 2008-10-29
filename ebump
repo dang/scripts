@@ -205,7 +205,7 @@ if [ -n "${BUILD}" ]; then
 fi
 
 VCS_COMMITFILE=$(tempfile)
-echo "Bump to ${P}" >> ${VCS_COMMITFILE}
+echo "Bump to ${PF}" >> ${VCS_COMMITFILE}
 
 if [ -n "${CHANGELOG}" ]; then
 	${VIM} -O ${CLTEMPFILE} ${VCS_COMMITFILE} -c "sp ${NTEMPFILE}"
