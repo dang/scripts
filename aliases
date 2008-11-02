@@ -249,6 +249,7 @@ function vimreject {
 # Don't alias emerge; toolsched doesn't work with sudo
 #alias emerge="sudo emerge"
 alias eix-sync='sudo eix-sync'
+alias eworld='emerge -auvDN world'
 alias unmerge='emerge --unmerge'
 alias eresume='emerge --resume'
 alias eskipfirst='emerge --resume --skipfirst'
@@ -310,7 +311,7 @@ function cookiegrep {
 alias cookieedit="vim ${HOME}/.mozilla/firefox/4rl18vit.default/hostperm.1"
 
 alias display="display -auto-orient"
-alias xv="display -geometry +0+0 -resize 1440x877"
+alias xv="display -geometry +0+0 -resize 1439x870"
 
 function reniceX {
 	sudo renice -12 -p $(pgrep X)
