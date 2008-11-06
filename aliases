@@ -74,8 +74,26 @@ alias md="mkdir -p"
 alias rd="rmdir"
 alias which="alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde"
 #alias mktar="tar -cvf"
-alias mktbz="tar -cjvf"
-alias mktgz="tar -czvf"
+#alias mktbz="tar -cjvf"
+#alias mktgz="tar -czvf"
+function mktbz {
+	DIRNAME="$1"
+	if [ -n "$2" ]; then
+		TBZNAME="$2"
+	else
+		TBZNAME="${DIRNAME%/}.tar.bz2"
+	fi
+	tar -cjvf "${TBZNAME}" "${DIRNAME}"
+}
+function mktgz {
+	DIRNAME="$1"
+	if [ -n "$2" ]; then
+		TGZNAME="$2"
+	else
+		TGZNAME="${DIRNAME%/}.tar.gz"
+	fi
+	tar -czvf "${TGZNAME}" "${DIRNAME}"
+}
 #alias untar="tar -xvf"
 #alias untgz="tar zxf"
 #alias untbz="tar jxf"
