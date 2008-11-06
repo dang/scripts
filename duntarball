@@ -55,6 +55,6 @@ if [ -n "${PATCH}" ]; then
 fi
 echo ${DIRNAME}
 rm ${TMP}
-if [ -n "$(/bin/ls Unpack-*)" ]; then
+if [ -n "$(/bin/ls Unpack-* 2>/dev/null)" ]; then
 	rmdir Unpack-*
 fi
