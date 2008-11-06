@@ -118,8 +118,8 @@ else
 	VIM="vim"
 fi
 
-echo "bumping ${OLD_PF} to ${PF}; confirm now"
-read
+#echo "bumping ${OLD_PF} to ${PF}; confirm now"
+#read
 
 portcd ${PN}
 EBUILDDIR=$(pwd)
@@ -175,9 +175,13 @@ ebuild ${NEWEBUILD} digest || die "digest failed"
 
 # Open up the new ebuild and the configure.(in|ac) to check for new deps
 cd ${TMPDIR} || die "No ${TMPDIR}"
-[ -f ${DISTDIR}/${MY_P}.tar.bz2 ] && EXT="tar.bz2"
-[ -f ${DISTDIR}/${MY_P}.tar.gz ] && EXT="tar.gz"
-[ -f ${DISTDIR}/${MY_P}.tgz ] && EXT="tgz"
+[ -f "${DISTDIR}/${MY_P}.tar.bz2" ] && EXT="tar.bz2"
+[ -f "${DISTDIR}/${MY_P}.tar.gz" ] && EXT="tar.gz"
+[ -f "${DISTDIR}/${MY_P}.tgz" ] && EXT="tgz"
+if [ -z "${EXT}" ]; then
+	echo "${DISTDIR}/${MY_P}.tar.bz2"
+	die "could not get extension for ${MY_P}"
+fi
 DIRNAME=$(duntarball ${DISTDIR}/${MY_P}.${EXT})
 ${VIM} -O ${EBUILDDIR}/${NEWEBUILD} ${DIRNAME}/configure.*
 if [ -n "${CHANGELOG}" ]; then
