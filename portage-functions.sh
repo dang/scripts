@@ -32,23 +32,38 @@ for i in ${PORTDIR} ${PORTDIR_OVERLAY}; do
 done
 
 #
-# cd to a package location by name in a portdir
-function portcd() {
-	PORTCD_PWD=`pwd`
-	#PORTCD_QUERY=`pquery --repo ${PORTDIR} -nm $*`
-	PORTCD_QUERY=`eix -p --only-names $*`
-	echo "$PORTCD_QUERY"
-	PORTCD_MULTI=
-	for i in ${PORTCD_QUERY}; do
-		cd ${PORTDIR}/$i || die "couldn't cd to $i"
-		if [ "${PORTCD_PWD}" == "${PWD}" ]; then
+# Get the directory a package would live in
+function portpkgdir() {
+	RETVAL=
+	PKGDIR_PWD=`pwd`
+	#PKGDIR_QUERY=`pquery --repo ${PORTDIR} -nm $*`
+	PKGDIR_QUERY=`eix -p --only-names $*`
+	echo "$PKGDIR_QUERY"
+	PKGDIR_MULTI=
+	for i in ${PKGDIR_QUERY}; do
+		testdir="${PORTDIR}/$i"
+		if [ ! -d "${testdir}" ]; then
+			continue;
+		fi
+		RETVAL="${testdir}"
+		if [ "${PKGDIR_PWD}" == "${testdir}" ]; then
 			break;
-		elif [ -z "${PORTCD_MULTI}" ]; then
-			PORTCD_MULTI="yes"
+		elif [ -z "${PKGDIR_MULTI}" ]; then
+			PKGDIR_MULTI="yes"
 		else
-			die "Multiple directories for $*: ${PORTCD_QUERY}"
+			RETVAL=
+			die "Multiple directories for $*: ${PKGDIR_QUERY}"
 		fi
 	done
+}
+
+#
+# cd to a package location by name in a portdir
+function portcd() {
+	portpkgdir $@
+	if [ -n "${RETVAL}" ]; then
+		cd "${RETVAL}"
+	fi
 }
 
 #
