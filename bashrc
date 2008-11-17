@@ -31,6 +31,9 @@ export NOCONFIGURE=yes
 shopt -s histappend
 export HISTCONTROL="erasedups"
 
+# Update LINES and COLUMNS after each command
+shopt -s checkwinsize
+
 # per-box customizations.  These are done *after* all env settings (so those can be overridden) and
 # *before* any prompt settings, so those can be set up
 [ -f ${HOME}/.bash_local ] && . ${HOME}/.bash_local
