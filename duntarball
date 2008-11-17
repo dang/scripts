@@ -13,6 +13,11 @@ LONGUSAGE="\t-h, --help\n\t\tPrint this help message
 # Standard functions
 source ${HOME}/.scripts/functions.sh
 
+atool --help > /dev/null 2>&1
+if [ "$?" != "0" ]; then
+	die "You must install atool"
+fi
+
 # Script name
 ME=$(basename $0)
 
