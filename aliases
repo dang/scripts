@@ -77,6 +77,10 @@ alias which="alias | /usr/bin/which --tty-only --read-alias --show-dot --show-ti
 #alias mktbz="tar -cjvf"
 #alias mktgz="tar -czvf"
 function mktbz {
+	if [ -z "$1" ]; then
+		echo "Usage: mktbz <directory> [<tbzname>]"
+		return 1
+	fi
 	DIRNAME="$1"
 	if [ -n "$2" ]; then
 		TBZNAME="$2"
@@ -86,6 +90,10 @@ function mktbz {
 	tar -cjvf "${TBZNAME}" "${DIRNAME}"
 }
 function mktgz {
+	if [ -z "$1" ]; then
+		echo "Usage: mktgz <directory> [<tbzname>]"
+		return 1
+	fi
 	DIRNAME="$1"
 	if [ -n "$2" ]; then
 		TGZNAME="$2"
@@ -372,7 +380,7 @@ function git_tar ()
 
     if [ ! "$1" ]; then
         echo "[ERROR] what branch to export?"
-        return 1
+	return 1
     fi
 
     local date=$(TZ=UTC date '+%Y%m%d')
@@ -390,3 +398,5 @@ function git_tar ()
 }
 
 alias qdepends="qdepends -Q"
+
+alias ps_mem="sudo ${HOME}/bin/ps_mem.py"
