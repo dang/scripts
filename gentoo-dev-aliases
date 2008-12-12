@@ -167,3 +167,14 @@ function kcd() {
 	sportcd /home/portage/overlays/kvm $*
 }
 
+# chroot wrapper function
+# If no args are given, this calls:
+# chroot ${PWD} /bin/bash
+
+function chroot() {
+	if [ -n "${*}" ]; then
+		/usr/bin/chroot $@
+	else
+		/usr/bin/chroot "${PWD}" /bin/bash
+	fi
+}
