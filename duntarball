@@ -51,11 +51,13 @@ atool -xq --save-outdir=$TMP "${ARCHIVE}" 2>/dev/null
 DIRNAME=$(cat ${TMP})
 
 if [ -n "${PATCH}" ]; then
-	if [ -n "${DIRNAME}" ]; then
-		mv "${DIRNAME}" "${DIRNAME}.orig"
-		atool -xq "${ARCHIVE}" 2>/dev/null
-	else
-		die "Failed to extract .orig version: \"${DIRNAME}\""
+	if [ ! -d "${DIRNAME}.orig" ]; then
+		if [ -n "${DIRNAME}" ]; then
+			mv "${DIRNAME}" "${DIRNAME}.orig"
+			atool -xq "${ARCHIVE}" 2>/dev/null
+		else
+			die "Failed to extract .orig version: \"${DIRNAME}\""
+		fi
 	fi
 fi
 echo ${DIRNAME}
