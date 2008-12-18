@@ -12,6 +12,9 @@
 #COLOR1=32
 #COLOR2=34
 
+# Prompt hostname
+# PHOSTNAME="chroot-${HOSTNAME}"
+
 # This is a gentoo development box, set up the gentoo aliases here
 #source ${HOME}/.scripts/gentoo-dev-aliases
 #export ALIASFILES="${ALIASFILES} ${HOME}/.scripts/gentoo-dev-aliases"

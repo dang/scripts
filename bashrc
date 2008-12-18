@@ -69,10 +69,17 @@ PCOLORN="\[\033[0m\]"
 #PS1='\[\033[${COLOR1};1m\][\A \h] \[\033[${COLOR2};1m\]\W\[\033[0m\]${PCHAR} '
 #PS1='\[\033[01;${COLOR1}m\][\A \h]\[\033[01;${COLOR2}m\] \W\[\033[00m\]${PCHAR} '
 #PS1='\[\033[01;${COLOR1}m\]\D{%H:%M%S} \h\[\033[01;${COLOR2}m\] \W \[\033[00m\]${PCHAR} '
+if [ -z "${PHOSTNAME}" ]; then
 PS1="${PCOLOR1}[${PCOLOR1}\A${PCOLOR1}\
 ${PCOLOR1} ${PCOLOR1}\h${PCOLOR1}]\
  ${PCOLOR2}\W\
 ${PCOLORN}${PCHAR}${PCOLORN} "
+else
+PS1="${PCOLOR1}[${PCOLOR1}\A${PCOLOR1}\
+${PCOLOR1} ${PCOLOR1}${PHOSTNAME}${PCOLOR1}]\
+ ${PCOLOR2}\W\
+${PCOLORN}${PCHAR}${PCOLORN} "
+fi
 
 # Core file size
 [ -z "${CORESIZE}" ] && CORESIZE=0
