@@ -22,7 +22,6 @@ function cmd_exists {
 }
 
 cmd_exists sed
-cmd_exists git
 
 if [ -z "${1}" ]; then
 	echo "no directory given"
@@ -41,6 +40,7 @@ for i in ${LNFILES} scripts; do
 done
 
 if [ ! -d "${SCRIPTDIR}/.git" ]; then
+	cmd_exists git
 	cd $(dirname "${SCRIPTDIR}")
 	git clone ${REPO} $(basename ${SCRIPTDIR})
 fi
