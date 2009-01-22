@@ -167,6 +167,11 @@ function kcd() {
 	sportcd /home/portage/overlays/kvm $*
 }
 
+# 32bit-userland
+function 32cd() {
+	sportcd /home/portage/overlays/32bit-userland $*
+}
+
 # chroot wrapper function
 # If no args are given, this calls:
 # chroot ${PWD} /bin/bash
