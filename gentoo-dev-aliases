@@ -168,7 +168,7 @@ function kcd() {
 }
 
 # 32bit-userland
-function 32cd() {
+function ttcd() {
 	sportcd /home/portage/overlays/32bit-userland $*
 }
 
