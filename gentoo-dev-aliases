@@ -156,11 +156,11 @@ function gecd() {
 }
 # Stuff I maintain
 function maintcd() {
-	sportcd /home/portage/overlays/dang.overlays/maintainer $*
+	sportcd /home/portage/overlays/dang/maintainer $*
 }
 # Stuff I don't maintain
 function usercd() {
-	sportcd /home/portage/overlays/dang.overlays/user $*
+	sportcd /home/portage/overlays/dang/user $*
 }
 # kvm
 function kcd() {
