@@ -86,4 +86,6 @@ fi
 ulimit -c ${CORESIZE}
 
 # ssh/gpg
-eval `keychain --quiet --eval`
+if [ "${USER}" != "root" ]; then
+	eval `keychain --quiet --eval`
+fi
