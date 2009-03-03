@@ -3,6 +3,8 @@
 # Useful functions and setup for scripts dealing with portage.
 #
 # Needs: sys-apps/pkgcore
+# Needs: app-portage/portage-utils
+# Needs: app-portage/eix
 #
 # Note: this sources make.conf and make.defaults
 #
@@ -79,3 +81,74 @@ function port_category() {
 #
 # Removed!  Use qatom instead
 #
+
+#
+# Set PC with the package category of the given atom
+function getpc() {
+	PN=$(qatom -C $1 | awk '{print $1}')
+}
+
+#
+# Set PN with the package name of the given atom
+function getpn() {
+	PN=$(qatom -C $1 | awk '{print $2}')
+}
+
+#
+# Set PV with the package version of the given atom
+function getpv() {
+	PV=$(qatom -C $1 | awk '{print $3}')
+}
+
+#
+# Set PR with the package revision of the given atom
+function getpr() {
+	PR=$(qatom -C $1 | awk '{print $4}')
+}
+
+#
+# Set PVR with the package version-revision
+function getpvr() {
+	GPVRPV=${PV}
+	GPVRPR=${PR}
+	getpv
+	getpr
+	if [ -n "${PR}" ]; then
+		PVR="${PV}-${PR}"
+	else
+		PVR="${PV}"
+	fi
+	PV=${GPVRPV}
+	PR=${GPVRPR}
+}
+
+#
+# Set PCN with the package category/name
+function getpcn() {
+	PCN="$(qatom -C $1 | awk '{print $1}')/$(qatom -C $1 | awk '{print $2}')"
+}
+
+function danglop_current() {
+	ATOM=$(qlop -Cc | head -n1 | awk '{print $2}')
+	if [ -z "${ATOM}" ]; then
+		echo "None"
+		return
+	fi
+	getpc ${ATOM}
+	getpvr ${ATOM}
+	getpcn ${ATOM}
+	echo "${PC}"
+	echo "${PVR}"
+	echo "${PCN}"
+	ELAPSED=$(qlop -Cc | awk '(/elapsed/) {print $2 " " $4}')
+	EMIN=$(echo ${ELAPSED} | awk '{print $1}')
+	ESEC=$(echo ${ELAPSED} | awk '{print $2}')
+	ETSEC=$((${EMIN} * 60 + ${ESEC}))
+	TOTSEC=$(qlop -t ${PCN} | awk '{print $2}')
+	TOTSECLEFT=$((${TOTSEC} - ${ETSEC}))
+	MINLEFT=$((${TOTSECLEFT} / 60))
+	SECLEFT=$((${TOTSECLEFT} % 60))
+	echo "${PC}/${PVR}"
+	echo "${MINLEFT}:${SECLEFT}"
+
+}
