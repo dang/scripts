@@ -281,6 +281,14 @@ alias eworld='emerge -auvDN world'
 alias unmerge='emerge --unmerge'
 alias eresume='emerge --resume'
 alias eskipfirst='emerge --resume --skipfirst'
+function echeck {
+	if [ -z "$1" ]; then
+		TARGET="world"
+	else
+		TARGET="$1"
+	fi
+	emerge -puvDN ${TARGET} | grep "=>0"
+}
 alias etc-update='sudo etc-update'
 alias edistmon='DISTCC_DIR=/home/portage/portage/.distcc distccmon-gnome'
 alias schedbatch='sudo schedtool -D -e sudo -u dang'
@@ -404,3 +412,6 @@ alias qdepends="qdepends -Q"
 alias ps_mem="sudo ${HOME}/bin/ps_mem.py"
 
 alias storage="sshfs nemesis.fprintf.net:/storage /storage"
+
+#Get the list of devices and the associated kernel drivers
+alias kernel_drivers="lspci -nnk"
