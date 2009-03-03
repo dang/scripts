@@ -21,8 +21,8 @@ function meta() {
 	if [ ! -f "${metafile}" ]; then
 		die "No metadata file ${metafile}"
 	fi
-	grep "herd" ${metafile}
-	grep "email" ${metafile}
+	egrep --color=auto "herd" ${metafile}
+	egrep --color=auto "email" ${metafile}
 }
 
 # Replace "die" so it doesn't kill my shell
@@ -145,7 +145,7 @@ alias devel-chroots-maemo="TERM=xterm linux32 screen -c /dev/null sudo devel-chr
 # Recursively grep through ebuilds
 # Usage: ebgrep <pattern>
 function ebgrep {
-		find -L . -iname "*.ebuild" -exec grep -H "$@" "{}" ";"
+		find -L . -iname "*.ebuild" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 
 #
