@@ -123,7 +123,7 @@ if has("cscope")
 	    cs add cscope.out
 	" else add database pointed to by environment
 	elseif $CSCOPE_DB != ""
-	cs add $CSCOPE_DB
+	    cs add $CSCOPE_DB
 	endif
 	" Try adding the system cscope file
 	if filereadable("/usr/src/debug/cscope.out")
