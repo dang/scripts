@@ -74,9 +74,9 @@ fi
 
 PN=$(qatom $1 | awk '{print $2}')
 OLD_PV=$(qatom $1 | awk '{print $3}')
-OLD_R=$(qatom $1 | awk '{print $4}')
-if [ -n "${OLD_R}" ]; then
-	OLD_PVR="${OLD_PV}-${OLD_R}"
+OLD_PR=$(qatom $1 | awk '{print $4}')
+if [ -n "${OLD_PR}" ]; then
+	OLD_PVR="${OLD_PV}-${OLD_PR}"
 else
 	OLD_PVR="${OLD_PV}"
 fi
@@ -84,11 +84,11 @@ fi
 if [ -n "${INPLACE}" ]; then
 	PVR="${OLD_PVR}"
 elif [ -z "$2" ]; then
-	if [ -n "${OLD_R}" ]; then
+	if [ -n "${OLD_PR}" ]; then
 		# bump -r
-		R=$(echo ${OLD_R} | sed 's/r//')
-		R=$(($R + 1))
-		PVR=${OLD_PV}-r${R}
+		PR=$(echo ${OLD_PR} | sed 's/r//')
+		PR=$(($PR + 1))
+		PVR=${OLD_PV}-r${PR}
 	else
 		# bump PV
 		LAST=$(echo ${OLD_PV} | awk -F . '{print $NF}')
