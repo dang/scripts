@@ -1,0 +1,148 @@
+#!/usr/bin/perl
+# metacity-direction - move to a window in a given direction
+#
+# Copyright (c) 2009 Thomas Thurman <tthurman@gnome.org>
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+# 02111-1307, USA.
+
+use strict;
+use warnings;
+
+# save ourselves some support questions...
+eval { require X11::Protocol; };
+die "Please install X11::Protocol first, by typing 'sudo cpan X11::Protocol'.\n"
+    if $@;
+
+my $x11 = X11::Protocol->new();
+my $root = $x11->{root};
+
+sub get_prop {
+    my ($win, $atom) = @_;
+    my ($p) = $x11->GetProperty($win, $x11->atom($atom),
+				'AnyPropertyType', 0, -1, 0);
+    return unpack("L*", $p);
+}
+
+sub get_active_desktop { return get_prop($root, '_NET_CURRENT_DESKTOP'); }
+sub get_active_window { return get_prop($root, '_NET_ACTIVE_WINDOW'); }
+sub get_client_list { return get_prop($root, '_NET_CLIENT_LIST_STACKING'); }
+
+sub get_type_of_window {
+    return $x11->atom_name(get_prop($_[0], '_NET_WM_WINDOW_TYPE'));
+}
+
+sub get_desktop_of_window {
+    return get_prop($_[0], '_NET_WM_DESKTOP');
+}
+
+sub get_current_time {
+    # really what we ought to do here is create a window, update its
+    # properties with an empty list of properties, catch the
+    # PropertyNotify event, get the most recent timestamp out of it,
+    # and kill the window.  This is way too much work, so we'll pretend
+    # we only know the old version of the spec and return CurrentTime (zero).
+    return 0;
+}
+
+sub get_centre_of_window {
+  my ($win) = @_;
+
+  my %geom = $x11->GetGeometry($win);
+  my @xlat = $x11->TranslateCoordinates($win, $root, $geom{x}, $geom{y});
+
+  return (
+    $geom{width}/2+$xlat[2],
+    $geom{height}/2+$xlat[3],
+  );
+}
+
+my %directions = (
+  n  => [  0, -1 ],
+  ne => [  1, -1 ],
+  e  => [  1,  0 ],
+  se => [  1,  1 ],
+  s  => [  0,  1 ],
+  sw => [ -1,  1 ],
+  w  => [ -1,  0 ],
+  nw => [ -1, -1 ],
+);
+
+die "Unknown direction: try one of " . join(' ', sort keys %directions)
+        unless $ARGV[0] && $directions{$ARGV[0]};
+
+my %ignore_types = map { $_=>1 } qw(
+_NET_WM_WINDOW_TYPE_DOCK
+_NET_WM_WINDOW_TYPE_DESKTOP 
+); # any more?
+
+my $active = get_active_window();
+my $desktop = get_active_desktop();
+print "Desktop: $desktop\n";
+
+exit unless $active; # no point if there's no focus
+
+my ($sx, $sy) = get_centre_of_window($active);
+my ($dx, $dy) = @{ $directions{$ARGV[0]} };
+my $candidate = $active;
+my ($tdx, $tdy, $distance, $cross);
+my $best_score = -1;
+
+for (reverse get_client_list()) {
+
+  next if $_ == $active;
+  next if $ignore_types{get_type_of_window($_)};
+  my $win_desk = get_desktop_of_window($_);
+  next if get_desktop_of_window($_) != $desktop;
+
+  my ($tx, $ty) = get_centre_of_window($_);
+  my ($type) = get_type_of_window($_);
+  my $tdx = $tx-$sx;
+  my $tdy = $ty-$sy;
+
+  if ($dx==0) {
+      # south and north only
+      $distance = $tdy*$dy;
+      $cross = abs($tdx);
+  } else {
+      $distance = $tdx*$dx;
+      $cross = abs($tdy);
+  }
+
+  next if $distance <= 0; # right on top of us, we'd loop forever
+
+  my $score = $distance + $cross; # same algo as fvwm
+
+  if ($best_score==-1 || $score < $best_score) {
+      $best_score = $score;
+      $candidate = $_; # New candidate!
+  }
+}
+
+$x11->SendEvent($root, 0,
+		$x11->pack_event_mask('SubstructureNotify',
+				      'SubstructureRedirect'),
+		$x11->pack_event(
+		    name => 'ClientMessage',
+		    window => $candidate,
+		    type => $x11->atom('_NET_ACTIVE_WINDOW'),
+		    format => 32,
+      data => pack('LLLLL',
+        2, # we are a pager
+        get_current_time(),
+        $candidate, 0, 0),
+  ));
+
+# eof metacity-direction
