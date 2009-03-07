@@ -124,7 +124,7 @@ function vcs_detect() {
 	VCS="unknown"
 	if [ -d "${PWD}/.svn" ]; then
 		VCS="svn"
-	elif [ -n "$(git rev-parse --git-dir)" ]; then
+	elif [ -n "$(git rev-parse --git-dir 2>/dev/null)" ]; then
 		VCS="git"
 	elif [ -d "${PWD}/CVS" ]; then
 		VCS="cvs"
