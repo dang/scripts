@@ -25,8 +25,8 @@ source /etc/make.conf
 # Get PORTDIR.  First, see if the PWD is in one of the directories in ${PORTDIR}
 # or ${PORTDIR_OVERLAY}  If it is, use that as PORTDIR.  Otherwise, fall back on
 # PORTDIR specified in /etc/make.conf, or on the default above.
-for i in ${PORTDIR} ${PORTDIR_OVERLAY}; do
-	MY_PORTDIR=`echo ${PWD} | /bin/grep -Fo "${i}"`
+for __x in ${PORTDIR} ${PORTDIR_OVERLAY}; do
+	MY_PORTDIR=`echo ${PWD} | /bin/grep -Fo "${__x}"`
 	if [ -n "${MY_PORTDIR}" ]; then
 		PORTDIR=${MY_PORTDIR}
 		break;
@@ -38,12 +38,14 @@ done
 function portpkgdir() {
 	RETVAL=
 	PKGDIR_PWD=`pwd`
-	#PKGDIR_QUERY=`pquery --repo ${PORTDIR} -nm $*`
-	PKGDIR_QUERY=`eix -p --only-names $*`
+	getpcn $*
+	echo "${PCN}"
+	#PKGDIR_QUERY=`pquery --repo ${PORTDIR} -nm $PCN`
+	PKGDIR_QUERY=`eix -p --only-names $PCN`
 	echo "$PKGDIR_QUERY"
 	PKGDIR_MULTI=
-	for i in ${PKGDIR_QUERY}; do
-		testdir="${PORTDIR}/$i"
+	for __x in ${PKGDIR_QUERY}; do
+		testdir="${PORTDIR}/$__x"
 		if [ ! -d "${testdir}" ]; then
 			continue;
 		fi
@@ -54,7 +56,7 @@ function portpkgdir() {
 			PKGDIR_MULTI="yes"
 		else
 			RETVAL=
-			die "Multiple directories for $*: ${PKGDIR_QUERY}"
+			die "Multiple directories for $PCN: ${PKGDIR_QUERY}"
 		fi
 	done
 }
@@ -111,8 +113,8 @@ function getpr() {
 function getpvr() {
 	GPVRPV=${PV}
 	GPVRPR=${PR}
-	getpv
-	getpr
+	getpv $1
+	getpr $1
 	if [ -n "${PR}" ]; then
 		PVR="${PV}-${PR}"
 	else
@@ -125,7 +127,13 @@ function getpvr() {
 #
 # Set PCN with the package category/name
 function getpcn() {
-	PCN="$(qatom -C $1 | awk '{print $1}')/$(qatom -C $1 | awk '{print $2}')"
+	_xpc=$(qatom -C $1 | awk '{print $1}')
+	_xpn=$(qatom -C $1 | awk '{print $2}')
+	if [ "${_xpc}" != "(null)" ]; then
+		PCN="${_xpc}/${_xpn}"
+	else
+		PCN=${_xpn}
+	fi
 }
 
 function danglop_current() {
