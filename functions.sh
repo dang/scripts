@@ -197,7 +197,7 @@ function vcs_rm() {
 					rm ${i} || die "cvs rm failed (rm)"
 				fi
 			done
-			cvs rm $* || die "cvs rm failed (cvs rm)"
+			colorcvs rm $* || die "cvs rm failed (cvs rm)"
 			;;
 		fake)
 			for i in $*; do
@@ -232,7 +232,7 @@ function vcs_add() {
 			git add $* || die "git add failed"
 			;;
 		cvs)
-			cvs add $* || die "cvs add failed"
+			colorcvs add $* || die "cvs add failed"
 			;;
 		fake)
 			;;
@@ -300,7 +300,7 @@ function vcs_update() {
 			git pull $* || die "git pull failed"
 			;;
 		cvs)
-			cvs up $* || die "cvs update failed"
+			colorcvs up $* || die "cvs update failed"
 			;;
 		fake)
 			;;
@@ -356,7 +356,7 @@ function vcs_status() {
 			git status $*
 			;;
 		cvs)
-			cvs -nq up $* || die "cvs status failed"
+			colorcvs -nq up $* 2>/dev/null || die "cvs status failed"
 			;;
 		fake)
 			;;
@@ -381,7 +381,7 @@ function vcs_diff() {
 			git diff $* || die "git diff failed"
 			;;
 		cvs)
-			cvs diff $* || die "cvs diff failed"
+			colorcvs diff $* || die "cvs diff failed"
 			;;
 		fake)
 			;;
@@ -559,8 +559,7 @@ function vcs_annotate() {
 			git annotate $* | sed -r 's/\<([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5][0-9])\>//' | sed 's/ +0000//' || die "git annotate failed"
 			;;
 		cvs)
-			# CVS doesn't do revert...
-			cvs annotate $* || die "cvs annotate failed"
+			colorcvs annotate $* || die "cvs annotate failed"
 			;;
 		fake)
 			;;
@@ -588,7 +587,7 @@ function vcs_log() {
 			;;
 		cvs)
 			# CVS doesn't do revert...
-			cvs log -r ${VERSION} $* || die "cvs annotate failed"
+			colorcvs log -r ${VERSION} $* || die "cvs annotate failed"
 			;;
 		fake)
 			;;
