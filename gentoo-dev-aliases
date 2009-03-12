@@ -60,6 +60,21 @@ function ebcd() {
 #	repoman --commitmsg "$@" commit
 #}
 
+# Keyword something stable on amd64 but don't commit (for batch commits)
+# Usage: dkwncstable <ebuild> [<Extra changelog info>]
+# Example: dkwncstable clamav-0.88.7.ebuild "for bug #157698"
+function dkwncstable {
+	getpn $1
+	getpvr $1
+	EBUILD=${PN}-${PVR}.ebuild
+	shift
+	/usr/bin/cvs up &&
+	ekeyword amd64 ${EBUILD} &&
+	echangelog "Marked stable on amd64 $@" &&
+	ebuild ${EBUILD} digest &&
+	repoman full
+}
+
 # Keyword something stable on amd64
 # Usage: dkwstable <ebuild> [<Extra changelog info>]
 # Example: dkwstable clamav-0.88.7.ebuild "for bug #157698"
