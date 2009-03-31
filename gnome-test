@@ -50,7 +50,7 @@ if [ -z "${NOTMPFS}" ]; then
 else
 	sudo rm -rf ${CHROOT_DIR}
 fi
-sudo tar xjf ${CHROOT_NAME}-current.tar.bz2
+sudo tar xjpf ${CHROOT_NAME}-current.tar.bz2
 dchroot -d ${CHROOT_NAME} start
 dchroot ${CHROOT_NAME} run -- emerge -v ${PACKAGE}
 retval=$?
