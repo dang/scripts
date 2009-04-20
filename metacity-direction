@@ -105,7 +105,7 @@ for (reverse get_client_list()) {
   next if $_ == $active;
   next if $ignore_types{get_type_of_window($_)};
   my $win_desk = get_desktop_of_window($_);
-  next if get_desktop_of_window($_) != $desktop;
+  next if $win_desk != $desktop;
 
   my ($tx, $ty) = get_centre_of_window($_);
   my ($type) = get_type_of_window($_);
