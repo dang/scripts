@@ -6,12 +6,14 @@
 USAGE="[-hk] [<directories>]"
 LONGUSAGE="\t-h\tPrint this help message
 \t-k\tKernel database (no system includes)
+\t-c\tClean build (no .maketagsrc)
 \t<directories>\tDirectories to scan (defaults to '.')"
 
 source ${HOME}/.scripts/functions.sh
 
-while getopts ":hk" option; do
+while getopts ":hkc" option; do
 	case ${option} in
+		c ) CLEAN="-c";;
 		k ) KERNEL="-k";;
 		h ) usage;;
 		\? ) usage "Invalid argument ${OPTARG}";;
@@ -23,8 +25,10 @@ done
 echo "$0 $@" > ".#maketags.dfg"
 
 # Get stuff from the .maketagsrc file
-if [ -f "${HOME}/.maketagsrc" ]; then
-	source ${HOME}/.maketagsrc
+if [ -n "${CLEAN}" ]; then
+	if [ -f "${HOME}/.maketagsrc" ]; then
+		source ${HOME}/.maketagsrc
+	fi
 fi
 
 if [ "${OPTIND}" != "0" ]; then
