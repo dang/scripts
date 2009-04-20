@@ -347,7 +347,7 @@ function cookiegrep {
 alias cookieedit="vim ${HOME}/.mozilla/firefox/4rl18vit.default/hostperm.1"
 
 alias display="display -auto-orient"
-alias xv="display -geometry +0+0 -resize 1439x870"
+alias xv="display -geometry +0+0 -resize 1432x870"
 
 function reniceX {
 	sudo renice -12 -p $(pgrep X)
