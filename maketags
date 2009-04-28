@@ -25,7 +25,7 @@ done
 echo "$0 $@" > ".#maketags.dfg"
 
 # Get stuff from the .maketagsrc file
-if [ -n "${CLEAN}" ]; then
+if [ -z "${CLEAN}" ]; then
 	if [ -f "${HOME}/.maketagsrc" ]; then
 		source ${HOME}/.maketagsrc
 	fi
@@ -48,7 +48,7 @@ else
 fi
 
 TMPFILE=`mktemp -t maketags.XXXXXXXXXX` || die "Couldn't make tempfile"
-find ${DIRS} ${EXTRA_DIRS} -name "*.c" -or -name "*.cpp" -or -name "*.cxx" -or -name "*.h++" -or -name "*.hxx" -or -name "*.hh" -or -name "*.hpp" -or -name "*.H" -or -name "*.C" -or -name "*.c++" -or -name "*.cc" -or -name "*.h" >> ${TMPFILE}
+find ${DIRS} ${EXTRA_DIRS} -type f -and \( -name "*.c" -or -name "*.cpp" -or -name "*.cxx" -or -name "*.h++" -or -name "*.hxx" -or -name "*.hh" -or -name "*.hpp" -or -name "*.H" -or -name "*.C" -or -name "*.c++" -or -name "*.cc" -or -name "*.h" \) >> ${TMPFILE}
 
 if [ -n "${SKIPRE}" ]; then
 	egrep -v "${SKIPRE}" ${TMPFILE} > cscope.files
