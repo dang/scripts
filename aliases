@@ -271,10 +271,12 @@ function cleanuppatch {
 function vimreject {
 	vim -O ${1}?(.rej)
 }
+function findfile {
+	find . -iname "*${*}*"
+}
 
 # Gentoo related aliases
-# Don't alias emerge; toolsched doesn't work with sudo
-#alias emerge="sudo emerge"
+alias emerge="sudo emerge"
 alias eix-sync='sudo eix-sync'
 #alias eworld='emerge -auvD --reinstall changed-use world'
 alias eworld='emerge -auvDN world'
