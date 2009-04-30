@@ -172,6 +172,8 @@ fi
 
 # digest new ebuild
 ebuild ${NEWEBUILD} digest || die "digest failed"
+# Make sure we have the tarballs
+sudo emerge -f =${PF}
 
 # Open up the new ebuild and the configure.(in|ac) to check for new deps
 cd ${TMPDIR} || die "No ${TMPDIR}"
@@ -202,9 +204,9 @@ ebuild ${NEWEBUILD} digest || die "digest failed"
 if [ -n "${BUILD}" ]; then
 	# We were told to build it
 	if [ -z "${NOTESTS}" ]; then
-		FEATURES=test emerge --oneshot "=${PORT_CATEGORY}/${PN}-${PVR}" || die "emerge failed"
+		FEATURES=test sudo emerge --oneshot "=${PORT_CATEGORY}/${PN}-${PVR}" || die "emerge failed"
 	else
-		emerge --oneshot "=${PORT_CATEGORY}/${PN}-${PVR}" || die "emerge failed"
+		sudo emerge --oneshot "=${PORT_CATEGORY}/${PN}-${PVR}" || die "emerge failed"
 	fi
 fi
 
