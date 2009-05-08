@@ -229,6 +229,7 @@ alias burnrw="sudo cdrecord -tao -v -eject dev=/dev/cdrom blank=fast speed=24 -i
 
 # All the common rsync commands
 alias backup="rsync --rsh=ssh -avzS --progress --delete "
+alias rcp="rsync --rsh=ssh -avzS --progress "
 #alias backup="( rsync --rsh=ssh -avzS --delete --delete-excluded --exclude=\"vmware\" --exclude=\"tmp\" --exclude=\".ccache\" --exclude=\"Cache\" --exclude=\"xxx\" --exclude=\"Downloads\" /home/dang/ zeus:/home/dang )"
 
 ##
