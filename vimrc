@@ -125,10 +125,6 @@ if has("cscope")
 	elseif $CSCOPE_DB != ""
 	    cs add $CSCOPE_DB
 	endif
-	" Try adding the system cscope file
-	if filereadable("/usr/src/debug/cscope.out")
-	    cs add /usr/src/debug/cscope.out /usr/src/debug
-	endif
 	set csverb
 	map <C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
 	function Csrebuild()
@@ -140,9 +136,6 @@ if has("cscope")
 		set nocsverb
 		cs kill 0
 		cs add cscope.out
-		if filereadable("/usr/src/debug/cscope.out")
-			cs add /usr/src/debug/cscope.out /sur/src/debug
-		endif
 		set csverb
 		redraw!
 	endfunction
@@ -157,6 +150,26 @@ if has("cscope")
 	endfunction
 	" Reload the existing database (if cscope crashes)
 	command Csload call Csload()
+	function Csglobal()
+		set nocsverb
+		let fname = $HOME . "/.vim/csglobals"
+		if filereadable(fname)
+			for line in readfile(fname)
+				let dspc = stridx(line, " ")
+				let dfile = strpart(line, 0, dspc)
+				let dpath = strpart(line, dspc + 1)
+				echo '"' . dfile . '"'
+				echo '"' . dpath . '"'
+				if filereadable(dfile)
+					execute "cs add " . dfile . " " . dpath
+				endif
+			endfor
+		endif
+		set csverb
+		redraw!
+	endfunction
+	" Rebuild and reload the cscope database
+	command Csglobal call Csglobal()
 endif
 map <F4> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
