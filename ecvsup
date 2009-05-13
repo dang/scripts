@@ -56,7 +56,7 @@ fi
 #vcs up herds.xml || die "Failed to update herds.xml"
 if [ -z "${FAST}" ]; then
 	trace "emerge --regen"
-	sudo emerge --regen --jobs ${PORTAGE_JOBS:-1} || die "emerge regen failed"
+	sudo emerge --regen --jobs ${PORTAGE_JOBS:-1}
 #        trace "emerge --metadata"
 #        sudo emerge --metadata || die "emerge metadata failed"
 fi
