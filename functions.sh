@@ -422,7 +422,7 @@ function vcs_echangelog() {
 	esac
 
 	if [ -n "${VCS_COMMITFILE}" ]; then
-		ECHANGELOG_EDITOR= ${VCS_ECHANGELOG} < ${VCS_COMMITFILE} || die "${VCS_ECHANGELOG} failed"
+		EDITOR= ECHANGELOG_EDITOR= ${VCS_ECHANGELOG} < ${VCS_COMMITFILE} || die "${VCS_ECHANGELOG} failed"
 	elif [ -n "${VCS_COMMITMSG}" ]; then
 		${VCS_ECHANGELOG} "${VCS_COMMITMSG}" || die "${VCS_ECHANGELOG} died"
 	fi
