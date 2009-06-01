@@ -49,8 +49,11 @@ if [ -z "${NOTMPFS}" ]; then
 	sudo mount -t tmpfs shm ${CHROOT_DIR}
 else
 	sudo rm -rf ${CHROOT_DIR}
+	sudo mkdir -p ${CHROOT_DIR}
 fi
+cd ${CHROOT_DIR} || die "No ${CHROOT_DIR}"
 sudo tar xjpf ${CHROOT_NAME}-current.tar.bz2
+cd ${CHROOT_BASE}
 dchroot -d ${CHROOT_NAME} start
 dchroot ${CHROOT_NAME} run -- emerge -v ${PACKAGE}
 retval=$?
