@@ -326,6 +326,8 @@ highlight DiffDelete	ctermfg=black		ctermbg=darkcyan
 highlight DiffText	ctermfg=black		ctermbg=darkred
 highlight Folded	ctermfg=grey		ctermbg=darkblue
 highlight FoldColumn	ctermfg=darkblue	ctermbg=gray
+highlight Pmenu		ctermfg=black	ctermbg=13
+highlight PmenuSel	ctermfg=white 	ctermfg=242
 "highlight PreProc ctermfg=Red
 
 "
