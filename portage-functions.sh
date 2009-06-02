@@ -67,6 +67,8 @@ function portcd() {
 	portpkgdir $@
 	if [ -n "${RETVAL}" ]; then
 		cd "${RETVAL}"
+	elif [ -d "${PORTDIR}/$*" ]; then
+		cd "${PORTDIR}/$*"
 	fi
 }
 
