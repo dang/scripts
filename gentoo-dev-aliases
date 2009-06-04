@@ -12,18 +12,19 @@ export ALIASFILES="${ALIASFILES} ${HOME}/.scripts/gentoo-dev-aliases"
 # Usage: meta <packagename>
 # Note: needs sys-apps/pkgcore
 #alias meta="pquery --repo /usr/portage -nv --attr herds --attr maintainers --attr license"
-function meta() {
-	portpkgdir $@
-	if [ -z "${RETVAL}" ]; then
-		die "No directory for $*"
-	fi
-	local metafile="${RETVAL}/metadata.xml"
-	if [ ! -f "${metafile}" ]; then
-		die "No metadata file ${metafile}"
-	fi
-	egrep --color=auto "herd" ${metafile}
-	egrep --color=auto "email" ${metafile}
-}
+# function meta() {
+#         portpkgdir $@
+#         if [ -z "${RETVAL}" ]; then
+#                 die "No directory for $*"
+#         fi
+#         local metafile="${RETVAL}/metadata.xml"
+#         if [ ! -f "${metafile}" ]; then
+#                 die "No metadata file ${metafile}"
+#         fi
+#         egrep --color=auto "herd" ${metafile}
+#         egrep --color=auto "email" ${metafile}
+# }
+alias meta="equery meta"
 
 # Replace "die" so it doesn't kill my shell
 function die() {
