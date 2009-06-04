@@ -4,9 +4,10 @@
 #
 
 # Set usage output
-USAGE="[-h |--help] [-n | --no-tmpfs ] <atom>"
+USAGE="[-h |--help] [-n | --no-tmpfs ] [-t | --test] <atom>"
 LONGUSAGE="\t-h, --help\n\t\tPrint this help message
 \t-n, --no-tmpfs\n\t\tDo not mount tmpfs
+\t-t, --test\n\t\tRun tests on <atom> (and <atom> only)
 \t<atom>\n\t\tDepend atom to emerge"
 
 # Standard functions
@@ -16,7 +17,7 @@ source ${HOME}/.scripts/functions.sh
 ME=$(basename $0)
 
 # Parse arguments
-ARGS=`getopt -o h --long help -n "${ME}" -- "$@"`
+ARGS=`getopt -o hnt --long help,no-tmpfs,test -n "${ME}" -- "$@"`
 
 if [ $? != 0 ] ; then
 	usage 
@@ -27,6 +28,7 @@ while true ; do
 	case "$1" in
 		-h|--help) usage; shift ;;
 		-n|--no-tmpfs) NOTMPFS="yes"; shift ;;
+		-t|--test) TEST="yes"; shift ;;
 		--) shift ; break ;;
 		* ) usage "Invalid argument $1";;
 	esac
@@ -61,6 +63,16 @@ if [ "${retval}" == "0" ]; then
 	echo "emerge ${PACKAGE} succeeded"
 else
 	echo "emerge ${PACKAGE} failed"
+fi
+
+if [ "${retval}" == "0" ] && [ -n "${TEST}" ]; then
+	dchroot ${CHROOT_NAME} run -- FEATURES=test emerge -v ${PACKAGE}
+	tretval=$?
+	if [ "${tretval}" == "0" ]; then
+		echo "    tests on ${PACKAGE} succeeded"
+	else
+		echo "    tests on ${PACKAGE} failed"
+	fi
 fi
 
 dchroot ${CHROOT_NAME} stop
