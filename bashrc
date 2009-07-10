@@ -3,8 +3,10 @@
 # Set up path.  Need ${HOME}/.scripts and ~/bin
 export PATH=${HOME}/.scripts:${HOME}/bin:${PATH}
 
-# Bash completion addons
+# Bash completion addons: Gentoo
 [ -f /etc/profile.d/bash-completion ] && . /etc/profile.d/bash-completion
+# Bash completion addons: Fedora
+[ -f /etc/profile.d/bash_completion.sh ] && . /etc/profile.d/bash_completion.sh
 
 # Set up the main aliases
 source ${HOME}/.scripts/aliases
@@ -87,5 +89,5 @@ ulimit -c ${CORESIZE}
 
 # ssh/gpg
 if [ "${USER}" != "root" ]; then
-	eval `keychain --quiet --eval`
+	[ -x /usr/bin/keychain ] && eval `keychain --quiet --eval`
 fi
