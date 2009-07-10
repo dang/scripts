@@ -35,7 +35,7 @@ else
 fi
 
 # Check for conflicts
-for i in ${LNFILES} scripts; do
+for i in ${LNFILES}; do
 	[ -a "${HOME}/.${i}" ] && die "${HOME}/.${i} exists; not continuing"
 done
 
