@@ -46,7 +46,7 @@ if [ -z "${ARCHIVE}" ]; then
 	usage "Must give an archive"
 fi
 
-TMP=$(tempfile)
+TMP=$(mktemp)
 atool -xq --save-outdir=$TMP "${ARCHIVE}" 2>/dev/null
 DIRNAME=$(cat ${TMP})
 
