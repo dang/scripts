@@ -20,3 +20,5 @@
 	untracked = cyan
 [branch]
 	autosetupmerge = true
+[push]
+	default = matching
