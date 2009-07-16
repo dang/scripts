@@ -4,7 +4,7 @@
 export PATH=${HOME}/.scripts:${HOME}/bin:${PATH}
 
 # Bash completion addons: Gentoo
-[ -f /etc/profile.d/bash-completion ] && . /etc/profile.d/bash-completion
+[ -f /etc/profile.d/bash-completion.sh ] && . /etc/profile.d/bash-completion.sh
 # Bash completion addons: Fedora
 [ -f /etc/profile.d/bash_completion.sh ] && . /etc/profile.d/bash_completion.sh
 
