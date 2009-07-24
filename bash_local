@@ -5,18 +5,22 @@
 # Copy into #{HOME}/.bash_local
 
 # Local path
-#PATH=/usr/bin/wrappers:$HOME/bin/toolsched:$PATH:/usr/games/bin:/sbin:/usr/sbin:/usr/local/sbin:.
-#export PATH
+# PATH=$PATH:/usr/games/bin:/sbin:/usr/sbin:/usr/local/sbin:.
+# export PATH
 
 # Prompt colors; see bashrc
-#COLOR1=32
-#COLOR2=34
+# COLOR1=32
+# COLOR2=34
 
 # Prompt hostname
 # PHOSTNAME="chroot-${HOSTNAME}"
 
 # This is a gentoo development box, set up the gentoo aliases here
-#source ${HOME}/.scripts/gentoo-dev-aliases
-#export ALIASFILES="${ALIASFILES} ${HOME}/.scripts/gentoo-dev-aliases"
+# source ${HOME}/.scripts/gentoo-dev-aliases
+# export ALIASFILES="${ALIASFILES} ${HOME}/.scripts/gentoo-dev-aliases"
 # and allow core files
-#CORESIZE=unlimited
+# CORESIZE=unlimited
+
+# Uncomment to only use gnome-keyring as an ssh-agent, even if keychain is
+# installed.  This will keep keychain from starting a ssh-agent by itself
+# export SSH_ONLY_KEYRING="yes"
