@@ -89,5 +89,12 @@ ulimit -c ${CORESIZE}
 
 # ssh/gpg
 if [ "${USER}" != "root" ]; then
-	[ -x /usr/bin/keychain ] && eval `keychain --quiet --eval`
+	if [ -n "${SSH_ONLY_KEYRING}" ]; then
+		KEYRING=$(echo ${SSH_AUTH_SOCK} | grep keyring)
+		if [ -n "${KEYRING}" ]; then
+			[ -x /usr/bin/keychain ] && eval `keychain --quiet --eval`
+		fi
+	else
+		[ -x /usr/bin/keychain ] && eval `keychain --quiet --eval`
+	fi
 fi
