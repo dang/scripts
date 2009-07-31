@@ -388,3 +388,8 @@ augroup END
 
 " Needs to be after syntax is turned on
 "autocmd! Syntax vala source $VIM/vim71/syntax/cs.vim
+
+"
+"Snippits - see .vim/doc/snipMate.txt
+"
+let g:snips_author = 'Daniel Gryniewicz'
