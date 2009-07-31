@@ -3,7 +3,7 @@
 
 # First, set up my environment
 export HOME=/home/dang
-source ${HOME}/.profile
+source ${HOME}/.keychain/${HOSTNAME}-sh
 
 DFGcleanup() {
 	echo "$(date): $@" >> ${HOME}/tmp/dsync.timestamps
