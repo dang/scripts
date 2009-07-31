@@ -223,9 +223,9 @@ unset autologout
 alias telent=telnet
 
 # CD burning
-alias burn="sudo cdrecord -tao -v -eject dev=/dev/cdrom -isosize"
-alias burnslow="sudo cdrecord -tao -v -eject dev=/dev/cdrom speed=0 -isosize"
-alias burnrw="sudo cdrecord -tao -v -eject dev=/dev/cdrom blank=fast speed=24 -isosize"
+alias burn="sudo cdrecord -tao -v -eject dev=/dev/sr0 -isosize"
+alias burnslow="sudo cdrecord -tao -v -eject dev=/dev/sr0 speed=0 -isosize"
+alias burnrw="sudo cdrecord -tao -v -eject dev=/dev/sr0 blank=fast speed=24 -isosize"
 
 # All the common rsync commands
 alias backup="rsync --rsh=ssh -avzS --progress --delete "
