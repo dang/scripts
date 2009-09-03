@@ -127,7 +127,8 @@ function! <SID>CStubs()
   exe "norm! bdWaospf3_log_err((\"DFG %s\", __FUNCTION__));\<Esc>Bbb"
 
  elseif wrd =~ '/\*\*'
-  exe "norm!  a\<CR>@brief DFG\<CR>\<CR>DFG\<CR>\<CR>@param DFG\<CR>@return DFG\<CR>/\<Esc>7k/DFG\<CR>D"
+  exe "norm!  a\<CR>@brief DFG\<CR>\<CR>DFG\<CR>\<CR>@param[in] DFG\<CR>@return DFG\<CR>/\<Esc>7k/DFG\<CR>D"
+
 
  else
   exe "norm! a`\<Esc>"
