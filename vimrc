@@ -61,6 +61,7 @@ set visualbell t_vb=
 set scrolloff=4
 " Set completion modes
 set wildmode=longest,list,full
+set wildignore=*.o,*.lo
 " Automatically write changes with tagging to a new file
 set autowrite
 " Put vertical splits to the right of the current window
