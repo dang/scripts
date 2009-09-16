@@ -412,7 +412,7 @@ alias qdepends="qdepends -Q"
 
 alias ps_mem="sudo ${HOME}/bin/ps_mem.py"
 
-alias storage="sshfs nemesis.fprintf.net:/storage /storage"
+alias storage="sshfs storage.fprintf.net:/storage /storage"
 
 #Get the list of devices and the associated kernel drivers
 alias kernel_drivers="lspci -nnk"
