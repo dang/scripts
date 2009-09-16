@@ -22,3 +22,5 @@
 	autosetupmerge = true
 [push]
 	default = matching
+[core]
+	excludesfile = "$HOME/.gitignore"
