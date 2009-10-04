@@ -32,8 +32,8 @@ fi
 ${HOME}/.scripts/ecvsup ${ECVSUPARGS} || die "Error during ecvsup"
 tmpfile=$(mktemp)
 sudo cp /var/cache/eix ${tmpfile} || die "Error while copying cache-file to a save location."
-sudo update-eix                         || die "Problems with update-eix."
-sudo diff-eix ${tmpfile} || die "Error while diffing."
+sudo eix-update                         || die "Problems with eix-update."
+sudo eix-diff ${tmpfile} || die "Error while diffing."
 sudo rm -f ${tmpfile} || die "Couldn't remove ${tmpfile}"
 if [ -z "${NOSYSCSCOPE}" ]; then
 	cd /usr/src/debug
