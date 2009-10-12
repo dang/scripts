@@ -24,3 +24,6 @@
 # Uncomment to only use gnome-keyring as an ssh-agent, even if keychain is
 # installed.  This will keep keychain from starting a ssh-agent by itself
 # export SSH_ONLY_KEYRING="yes"
+
+# Uncomment to get a gnome session via startx
+# export XSESSION=Gnome
