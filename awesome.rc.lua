@@ -1,21 +1,21 @@
 -- Standard awesome library
 require("awful")
+require("awful.autofocus")
+require("awful.rules")
 -- Theme handling library
 require("beautiful")
 -- Notification library
 require("naughty")
 -- For layout stuff
 --local tag = require("awful.tag")
+--For CPU widget
+--require("obvious.cpu")
+
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 -- The default is a dark theme
-theme_path = "/usr/share/awesome/themes/default/theme"
--- Uncommment this for a lighter theme
--- theme_path = "/usr/share/awesome/themes/sky/theme"
-
--- Actually load theme
-beautiful.init(theme_path)
+beautiful.init("/opt/home/dang/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "gnome-terminal"
@@ -75,14 +75,15 @@ use_titlebar = false
 
 function dfgtags(s)
 	local t
+	local name
 	if type(s.screen) ~= "number" then
 		error("No screen")
 	elseif type(s.tag) ~= "number" then
 		error("No tag number")
 	end
 
-	t = tag(s.name or tostring(s.tag))
-	t.screen = s.screen
+	name = s.name or tostrin(s.tag)
+	t = awful.tag({ name }, s.screen, s.layout or layouts[1])
         awful.layout.set(s.layout or layouts[1], t)
 	if type(s.mwfact) == "number" then
 		awful.tag.setmwfact(s.mwfact, t)
@@ -94,97 +95,53 @@ function dfgtags(s)
 end
 
 -- {{{ Tags
+-- This fucking sucks.  But it's not doable in a sane manor anymore.
+names = {}
+names[1] = { "Email", "Browser", "IM", 4, "Debug1", 6, 7, 8, "Debug2", 10, 11, 12, 13, 14, 15, 16 }
+names[2] = { "Utility", "Dev1", "Dev1", "Dev3", "Dev4", "Build1", "Build2", "Build3", "Consoles", "Config", 11, 12, "Virtualization1", "Virtualization2", 15, 16 }
 -- Define tags table.
 tags = {}
 ---[[ dang.ghs.com screen layout
 -- Screen utility
 s = 1
-tags[s] = {}
--- Tag Email: evolution
-t = 1
-dfgtags{ screen = s, tag = t, name = "Email", mwfact = 0.33333333, layout=layouts[10] }
--- Tag Browser: 1 browser (big) 1 terminal
-t = 2
-dfgtags{ screen = s, tag = t, name = "Browser", mwfact = 0.66666667, layout=layouts[10] }
--- Tag IM: pidgin
+tags[s] = awful.tag(names[1], s, layouts[10])
+-- Fix tags with non-default layout
 t = 3
-dfgtags{ screen = s, tag = t, name = "IM", mwfact = 0.8 }
--- Tag Debug1: float so debugger can do it's thing
-t = 4
-dfgtags{ screen = s, tag = t, name = "Debug1", mwfact = 0.8, layout=layouts[10] }
--- Tag Extra: empty
-t = 5
-dfgtags{ screen = s, tag = t, mwfact = 0.33333333, layout=layouts[10] }
--- Tag Extra: empty
-t = 6
-dfgtags{ screen = s, tag = t, mwfact = 0.33333333, layout=layouts[10] }
--- Tag  Debug2: float so debugger can do it's thing
-t = 7
-dfgtags{ screen = s, tag = t, name = "Debug2", mwfact = 0.8, layout=layouts[10] }
--- Tag Extra: empty
-t = 8
-dfgtags{ screen = s, tag = t, mwfact = 0.33333333, layout=layouts[10] }
--- Tag Extra: empty
-t = 9
-dfgtags{ screen = s, tag = t, mwfact = 0.33333333, layout=layouts[10] }
--- Set first tag as active
-tags[s][1].selected = true
+awful.layout.set(layouts[1], tags[s][t])
+awful.tag.setmwfact(0.8, tags[s][t])
+
 -- Screen development
 s = 2
-tags[s] = {}
--- Tag Utility: 3 xterms
+tags[s] = awful.tag(names[2], s, layouts[10])
+-- Fix tags with non-default layout
 t = 1
-dfgtags{ screen = s, tag = t, name = "Utility", mwfact = 0.33333333, ncol = 3 }
--- Tag Dev1: 1 xterm 
+awful.layout.set(layouts[1], tags[s][t])
+awful.tag.setmwfact(0.3333333, tags[s][t])
+awful.tag.setncol(3, tags[s][t])
 t = 2
-dfgtags{ screen = s, tag = t, name = "Dev1", mwfact = 0.6666667, layout=layouts[8] }
--- Tag Dev2: 1 xterm 
+awful.layout.set(layouts[8], tags[s][t])
 t = 3
-dfgtags{ screen = s, tag = t, name = "Dev2", mwfact = 0.6666667, layout=layouts[8] }
--- Tag Dev3: 1 xterm 
+awful.layout.set(layouts[8], tags[s][t])
 t = 4
-dfgtags{ screen = s, tag = t, name = "Dev3", mwfact = 0.6666667, layout=layouts[8] }
--- Tag Build1: 2 xterms, one big one small
+awful.layout.set(layouts[8], tags[s][t])
 t = 5
-dfgtags{ screen = s, tag = t, name = "Build1", mwfact = 0.66666667 }
--- Tag Build2: 2 xterms, one big one small
+awful.layout.set(layouts[8], tags[s][t])
 t = 6
-dfgtags{ screen = s, tag = t, name = "Build2", mwfact = 0.66666667 }
--- Tag Consoles: 1 big xterm, 4 small ones
+awful.layout.set(layouts[1], tags[s][t])
+awful.tag.setmwfact(0.66666667, tags[s][t])
 t = 7
-dfgtags{ screen = s, tag = t, name = "Consoles", layout=layouts[5] }
--- Tag Extra: empty
+awful.layout.set(layouts[1], tags[s][t])
+awful.tag.setmwfact(0.66666667, tags[s][t])
 t = 8
-dfgtags{ screen = s, tag = t, mwfact = 0.33333333 }
--- Tag Extra: empty
+awful.layout.set(layouts[1], tags[s][t])
+awful.tag.setmwfact(0.66666667, tags[s][t])
 t = 9
-dfgtags{ screen = s, tag = t, name = "Virtualization", mwfact = 0.8, layout=layouts[10] }
--- Set first tag as active
-tags[s][1].selected = true
---]]
---[[ default screen layout
-for s = 1, screen.count() do
-    -- Each screen has its own tag table.
-    tags[s] = {}
-    -- Create 9 tags per screen.
-    for tagnumber = 1, 9 do
-        tags[s][tagnumber] = tag(tagnumber)
-        -- Add tags to screen one by one
-        tags[s][tagnumber].screen = s
-        awful.layout.set(layouts[1], tags[s][tagnumber])
-    end
-    -- I'm sure you want to see at least one tag.
-    tags[s][1].selected = true
-end
---]]
+awful.layout.set(layouts[5], tags[s][t])
+t = 10
+awful.layout.set(layouts[5], tags[s][t])
 -- }}}
 
--- {{{ Wibox
--- Create a textbox widget
-mytextbox = widget({ type = "textbox", align = "right" })
--- Set the default text in textbox
-mytextbox.text = "<b><small> " .. AWESOME_RELEASE .. " </small></b>"
-
+-- {{{ Menu
 -- Create a laucher widget and a main menu
 myawesomemenu = {
    { "manual", terminal .. " -e man awesome" },
@@ -193,13 +150,18 @@ myawesomemenu = {
    { "quit", awesome.quit }
 }
 
-mymainmenu = awful.menu.new({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                        { "open terminal", terminal }
-                                      }
-                            })
+mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
+                                    { "open terminal", terminal }
+                                  }
+                        })
 
 mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
                                      menu = mymainmenu })
+-- }}}
+
+-- {{{ Wibox
+-- Create a textclock widget
+mytextclock = awful.widget.textclock({ align = "right" })
 
 -- Create a systray
 mysystray = widget({ type = "systray", align = "right" })
@@ -209,194 +171,294 @@ mywibox = {}
 mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
-mytaglist.buttons = { button({ }, 1, awful.tag.viewonly),
-                      button({ modkey }, 1, awful.client.movetotag),
-                      button({ }, 3, function (tag) tag.selected = not tag.selected end),
-                      button({ modkey }, 3, awful.client.toggletag),
-                      button({ }, 4, awful.tag.viewnext),
-                      button({ }, 5, awful.tag.viewprev) }
+mytaglist.buttons = awful.util.table.join(
+                    awful.button({ }, 1, awful.tag.viewonly),
+                    awful.button({ modkey }, 1, awful.client.movetotag),
+                    awful.button({ }, 3, awful.tag.viewtoggle),
+                    awful.button({ modkey }, 3, awful.client.toggletag),
+                    awful.button({ }, 4, awful.tag.viewnext),
+                    awful.button({ }, 5, awful.tag.viewprev)
+                    )
 mytasklist = {}
-mytasklist.buttons = { button({ }, 1, function (c)
-                                          if not c:isvisible() then
-                                              awful.tag.viewonly(c:tags()[1])
-                                          end
-                                          client.focus = c
-                                          c:raise()
-                                      end),
-                       button({ }, 3, function () if instance then instance:hide() end instance = awful.menu.clients({ width=250 }) end),
-                       button({ }, 4, function ()
-                                          awful.client.focus.byidx(1)
-                                          if client.focus then client.focus:raise() end
-                                      end),
-                       button({ }, 5, function ()
-                                          awful.client.focus.byidx(-1)
-                                          if client.focus then client.focus:raise() end
-                                      end) }
+mytasklist.buttons = awful.util.table.join(
+                     awful.button({ }, 1, function (c)
+                                              if not c:isvisible() then
+                                                  awful.tag.viewonly(c:tags()[1])
+                                              end
+                                              client.focus = c
+                                              c:raise()
+                                          end),
+                     awful.button({ }, 3, function ()
+                                              if instance then
+                                                  instance:hide()
+                                                  instance = nil
+                                              else
+                                                  instance = awful.menu.clients({ width=250 })
+                                              end
+                                          end),
+                     awful.button({ }, 4, function ()
+                                              awful.client.focus.byidx(1)
+                                              if client.focus then client.focus:raise() end
+                                          end),
+                     awful.button({ }, 5, function ()
+                                              awful.client.focus.byidx(-1)
+                                              if client.focus then client.focus:raise() end
+                                          end))
 
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
-    mypromptbox[s] = widget({ type = "textbox", align = "left" })
+    mypromptbox[s] = awful.widget.prompt({ layout = awful.widget.layout.horizontal.leftright })
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
-    mylayoutbox[s] = widget({ type = "imagebox", align = "right" })
-    mylayoutbox[s]:buttons({ button({ }, 1, function () awful.layout.inc(layouts, 1) end),
-                             button({ }, 3, function () awful.layout.inc(layouts, -1) end),
-                             button({ }, 4, function () awful.layout.inc(layouts, 1) end),
-                             button({ }, 5, function () awful.layout.inc(layouts, -1) end) })
+    mylayoutbox[s] = awful.widget.layoutbox(s)
+    mylayoutbox[s]:buttons(awful.util.table.join(
+                           awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
+                           awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
+                           awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
+                           awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
     -- Create a taglist widget
-    mytaglist[s] = awful.widget.taglist.new(s, awful.widget.taglist.label.all, mytaglist.buttons)
+    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.all, mytaglist.buttons)
 
     -- Create a tasklist widget
-    mytasklist[s] = awful.widget.tasklist.new(function(c)
-                                                  return awful.widget.tasklist.label.currenttags(c, s)
-                                              end, mytasklist.buttons)
+    mytasklist[s] = awful.widget.tasklist(function(c)
+                                              return awful.widget.tasklist.label.currenttags(c, s)
+                                          end, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = wibox({ position = "top", fg = beautiful.fg_normal, bg = beautiful.bg_normal })
+    mywibox[s] = awful.wibox({ position = "top", screen = s })
     -- Add widgets to the wibox - order matters
-    mywibox[s].widgets = { mylauncher,
-                           mytaglist[s],
-                           mytasklist[s],
-                           mypromptbox[s],
-                           mytextbox,
-                           mylayoutbox[s],
-                           s == 1 and mysystray or nil }
-    mywibox[s].screen = s
+    mywibox[s].widgets = {
+        {
+            mylauncher,
+            mytaglist[s],
+            mypromptbox[s],
+            layout = awful.widget.layout.horizontal.leftright
+        },
+        mylayoutbox[s],
+        mytextclock,
+        s == 1 and mysystray or nil,
+        mytasklist[s],
+        layout = awful.widget.layout.horizontal.rightleft
+    }
 end
 -- }}}
 
 -- {{{ Mouse bindings
-root.buttons({
-    button({ }, 3, function () mymainmenu:toggle() end),
-    button({ }, 4, awful.tag.viewnext),
-    button({ }, 5, awful.tag.viewprev)
-})
+root.buttons(awful.util.table.join(
+    awful.button({ }, 3, function () mymainmenu:toggle() end),
+    awful.button({ }, 4, awful.tag.viewnext),
+    awful.button({ }, 5, awful.tag.viewprev)
+))
 -- }}}
 
 function northeast(screen, tagnum)
 	if tagnum == 1 then
-		return tagnum
-	elseif tagnum == 2 then
-		return tagnum
-	elseif tagnum == 3 then
-		return tagnum
-	elseif tagnum == 4 then
-		return tagnum
-	elseif tagnum == 5 then
 		return 1
-	elseif tagnum == 6 then
-		return 2
-	elseif tagnum == 7 then
-		return tagnum
-	elseif tagnum == 8 then
-		return 4
-	else
+	elseif tagnum == 2 then
 		return 5
+	elseif tagnum == 3 then
+		return 6
+	elseif tagnum == 4 then
+		return 7
+	elseif tagnum == 5 then
+		return 5
+	elseif tagnum == 6 then
+		return 9
+	elseif tagnum == 7 then
+		return 10
+	elseif tagnum == 8 then
+		return 11
+	elseif tagnum == 9 then
+		return 9
+	elseif tagnum == 10 then
+		return 13
+	elseif tagnum == 11 then
+		return 14
+	elseif tagnum == 12 then
+		return 15
+	elseif tagnum == 13 then
+		return 13
+	elseif tagnum == 14 then
+		return 14
+	elseif tagnum == 15 then
+		return 15
+	else
+		return 16
 	end
 end
 function north(screen, tagnum)
 	if tagnum == 1 then
-		return tagnum
+		return 1
 	elseif tagnum == 2 then
 		return 1
 	elseif tagnum == 3 then
 		return 2
 	elseif tagnum == 4 then
-		return tagnum
+		return 3
 	elseif tagnum == 5 then
-		return 4
+		return 5
 	elseif tagnum == 6 then
 		return 5
 	elseif tagnum == 7 then
-		return tagnum
+		return 6
 	elseif tagnum == 8 then
 		return 7
+	elseif tagnum == 9 then
+		return 9
+	elseif tagnum == 10 then
+		return 9
+	elseif tagnum == 11 then
+		return 10
+	elseif tagnum == 12 then
+		return 11
+	elseif tagnum == 13 then
+		return 13
+	elseif tagnum == 14 then
+		return 13
+	elseif tagnum == 15 then
+		return 14
 	else
-		return 8
+		return 15
 	end
 end
 function northwest(screen, tagnum)
 	if tagnum == 1 then
-		return tagnum
+		return 1
 	elseif tagnum == 2 then
-		return 4
+		return 2
 	elseif tagnum == 3 then
-		return 5
+		return 3
 	elseif tagnum == 4 then
-		return tagnum
+		return 4
 	elseif tagnum == 5 then
-		return 7
+		return 5
 	elseif tagnum == 6 then
-		return 8
+		return 1
 	elseif tagnum == 7 then
-		return tagnum
+		return 2
 	elseif tagnum == 8 then
-		return tagnum
+		return 3
+	elseif tagnum == 9 then
+		return 9
+	elseif tagnum == 10 then
+		return 5
+	elseif tagnum == 11 then
+		return 7
+	elseif tagnum == 12 then
+		return 8
+	elseif tagnum == 13 then
+		return 13
+	elseif tagnum == 14 then
+		return 9
+	elseif tagnum == 15 then
+		return 10
 	else
-		return tagnum
+		return 11
 	end
 end
 function east(screen, tagnum)
 	if tagnum == 1 then
-		return tagnum
-	elseif tagnum == 2 then
-		return tagnum
-	elseif tagnum == 3 then
-		return tagnum
-	elseif tagnum == 4 then
-		return 1
-	elseif tagnum == 5 then
-		return 2
-	elseif tagnum == 6 then
-		return 3
-	elseif tagnum == 7 then
-		return 4
-	elseif tagnum == 8 then
 		return 5
-	else
+	elseif tagnum == 2 then
 		return 6
+	elseif tagnum == 3 then
+		return 7
+	elseif tagnum == 4 then
+		return 8
+	elseif tagnum == 5 then
+		return 9
+	elseif tagnum == 6 then
+		return 10
+	elseif tagnum == 7 then
+		return 11
+	elseif tagnum == 8 then
+		return 12
+	elseif tagnum == 9 then
+		return 13
+	elseif tagnum == 10 then
+		return 14
+	elseif tagnum == 11 then
+		return 15
+	elseif tagnum == 12 then
+		return 16
+	elseif tagnum == 13 then
+		return 13
+	elseif tagnum == 14 then
+		return 14
+	elseif tagnum == 15 then
+		return 15
+	else
+		return 16
 	end
 end
 function west(screen, tagnum)
 	if tagnum == 1 then
-		return 4
+		return 1
 	elseif tagnum == 2 then
-		return 5
+		return 2
 	elseif tagnum == 3 then
-		return 6
+		return 3
 	elseif tagnum == 4 then
-		return 7
+		return 4
 	elseif tagnum == 5 then
-		return 8
+		return 1
 	elseif tagnum == 6 then
-		return 9
+		return 2
 	elseif tagnum == 7 then
-		return tagnum
+		return 3
 	elseif tagnum == 8 then
-		return tagnum
+		return 4
+	elseif tagnum == 9 then
+		return 5
+	elseif tagnum == 10 then
+		return 6
+	elseif tagnum == 11 then
+		return 7
+	elseif tagnum == 12 then
+		return 8
+	elseif tagnum == 13 then
+		return 9
+	elseif tagnum == 14 then
+		return 10
+	elseif tagnum == 15 then
+		return 11
 	else
-		return tagnum
+		return 12
 	end
 end
 function southeast(screen, tagnum)
 	if tagnum == 1 then
-		return tagnum
-	elseif tagnum == 2 then
-		return tagnum
-	elseif tagnum == 3 then
-		return tagnum
-	elseif tagnum == 4 then
-		return 2
-	elseif tagnum == 5 then
-		return 3
-	elseif tagnum == 6 then
-		return tagnum
-	elseif tagnum == 7 then
-		return 5
-	elseif tagnum == 8 then
 		return 6
+	elseif tagnum == 2 then
+		return 7
+	elseif tagnum == 3 then
+		return 8
+	elseif tagnum == 4 then
+		return 4
+	elseif tagnum == 5 then
+		return 10
+	elseif tagnum == 6 then
+		return 11
+	elseif tagnum == 7 then
+		return 12
+	elseif tagnum == 8 then
+		return 8
+	elseif tagnum == 9 then
+		return 14
+	elseif tagnum == 10 then
+		return 15
+	elseif tagnum == 11 then
+		return 16
+	elseif tagnum == 12 then
+		return 12
+	elseif tagnum == 13 then
+		return 13
+	elseif tagnum == 14 then
+		return 14
+	elseif tagnum == 15 then
+		return 15
 	else
-		return tagnum
+		return 16
 	end
 end
 function south(screen, tagnum)
@@ -405,47 +467,76 @@ function south(screen, tagnum)
 	elseif tagnum == 2 then
 		return 3
 	elseif tagnum == 3 then
-		return tagnum
+		return 4
 	elseif tagnum == 4 then
-		return 5
+		return 4
 	elseif tagnum == 5 then
 		return 6
 	elseif tagnum == 6 then
-		return tagnum
+		return 7
 	elseif tagnum == 7 then
 		return 8
 	elseif tagnum == 8 then
-		return 9
+		return 8
+	elseif tagnum == 9 then
+		return 10
+	elseif tagnum == 10 then
+		return 11
+	elseif tagnum == 11 then
+		return 12
+	elseif tagnum == 12 then
+		return 12
+	elseif tagnum == 13 then
+		return 14
+	elseif tagnum == 14 then
+		return 15
+	elseif tagnum == 15 then
+		return 16
 	else
-		return tagnum
+		return 16
 	end
 end
 function southwest(screen, tagnum)
 	if tagnum == 1 then
-		return 5
+		return 1
 	elseif tagnum == 2 then
-		return 6
+		return 2
 	elseif tagnum == 3 then
-		return tagnum
+		return 3
 	elseif tagnum == 4 then
-		return 8
+		return 4
 	elseif tagnum == 5 then
-		return 9
+		return 2
 	elseif tagnum == 6 then
-		return tagnum
+		return 3
 	elseif tagnum == 7 then
-		return tagnum
+		return 4
 	elseif tagnum == 8 then
-		return tagnum
+		return 8
+	elseif tagnum == 9 then
+		return 6
+	elseif tagnum == 10 then
+		return 7
+	elseif tagnum == 11 then
+		return 8
+	elseif tagnum == 12 then
+		return 12
+	elseif tagnum == 13 then
+		return 10
+	elseif tagnum == 14 then
+		return 11
+	elseif tagnum == 15 then
+		return 12
 	else
-		return tagnum
+		return 16
 	end
 end
 -- Directional desktop switching emulation
--- The 9 tags on each screen are laid out like this:
--- 1 4 7
--- 2 5 8
--- 3 6 9
+-- The 16 tags on each screen are laid out like this:
+-- 1 5 9  13
+-- 2 6 10 14
+-- 3 7 11 15
+-- 4 8 12 16
 -- So, if you're on 5 and you go right, you get to 8.
 function dfg_pick_desktop(direction)
 	local screen = mouse.screen
@@ -486,47 +577,46 @@ function dfg_pick_desktop(direction)
 end
 
 -- {{{ Key bindings
-globalkeys =
-{
-    key({ modkey,    }, "Escape", awful.tag.history.restore),
-    key({ "Control", }, "Left", function() awful.tag.viewonly(dfg_pick_desktop("east")) end),
-    key({ "Control", }, "Right", function() awful.tag.viewonly(dfg_pick_desktop("west")) end),
-    key({ "Control", }, "Up", function() awful.tag.viewonly(dfg_pick_desktop("north")) end),
-    key({ "Control", }, "Down", function() awful.tag.viewonly(dfg_pick_desktop("south")) end),
-    key({ modkey, "Mod1", }, "h", function() awful.tag.viewonly(dfg_pick_desktop("east")) end),
-    key({ modkey, "Mod1", }, "l", function() awful.tag.viewonly(dfg_pick_desktop("west")) end),
-    key({ modkey, "Mod1", }, "k", function() awful.tag.viewonly(dfg_pick_desktop("north")) end),
-    key({ modkey, "Mod1", }, "j", function() awful.tag.viewonly(dfg_pick_desktop("south")) end),
+globalkeys = awful.util.table.join(
+    awful.key({ modkey,    }, "Escape", awful.tag.history.restore),
+    awful.key({ "Control", }, "Left", function() awful.tag.viewonly(dfg_pick_desktop("west")) end),
+    awful.key({ "Control", }, "Right", function() awful.tag.viewonly(dfg_pick_desktop("east")) end),
+    awful.key({ "Control", }, "Up", function() awful.tag.viewonly(dfg_pick_desktop("north")) end),
+    awful.key({ "Control", }, "Down", function() awful.tag.viewonly(dfg_pick_desktop("south")) end),
+    awful.key({ modkey, "Mod1", }, "h", function() awful.tag.viewonly(dfg_pick_desktop("west")) end),
+    awful.key({ modkey, "Mod1", }, "l", function() awful.tag.viewonly(dfg_pick_desktop("east")) end),
+    awful.key({ modkey, "Mod1", }, "k", function() awful.tag.viewonly(dfg_pick_desktop("north")) end),
+    awful.key({ modkey, "Mod1", }, "j", function() awful.tag.viewonly(dfg_pick_desktop("south")) end),
 
 
-    key({ modkey,           }, "j",
+    awful.key({ modkey,           }, "j",
         function ()
             awful.client.focus.bydirection("down")
             if client.focus then client.focus:raise() end
         end),
-    key({ modkey,           }, "k",
+    awful.key({ modkey,           }, "k",
         function ()
             awful.client.focus.bydirection("up")
             if client.focus then client.focus:raise() end
         end),
-    key({ modkey,           }, "h",
+    awful.key({ modkey,           }, "h",
         function ()
             awful.client.focus.bydirection("left")
             if client.focus then client.focus:raise() end
         end),
-    key({ modkey,           }, "l",
+    awful.key({ modkey,           }, "l",
         function ()
             awful.client.focus.bydirection("right")
             if client.focus then client.focus:raise() end
         end),
 
     -- Layout manipulation
-    key({ modkey, "Shift"   }, "h", function () awful.client.swap.byidx(  1) end),
-    key({ modkey, "Shift"   }, "l", function () awful.client.swap.byidx( -1) end),
-    key({ modkey, "Control" }, "h", function () awful.screen.focus( 1)       end),
-    key({ modkey, "Control" }, "l", function () awful.screen.focus(-1)       end),
-    key({ modkey,           }, "u", awful.client.urgent.jumpto),
-    key({ modkey,           }, "Tab",
+    awful.key({ modkey, "Shift"   }, "h", function () awful.client.swap.byidx(  1) end),
+    awful.key({ modkey, "Shift"   }, "l", function () awful.client.swap.byidx( -1) end),
+    awful.key({ modkey, "Control" }, "h", function () awful.screen.focus_relative( 1)       end),
+    awful.key({ modkey, "Control" }, "l", function () awful.screen.focus_relative(-1)       end),
+    awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
+    awful.key({ modkey,           }, "Tab",
         function ()
             awful.client.focus.history.previous()
             if client.focus then
@@ -535,59 +625,51 @@ globalkeys =
         end),
 
     -- Standard program
-    key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
-    key({ modkey,           }, "b", function () awful.util.spawn(browser) end),
-    key({ modkey,           }, "e", function () awful.util.spawn(email) end),
-    key({ modkey,           }, "i", function () awful.util.spawn(im) end),
-    key({ modkey, "Control" }, "r", awesome.restart),
-    key({ modkey, "Shift"   }, "q", awesome.quit),
+    awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
+    awful.key({ modkey,           }, "b", function () awful.util.spawn(browser) end),
+    awful.key({ modkey,           }, "e", function () awful.util.spawn(email) end),
+    awful.key({ modkey,           }, "i", function () awful.util.spawn(im) end),
+    awful.key({ modkey, "Control" }, "r", awesome.restart),
+    awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
-    key({ modkey, "Shift"   }, "j",     function () awful.tag.incnmaster( 1)      end),
-    key({ modkey, "Shift"   }, "k",     function () awful.tag.incnmaster(-1)      end),
-    key({ modkey, "Control" }, "j",     function () awful.tag.incncol( 1)         end),
-    key({ modkey, "Control" }, "k",     function () awful.tag.incncol(-1)         end),
-    key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
-    key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
+    awful.key({ modkey, "Shift"   }, "j",     function () awful.tag.incnmaster( 1)      end),
+    awful.key({ modkey, "Shift"   }, "k",     function () awful.tag.incnmaster(-1)      end),
+    awful.key({ modkey, "Control" }, "j",     function () awful.tag.incncol( 1)         end),
+    awful.key({ modkey, "Control" }, "k",     function () awful.tag.incncol(-1)         end),
+    awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
+    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
     -- Prompt
-    key({ modkey }, "F1",
-        function ()
-            awful.prompt.run({ prompt = "Run: " },
-            mypromptbox[mouse.screen],
-            awful.util.spawn, awful.completion.bash,
-            awful.util.getdir("cache") .. "/history")
-        end),
+    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
 
-    key({ modkey }, "F4",
-        function ()
-            awful.prompt.run({ prompt = "Run Lua code: " },
-            mypromptbox[mouse.screen],
-            awful.util.eval, awful.prompt.bash,
-            awful.util.getdir("cache") .. "/history_eval")
-        end),
-}
+    awful.key({ modkey }, "x",
+              function ()
+                  awful.prompt.run({ prompt = "Run Lua code: " },
+                  mypromptbox[mouse.screen].widget,
+                  awful.util.eval, nil,
+                  awful.util.getdir("cache") .. "/history_eval")
+              end)
+)
 
 -- Client awful tagging: this is useful to tag some clients and then do stuff like move to tag on them
-clientkeys =
-{
-    key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
-    key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
-    key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
-    key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
-    key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
-    key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end),
-    key({ modkey }, "t", awful.client.togglemarked),
-    key({ modkey,}, "m",
+clientkeys = awful.util.table.join(
+    awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
+    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
+    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
+    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
+    awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
+    awful.key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end),
+    awful.key({ modkey,           }, "n",      function (c) c.minimized = not c.minimized    end),
+    awful.key({ modkey,           }, "Left",   function (c) c.maximized_horizontal = false end),
+    awful.key({ modkey,           }, "Right",   function (c) c.maximized_horizontal = true end),
+    awful.key({ modkey,           }, "Down",   function (c) c.maximized_vertical = false end),
+    awful.key({ modkey,           }, "Up",   function (c) c.maximized_vertical = true end),
+    awful.key({ modkey,           }, "m",
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical   = not c.maximized_vertical
-        end),
-    key({ modkey,           }, "Left",   function (c) c.maximized_horizontal = false end),
-    key({ modkey,           }, "Right",   function (c) c.maximized_horizontal = true end),
-    key({ modkey,           }, "Down",   function (c) c.maximized_vertical = false end),
-    key({ modkey,           }, "Up",   function (c) c.maximized_vertical = true end),
-
-}
+        end)
+)
 
 -- Compute the maximum number of digit we need, limited to 9
 keynumber = 0
@@ -595,169 +677,96 @@ for s = 1, screen.count() do
    keynumber = math.min(9, math.max(#tags[s], keynumber));
 end
 
+-- Bind all key numbers to tags.
+-- Be careful: we use keycodes to make it works on any keyboard layout.
+-- This should map on the top row of your keyboard, usually 1 to 9.
 for i = 1, keynumber do
-    table.insert(globalkeys,
-        key({ modkey }, i,
-            function ()
-                local screen = mouse.screen
-                if tags[screen][i] then
-                    awful.tag.viewonly(tags[screen][i])
-                end
-            end))
-    table.insert(globalkeys,
-        key({ modkey, "Control" }, i,
-            function ()
-                local screen = mouse.screen
-                if tags[screen][i] then
-                    tags[screen][i].selected = not tags[screen][i].selected
-                end
-            end))
-    table.insert(globalkeys,
-        key({ modkey, "Shift" }, i,
-            function ()
-                if client.focus and tags[client.focus.screen][i] then
-                    awful.client.movetotag(tags[client.focus.screen][i])
-                end
-            end))
-    table.insert(globalkeys,
-        key({ modkey, "Control", "Shift" }, i,
-            function ()
-                if client.focus and tags[client.focus.screen][i] then
-                    awful.client.toggletag(tags[client.focus.screen][i])
-                end
-            end))
+    globalkeys = awful.util.table.join(globalkeys,
+        awful.key({ modkey }, "#" .. i + 9,
+                  function ()
+                        local screen = mouse.screen
+                        if tags[screen][i] then
+                            awful.tag.viewonly(tags[screen][i])
+                        end
+                  end),
+        awful.key({ modkey, "Control" }, "#" .. i + 9,
+                  function ()
+                      local screen = mouse.screen
+                      if tags[screen][i] then
+                          awful.tag.viewtoggle(tags[screen][i])
+                      end
+                  end),
+        awful.key({ modkey, "Shift" }, "#" .. i + 9,
+                  function ()
+                      if client.focus and tags[client.focus.screen][i] then
+                          awful.client.movetotag(tags[client.focus.screen][i])
+                      end
+                  end),
+        awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
+                  function ()
+                      if client.focus and tags[client.focus.screen][i] then
+                          awful.client.toggletag(tags[client.focus.screen][i])
+                      end
+                  end))
 end
 
-
-for i = 1, keynumber do
-    table.insert(globalkeys, key({ modkey, "Shift" }, "F" .. i,
-                 function ()
-                     local screen = mouse.screen
-                     if tags[screen][i] then
-                         for k, c in pairs(awful.client.getmarked()) do
-                             awful.client.movetotag(tags[screen][i], c)
-                         end
-                     end
-                 end))
-end
+clientbuttons = awful.util.table.join(
+    awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
+    awful.button({ modkey }, 1, awful.mouse.client.move),
+    awful.button({ modkey }, 3, awful.mouse.client.resize))
 
 -- Set keys
 root.keys(globalkeys)
 -- }}}
 
--- {{{ Hooks
--- Hook function to execute when focusing a client.
-awful.hooks.focus.register(function (c)
-    if not awful.client.ismarked(c) then
-        c.border_color = beautiful.border_focus
+-- {{{ Rules
+awful.rules.rules = {
+    -- All clients will match this rule.
+    { rule = { },
+      properties = { border_width = beautiful.border_width,
+                     border_color = beautiful.border_normal,
+                     focus = true,
+                     keys = clientkeys,
+                     buttons = clientbuttons } },
+    { rule = { class = "MPlayer" },
+      properties = { floating = true } },
+    { rule = { class = "pinentry" },
+      properties = { floating = true } },
+    { rule = { class = "gimp" },
+      properties = { floating = true } },
+    -- Set Firefox to always map on tags number 2 of screen 1.
+    -- { rule = { class = "Firefox" },
+    --   properties = { tag = tags[1][2] } },
+}
+-- }}}
+
+-- {{{ Signals
+-- Signal function to execute when a new client appears.
+client.add_signal("manage", function (c, startup)
+    -- Add a titlebar
+    -- awful.titlebar.add(c, { modkey = modkey })
+
+    -- Enable sloppy focus
+    c:add_signal("mouse::enter", function(c)
+        if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
+            and awful.client.focus.filter(c) then
+            client.focus = c
+        end
+    end)
+
+    if not startup then
+        -- Set the windows at the slave,
+        -- i.e. put it at the end of others instead of setting it master.
+        -- awful.client.setslave(c)
+
+        -- Put windows in a smart way, only if they does not set an initial position.
+        if not c.size_hints.user_position and not c.size_hints.program_position then
+            awful.placement.no_overlap(c)
+            awful.placement.no_offscreen(c)
+        end
     end
 end)
 
--- Hook function to execute when unfocusing a client.
-awful.hooks.unfocus.register(function (c)
-    if not awful.client.ismarked(c) then
-        c.border_color = beautiful.border_normal
-    end
-end)
-
--- Hook function to execute when marking a client
-awful.hooks.marked.register(function (c)
-    c.border_color = beautiful.border_marked
-end)
-
--- Hook function to execute when unmarking a client.
-awful.hooks.unmarked.register(function (c)
-    c.border_color = beautiful.border_focus
-end)
-
--- Hook function to execute when the mouse enters a client.
-awful.hooks.mouse_enter.register(function (c)
-    -- Sloppy focus, but disabled for magnifier layout
-    if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-        and awful.client.focus.filter(c) then
-        client.focus = c
-    end
-end)
-
--- Hook function to execute when a new client appears.
-awful.hooks.manage.register(function (c, startup)
-    -- If we are not managing this application at startup,
-    -- move it to the screen where the mouse is.
-    -- We only do it for filtered windows (i.e. no dock, etc).
-    if not startup and awful.client.focus.filter(c) then
-        c.screen = mouse.screen
-    end
-
-    if use_titlebar then
-        -- Add a titlebar
-        awful.titlebar.add(c, { modkey = modkey })
-    end
-    -- Add mouse bindings
-    c:buttons({
-        button({ }, 1, function (c) client.focus = c; c:raise() end),
-        button({ modkey }, 1, awful.mouse.client.move),
-        button({ modkey }, 3, awful.mouse.client.resize)
-    })
-    -- New client may not receive focus
-    -- if they're not focusable, so set border anyway.
-    c.border_width = beautiful.border_width
-    c.border_color = beautiful.border_normal
-
-    -- Check if the application should be floating.
-    local cls = c.class
-    local inst = c.instance
-    if floatapps[cls] then
-        awful.client.floating.set(c, floatapps[cls])
-    elseif floatapps[inst] then
-        awful.client.floating.set(c, floatapps[inst])
-    end
-
-    -- Check application->screen/tag mappings.
-    local target
-    if apptags[cls] then
-        target = apptags[cls]
-    elseif apptags[inst] then
-        target = apptags[inst]
-    end
-    if target then
-        c.screen = target.screen
-        awful.client.movetotag(tags[target.screen][target.tag], c)
-    end
-
-    -- Do this after tag mapping, so you don't see it on the wrong tag for a split second.
-    client.focus = c
-
-    -- Set key bindings
-    c:keys(clientkeys)
-
-    -- Set the windows at the slave,
-    -- i.e. put it at the end of others instead of setting it master.
-    -- awful.client.setslave(c)
-
-    -- Honor size hints: if you want to drop the gaps between windows, set this to false.
-    -- c.size_hints_honor = false
-end)
-
--- Hook function to execute when arranging the screen.
--- (tag switch, new client, etc)
-awful.hooks.arrange.register(function (screen)
-    local layout = awful.layout.getname(awful.layout.get(screen))
-    if layout and beautiful["layout_" ..layout] then
-        mylayoutbox[screen].image = image(beautiful["layout_" .. layout])
-    else
-        mylayoutbox[screen].image = nil
-    end
-
-    -- Give focus to the latest client in history if no window has focus
-    -- or if the current window is a desktop or a dock one.
-    if not client.focus then
-        local c = awful.client.focus.history.get(screen, 0)
-        if c then client.focus = c end
-    end
-end)
-
--- Hook called every minute
-awful.hooks.timer.register(60, function ()
-    mytextbox.text = os.date(" %a %b %d, %H:%M ")
-end)
+client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
