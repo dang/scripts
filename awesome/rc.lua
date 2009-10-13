@@ -73,27 +73,6 @@ apptags =
 use_titlebar = false
 -- }}}
 
-function dfgtags(s)
-	local t
-	local name
-	if type(s.screen) ~= "number" then
-		error("No screen")
-	elseif type(s.tag) ~= "number" then
-		error("No tag number")
-	end
-
-	name = s.name or tostrin(s.tag)
-	t = awful.tag({ name }, s.screen, s.layout or layouts[1])
-        awful.layout.set(s.layout or layouts[1], t)
-	if type(s.mwfact) == "number" then
-		awful.tag.setmwfact(s.mwfact, t)
-	end
-	if type(s.ncol) == "number" then
-		awful.tag.setncol(s.ncol, t)
-	end
-	tags[s.screen][s.tag] = t
-end
-
 -- {{{ Tags
 -- This fucking sucks.  But it's not doable in a sane manor anymore.
 names = {}
