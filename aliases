@@ -294,8 +294,8 @@ function echeck {
 }
 alias etc-update='sudo etc-update'
 alias edistmon='DISTCC_DIR=/home/portage/portage/.distcc distccmon-gnome'
-alias schedbatch='sudo schedtool -D -e sudo -u dang'
-alias schediso='sudo schedtool -I -e sudo -u dang'
+alias schedidle='schedtool -D -e'
+alias schediso='schedtool -I -e'
 
 
 alias genpatch="svnpatchset /home/portage/overlays/gentopia/ /home/dang/tmp/gentopia-patches"
@@ -350,7 +350,7 @@ function cookiegrep {
 alias cookieedit="vim ${HOME}/.mozilla/firefox/4rl18vit.default/hostperm.1"
 
 alias display="display -auto-orient"
-alias xv="display -geometry +0+0 -resize 1432x870"
+alias xv="display -geometry +0+0 -resize 1432x850"
 
 function reniceX {
 	sudo renice -12 -p $(pgrep X)
