@@ -126,11 +126,10 @@ function start()
 		sudo mount -o bind ${dir} ${CHROOTDIR}/${dir} || die "Mount of ${dir} failed"
 	done
 	# Mount user directories
-	for dir in ${USER_MOUNT_DIRS}; do
-		if [[ "${dir}" =~ "${BASEDIR}" ]]; then
-			destdir=${CHROOTDIR}/${dir/${BASEDIR}/}
-		else
-			destdir=${CHROOTDIR}/${dir}
+	for dir in ${!USER_MOUNT_DIRS[@]}; do
+		destdir=${CHROOTDIR}/${USER_MOUNT_DIRS[$dir]}
+		if [[ "${dir}" == "0" ]]; then
+			dir=${USER_MOUNT_DIRS[$dir]}
 		fi
 		sudo mount -o bind ${dir} ${destdir} || die "Mount of ${dir} failed"
 	done
@@ -157,7 +156,8 @@ function stop()
 	done
 	# Mount user directories
 	for dir in ${USER_MOUNT_DIRS}; do
-		UMOUNT_DIRS="${UMOUNT_DIRS} ${CHROOTDIR}/${dir}"
+		destdir=${CHROOTDIR}/${USER_MOUNT_DIRS[$dir]}
+		UMOUNT_DIRS="${UMOUNT_DIRS} ${destdir}"
 	done
 	sudo umount ${UMOUNT_DIRS} > /dev/null 2>&1
 
