@@ -337,6 +337,7 @@ function resize {
 alias netfix="sudo /etc/init.d/net.eth1 restart"
 alias gamespeed="sudo speedfreq -p 800"
 alias keyfix="xmodmap ${HOME}/.scripts/keymap"
+alias keyfixgames="xmodmap ${HOME}/.scripts/keymap.games"
 alias danosmount="sudo losetup /dev/loop/0 /home/dang/src/danos/kernel/image/image; sudo mount /dev/loop/0 /home/dang/src/danos/kernel/image/mnt"
 alias danosumount="sudo umount /home/dang/src/danos/kernel/image/mnt; sudo losetup -d /dev/loop/0"
 
