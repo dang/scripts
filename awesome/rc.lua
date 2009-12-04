@@ -14,8 +14,7 @@ require("naughty")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
--- The default is a dark theme
-beautiful.init("/opt/home/dang/.config/awesome/theme.lua")
+beautiful.init("/home/dang/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "gnome-terminal"
@@ -24,6 +23,8 @@ editor_cmd = terminal .. " -e " .. editor
 browser = "firefox"
 email = "evolution"
 im = "pidgin"
+music = "schedtool -I -e rhythmbox"
+ebook = "calibre"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -46,31 +47,6 @@ layouts =
     awful.layout.suit.max.fullscreen,
     awful.layout.suit.floating
 }
-
--- Table of clients that should be set floating. The index may be either
--- the application class or instance. The instance is useful when running
--- a console app in a terminal like (Music on Console)
---    xterm -name mocp -e mocp
-floatapps =
-{
-    -- by class
-    ["MPlayer"] = true,
-    ["pinentry"] = true,
-    ["gimp"] = true,
-    -- by instance
-    ["mocp"] = true
-}
-
--- Applications to be moved to a pre-defined tag by class or instance.
--- Use the screen and tags indices.
-apptags =
-{
-    -- ["Firefox"] = { screen = 1, tag = 2 },
-    -- ["mocp"] = { screen = 2, tag = 4 },
-}
-
--- Define if we want to use titlebar on all applications.
-use_titlebar = false
 -- }}}
 
 -- {{{ Tags
@@ -81,7 +57,6 @@ names[2] = { "Utility", "Dev1", "Dev1", "Dev3", "Dev4", "Build1", "Build2", "Bui
 -- Define tags table.
 tags = {}
 ---[[ dang.ghs.com screen layout
--- Screen utility
 s = 1
 tags[s] = awful.tag(names[1], s, layouts[10])
 -- Fix tags with non-default layout
@@ -143,7 +118,7 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 mytextclock = awful.widget.textclock({ align = "right" })
 
 -- Create a systray
-mysystray = widget({ type = "systray", align = "right" })
+mysystray = widget({ type = "systray" })
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -203,6 +178,20 @@ for s = 1, screen.count() do
                                               return awful.widget.tasklist.label.currenttags(c, s)
                                           end, mytasklist.buttons)
 
+    -- Create an obvious CPU graph
+--    mycpu = obvious.cpu()
+--    mycpu.layout = awful.widget.layout.horizontal.rightleft
+    -- Initialize widget
+    mycpu = awful.widget.graph()
+    -- -- Graph properties
+    mycpu:set_width(50)
+    mycpu:set_max_value(100)
+    mycpu:set_background_color("#494B4F")
+    mycpu:set_color("#FF5656")
+    mycpu:set_gradient_colors({ "#FF5656", "#88A175", "#AECF96" })
+    -- -- Register widget
+    vicious.register(mycpu, vicious.widgets.cpu, "$1")
+
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
     -- Add widgets to the wibox - order matters
@@ -215,6 +204,7 @@ for s = 1, screen.count() do
         },
         mylayoutbox[s],
         mytextclock,
+	mycpu,
         s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
@@ -562,10 +552,10 @@ globalkeys = awful.util.table.join(
     awful.key({ "Control", }, "Right", function() awful.tag.viewonly(dfg_pick_desktop("east")) end),
     awful.key({ "Control", }, "Up", function() awful.tag.viewonly(dfg_pick_desktop("north")) end),
     awful.key({ "Control", }, "Down", function() awful.tag.viewonly(dfg_pick_desktop("south")) end),
-    awful.key({ modkey, "Mod1", }, "h", function() awful.tag.viewonly(dfg_pick_desktop("west")) end),
-    awful.key({ modkey, "Mod1", }, "l", function() awful.tag.viewonly(dfg_pick_desktop("east")) end),
-    awful.key({ modkey, "Mod1", }, "k", function() awful.tag.viewonly(dfg_pick_desktop("north")) end),
-    awful.key({ modkey, "Mod1", }, "j", function() awful.tag.viewonly(dfg_pick_desktop("south")) end),
+    awful.key({ modkey, "Control", }, "h", function() awful.tag.viewonly(dfg_pick_desktop("west")) end),
+    awful.key({ modkey, "Control", }, "l", function() awful.tag.viewonly(dfg_pick_desktop("east")) end),
+    awful.key({ modkey, "Control", }, "k", function() awful.tag.viewonly(dfg_pick_desktop("north")) end),
+    awful.key({ modkey, "Control", }, "j", function() awful.tag.viewonly(dfg_pick_desktop("south")) end),
 
 
     awful.key({ modkey,           }, "j",
@@ -592,8 +582,8 @@ globalkeys = awful.util.table.join(
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "h", function () awful.client.swap.byidx(  1) end),
     awful.key({ modkey, "Shift"   }, "l", function () awful.client.swap.byidx( -1) end),
-    awful.key({ modkey, "Control" }, "h", function () awful.screen.focus_relative( 1)       end),
-    awful.key({ modkey, "Control" }, "l", function () awful.screen.focus_relative(-1)       end),
+    awful.key({ modkey, "Mod1" }, "h", function () awful.screen.focus_relative( 1)       end),
+    awful.key({ modkey, "Mod1" }, "l", function () awful.screen.focus_relative(-1)       end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
     awful.key({ modkey,           }, "Tab",
         function ()
@@ -608,6 +598,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "b", function () awful.util.spawn(browser) end),
     awful.key({ modkey,           }, "e", function () awful.util.spawn(email) end),
     awful.key({ modkey,           }, "i", function () awful.util.spawn(im) end),
+    awful.key({ modkey,           }, "m", function () awful.util.spawn(music) end),
+    awful.key({ modkey,           }, "c", function () awful.util.spawn(ebook) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
