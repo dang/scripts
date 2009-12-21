@@ -89,7 +89,7 @@ function port_category() {
 #
 # Set PC with the package category of the given atom
 function getpc() {
-	PN=$(qatom -C $1 | awk '{print $1}')
+	PC=$(qatom -C $1 | awk '{print $1}')
 }
 
 #
@@ -147,18 +147,40 @@ function danglop_current() {
 	getpc ${ATOM}
 	getpvr ${ATOM}
 	getpcn ${ATOM}
-	echo "${PC}"
-	echo "${PVR}"
-	echo "${PCN}"
+#        echo "${PC}"
+#        echo "${PVR}"
+#        echo "${PCN}"
 	ELAPSED=$(qlop -Cc | awk '(/elapsed/) {print $2 " " $4}')
-	EMIN=$(echo ${ELAPSED} | awk '{print $1}')
-	ESEC=$(echo ${ELAPSED} | awk '{print $2}')
-	ETSEC=$((${EMIN} * 60 + ${ESEC}))
-	TOTSEC=$(qlop -t ${PCN} | awk '{print $2}')
-	TOTSECLEFT=$((${TOTSEC} - ${ETSEC}))
-	MINLEFT=$((${TOTSECLEFT} / 60))
-	SECLEFT=$((${TOTSECLEFT} % 60))
-	echo "${PC}/${PVR}"
-	echo "${MINLEFT}:${SECLEFT}"
+	E1=$(echo ${ELAPSED} | awk '{print $1}')
+	E2=$(echo ${ELAPSED} | awk '{print $2}')
+	if [ -z "${E2}" ]; then
+		ETSEC=${E1}
+		ESEC=$(printf "%02d" ${ETSEC})
+		TIMEPASSED="0:${ESEC}"
+	else
+		ETSEC=$((${E1} * 60 + ${E2}))
+		ESEC=$(printf "%02d" ${E2})
+		TIMEPASSED="${E1}:${ESEC}"
+	fi
+	TOTSEC=$(qlop -tC ${PCN} | awk '{print $2}')
+	if [ -n "${TOTSEC}" ]; then
+		TOTSECLEFT=$((${TOTSEC} - ${ETSEC}))
+		if ((${TOTSECLEFT} < 0)); then
+			TOTSECLEFT=$((-${TOTSECLEFT}))
+			OVERRUN="true"
+		fi
+		MINLEFT=$((${TOTSECLEFT} / 60))
+		SECLEFT=$((${TOTSECLEFT} % 60))
+		if [ -z "${OVERRUN}" ]; then
+			TIMELEFT="${MINLEFT}:${SECLEFT}"
+		else
+			TIMELEFT="-${MINLEFT}:${SECLEFT}"
+		fi
+	else
+		TIMELEFT="Unknown"
+	fi
+	echo "${PC}/${PN}-${PVR}"
+	echo "${TIMEPASSED}"
+	echo "${TIMELEFT}"
 
 }
