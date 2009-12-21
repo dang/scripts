@@ -178,7 +178,7 @@ function dvd {
 function dvddeint {
 	TITLE=$1
 	shift
-	mp -vf pp=ci dvd://${TITLE} $@
+	mp -vf pp=lb dvd://${TITLE} $@
 	}
 function dvdiso {
 	TITLE=$1
@@ -195,7 +195,7 @@ function mpmulti {
 		mp -fs $i
 	done
 }
-alias mpdeint="mp -vf pp=ci"
+alias mpdeint="mp -vf pp=lb"
 # These are the aliases for things that need root.
 alias reboot="sudo shutdown -r now"
 alias halt="sudo shutdown -h now"
