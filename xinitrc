@@ -1,8 +1,8 @@
-#fvwm
-#gnome-session
+# fvwm
+# gnome-session
 
 #
-#awesome
+# awesome
 
 eval $(dbus-launch --exit-with-session --sh-syntax)
 /usr/libexec/gconfd-2 &
