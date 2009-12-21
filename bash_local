@@ -27,3 +27,7 @@
 
 # Uncomment to get a gnome session via startx
 # export XSESSION=Gnome
+
+#
+# Fix 3D rendering/speeds
+#export LIBGL_ALWAYS_INDIRECT=1
