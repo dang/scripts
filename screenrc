@@ -1,3 +1,4 @@
 hardstatus alwayslastline
 hardstatus string '%{= kG}[%= %{= kw}%?%-Lw%?%{r}[%{W}%n*%f %t%?{%u}%?%{r}]%{w}%?%+Lw%?%?%= %{g}]%{W} %{g}%{.w}%H%{.c} [%l]'
 altscreen off
+bind ^\ quit
