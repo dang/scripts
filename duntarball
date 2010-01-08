@@ -51,8 +51,6 @@ TMP=$(mktemp)
 atool -xq --save-outdir=$TMP "${ARCHIVE}"
 UDIR=$(cat ${TMP})
 DIRNAME=$(basename ${UDIR})
-echo "${UDIR}"
-echo "${DIRNAME}"
 
 if [ -n "${PATCH}" ]; then
 	if [ ! -d "${DIRNAME}.orig" ]; then
@@ -66,7 +64,7 @@ if [ -n "${PATCH}" ]; then
 		atool -xq "${ARCHIVE}"
 	fi
 fi
-echo ${DIRNAME}
+echo "${DIRNAME}"
 rm ${TMP}
 if [ -n "$(/bin/ls -d Unpack-* 2>/dev/null)" ]; then
 	rmdir Unpack-*
