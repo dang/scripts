@@ -201,9 +201,9 @@ alias reboot="sudo shutdown -r now"
 alias halt="sudo shutdown -h now"
 function suspend {
 	# Lock the screen (must be done as me)
-	gnome-screensaver-command -l
+	#gnome-screensaver-command -l
 	#sudo /home/dang/bin/suspend
-	sudo pm-suspend --auto-quirks --quirk-dpms-on
+	sudo pm-suspend --quirk-dpms-on
 }
 #alias suspend="sudo /home/dang/bin/suspend"
 alias wakeup="sudo kbdrate -r 30"
