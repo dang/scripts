@@ -42,6 +42,8 @@ done
 
 git branch 2>&1 | grep -i "Not a git repository" > /dev/null 2>/dev/null && die "Not a git repo"
 
+git svn info 2>&1 | grep -i "Unable to determine upstream SVN" > /dev/null 2>/dev/null || SVN="yes"
+
 if [ -z "${FORCE}" ]; then
 	git status | grep clean > /dev/null || die "Current branch is not clean"
 fi
@@ -52,9 +54,18 @@ if [ "${BRANCH}" != "master" ]; then
 	git checkout master
 fi
 echo "Updating master"
-git pull
+if [ -n "${SVN}" ]; then
+	git svn rebase
+else
+	git pull
+fi
+
 if [ "${BRANCH}" != "master" ]; then
 	echo "Updating ${BRANCH}"
 	git checkout ${BRANCH}
-	git pull . master
+	if [ -n "${SVN}" ]; then
+		git svn rebase
+	else
+		git pull . master
+	fi
 fi
