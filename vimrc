@@ -66,6 +66,8 @@ set wildignore=*.o,*.lo
 set autowrite
 " Put vertical splits to the right of the current window
 set splitright
+" Make visual-/ search rather than extend the visual
+:vmap / y/<C-R>"<CR>
 
 "
 " Settings for EnhancedCommentify
