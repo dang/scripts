@@ -394,3 +394,10 @@ augroup END
 "Snippits - see .vim/doc/snipMate.txt
 "
 let g:snips_author = 'Daniel Gryniewicz'
+
+" Automatically update copyright notice with current year
+autocmd BufWritePre *
+  \ if &modified |
+  \   exe "g#\\cCOPYRIGHT \\(".strftime("%Y")."\\)\\@![0-9]\\{4\\}\\(-".strftime("%Y")."\\)\\@!#s#\\([0-9]\\{4\\}\\)\\(-[0-9]\\{4\\}\\)\\?#\\1-".strftime("%Y") |
+  \ endif
+
