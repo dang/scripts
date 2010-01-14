@@ -69,7 +69,7 @@ CMD=${2}
 # We want parameters for run
 shift 2
 
-SYS_MOUNT_DIRS="/proc /dev /sys"
+SYS_MOUNT_DIRS="/proc /dev /sys /dev/pts"
 
 if [ -f ${HOME}/.dchroot/rc.d/${CHROOTNAME} ]; then
 	source ${HOME}/.dchroot/rc.d/${CHROOTNAME}
