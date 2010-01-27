@@ -280,7 +280,7 @@ function findfile {
 alias emerge="sudo emerge"
 alias eix-sync='sudo eix-sync'
 #alias eworld='emerge -auvD --reinstall changed-use world'
-alias eworld='emerge -auvDN world'
+alias eworld='emerge -auD world'
 alias unmerge='emerge --unmerge'
 alias eresume='emerge --resume'
 alias eskipfirst='emerge --resume --skipfirst'
