@@ -215,7 +215,8 @@ alias vim="TERM=xterm-256color vim"
 alias :e="vim"
 alias gvim="gvim -geometry 90x53"
 function html {
-                links -dump -force-html $* | less
+                #links -dump -force-html $* | less
+                lynx -dump -force_html $* | less
 		}
 alias sprt="enscript --media=Letter -2 -j -G -B --landscape --margins=::40:40"
 eval `dircolors -b ${HOME}/.scripts/dir_colors` # set up color-ls variables
@@ -280,7 +281,7 @@ function findfile {
 alias emerge="sudo emerge"
 alias eix-sync='sudo eix-sync'
 #alias eworld='emerge -auvD --reinstall changed-use world'
-alias eworld='emerge -auD world'
+alias eworld='emerge -auDv --keep-going --reinstall changed-use world'
 alias unmerge='emerge --unmerge'
 alias eresume='emerge --resume'
 alias eskipfirst='emerge --resume --skipfirst'
