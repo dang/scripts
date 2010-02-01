@@ -418,3 +418,7 @@ alias storage="sshfs storage.fprintf.net:/storage /storage"
 
 #Get the list of devices and the associated kernel drivers
 alias kernel_drivers="lspci -nnk"
+
+# Mark the current dir in an xterm, and cd to the mark in another one
+alias mark="pwd | xclip -i"
+alias cdmark="cd $(xclip -o)"
