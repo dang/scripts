@@ -180,6 +180,7 @@ cd ${TMPDIR} || die "No ${TMPDIR}"
 [ -f "${DISTDIR}/${MY_P}.tar.bz2" ] && EXT="tar.bz2"
 [ -f "${DISTDIR}/${MY_P}.tar.gz" ] && EXT="tar.gz"
 [ -f "${DISTDIR}/${MY_P}.tgz" ] && EXT="tgz"
+[ -f "${DISTDIR}/${MY_P}.zip" ] && EXT="zip"
 if [ -z "${EXT}" ]; then
 	echo "${DISTDIR}/${MY_P}.tar.bz2"
 	die "could not get extension for ${MY_P}"
