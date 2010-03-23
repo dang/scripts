@@ -196,6 +196,7 @@ function mpmulti {
 	done
 }
 alias mpdeint="mp -vf pp=lb"
+alias tp="totem --fullscreen"
 # These are the aliases for things that need root.
 alias reboot="sudo shutdown -r now"
 alias halt="sudo shutdown -h now"
@@ -254,6 +255,10 @@ function hgrep {
 	find . -name "*.h" -exec grep --color=auto -H "$@" "{}" ";"
 }
 function dgrep {
+	if [ -z "${1}" ]; then
+		echo "dgrep <file-pattern> <regex>"
+		return
+	fi
 	PATTERN=$1
 	shift
 	find . -name "*${PATTERN}*" -exec grep --color=auto -H "$@" "{}" ";"
@@ -422,3 +427,23 @@ alias kernel_drivers="lspci -nnk"
 # Mark the current dir in an xterm, and cd to the mark in another one
 alias mark="pwd | xclip -i"
 alias cdmark="cd $(xclip -o)"
+
+# cp + progress bar
+# cp_p()
+# {
+#    strace -q -ewrite cp -- "${1}" "${2}" 2>&1 \
+#       | awk '{
+#         count += $NF
+#             if (count % 10 == 0) {
+#                percent = count / total_size * 100
+#                printf "%3d%% [", percent
+#                for (i=0;i<=percent;i++)
+#                   printf "="
+#                printf ">"
+#                for (i=percent;i<100;i++)
+#                   printf " "
+#                printf "]\r"
+#             }
+#          }
+#          END { print "" }' total_size=$(stat -c '%s' "${1}") count=0
+# }
