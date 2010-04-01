@@ -7,6 +7,8 @@ export PATH=${HOME}/.scripts:${HOME}/bin:${PATH}
 [ -f /etc/profile.d/bash-completion.sh ] && . /etc/profile.d/bash-completion.sh
 # Bash completion addons: Fedora
 [ -f /etc/profile.d/bash_completion.sh ] && . /etc/profile.d/bash_completion.sh
+# Bash completion addons: Ubuntu
+[ -f /etc/bash_completion ] && . /etc/bash_completion
 
 # Set up the main aliases
 source ${HOME}/.scripts/aliases
@@ -28,6 +30,8 @@ export MOZILLA_NEWTYPE="tab"
 export ECHANGELOG_USER="Daniel Gryniewicz <dang@gentoo.org>"
 # Keep gnome-autogen from running configure
 export NOCONFIGURE=yes
+# Set your window manager here!
+export WINDOW_MANAGER=awesome
 
 # history
 shopt -s histappend
