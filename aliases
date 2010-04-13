@@ -426,7 +426,11 @@ alias kernel_drivers="lspci -nnk"
 
 # Mark the current dir in an xterm, and cd to the mark in another one
 alias mark="pwd | xclip -i"
-alias cdmark="cd $(xclip -o)"
+function cdmark ()
+{
+	DIR=$(xclip -o)
+	cd ${DIR}
+}
 
 # cp + progress bar
 # cp_p()
