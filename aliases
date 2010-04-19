@@ -28,7 +28,7 @@ alias grep='egrep --color=auto'
 alias egrep='egrep --color=auto'
 #
 # du
-alias diskusage='sudo du -mx --max-depth 1 . | sort -g'
+alias diskusage='sudo du -hx --max-depth 1 . | sort -h'
 #
 # control
 alias j="jobs -l"
