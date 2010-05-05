@@ -139,7 +139,7 @@ function getpcn() {
 }
 
 function danglop_current() {
-	ATOM=$(qlop -Cc | head -n1 | awk '{print $2}')
+	ATOM=$(sudo qlop -Cc | head -n1 | awk '{print $2}')
 	if [ -z "${ATOM}" ]; then
 		echo "None"
 		return
@@ -147,10 +147,10 @@ function danglop_current() {
 	getpc ${ATOM}
 	getpvr ${ATOM}
 	getpcn ${ATOM}
-#        echo "${PC}"
-#        echo "${PVR}"
-#        echo "${PCN}"
-	ELAPSED=$(qlop -Cc | awk '(/elapsed/) {print $2 " " $4}')
+        #echo "${PC}"
+        #echo "${PVR}"
+        #echo "${PCN}"
+	ELAPSED=$(sudo qlop -Cc | awk '(/elapsed/) {print $2 " " $4}')
 	E1=$(echo ${ELAPSED} | awk '{print $1}')
 	E2=$(echo ${ELAPSED} | awk '{print $2}')
 	if [ -z "${E2}" ]; then
@@ -162,7 +162,7 @@ function danglop_current() {
 		ESEC=$(printf "%02d" ${E2})
 		TIMEPASSED="${E1}:${ESEC}"
 	fi
-	TOTSEC=$(qlop -tC ${PCN} | awk '{print $2}')
+	TOTSEC=$(sudo qlop -tC ${PCN} | awk '{print $2}')
 	if [ -n "${TOTSEC}" ]; then
 		TOTSECLEFT=$((${TOTSEC} - ${ETSEC}))
 		if ((${TOTSECLEFT} < 0)); then
@@ -179,7 +179,7 @@ function danglop_current() {
 	else
 		TIMELEFT="Unknown"
 	fi
-	echo "${PC}/${PN}-${PVR}"
+	echo "${PCN}-${PVR}"
 	echo "${TIMEPASSED}"
 	echo "${TIMELEFT}"
 
