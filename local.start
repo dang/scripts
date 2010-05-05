@@ -1,0 +1,6 @@
+# /etc/conf.d/local.start
+
+# This is a good place to load any misc programs
+# on startup (use &>/dev/null to hide output)
+echo 'core.%e-%p' > /proc/sys/kernel/core_pattern
+(echo `dumpkeys | grep -i keymaps`; echo keycode 58 = Escape) | loadkeys -
