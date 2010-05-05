@@ -14,17 +14,21 @@ require("naughty")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
+-- The default is a dark theme
 beautiful.init("/home/dang/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "gnome-terminal"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
-browser = "firefox"
+browser = "uzbl-tabbed http://www.google.com"
 email = "chromium"
 im = "pidgin"
 music = "schedtool -I -e rhythmbox"
 ebook = "calibre"
+reader = "uzbl-tabbed http://www.google.com/reader"
+comics = "uzbl-browser http://www.comicagg.com/comics/read/"
+bookmarks = "uzbl-tabbed file:///home/dang/bookmarks.html"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -52,7 +56,7 @@ layouts =
 -- {{{ Tags
 -- This fucking sucks.  But it's not doable in a sane manor anymore.
 names = {}
-names[1] = { "Terms", "Terms", "Terms", "Virtualization", 5, 6, 7, "Ebook", "IM", "Terms", "Terms", "Music", "Email", "Browser", "Feeds", 16 }
+names[1] = { "T", "T", "T", "V", 5, 6, 7, "Book", "IM", "T", "T", "M", "E", "B", "F", 16 }
 -- names[2] = { "Utility", "Dev1", "Dev1", "Dev3", "Dev4", "Build1", "Build2", "Build3", "Consoles", "Config", 11, 12, "Virtualization1", "Virtualization2", 15, 16 }
 -- Define tags table.
 tags = {}
@@ -62,17 +66,23 @@ tags[s] = awful.tag(names[1], s, layouts[10])
 -- Fix tags with non-default layout
 t = 1
 awful.layout.set(layouts[1], tags[s][t])
+t = 2
+awful.layout.set(layouts[1], tags[s][t])
 t = 3
-awful.layout.set(layouts[1], tags[s][t])
-awful.tag.setmwfact(0.8, tags[s][t])
-t = 5
-awful.layout.set(layouts[1], tags[s][t])
-t = 7
 awful.layout.set(layouts[1], tags[s][t])
 t = 9
 awful.layout.set(layouts[1], tags[s][t])
+awful.tag.setmwfact(0.8, tags[s][t])
+t = 10
+awful.layout.set(layouts[1], tags[s][t])
 t = 11
 awful.layout.set(layouts[1], tags[s][t])
+t = 13
+awful.layout.set(layouts[8], tags[s][t])
+t = 14
+awful.layout.set(layouts[8], tags[s][t])
+t = 15
+awful.layout.set(layouts[8], tags[s][t])
 -- }}}
 
 -- {{{ Menu
@@ -170,7 +180,7 @@ for s = 1, screen.count() do
     mycpu:set_color("#FF5656")
     mycpu:set_gradient_colors({ "#FF5656", "#88A175", "#AECF96" })
     -- -- Register widget
-    vicious.register(mycpu, vicious.widgets.cpu, "$1")
+--    vicious.register(mycpu, vicious.widgets.cpu, "$1")
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
@@ -204,33 +214,33 @@ function northeast(screen, tagnum)
 	if tagnum == 1 then
 		return 1
 	elseif tagnum == 2 then
-		return 2
+		return 5
 	elseif tagnum == 3 then
-		return 3
-	elseif tagnum == 4 then
-		return 4
-	elseif tagnum == 5 then
-		return 2
-	elseif tagnum == 6 then
-		return 3
-	elseif tagnum == 7 then
-		return 4
-	elseif tagnum == 8 then
-		return 8
-	elseif tagnum == 9 then
 		return 6
-	elseif tagnum == 10 then
+	elseif tagnum == 4 then
 		return 7
-	elseif tagnum == 11 then
-		return 8
-	elseif tagnum == 12 then
-		return 12
-	elseif tagnum == 13 then
+	elseif tagnum == 5 then
+		return 5
+	elseif tagnum == 6 then
+		return 9
+	elseif tagnum == 7 then
 		return 10
-	elseif tagnum == 14 then
+	elseif tagnum == 8 then
 		return 11
+	elseif tagnum == 9 then
+		return 9
+	elseif tagnum == 10 then
+		return 13
+	elseif tagnum == 11 then
+		return 14
+	elseif tagnum == 12 then
+		return 15
+	elseif tagnum == 13 then
+		return 13
+	elseif tagnum == 14 then
+		return 14
 	elseif tagnum == 15 then
-		return 12
+		return 15
 	else
 		return 16
 	end
@@ -239,35 +249,35 @@ function north(screen, tagnum)
 	if tagnum == 1 then
 		return 1
 	elseif tagnum == 2 then
-		return 2
-	elseif tagnum == 3 then
-		return 3
-	elseif tagnum == 4 then
-		return 4
-	elseif tagnum == 5 then
 		return 1
-	elseif tagnum == 6 then
+	elseif tagnum == 3 then
 		return 2
-	elseif tagnum == 7 then
+	elseif tagnum == 4 then
 		return 3
-	elseif tagnum == 8 then
-		return 4
-	elseif tagnum == 9 then
+	elseif tagnum == 5 then
 		return 5
-	elseif tagnum == 10 then
+	elseif tagnum == 6 then
+		return 5
+	elseif tagnum == 7 then
 		return 6
-	elseif tagnum == 11 then
+	elseif tagnum == 8 then
 		return 7
-	elseif tagnum == 12 then
-		return 8
-	elseif tagnum == 13 then
+	elseif tagnum == 9 then
 		return 9
-	elseif tagnum == 14 then
+	elseif tagnum == 10 then
+		return 9
+	elseif tagnum == 11 then
 		return 10
-	elseif tagnum == 15 then
+	elseif tagnum == 12 then
 		return 11
+	elseif tagnum == 13 then
+		return 13
+	elseif tagnum == 14 then
+		return 13
+	elseif tagnum == 15 then
+		return 14
 	else
-		return 12
+		return 15
 	end
 end
 function northwest(screen, tagnum)
@@ -292,9 +302,9 @@ function northwest(screen, tagnum)
 	elseif tagnum == 10 then
 		return 5
 	elseif tagnum == 11 then
-		return 6
-	elseif tagnum == 12 then
 		return 7
+	elseif tagnum == 12 then
+		return 8
 	elseif tagnum == 13 then
 		return 13
 	elseif tagnum == 14 then
@@ -307,35 +317,35 @@ function northwest(screen, tagnum)
 end
 function east(screen, tagnum)
 	if tagnum == 1 then
-		return 2
+		return 5
 	elseif tagnum == 2 then
-		return 3
-	elseif tagnum == 3 then
-		return 4
-	elseif tagnum == 4 then
-		return 4
-	elseif tagnum == 5 then
 		return 6
-	elseif tagnum == 6 then
+	elseif tagnum == 3 then
 		return 7
-	elseif tagnum == 7 then
+	elseif tagnum == 4 then
 		return 8
-	elseif tagnum == 8 then
-		return 8
-	elseif tagnum == 9 then
+	elseif tagnum == 5 then
+		return 9
+	elseif tagnum == 6 then
 		return 10
-	elseif tagnum == 10 then
+	elseif tagnum == 7 then
 		return 11
-	elseif tagnum == 11 then
+	elseif tagnum == 8 then
 		return 12
-	elseif tagnum == 12 then
-		return 12
-	elseif tagnum == 13 then
+	elseif tagnum == 9 then
+		return 13
+	elseif tagnum == 10 then
 		return 14
-	elseif tagnum == 14 then
+	elseif tagnum == 11 then
 		return 15
-	elseif tagnum == 15 then
+	elseif tagnum == 12 then
 		return 16
+	elseif tagnum == 13 then
+		return 13
+	elseif tagnum == 14 then
+		return 14
+	elseif tagnum == 15 then
+		return 15
 	else
 		return 16
 	end
@@ -344,35 +354,35 @@ function west(screen, tagnum)
 	if tagnum == 1 then
 		return 1
 	elseif tagnum == 2 then
-		return 1
-	elseif tagnum == 3 then
 		return 2
-	elseif tagnum == 4 then
+	elseif tagnum == 3 then
 		return 3
+	elseif tagnum == 4 then
+		return 4
 	elseif tagnum == 5 then
-		return 5
+		return 1
 	elseif tagnum == 6 then
-		return 5
+		return 2
 	elseif tagnum == 7 then
-		return 6
+		return 3
 	elseif tagnum == 8 then
-		return 7
+		return 4
 	elseif tagnum == 9 then
-		return 9
+		return 5
 	elseif tagnum == 10 then
-		return 9
+		return 6
 	elseif tagnum == 11 then
-		return 10
+		return 7
 	elseif tagnum == 12 then
-		return 11
+		return 8
 	elseif tagnum == 13 then
-		return 13
+		return 9
 	elseif tagnum == 14 then
-		return 13
+		return 10
 	elseif tagnum == 15 then
-		return 14
+		return 11
 	else
-		return 15
+		return 12
 	end
 end
 function southeast(screen, tagnum)
@@ -412,35 +422,35 @@ function southeast(screen, tagnum)
 end
 function south(screen, tagnum)
 	if tagnum == 1 then
-		return 5
+		return 2
 	elseif tagnum == 2 then
-		return 6
+		return 3
 	elseif tagnum == 3 then
-		return 7
+		return 4
 	elseif tagnum == 4 then
-		return 8
+		return 4
 	elseif tagnum == 5 then
-		return 9
+		return 6
 	elseif tagnum == 6 then
-		return 10
+		return 7
 	elseif tagnum == 7 then
-		return 11
+		return 8
 	elseif tagnum == 8 then
-		return 12
+		return 8
 	elseif tagnum == 9 then
-		return 13
+		return 10
 	elseif tagnum == 10 then
-		return 14
+		return 11
 	elseif tagnum == 11 then
-		return 15
+		return 12
 	elseif tagnum == 12 then
-		return 16
+		return 12
 	elseif tagnum == 13 then
-		return 13
-	elseif tagnum == 14 then
 		return 14
-	elseif tagnum == 15 then
+	elseif tagnum == 14 then
 		return 15
+	elseif tagnum == 15 then
+		return 16
 	else
 		return 16
 	end
@@ -449,44 +459,44 @@ function southwest(screen, tagnum)
 	if tagnum == 1 then
 		return 1
 	elseif tagnum == 2 then
-		return 5
+		return 2
 	elseif tagnum == 3 then
-		return 6
+		return 3
 	elseif tagnum == 4 then
-		return 7
+		return 4
 	elseif tagnum == 5 then
-		return 5
+		return 2
 	elseif tagnum == 6 then
-		return 9
+		return 3
 	elseif tagnum == 7 then
-		return 10
+		return 4
 	elseif tagnum == 8 then
-		return 11
+		return 8
 	elseif tagnum == 9 then
-		return 9
+		return 6
 	elseif tagnum == 10 then
-		return 13
+		return 7
 	elseif tagnum == 11 then
-		return 14
+		return 8
 	elseif tagnum == 12 then
-		return 15
+		return 12
 	elseif tagnum == 13 then
-		return 13
+		return 10
 	elseif tagnum == 14 then
-		return 14
+		return 11
 	elseif tagnum == 15 then
-		return 15
+		return 12
 	else
 		return 16
 	end
 end
 -- Directional desktop switching emulation
 -- The 16 tags on each screen are laid out like this:
--- 1  2  3  4
--- 5  6  7  8
--- 9  10 11 12
--- 13 14 15 16
--- So, if you're on 5 and you go east, you get to 6.
+-- 1 5 9  13
+-- 2 6 10 14
+-- 3 7 11 15
+-- 4 8 12 16
+-- So, if you're on 5 and you go right, you get to 8.
 function dfg_pick_desktop(direction)
 	local screen = mouse.screen
 	local tag = awful.tag.selected(screen)
@@ -604,7 +614,10 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "b", function () awful.util.spawn(browser) end),
     awful.key({ modkey,           }, "e", function () awful.util.spawn(email) end),
     awful.key({ modkey,           }, "i", function () awful.util.spawn(im) end),
-    awful.key({ modkey,           }, "c", function () awful.util.spawn(ebook) end),
+    awful.key({ modkey,           }, "c", function () awful.util.spawn(comics) end),
+    awful.key({ modkey,           }, "m", function () awful.util.spawn(music) end),
+    awful.key({ modkey,           }, "r", function () awful.util.spawn(reader) end),
+    awful.key({ modkey,           }, "k", function () awful.util.spawn(bookmarks) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
@@ -616,7 +629,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+    awful.key({ modkey, "Mod1"    }, "r",     function () mypromptbox[mouse.screen]:run() end),
 
     awful.key({ modkey }, "x",
               function ()
