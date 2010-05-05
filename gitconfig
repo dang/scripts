@@ -12,6 +12,7 @@
 [color "diff"]
 	meta = yellow bold
 	frag = magenta bold
+	func = blue bold
 	old = red bold
 	new = green bold
 [color "status"]
