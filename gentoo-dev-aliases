@@ -178,6 +178,9 @@ function maintcd() {
 function usercd() {
 	sportcd /home/portage/overlays/dang/user $*
 }
+function dangcd() {
+	sportcd /home/portage/overlays/dang $*
+}
 # kvm
 function kcd() {
 	sportcd /home/portage/overlays/kvm $*

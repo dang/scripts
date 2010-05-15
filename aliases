@@ -167,6 +167,8 @@ function ripdvd2passmp3 {
 #		mencoder -dvd 1 -alang en -ovc lavc -lavcopts vcodec=mpeg4:vhq:vbitrate=1800 -oac copy -vop scale -zoom -xy 640 -o $* -pass 1
 #		mencoder -dvd 1 -alang en -ovc lavc -lavcopts vcodec=mpeg4:vhq:vbitrate=1800 -oac copy -vop scale -zoom -xy 640 -o $* -pass 2
 #	}
+
+alias ripcd="rip cd rip --offset 103"
 alias mp='mplayer -alang eng -osdlevel 3'
 alias mpsub='mplayer -alang eng -slang eng -osdlevel 3'
 #alias dvd="mp -ni -alang en dvd://"
