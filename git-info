@@ -39,7 +39,7 @@ SUBDIRECTORY_OK=Yes
 OPTIONS_SPEC=
 LONG_USAGE="${LONGUSAGE}"
 # Source the git environment
-"$(git --exec-path)/git-sh-setup"
+source "$(git --exec-path)/git-sh-setup"
 
 BRANCH=$(git-branch  | grep '\*' | awk '{print $2}')
 REMOTE=$(git-config --get remote.origin.url)
