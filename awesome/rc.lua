@@ -27,7 +27,7 @@ im = "pidgin"
 music = "schedtool -I -e rhythmbox"
 ebook = "calibre"
 reader = "uzbl-tabbed http://www.google.com/reader"
-comics = "uzbl-browser http://www.comicagg.com/comics/read/"
+comics = "uzbl-tabbed http://www.comicagg.com/comics/read/"
 bookmarks = "uzbl-tabbed file:///home/dang/bookmarks.html"
 
 -- Default modkey.
