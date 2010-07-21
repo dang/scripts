@@ -460,3 +460,5 @@ function cdmark ()
 #          }
 #          END { print "" }' total_size=$(stat -c '%s' "${1}") count=0
 # }
+
+alias ttsync="sudo /home/portage/overlays/32bit-userland/ttsync"
