@@ -1,0 +1,3 @@
+*.swp
+# ignore spelling files
+vim/spell/*
