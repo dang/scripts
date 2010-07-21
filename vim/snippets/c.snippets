@@ -18,17 +18,19 @@ snippet Def
 	#endif${3}
 snippet def
 	#define 
+snippet ifdef
+	#ifdef ${1:SYMBOL}
+	#endif /* $1 */
 # Header Include-Guard
 # (the randomizer code is taken directly from TextMate; it could probably be
 # cleaner, I don't know how to do it in vim script)
 snippet once
-	#ifndef ${1:`toupper(Filename('', 'UNTITLED').'_'.system("/usr/bin/ruby -e 'print (rand * 2821109907455).round.to_s(36)'"))`}
-	
+	#ifndef ${1:`toupper('_'.Filename('', 'UNTITLED').'_H')`}
 	#define $1
 	
 	${2}
 	
-	#endif /* end of include guard: $1 */
+	#endif /* $1 */
 # If Condition
 snippet if
 	if (${1:/* condition */}) {
@@ -63,7 +65,8 @@ snippet forr
 	}
 # Function
 snippet fun
-	${1:void} ${2:function_name}(${3})
+	${1:void}
+	${2:function_name}(${3})
 	{
 		${4:/* code */}
 	}
@@ -88,3 +91,14 @@ snippet pr
 # fprintf (again, this isn't as nice as TextMate's version, but it works)
 snippet fpr
 	fprintf(${1:stderr}, "${2:%s}\n"${3});${4}
+
+# Doxygen function comment
+snippet /**
+	/**
+	 * @brief ${1:brief}
+	 *
+	 * ${5:Long description}
+	 *
+	 * @param[in] ${2:parm}	${3:Parameter description}
+	 * @return ${4:Return description}
+	 */
