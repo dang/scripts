@@ -553,7 +553,8 @@ function vcs_annotate() {
 	vcs_int_setup
 	case "${VCS}" in
 		svn)
-			svn annotate --use-merge-history $* || die "svn annotate failed"
+			svn annotate $* || die "svn annotate failed"
+			#svn annotate --use-merge-history $* || die "svn annotate failed"
 			;;
 		git)
 			git annotate $* | sed -r 's/\<([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5][0-9])\>//' | sed 's/ +0000//' || die "git annotate failed"
@@ -580,7 +581,7 @@ function vcs_log() {
 	shift
 	case "${VCS}" in
 		svn)
-			svn log -r ${VERSION} $* || die "svn log failed"
+			svn log -r ${VERSION} || die "svn log failed"
 			;;
 		git)
 			git log -r ${VERSION} $* || die "git log failed"
