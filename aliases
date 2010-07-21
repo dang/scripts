@@ -199,6 +199,7 @@ function mpmulti {
 }
 alias mpdeint="mp -vf pp=lb"
 alias tp="totem --fullscreen"
+alias gp="gst123"
 # These are the aliases for things that need root.
 alias reboot="sudo shutdown -r now"
 alias halt="sudo shutdown -h now"
@@ -387,6 +388,12 @@ function screen_named {
 	SCREENNAME=${1}
 	shift
 	screen -S ${SCREENNAME} -t ${SCREENNAME} $@
+}
+
+function dscreen {
+	SCREENNAME=${1}
+	shift
+	dtach -A /tmp/dang-dtach/${SCREENNAME} -e ^[ -r winch dvtm $@
 }
 
 function git_add_modified {
