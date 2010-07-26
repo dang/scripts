@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# Parse log
+#
+
+source ${HOME}/.scripts/portage-functions.sh
+
+OUT=$(danglop_current)
+
+#SaveIFS=$IFS
+#IFS="\n"
+declare -a Array=(${OUT})
+#IFS=$SaveIFS
+
+echo -e "Compiling:\t${Array[0]}"
+echo -e "Passed:\t\t${Array[1]}"
+echo -e "Remaining:\t${Array[2]}"

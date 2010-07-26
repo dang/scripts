@@ -171,10 +171,11 @@ function danglop_current() {
 		fi
 		MINLEFT=$((${TOTSECLEFT} / 60))
 		SECLEFT=$((${TOTSECLEFT} % 60))
+		LSEC=$(printf "%02d" ${SECLEFT})
 		if [ -z "${OVERRUN}" ]; then
-			TIMELEFT="${MINLEFT}:${SECLEFT}"
+			TIMELEFT="${MINLEFT}:${LSEC}"
 		else
-			TIMELEFT="-${MINLEFT}:${SECLEFT}"
+			TIMELEFT="-${MINLEFT}:${LSEC}"
 		fi
 	else
 		TIMELEFT="Unknown"
