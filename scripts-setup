@@ -6,7 +6,7 @@
 #
 
 REPO="git://github.com/dang/scripts.git"
-LNFILES="bashrc cvsrc face gvimrc inputrc profile screenrc vim xinitrc"
+LNFILES="bashrc cvsrc face gvimrc inputrc profile screenrc vim xinitrc tmux.conf"
 CPFILES="bash_local vimrc gitconfig"
 
 function die {
