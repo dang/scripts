@@ -16,7 +16,7 @@ LONGUSAGE="\t-h, --help\n\t\tPrint this help message
 \t-f, --force\n\t\tSync even if the local branch is not up-to-date"
 
 # Standard functions
-source /usr/local/scripts/functions.sh
+source ${HOME}/.scripts/functions.sh
 
 # Script name
 ME=$(basename $0)
@@ -42,7 +42,7 @@ done
 
 git branch 2>&1 | grep -i "Not a git repository" > /dev/null 2>/dev/null && die "Not a git repo"
 
-if git svn help 2>&1 > /dev/null; then
+if git svn help > /dev/null 2>&1; then
 	git svn info 2>&1 | grep -i "Unable to determine upstream SVN" > /dev/null 2>/dev/null || SVN="yes"
 fi
 
