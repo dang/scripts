@@ -2,11 +2,11 @@
 #
 # Copyright (c) 2009 Daniel Gryniewicz
 #
-# Do the equivalent of svn info
+# Clean up a git checkout to match it's repo
 
 # Set usage output
 USAGE="[-h |--help]"
-LONGUSAGE="Get info about a git repository
+LONGUSAGE="Clean up a git checkout to match it's repo
 \t-h, --help\n\t\tPrint this help message"
 
 # Standard functions
@@ -39,13 +39,5 @@ LONG_USAGE="${LONGUSAGE}"
 # Source the git environment
 source "$(git --exec-path)/git-sh-setup"
 
-BRANCH=$(git-branch  | grep '\*' | awk '{print $2}')
-REMOTE=$(git-config --get remote.origin.url)
-SVN=$(git-config --get svn-remote.svn.url)
-
-echo "BRANCH: ${BRANCH}"
-if [ -n "${REMOTE}" ]; then
-	echo "URL: ${REMOTE}"
-else
-	echo "SVN REMOTE: ${SVN}"
-fi
+git checkout .
+git status | grep "^\#	" | sed 's/#\t//' | xargs rm
