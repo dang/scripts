@@ -53,6 +53,11 @@ function ebcd() {
 	sportcd /usr/portage $*
 }
 
+function dkeyword() {
+	ekeyword ~x86 $1
+	ebuild $1 manifest
+}
+
 # Commit the corrent directory
 # Usage: ecommit <changelog entry>
 #ecommit() {

@@ -200,18 +200,6 @@ function mpmulti {
 alias mpdeint="mp -vf pp=lb"
 alias tp="totem --fullscreen"
 alias gp="gst123"
-# These are the aliases for things that need root.
-alias reboot="sudo shutdown -r now"
-alias halt="sudo shutdown -h now"
-function suspend {
-	# Lock the screen (must be done as me)
-	#gnome-screensaver-command -l
-	#sudo /home/dang/bin/suspend
-	sudo pm-suspend --quirk-dpms-on
-}
-#alias suspend="sudo /home/dang/bin/suspend"
-alias wakeup="sudo kbdrate -r 30"
-
 #
 # These are just useful aliases, in no specific order
 # alias edit="vim"
@@ -345,7 +333,7 @@ function resize {
 
 alias netfix="sudo /etc/init.d/net.eth1 restart"
 alias gamespeed="sudo speedfreq -p 800"
-alias keyfix="xmodmap ${HOME}/.scripts/keymap"
+alias keyfix="xmodmap ${HOME}/.scripts/keymap;synclient TapButton2=2; synclient TapButton3=3; synclient PalmDetect=1; sudo ifconfig wlan0 txqueuelen 0"
 alias keyfixgames="xmodmap ${HOME}/.scripts/keymap.games"
 alias danosmount="sudo losetup /dev/loop/0 /home/dang/src/danos/kernel/image/image; sudo mount /dev/loop/0 /home/dang/src/danos/kernel/image/mnt"
 alias danosumount="sudo umount /home/dang/src/danos/kernel/image/mnt; sudo losetup -d /dev/loop/0"
@@ -438,7 +426,7 @@ alias mark="pwd | xclip -i"
 function cdmark ()
 {
 	DIR=$(xclip -o)
-	cd ${DIR}
+	cd "${DIR}"
 }
 
 # cp + progress bar
@@ -462,3 +450,21 @@ function cdmark ()
 # }
 
 alias ttsync="sudo /home/portage/overlays/32bit-userland/ttsync"
+
+# These are the aliases for things that need root.
+alias reboot="sudo shutdown -r now"
+alias halt="sudo shutdown -h now"
+function suspend {
+	# Lock the screen (must be done as me)
+	#gnome-screensaver-command -l
+	#sudo /home/dang/bin/suspend
+	sudo umount -f /storage
+	nmcli nm wifi off
+	sudo pm-suspend --quirk-dpms-on
+	sleep 2
+	nmcli nm wifi on
+	keyfix
+}
+#alias suspend="sudo /home/dang/bin/suspend"
+alias wakeup="sudo kbdrate -r 30"
+
