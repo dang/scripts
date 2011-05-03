@@ -72,7 +72,7 @@ alias lo="logout"
 # utilities
 alias md="mkdir -p"
 alias rd="rmdir"
-alias which="alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde"
+alias which=" (alias; declare -f) | /usr/bin/which --tty-only --read-alias --read-functions --show-tilde --show-dot"
 #alias mktar="tar -cvf"
 #alias mktbz="tar -cjvf"
 #alias mktgz="tar -czvf"
