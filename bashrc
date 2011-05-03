@@ -102,3 +102,11 @@ if [ "${USER}" != "root" ]; then
 		[ -x /usr/bin/keychain ] && eval `keychain --quiet --eval`
 	fi
 fi
+
+# Terminal for TMUX
+if [ "${TERM}" == "xterm" ]; then
+	export TERM="xterm-256color"
+fi
+if [ -n "${TMUX}" ]; then
+	export TERM="screen-256color"
+fi

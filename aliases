@@ -205,6 +205,7 @@ alias gp="gst123"
 # alias edit="vim"
 alias vim="TERM=xterm-256color vim"
 alias :e="vim"
+alias :ta="vim -t"
 alias gvim="gvim -geometry 90x53"
 function html {
                 #links -dump -force-html $* | less
@@ -381,7 +382,7 @@ function screen_named {
 function dscreen {
 	SCREENNAME=${1}
 	shift
-	dtach -A /tmp/dang-dtach/${SCREENNAME} -e ^[ -r winch dvtm $@
+	dtach -A /tmp/dang-dtach/${SCREENNAME} -r winch dvtm $@
 }
 
 function git_add_modified {
