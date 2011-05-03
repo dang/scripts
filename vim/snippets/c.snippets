@@ -104,8 +104,8 @@ snippet tds
 # Typdef enum
 snippet tde
 	typedef enum {
-		${1:/* data */}
-	} ${2:foo};
+		${2:/* data */}
+	} ${1:`Filename('$1_t', 'name')`};
 # printf
 # unfortunately version this isn't as nice as TextMates's, given the lack of a
 # dynamic `...`
