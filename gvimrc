@@ -1,6 +1,10 @@
+" Turn off annoying toolbar
 set guioptions-=T
-set columns=80
-set tw=78
+" Disable all blinking:
+:set guicursor+=a:blinkon0
+
+"set columns=80
+"set tw=78
 set guifont=Deja\ Vu\ Sans\ Mono\ 9
 
 if version >= 500
