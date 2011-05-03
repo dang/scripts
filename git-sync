@@ -42,8 +42,15 @@ done
 
 git branch 2>&1 | grep -i "Not a git repository" > /dev/null 2>/dev/null && die "Not a git repo"
 
-if git svn help > /dev/null 2>&1; then
-	git svn info 2>&1 | grep -i "Unable to determine upstream SVN" > /dev/null 2>/dev/null || SVN="yes"
+GITDIR="$(git rev-parse --show-toplevel 2>/dev/null)/.git"
+if [ -d ${GITDIR}/svn/refs ]; then
+	SVN="yes"
+fi
+if [ -d ${GITDIR}/svn/trunk ]; then
+	SVN="yes"
+fi
+if [ -d ${GITDIR}/svn/tags ]; then
+	SVN="yes"
 fi
 
 if [ -z "${FORCE}" ]; then
@@ -59,7 +66,7 @@ echo "Updating master"
 if [ -n "${SVN}" ]; then
 	git svn rebase
 else
-	git pull
+	git pull --rebase
 fi
 
 if [ "${BRANCH}" != "master" ]; then
@@ -68,6 +75,6 @@ if [ "${BRANCH}" != "master" ]; then
 	if [ -n "${SVN}" ]; then
 		git svn rebase
 	else
-		git pull . master
+		git pull --rebase . master
 	fi
 fi
