@@ -27,10 +27,10 @@ imap <F1> <esc>
 
 " Mappings for QWERTY
 " Map keys to move between split windows
-map H h
-map J j
-map K k
-map L l
+nmap H h
+nmap J j
+nmap K k
+nmap L l
 " Since I mapped J to move between splits, remap U to join lines
 noremap U J
 
