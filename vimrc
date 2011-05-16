@@ -46,7 +46,7 @@ set incsearch
 " Wrap searches around the end of the file
 set wrapscan
 " Don't include gated.log files in viminfo
-set viminfo=\'50,\"50,h,r/tmp,r~/gated.log,r/var/tmp/gated.log
+set viminfo=\'50,\"50,h,r/tmp,r~/gated.log,r/var/tmp/gated.log,r.git/COMMIT_EDITMSG
 " Auto indent
 set autoindent
 " Keep tabs as tabs
@@ -68,6 +68,9 @@ set autowrite
 set splitright
 " Make visual-/ search rather than extend the visual
 :vmap / y/<C-R>"<CR>
+
+" Colors, baby
+set t_Co=256
 
 "
 " Settings for EnhancedCommentify
@@ -112,6 +115,10 @@ let g:EnhCommentifyUserMode='yes'
 command Reload checktime
 " Blame in svn for the current line
 command Vcsblame exe "!vcsblame --line "  . line(".") . " " . expand("%")
+" Check when a symbol was added to git
+map <Leader>1 :!git log --reverse -p -S <cword> %<cr>
+nmap ) :tn<cr>
+nmap ( :tp<cr>
 
 "
 " cscope settings
@@ -229,7 +236,11 @@ autocmd BufNewFile,BufRead *.vala            setfiletype vala
 autocmd BufNewFile,BufRead *.vapi set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
 autocmd BufNewFile,BufRead *.vapi set cindent
 autocmd BufNewFile,BufRead *.vapi            setfiletype vala
-
+autocmd BufNewFile,BufRead *.i setfiletype swig
+autocmd BufNewFile,BufRead *.swg set filetype=swig 
+autocmd BufNewFile,BufRead rfc*.txt set filetype=rfc
+autocmd BufNewFile,BufRead gated*log set filetype=gated
+autocmd BufNewFile,BufRead gated*log.* set filetype=gated
 
 "
 " Settings for C syntax highlighting (see .vim/doc/std_c.txt)
@@ -398,7 +409,7 @@ augroup END
 let g:snips_author = 'Daniel Gryniewicz'
 
 " Automatically update copyright notice with current year
-autocmd BufWritePre *
+autocmd BufWritePre *.[ch]
   \ if &modified |
   \   exe "g#\\cCOPYRIGHT \\(".strftime("%Y")."\\)\\@![0-9]\\{4\\}\\(-".strftime("%Y")."\\)\\@!#s#\\([0-9]\\{4\\}\\)\\(-[0-9]\\{4\\}\\)\\?#\\1-".strftime("%Y") |
   \ endif

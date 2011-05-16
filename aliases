@@ -170,6 +170,7 @@ function ripdvd2passmp3 {
 
 alias ripcd="rip cd rip --offset 103"
 alias mp='mplayer -alang eng -osdlevel 3'
+alias mpj='mplayer -alang jpn -osdlevel 3'
 alias mpsub='mplayer -alang eng -slang eng -osdlevel 3'
 #alias dvd="mp -ni -alang en dvd://"
 function dvd {
