@@ -460,7 +460,9 @@ function suspend {
 	# Lock the screen (must be done as me)
 	#gnome-screensaver-command -l
 	#sudo /home/dang/bin/suspend
-	sudo umount -f /storage
+	if grep storage /proc/mounts  2>&1 > /dev/null; then
+		sudo umount -f /storage || return
+	fi
 	nmcli nm wifi off
 	sudo pm-suspend --quirk-dpms-on
 	sleep 2
@@ -469,4 +471,4 @@ function suspend {
 }
 #alias suspend="sudo /home/dang/bin/suspend"
 alias wakeup="sudo kbdrate -r 30"
-
+alias keepassx="/usr/bin/keepassx ~/Dropbox/keepass.kdb"
