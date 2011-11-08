@@ -433,6 +433,8 @@ function cdmark ()
 	DIR=$(cat ${HOME}/.local/.dfg.mark)
 	cd "${DIR}"
 }
+# Mark from the X clipboard
+alias xmark="echo $(xclip -o) > ${HOME}/.local/.dfg.mark"
 
 # cp + progress bar
 # cp_p()
