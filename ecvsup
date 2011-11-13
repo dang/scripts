@@ -39,6 +39,8 @@ function trace() {
 }
 
 cd ${PORTDIR} || die "no ${PORTDIR}"
+# Nuke metadata/layout.conf since it was causing conflicts every time.
+rm -f metadata/layout.conf
 # Removed -C, because it touches mtime of every file, causing a full regen
 trace "Updating ${PORTDIR}"
 cvs -q up -PdA || die "cvs up failed"
