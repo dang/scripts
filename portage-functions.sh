@@ -150,17 +150,24 @@ function danglop_current() {
         #echo "${PC}"
         #echo "${PVR}"
         #echo "${PCN}"
-	ELAPSED=$(sudo qlop -Cc | awk '(/elapsed/) {print $2 " " $4}')
+	ELAPSED=$(sudo qlop -Cc | awk '(/elapsed/) {print $2 " " $4 " " $6}')
 	E1=$(echo ${ELAPSED} | awk '{print $1}')
 	E2=$(echo ${ELAPSED} | awk '{print $2}')
-	if [ -z "${E2}" ]; then
-		ETSEC=${E1}
-		ESEC=$(printf "%02d" ${ETSEC})
-		TIMEPASSED="0:${ESEC}"
-	else
+	E3=$(echo ${ELAPSED} | awk '{print $3}')
+	if [ -n "${E3}" ]; then
+		# hours, min, sec
+		ETSEC=$((${E1} * 60  * 60 + ${E2} * 60 + ${E3}))
+		EMIN=$(printf "%02d" ${E2})
+		ESEC=$(printf "%02d" ${E3})
+		TIMEPASSED="${E1}:${EMIN}:${ESEC}"
+	elif [ -n "${E2}" ]; then
 		ETSEC=$((${E1} * 60 + ${E2}))
 		ESEC=$(printf "%02d" ${E2})
 		TIMEPASSED="${E1}:${ESEC}"
+	else
+		ETSEC=${E1}
+		ESEC=$(printf "%02d" ${ETSEC})
+		TIMEPASSED="0:${ESEC}"
 	fi
 	TOTSEC=$(sudo qlop -tC ${PCN} | awk '{print $2}')
 	if [ -n "${TOTSEC}" ]; then
