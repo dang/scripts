@@ -27,16 +27,21 @@ imap <F1> <esc>
 
 " Mappings for QWERTY
 " Map keys to move between split windows
-nmap H h
-nmap J j
-nmap K k
-nmap L l
+"nmap H h
+"nmap J j
+"nmap K k
+"nmap L l
 " Since I mapped J to move between splits, remap U to join lines
-noremap U J
+"noremap U J
 
 " Mappings for Colemak
-set langmap=nh,NH,ej,EJ,il,IL,uk,UK,fn,FN,ke,KE,si,SI,hu,HU,jf,JF
+set langmap=nh,ej,il,uk,fn,ke,KE,si,SI,hu,HU,jf,JF
 "set langmap=fe,pr,gt,jy,lu,ui,yo,\;p,rs,sd,tf,dg,nj,ek,il,o\;,kn,FE,PR,GT,JY,LU,UI,YO,:P,RS,SD,TF,DG,NJ,EK,IL,O:,KN
+nnoremap N n
+nnoremap E e
+nnoremap U u
+nnoremap I i
+nnoremap F N
 
 "
 " Behavior settings
