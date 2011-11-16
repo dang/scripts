@@ -480,3 +480,5 @@ function suspend {
 #alias suspend="sudo /home/dang/bin/suspend"
 alias wakeup="sudo kbdrate -r 30"
 alias keepassx="/usr/bin/keepassx ~/Dropbox/keepass.kdb"
+alias asdf="setxkbmap us"
+alias arst="setxkbmap us -variant colemak"

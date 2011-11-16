@@ -18,7 +18,7 @@ set mousehide
 
 " This re-indents a single line in command mode according to the current C
 " syntax
-map Q Igqq
+"map Q Igqq
 " Turn of highlighting of search with F1 and F2 (in case F1 is mapped to "help"
 map <F1> :nohlsearch<CR>
 map <F2> :nohlsearch<CR>
@@ -35,6 +35,7 @@ nmap L l
 noremap U J
 
 " Mappings for Colemak
+set langmap=nh,NH,ej,EJ,il,IL,uk,UK,fn,FN,ke,KE,si,SI,hu,HU,jf,JF
 "set langmap=fe,pr,gt,jy,lu,ui,yo,\;p,rs,sd,tf,dg,nj,ek,il,o\;,kn,FE,PR,GT,JY,LU,UI,YO,:P,RS,SD,TF,DG,NJ,EK,IL,O:,KN
 
 "
@@ -203,20 +204,12 @@ ab #i #include
 " Filetype plugins.  These are file-type specific settings.
 "
 filetype plugin on
-autocmd BufNewFile,BufRead *.c    set cindent
-autocmd BufNewFile,BufRead *.cc   set cindent
-autocmd BufNewFile,BufRead *.cpp  set cindent
+filetype plugin indent on
 autocmd BufNewFile,BufRead *.cpp  let Tlist_Auto_Open=1
-autocmd BufNewFile,BufRead *.cxx  set cindent
 autocmd BufNewFile,BufRead *.cxx  let Tlist_Auto_Open=1
-autocmd BufNewFile,BufRead *.h    set cindent
-autocmd BufNewFile,BufRead *.hpp  set cindent
 autocmd BufNewFile,BufRead *.hpp  let Tlist_Auto_Open=1
-autocmd BufNewFile,BufRead *.java set cindent
-"autocmd BufNewFile,BufRead *.java set cinoptions= cindent ts=3 sw=3
 autocmd BufNewFile,BufRead *akefile*    set noexpandtab
 autocmd BufNewFile,BufRead *.py   set ts=4 sw=4 expandtab
-autocmd BufNewFile,BufRead *.y.unf set cindent
 autocmd BufNewFile,BufRead *.auto.unf set formatoptions-=t ts=4 tw=0
 autocmd BufNewFile,BufRead *.cfg.unf set formatoptions-=t ts=4 tw=0
 autocmd BufNewFile,BufRead *.auto set formatoptions-=t tw=0
@@ -231,10 +224,8 @@ autocmd BufNewFile,BufRead distbuild  set tw=0
 autocmd BufNewFile,BufRead *.doxygen setfiletype doxygen
 autocmd BufNewFile,BufRead *.stderr setfiletype gcc
 autocmd BufNewFile,BufRead *.vala set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
-autocmd BufNewFile,BufRead *.vala set cindent
 autocmd BufNewFile,BufRead *.vala            setfiletype vala
 autocmd BufNewFile,BufRead *.vapi set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
-autocmd BufNewFile,BufRead *.vapi set cindent
 autocmd BufNewFile,BufRead *.vapi            setfiletype vala
 autocmd BufNewFile,BufRead *.i setfiletype swig
 autocmd BufNewFile,BufRead *.swg set filetype=swig 
