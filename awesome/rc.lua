@@ -562,7 +562,7 @@ globalkeys = awful.util.table.join(
 		awful.client.movetotag(t)
 		awful.tag.viewonly(t)
 	end),
-    awful.key({ modkey, "Control", }, "h", function() awful.tag.viewonly(dfg_pick_desktop("west")) end),
+    awful.key({ modkey, "Control", }, "n", function() awful.tag.viewonly(dfg_pick_desktop("west")) end),
     awful.key({ modkey, "Control", }, "i", function() awful.tag.viewonly(dfg_pick_desktop("east")) end),
     awful.key({ modkey, "Control", }, "u", function() awful.tag.viewonly(dfg_pick_desktop("north")) end),
     awful.key({ modkey, "Control", }, "e", function() awful.tag.viewonly(dfg_pick_desktop("south")) end),
