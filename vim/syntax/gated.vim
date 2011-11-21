@@ -44,6 +44,14 @@ syn match lsAdvRt	"\[[0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}]" contai
 syn match lsLSAHdr		"\<LS\> [A-Z]\+:\_.\{-}\]" contains=logDate,lsType,lsTags,lsLSID,lsAdvRt
 syn match lsVTXHdr		"\<VTX\> [A-Z]\+:\_.\{-}\]" contains=logDate,lsType,lsTags,lsLSID,lsAdvRt
 
+syn keyword evtEmit	Emitting contained
+syn keyword evtDeliver	Delivering contained
+syn match evtRegister	"Client registered" contained
+syn keyword evtKey	class id key prio evtdata contained
+syn region evtTuple	start="<" end=">" contains=evtKey contained
+syn keyword evtFW	EVTFW contained
+syn region logEVT	start="EVTFW:" end="$" contains=evtFW,evtEmit,evtDeliver,evtRegister,evtTuple oneline
+
 " String
 syn match  logString	"\".*\"" contained
 syn match  logString    "'.*'"   contained
@@ -76,6 +84,13 @@ syn match  logString    "'.*'"   contained
     hi link lsTags		PreProc
     hi link lsLSID		Question
     hi link lsAdvRt		Ignore
+    hi link logEVT		Normal
+    hi link evtFW		Statement
+    hi link evtEmit		SpecialKey
+    hi link evtDeliver		Title
+    hi link evtRegister		Type
+    hi link evtTuple		PreProc
+    hi link evtKey		Comment
 
 let b:current_syntax = "gated"
 " vim:ts=8
