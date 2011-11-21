@@ -18,12 +18,14 @@ set mousehide
 
 " This re-indents a single line in command mode according to the current C
 " syntax
-"map Q Igqq
+nmap Q ==gqq
 " Turn of highlighting of search with F1 and F2 (in case F1 is mapped to "help"
-map <F1> :nohlsearch<CR>
-map <F2> :nohlsearch<CR>
+nmap <F1> :nohlsearch<CR>
+nmap <F2> :nohlsearch<CR>
 " I accidentally hit F1 when aiming for escape.  Map F1 to escape in insert mode
 imap <F1> <esc>
+" Append a semicolon
+nmap ; A;
 
 " Mappings for QWERTY
 " Map keys to move between split windows
@@ -238,6 +240,8 @@ autocmd BufNewFile,BufRead *.swg set filetype=swig
 autocmd BufNewFile,BufRead rfc*.txt set filetype=rfc
 autocmd BufNewFile,BufRead gated*log set filetype=gated
 autocmd BufNewFile,BufRead gated*log.* set filetype=gated
+autocmd BufNewFile,BufRead gated-trace set filetype=gated
+autocmd BufNewFile,BufRead *gated_log* set filetype=gated
 
 "
 " Settings for C syntax highlighting (see .vim/doc/std_c.txt)
