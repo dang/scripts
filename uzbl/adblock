@@ -1,0 +1,5455 @@
+global:
+//iframe[@name='google_ads_frame']
+	//*[@id='A9AdsMiddleBoxTop']
+	//*[@id='A9AdsOutOfStockWidgetTop']
+	//*[@id='A9AdsServicesWidgetTop']
+	//*[@id='ADsmallWrapper']
+	//*[@id='Ad2']
+	//*[@id='Ad3Left']
+	//*[@id='Ad3Right']
+	//*[@id='AdBar1']
+	//*[@id='AdContainerTop']
+	//*[@id='AdHeader']
+	//*[@id='AdMiddle']
+	//*[@id='AdRectangle']
+	//*[@id='AdSenseDiv']
+	//*[@id='AdShowcase_F1']
+	//*[@id='AdSky23']
+	//*[@id='AdSkyscraper']
+	//*[@id='AdSponsor_SF']
+	//*[@id='AdTargetControl1_iframe']
+	//*[@id='AdText']
+	//*[@id='Ad_Block']
+	//*[@id='Ad_Center1']
+	//*[@id='Ad_Top']
+	//*[@id='Adrectangle']
+	//*[@id='AdsContent']
+	//*[@id='AdsWrap']
+	//*[@id='AdvertMPU23b']
+	//*[@id='Advertisement']
+	//*[@id='Advertorial']
+	//*[@id='BannerAdvert']
+	//*[@id='BigBoxAd']
+	//*[@id='CompanyDetailsNarrowGoogleAdsPresentationControl']
+	//*[@id='CompanyDetailsWideGoogleAdsPresentationControl']
+	//*[@id='ContentAd']
+	//*[@id='ContentAd1']
+	//*[@id='ContentAd2']
+	//*[@id='ContentAdPlaceHolder1']
+	//*[@id='ContentAdPlaceHolder2']
+	//*[@id='FooterAd']
+	//*[@id='FooterAdContainer']
+	//*[@id='GoogleAdsense']
+	//*[@id='HEADERAD']
+	//*[@id='HOME_TOP_RIGHT_BOXAD']
+	//*[@id='HeaderAdsBlock']
+	//*[@id='HeroAd']
+	//*[@id='HomeAd1']
+	//*[@id='HouseAd']
+	//*[@id='Journal_Ad_125']
+	//*[@id='Journal_Ad_300']
+	//*[@id='LeftAdF1']
+	//*[@id='LeftAdF2']
+	//*[@id='PREFOOTER_LEFT_BOXAD']
+	//*[@id='PREFOOTER_RIGHT_BOXAD']
+	//*[@id='PageLeaderAd']
+	//*[@id='RightSponsoredAd']
+	//*[@id='SectionAd300-250']
+	//*[@id='SidebarAdContainer']
+	//*[@id='SkyAd']
+	//*[@id='SponsoredAd']
+	//*[@id='TOP_ADROW']
+	//*[@id='TopAdPos']
+	//*[@id='VM-MPU-adspace']
+	//*[@id='VM-header-adwrap']
+	//*[@id='XEadLeaderboard']
+	//*[@id='XEadSkyscraper']
+	//*[@id='ad-160x600']
+	//*[@id='ad-250x300']
+	//*[@id='ad-300']
+	//*[@id='ad-300x250']
+	//*[@id='ad-300x250Div']
+	//*[@id='ad-728']
+	//*[@id='ad-article']
+	//*[@id='ad-banner']
+	//*[@id='ad-bottom']
+	//*[@id='ad-bottom-wrapper']
+	//*[@id='ad-colB-1']
+	//*[@id='ad-column']
+	//*[@id='ad-footer']
+	//*[@id='ad-footprint-160x600']
+	//*[@id='ad-front-footer']
+	//*[@id='ad-front-sponsoredlinks']
+	//*[@id='ad-halfpage']
+	//*[@id='ad-label']
+	//*[@id='ad-leaderboard']
+	//*[@id='ad-leaderboard-bottom']
+	//*[@id='ad-leaderboard-spot']
+	//*[@id='ad-leaderboard-top']
+	//*[@id='ad-left']
+	//*[@id='ad-lrec']
+	//*[@id='ad-medium-rectangle']
+	//*[@id='ad-middlethree']
+	//*[@id='ad-middletwo']
+	//*[@id='ad-module']
+	//*[@id='ad-mpu']
+	//*[@id='ad-mpu1-spot']
+	//*[@id='ad-mpu2-spot']
+	//*[@id='ad-placard']
+	//*[@id='ad-rectangle']
+	//*[@id='ad-righttop']
+	//*[@id='ad-side-text']
+	//*[@id='ad-skyscraper']
+	//*[@id='ad-space']
+	//*[@id='ad-splash']
+	//*[@id='ad-target']
+	//*[@id='ad-target-Leaderbord']
+	//*[@id='ad-teaser']
+	//*[@id='ad-top']
+	//*[@id='ad-top-text-low']
+	//*[@id='ad-tower']
+	//*[@id='ad-trailerboard-spot']
+	//*[@id='ad-typ1']
+	//*[@id='ad-wrap-right']
+	//*[@id='ad-wrapper1']
+	//*[@id='ad-yahoo-simple']
+	//*[@id='ad125BL']
+	//*[@id='ad125BR']
+	//*[@id='ad125TL']
+	//*[@id='ad125TR']
+	//*[@id='ad125x125']
+	//*[@id='ad160x600']
+	//*[@id='ad160x600right']
+	//*[@id='ad1Sp']
+	//*[@id='ad2']
+	//*[@id='ad2Sp']
+	//*[@id='ad3']
+	//*[@id='ad300']
+	//*[@id='ad300-250']
+	//*[@id='ad300X250']
+	//*[@id='ad300_x_250']
+	//*[@id='ad300x150']
+	//*[@id='ad300x250']
+	//*[@id='ad300x250Module']
+	//*[@id='ad300x60']
+	//*[@id='ad336']
+	//*[@id='ad336x280']
+	//*[@id='ad375x85']
+	//*[@id='ad526x250']
+	//*[@id='ad600']
+	//*[@id='ad7']
+	//*[@id='ad728']
+	//*[@id='ad728Wrapper']
+	//*[@id='adB']
+	//*[@id='adBadges']
+	//*[@id='adBanner120x600']
+	//*[@id='adBannerTable']
+	//*[@id='adBannerTop']
+	//*[@id='adBar']
+	//*[@id='adBlock125']
+	//*[@id='adBlocks']
+	//*[@id='adBox']
+	//*[@id='adDiv']
+	//*[@id='adFps']
+	//*[@id='adFtofrs']
+	//*[@id='adGallery']
+	//*[@id='adGroup1']
+	//*[@id='adHeader']
+	//*[@id='adL']
+	//*[@id='adLB']
+	//*[@id='adMPU']
+	//*[@id='adMiddle0Frontpage']
+	//*[@id='adMiniPremiere']
+	//*[@id='adPlaceHolderRight']
+	//*[@id='adRight']
+	//*[@id='adSenseModule']
+	//*[@id='adServer_marginal']
+	//*[@id='adSidebar']
+	//*[@id='adSidebarSq']
+	//*[@id='adSky']
+	//*[@id='adSlider']
+	//*[@id='adSpace3']
+	//*[@id='adSpace300_ifrMain']
+	//*[@id='adSpace4']
+	//*[@id='adSpace5']
+	//*[@id='adSpace6']
+	//*[@id='adSpace7']
+	//*[@id='adSpace_footer']
+	//*[@id='adSpace_top']
+	//*[@id='adSpecial']
+	//*[@id='adSpot-Leader']
+	//*[@id='adSpot-banner']
+	//*[@id='adSpot-mrec1']
+	//*[@id='adSpot-sponsoredlinks']
+	//*[@id='adSpot-textbox1']
+	//*[@id='adSpot-widestrip']
+	//*[@id='adSpotAdvertorial']
+	//*[@id='adSpotIsland']
+	//*[@id='adSpotSponsoredLinks']
+	//*[@id='adSquare']
+	//*[@id='adStaticA']
+	//*[@id='adStrip']
+	//*[@id='adSuperPremiere']
+	//*[@id='adTableCell']
+	//*[@id='adTag1']
+	//*[@id='adTag2']
+	//*[@id='adTop']
+	//*[@id='adTopboxright']
+	//*[@id='adUnit']
+	//*[@id='adWrapper']
+	//*[@id='adZoneTop']
+	//*[@id='ad_160x160']
+	//*[@id='ad_160x600']
+	//*[@id='ad_190x90']
+	//*[@id='ad_300']
+	//*[@id='ad_300x250']
+	//*[@id='ad_468_60']
+	//*[@id='ad_5']
+	//*[@id='ad_728_foot']
+	//*[@id='ad_728x90']
+	//*[@id='ad_A']
+	//*[@id='ad_B']
+	//*[@id='ad_Banner']
+	//*[@id='ad_C']
+	//*[@id='ad_C2']
+	//*[@id='ad_D']
+	//*[@id='ad_E']
+	//*[@id='ad_F']
+	//*[@id='ad_G']
+	//*[@id='ad_H']
+	//*[@id='ad_I']
+	//*[@id='ad_J']
+	//*[@id='ad_K']
+	//*[@id='ad_L']
+	//*[@id='ad_M']
+	//*[@id='ad_N']
+	//*[@id='ad_O']
+	//*[@id='ad_P']
+	//*[@id='ad_YieldManager-300x250']
+	//*[@id='ad_anchor']
+	//*[@id='ad_banner']
+	//*[@id='ad_banner_top']
+	//*[@id='ad_bar']
+	//*[@id='ad_block_1']
+	//*[@id='ad_block_2']
+	//*[@id='ad_bottom']
+	//*[@id='ad_box_colspan']
+	//*[@id='ad_branding']
+	//*[@id='ad_bs_area']
+	//*[@id='ad_center_monster']
+	//*[@id='ad_content_wrap']
+	//*[@id='ad_feature']
+	//*[@id='ad_footer']
+	//*[@id='ad_haha_1']
+	//*[@id='ad_haha_4']
+	//*[@id='ad_halfpage']
+	//*[@id='ad_head']
+	//*[@id='ad_header']
+	//*[@id='ad_horseshoe_left']
+	//*[@id='ad_horseshoe_right']
+	//*[@id='ad_horseshoe_spacer']
+	//*[@id='ad_horseshoe_top']
+	//*[@id='ad_island']
+	//*[@id='ad_label']
+	//*[@id='ad_layer2']
+	//*[@id='ad_leader']
+	//*[@id='ad_leaderBoard']
+	//*[@id='ad_leaderboard']
+	//*[@id='ad_lwr_square']
+	//*[@id='ad_medium_rectangle']
+	//*[@id='ad_medium_rectangular']
+	//*[@id='ad_middle']
+	//*[@id='ad_mpu']
+	//*[@id='ad_play_300']
+	//*[@id='ad_rect']
+	//*[@id='ad_rect_body']
+	//*[@id='ad_rect_bottom']
+	//*[@id='ad_rectangle']
+	//*[@id='ad_related_links_div']
+	//*[@id='ad_related_links_div_program']
+	//*[@id='ad_report_leaderboard']
+	//*[@id='ad_report_rectangle']
+	//*[@id='ad_right']
+	//*[@id='ad_right_main']
+	//*[@id='ad_ros_tower']
+	//*[@id='ad_sidebar1']
+	//*[@id='ad_sidebar2']
+	//*[@id='ad_sidebar3']
+	//*[@id='ad_skyscraper']
+	//*[@id='ad_slot_livesky']
+	//*[@id='ad_ss']
+	//*[@id='ad_top']
+	//*[@id='ad_top_holder']
+	//*[@id='ad_tp_banner_1']
+	//*[@id='ad_tp_banner_2']
+	//*[@id='ad_vertical']
+	//*[@id='adbanner']
+	//*[@id='adbnr']
+	//*[@id='adbottom']
+	//*[@id='adbox2']
+	//*[@id='adclear']
+	//*[@id='adcode1']
+	//*[@id='adcode2']
+	//*[@id='adcode3']
+	//*[@id='adcode4']
+	//*[@id='adcolumnwrapper']
+	//*[@id='adcontainer']
+	//*[@id='adcontainsm']
+	//*[@id='addiv-bottom']
+	//*[@id='addiv-top']
+	//*[@id='adframe:not(frameset)']
+	//*[@id='adhead']
+	//*[@id='adhead_g']
+	//*[@id='adheader']
+	//*[@id='adiframe1_iframe']
+	//*[@id='adiframe2_iframe']
+	//*[@id='adiframe3_iframe']
+	//*[@id='adimg']
+	//*[@id='adlabel']
+	//*[@id='adlabelFooter']
+	//*[@id='adleaderboard']
+	//*[@id='adlinks']
+	//*[@id='adlinkws']
+	//*[@id='admid']
+	//*[@id='admiddle3center']
+	//*[@id='admiddle3left']
+	//*[@id='adposition']
+	//*[@id='adposition-C']
+	//*[@id='adposition2']
+	//*[@id='adposition4']
+	//*[@id='adrectanglea']
+	//*[@id='adrectangleb']
+	//*[@id='adright']
+	//*[@id='adright2']
+	//*[@id='ads-468']
+	//*[@id='ads-area']
+	//*[@id='ads-block']
+	//*[@id='ads-bot']
+	//*[@id='ads-bottom']
+	//*[@id='ads-dell']
+	//*[@id='ads-horizontal']
+	//*[@id='ads-indextext']
+	//*[@id='ads-leaderboard1']
+	//*[@id='ads-lrec']
+	//*[@id='ads-rhs']
+	//*[@id='ads-top']
+	//*[@id='ads2']
+	//*[@id='ads300']
+	//*[@id='ads336x280']
+	//*[@id='ads7']
+	//*[@id='ads790']
+	//*[@id='adsDisplay']
+	//*[@id='adsID']
+	//*[@id='ads_160']
+	//*[@id='ads_300']
+	//*[@id='ads_728']
+	//*[@id='ads_belowforumlist']
+	//*[@id='ads_belownav']
+	//*[@id='ads_bottom_outer']
+	//*[@id='ads_catDiv']
+	//*[@id='ads_right']
+	//*[@id='ads_sidebar_roadblock']
+	//*[@id='ads_top']
+	//*[@id='adsbottom']
+	//*[@id='adsense']
+	//*[@id='adsense-text']
+	//*[@id='adsenseWrap']
+	//*[@id='adsense_placeholder_2']
+	//*[@id='adsensetopplay']
+	//*[@id='adskyscraper']
+	//*[@id='adslot']
+	//*[@id='adsonar']
+	//*[@id='adspace-300x250']
+	//*[@id='adspace300x250']
+	//*[@id='adspaceBox']
+	//*[@id='adspaceBox300']
+	//*[@id='adspace_header']
+	//*[@id='adsright']
+	//*[@id='adstop']
+	//*[@id='adtech_takeover']
+	//*[@id='adtop']
+	//*[@id='adv-masthead']
+	//*[@id='adv_google_300']
+	//*[@id='adv_google_728']
+	//*[@id='adv_top_banner_wrapper']
+	//*[@id='adv_wide_banner']
+	//*[@id='advert-1']
+	//*[@id='advert-boomer']
+	//*[@id='advert-display']
+	//*[@id='advert-header']
+	//*[@id='advert-leaderboard']
+	//*[@id='advert-top']
+	//*[@id='advertBanner']
+	//*[@id='advert_250x250']
+	//*[@id='advert_box']
+	//*[@id='advert_leaderboard']
+	//*[@id='advert_lrec_format']
+	//*[@id='advert_mpu']
+	//*[@id='advertbox']
+	//*[@id='advertbox2']
+	//*[@id='advertbox3']
+	//*[@id='advertbox4']
+	//*[@id='adverthome']
+	//*[@id='advertise-now']
+	//*[@id='advertisement160x600']
+	//*[@id='advertisement728x90']
+	//*[@id='advertisementLigatus']
+	//*[@id='advertisementPrio2']
+	//*[@id='advertiserLinks']
+	//*[@id='advertising']
+	//*[@id='advertising-skyscraper']
+	//*[@id='adwhitepaperwidget']
+	//*[@id='adwin_rec']
+	//*[@id='adwith']
+	//*[@id='adwords-4-container']
+	//*[@id='adwrapper']
+	//*[@id='adxtop']
+	//*[@id='adzoneBANNER']
+	//*[@id='agi-ad300x250']
+	//*[@id='agi-ad300x250overlay']
+	//*[@id='agi-sponsored']
+	//*[@id='annoying_ad']
+	//*[@id='ap_adframe']
+	//*[@id='araHealthSponsorAd']
+	//*[@id='article-ad-container']
+	//*[@id='article-box-ad']
+	//*[@id='articleAdReplacement']
+	//*[@id='articleSideAd']
+	//*[@id='article_ad']
+	//*[@id='article_box_ad']
+	//*[@id='atlasAdDivGame']
+	//*[@id='banner-ad']
+	//*[@id='banner-ads']
+	//*[@id='banner468x60']
+	//*[@id='banner728x90']
+	//*[@id='bannerAd']
+	//*[@id='bannerAdTop']
+	//*[@id='bannerAd_ctr']
+	//*[@id='banner_ad']
+	//*[@id='banner_topad']
+	//*[@id='bannerad']
+	//*[@id='bannerad2']
+	//*[@id='bbo_ad1']
+	//*[@id='bg_YieldManager-300x250']
+	//*[@id='bigAd']
+	//*[@id='bigBoxAd']
+	//*[@id='bigadbox']
+	//*[@id='bigadspot']
+	//*[@id='billboard_ad']
+	//*[@id='block-ad_cube-1']
+	//*[@id='block_advert']
+	//*[@id='blox-big-ad']
+	//*[@id='blox-halfpage-ad']
+	//*[@id='blox-tile-ad']
+	//*[@id='botad']
+	//*[@id='bottom-ad-container']
+	//*[@id='bottom-ads']
+	//*[@id='bottomAd']
+	//*[@id='bottomAdSenseDiv']
+	//*[@id='bottomAds']
+	//*[@id='bottomRightAdSpace']
+	//*[@id='bottom_ad']
+	//*[@id='bottom_ad_area']
+	//*[@id='bottom_ads']
+	//*[@id='bottom_banner_ad']
+	//*[@id='bottom_overture']
+	//*[@id='bottom_sponsor_ads']
+	//*[@id='bottom_sponsored_links']
+	//*[@id='bottom_text_ad']
+	//*[@id='bottomad']
+	//*[@id='bottomadsense']
+	//*[@id='box-googleadsense-1']
+	//*[@id='box-googleadsense-r']
+	//*[@id='box1ad']
+	//*[@id='boxAd300']
+	//*[@id='boxAdContainer']
+	//*[@id='box_mod_googleadsense']
+	//*[@id='boxad1']
+	//*[@id='boxad2']
+	//*[@id='boxad3']
+	//*[@id='boxad4']
+	//*[@id='boxad5']
+	//*[@id='bps-header-ad-container']
+	//*[@id='btr_horiz_ad']
+	//*[@id='burn_header_ad']
+	//*[@id='button-ads-horizontal']
+	//*[@id='button-ads-vertical']
+	//*[@id='button_ad_container']
+	//*[@id='button_ad_wrap']
+	//*[@id='cellAd']
+	//*[@id='channel_ad']
+	//*[@id='channel_ads']
+	//*[@id='ciHomeRHSAdslot']
+	//*[@id='circ_ad']
+	//*[@id='cnnRR336ad']
+	//*[@id='cnnTopAd']
+	//*[@id='colRightAd']
+	//*[@id='column4-google-ads']
+	//*[@id='commercial_ads']
+	//*[@id='common_right_lower_player_adspace']
+	//*[@id='common_right_player_adspace']
+	//*[@id='common_top_adspace']
+	//*[@id='containerLocalAds']
+	//*[@id='containerMrecAd']
+	//*[@id='content-ad-header']
+	//*[@id='contentAd']
+	//*[@id='content_ad_square']
+	//*[@id='content_ad_top']
+	//*[@id='content_ads_content']
+	//*[@id='content_box_300body_sponsoredoffers']
+	//*[@id='content_box_adright300_google']
+	//*[@id='contentad']
+	//*[@id='contentad_imtext']
+	//*[@id='contentad_right']
+	//*[@id='contentads']
+	//*[@id='contentinlineAd']
+	//*[@id='contextual-ads-block']
+	//*[@id='contextualad']
+	//*[@id='ctl00_MasterHolder_IBanner_adHolder']
+	//*[@id='ctl00_VBanner_adHolder']
+	//*[@id='ctl00_adFooter']
+	//*[@id='ctl00_cphMain_hlAd1']
+	//*[@id='ctl00_cphMain_hlAd2']
+	//*[@id='ctl00_cphMain_hlAd3']
+	//*[@id='ctl00_ctl00_MainPlaceHolder_itvAdSkyscraper']
+	//*[@id='ctl00_ctl00_ctl00_tableAdsTop']
+	//*[@id='ctrlsponsored']
+	//*[@id='cubeAd']
+	//*[@id='cube_ads']
+	//*[@id='cube_ads_inner']
+	//*[@id='cubead']
+	//*[@id='cubead-2']
+	//*[@id='defer-adright']
+	//*[@id='detail_page_vid_topads']
+	//*[@id='divAd']
+	//*[@id='divAdBox']
+	//*[@id='divWrapper_Ad']
+	//*[@id='div_video_ads']
+	//*[@id='dlads']
+	//*[@id='dni-header-ad']
+	//*[@id='download_ads']
+	//*[@id='ds-mpu']
+	//*[@id='editorsmpu']
+	//*[@id='evotopTen_advert']
+	//*[@id='exads']
+	//*[@id='featuredAdContainer2']
+	//*[@id='featuredAds']
+	//*[@id='feed_links_ad_container']
+	//*[@id='first_ad_unit']
+	//*[@id='fl_hdrAd']
+	//*[@id='footer-ad']
+	//*[@id='footer-sponsored']
+	//*[@id='footerAd']
+	//*[@id='footerAdDiv']
+	//*[@id='footerAds']
+	//*[@id='footerAdverts']
+	//*[@id='footer_ad']
+	//*[@id='footer_ad_block']
+	//*[@id='footer_adspace']
+	//*[@id='footer_text_ad']
+	//*[@id='footerad']
+	//*[@id='fr_ad_center']
+	//*[@id='frnContentAd']
+	//*[@id='from_our_sponsors']
+	//*[@id='front_advert']
+	//*[@id='front_mpu']
+	//*[@id='ft-ad']
+	//*[@id='ft-ad-1']
+	//*[@id='ft-ad-container']
+	//*[@id='fusionad']
+	//*[@id='fw-advertisement']
+	//*[@id='g_ad']
+	//*[@id='g_adsense']
+	//*[@id='ga_300x250']
+	//*[@id='gad']
+	//*[@id='gallery-ad-m0']
+	//*[@id='gallery_ads']
+	//*[@id='game-info-ad']
+	//*[@id='global_header_ad_area']
+	//*[@id='google-ad']
+	//*[@id='google-ad-art']
+	//*[@id='google-ad-tower']
+	//*[@id='google-ads']
+	//*[@id='google-ads-bottom']
+	//*[@id='google-ads-left-side']
+	//*[@id='google-adsense-mpusize']
+	//*[@id='googleAd']
+	//*[@id='googleAds']
+	//*[@id='googleAdsense']
+	//*[@id='googleAdsenseBanner']
+	//*[@id='googleAdsenseBannerBlog']
+	//*[@id='googleAdwordsModule']
+	//*[@id='googleAfcContainer']
+	//*[@id='google_ad']
+	//*[@id='google_ad_test']
+	//*[@id='google_ads']
+	//*[@id='google_ads_frame1']
+	//*[@id='google_ads_test']
+	//*[@id='googlead']
+	//*[@id='googleads']
+	//*[@id='googlesponsor']
+	//*[@id='grid_ad']
+	//*[@id='gsyadrectangleload']
+	//*[@id='gsyadrightload']
+	//*[@id='gsyadtop']
+	//*[@id='gsyadtopload']
+	//*[@id='gtopadvts']
+	//*[@id='halfPageAd']
+	//*[@id='halfe-page-ad-box']
+	//*[@id='hdtv_ad_ss']
+	//*[@id='head_advert']
+	//*[@id='header-ad']
+	//*[@id='header-ads']
+	//*[@id='header-advert']
+	//*[@id='headerAd']
+	//*[@id='headerAdBackground']
+	//*[@id='headerAdContainer']
+	//*[@id='headerAdsWrapper']
+	//*[@id='headerTopAd']
+	//*[@id='header_advertisement_top']
+	//*[@id='header_leaderboard_ad_container']
+	//*[@id='headerad']
+	//*[@id='headeradbox']
+	//*[@id='headline_ad']
+	//*[@id='hiddenadAC']
+	//*[@id='homeTopRightAd']
+	//*[@id='home_ad']
+	//*[@id='home_contentad']
+	//*[@id='home_spensoredlinks']
+	//*[@id='homepage-ad']
+	//*[@id='homepage_right_ad']
+	//*[@id='homepage_right_ad_container']
+	//*[@id='hometop_234x60ad']
+	//*[@id='horizontal-banner-ad']
+	//*[@id='horizontal_ad']
+	//*[@id='houseAd']
+	//*[@id='hp-store-ad']
+	//*[@id='hpV2_300x250Ad']
+	//*[@id='hpV2_googAds']
+	//*[@id='icePage_SearchLinks_AdRightDiv']
+	//*[@id='icePage_SearchLinks_DownloadToolbarAdRightDiv']
+	//*[@id='inlinead']
+	//*[@id='inlinegoogleads']
+	//*[@id='inner-advert-row']
+	//*[@id='insider_ad_wrapper']
+	//*[@id='instoryad']
+	//*[@id='int-ad']
+	//*[@id='interstitial_ad_wrapper']
+	//*[@id='islandAd']
+	//*[@id='j_ad']
+	//*[@id='jmp-ad-buttons']
+	//*[@id='ka_adRightSkyscraperWide']
+	//*[@id='landing-adserver']
+	//*[@id='lateAd']
+	//*[@id='lb-sponsor-left']
+	//*[@id='lb-sponsor-right']
+	//*[@id='leader-board-ad']
+	//*[@id='leader-sponsor']
+	//*[@id='leaderAdContainer']
+	//*[@id='leaderad']
+	//*[@id='leaderad_section']
+	//*[@id='leaderboard-ad']
+	//*[@id='leaderboard-bottom-ad']
+	//*[@id='leaderboard_ad']
+	//*[@id='leftAdContainer']
+	//*[@id='leftAd_rdr']
+	//*[@id='leftAdvert']
+	//*[@id='leftSectionAd300-100']
+	//*[@id='left_ad']
+	//*[@id='left_adspace']
+	//*[@id='leftad']
+	//*[@id='leftads']
+	//*[@id='lg-banner-ad']
+	//*[@id='linkAds']
+	//*[@id='live-ad']
+	//*[@id='longAdSpace']
+	//*[@id='mBannerAd']
+	//*[@id='main-ad']
+	//*[@id='main-ad160x600']
+	//*[@id='main-ad160x600-img']
+	//*[@id='main-ad728x90']
+	//*[@id='mainAdUnit']
+	//*[@id='mainAdvert']
+	//*[@id='main_ad']
+	//*[@id='main_rec_ad']
+	//*[@id='mastAdvert']
+	//*[@id='mastad']
+	//*[@id='masthead_ad']
+	//*[@id='masthead_topad']
+	//*[@id='medRecAd']
+	//*[@id='media_ad']
+	//*[@id='menuAds']
+	//*[@id='mid-ad300x250']
+	//*[@id='mid-table-ad']
+	//*[@id='mid_ad_title']
+	//*[@id='mid_mpu']
+	//*[@id='middlead']
+	//*[@id='middleads']
+	//*[@id='midrect_ad']
+	//*[@id='midstrip_ad']
+	//*[@id='mini-ad']
+	//*[@id='module-google_ads']
+	//*[@id='module_ad']
+	//*[@id='module_box_ad']
+	//*[@id='most_popular_ad']
+	//*[@id='mpu']
+	//*[@id='mpu-advert']
+	//*[@id='mpuAd']
+	//*[@id='mpuDiv']
+	//*[@id='mpuWrapper']
+	//*[@id='mpuWrapperAd']
+	//*[@id='mpu_banner']
+	//*[@id='mpu_holder']
+	//*[@id='mpuad']
+	//*[@id='mrecAdContainer']
+	//*[@id='ms_ad']
+	//*[@id='multiLinkAdContainer']
+	//*[@id='n_sponsor_ads']
+	//*[@id='natadad300x250']
+	//*[@id='navi_banner_ad_780']
+	//*[@id='nba300Ad']
+	//*[@id='new_topad']
+	//*[@id='ng_rtcol_ad']
+	//*[@id='noresultsads']
+	//*[@id='northad']
+	//*[@id='oanda_ads']
+	//*[@id='onespot-ads']
+	//*[@id='p-googleadsense']
+	//*[@id='page-header-ad']
+	//*[@id='page_content_top_ad']
+	//*[@id='pcworldAdBottom']
+	//*[@id='pcworldAdTop']
+	//*[@id='pinball_ad']
+	//*[@id='player_ad']
+	//*[@id='portlet-advertisement-left']
+	//*[@id='portlet-advertisement-right']
+	//*[@id='post5_adbox']
+	//*[@id='priceGrabberAd']
+	//*[@id='printads']
+	//*[@id='product-adsense']
+	//*[@id='promo-ad']
+	//*[@id='promoAds']
+	//*[@id='ps-vertical-ads']
+	//*[@id='pub468x60']
+	//*[@id='publicidad']
+	//*[@id='r1SoftAd']
+	//*[@id='rail_ad1']
+	//*[@id='rail_ad2']
+	//*[@id='realEstateAds']
+	//*[@id='rect_ad']
+	//*[@id='rectangle-ad']
+	//*[@id='rectangle_ad']
+	//*[@id='refine-300-ad']
+	//*[@id='region-top-ad']
+	//*[@id='rh-ad-container']
+	//*[@id='rh_tower_ad']
+	//*[@id='rhsadvert']
+	//*[@id='right-ad']
+	//*[@id='rightAd']
+	//*[@id='rightAd300x250']
+	//*[@id='rightAdColumn']
+	//*[@id='rightAd_rdr']
+	//*[@id='rightColAd']
+	//*[@id='rightColumnMpuAd']
+	//*[@id='rightColumnSkyAd']
+	//*[@id='right_ad_wrapper']
+	//*[@id='right_advertisement']
+	//*[@id='right_advertising']
+	//*[@id='rightad']
+	//*[@id='rightadvertbar-doubleclickads']
+	//*[@id='rightbar-ad']
+	//*[@id='rightside_ad']
+	//*[@id='rotatingads']
+	//*[@id='rtMod_ad']
+	//*[@id='sAdsBox']
+	//*[@id='search-google-ads']
+	//*[@id='search_ads']
+	//*[@id='secondBoxAdContainer']
+	//*[@id='section-container-ddc_ads']
+	//*[@id='servfail-ads']
+	//*[@id='sew-ad1']
+	//*[@id='shoppingads']
+	//*[@id='show-ad']
+	//*[@id='side-ad']
+	//*[@id='side-ad-container']
+	//*[@id='sideAd']
+	//*[@id='sideBarAd']
+	//*[@id='side_ad_wrapper']
+	//*[@id='side_ads_by_google']
+	//*[@id='sidead']
+	//*[@id='sidebar-125x125-ads']
+	//*[@id='sidebar-125x125-ads-below-index']
+	//*[@id='sidebar-ad-boxes']
+	//*[@id='sidebar-ad-space']
+	//*[@id='sidebar-ad-wrap']
+	//*[@id='sidebar-ads']
+	//*[@id='sidebar_ad_widget']
+	//*[@id='sidebar_sponsoredresult_body']
+	//*[@id='sidebarad']
+	//*[@id='sideline-ad']
+	//*[@id='site-leaderboard-ads']
+	//*[@id='site_top_ad']
+	//*[@id='sky-ad']
+	//*[@id='skyAd']
+	//*[@id='skyScrapperAd']
+	//*[@id='sky_ad']
+	//*[@id='skyscraper-ad']
+	//*[@id='skyscraperAd']
+	//*[@id='skyscraper_advert']
+	//*[@id='sliderAdHolder']
+	//*[@id='slideshow_ad_300x250']
+	//*[@id='sm-banner-ad']
+	//*[@id='small_ad']
+	//*[@id='smallerAd']
+	//*[@id='speeds_ads']
+	//*[@id='speeds_ads_fstitem']
+	//*[@id='sphereAd']
+	//*[@id='splinks']
+	//*[@id='sponLinkDiv_1']
+	//*[@id='sponlink']
+	//*[@id='spons_left']
+	//*[@id='sponseredlinks']
+	//*[@id='sponsorAd1']
+	//*[@id='sponsorAd2']
+	//*[@id='sponsorLinks']
+	//*[@id='sponsor_banderole']
+	//*[@id='sponsor_box']
+	//*[@id='sponsor_panSponsor']
+	//*[@id='sponsored']
+	//*[@id='sponsored-ads']
+	//*[@id='sponsored-features']
+	//*[@id='sponsored-links']
+	//*[@id='sponsored-resources']
+	//*[@id='sponsored1']
+	//*[@id='sponsoredBox1']
+	//*[@id='sponsoredBox2']
+	//*[@id='sponsoredLinks']
+	//*[@id='sponsoredList']
+	//*[@id='sponsoredResults']
+	//*[@id='sponsoredSiteMainline']
+	//*[@id='sponsoredSiteSidebar']
+	//*[@id='sponsored_content']
+	//*[@id='sponsored_game_row_listing']
+	//*[@id='sponsored_links']
+	//*[@id='sponsoredlinks']
+	//*[@id='sponsoredlinks_cntr']
+	//*[@id='sponsoredresults_top']
+	//*[@id='sponsorlink']
+	//*[@id='spotlightAds']
+	//*[@id='spotlightad']
+	//*[@id='squareAd']
+	//*[@id='squareAdSpace']
+	//*[@id='square_ad']
+	//*[@id='sticky-ad']
+	//*[@id='stickyBottomAd']
+	//*[@id='story-ad-a']
+	//*[@id='story-ad-b']
+	//*[@id='story-sponsoredlinks']
+	//*[@id='storyAd']
+	//*[@id='storyAdWrap']
+	//*[@id='subpage-ad-right']
+	//*[@id='subpage-ad-top']
+	//*[@id='swads']
+	//*[@id='synch-ad']
+	//*[@id='tabAdvertising']
+	//*[@id='tblAd']
+	//*[@id='tbl_googlead']
+	//*[@id='template_ad_leaderboard']
+	//*[@id='tertiary_advertising']
+	//*[@id='textAd']
+	//*[@id='textAds']
+	//*[@id='text_ad']
+	//*[@id='text_advert']
+	//*[@id='the-last-ad-standing']
+	//*[@id='thefooterad']
+	//*[@id='themis-ads']
+	//*[@id='tile-ad']
+	//*[@id='tmglBannerAd']
+	//*[@id='top-ad']
+	//*[@id='top-ad-menu']
+	//*[@id='top-ads']
+	//*[@id='top-ads-tabs']
+	//*[@id='top-advertisement']
+	//*[@id='top-banner-ad']
+	//*[@id='top-search-ad-wrapper']
+	//*[@id='topAd']
+	//*[@id='topAd728x90']
+	//*[@id='topAdBanner']
+	//*[@id='topAdContainer']
+	//*[@id='topAdSenseDiv']
+	//*[@id='topAds']
+	//*[@id='topAdvert']
+	//*[@id='topBannerAd']
+	//*[@id='topNavLeaderboardAdHolder']
+	//*[@id='top_ad']
+	//*[@id='top_ad_area']
+	//*[@id='top_ad_game']
+	//*[@id='top_ad_wrapper']
+	//*[@id='top_ads']
+	//*[@id='top_advertise']
+	//*[@id='top_advertising']
+	//*[@id='topad_left']
+	//*[@id='topad_right']
+	//*[@id='topadblock']
+	//*[@id='topads']
+	//*[@id='topcustomad']
+	//*[@id='toprightAdvert']
+	//*[@id='towerad']
+	//*[@id='twogamesAd']
+	//*[@id='txt_link_ads']
+	//*[@id='undergameAd']
+	//*[@id='upperMpu']
+	//*[@id='upperad']
+	//*[@id='urban_contentad_article']
+	//*[@id='v_ad']
+	//*[@id='vert_ad']
+	//*[@id='vertical_ad']
+	//*[@id='vertical_ads']
+	//*[@id='video_cnv_ad']
+	//*[@id='video_overlay_ad']
+	//*[@id='walltopad']
+	//*[@id='welcomeAdsContainer']
+	//*[@id='welcome_ad_mrec']
+	//*[@id='welcome_advertisement']
+	//*[@id='wgtAd']
+	//*[@id='widget_advertisement']
+	//*[@id='wrapAdRight']
+	//*[@id='wrapAdTop']
+	//*[@id='yahoo-ads']
+	//*[@id='yahoo-sponsors']
+	//*[@id='yahoo_ads']
+	//*[@id='yahoo_ads_2010']
+	//*[@id='yahooad-tbl']
+	//*[@id='yan-sponsored']
+	//*[@id='ybf-ads']
+	//*[@id='yfi_fp_ad_mort']
+	//*[@id='yfi_fp_ad_nns']
+	//*[@id='yfi_pf_ad_mort']
+	//*[@id='ygrp-sponsored-links']
+	//*[@id='ymap_adbanner']
+	//*[@id='yn-gmy-ad-lrec']
+	//*[@id='yreSponsoredLinks']
+	//*[@id='ysm_ad_iframe']
+	//*[@id='zoneAdserverMrec']
+	//*[@id='zoneAdserverSuper']
+	//*[@class='ADBAR']
+	//*[@class='Ad120x600']
+	//*[@class='Ad160x600']
+	//*[@class='Ad247x90']
+	//*[@class='Ad300x250']
+	//*[@class='Ad300x250L']
+	//*[@class='Ad728x90']
+	//*[@class='AdBox7']
+	//*[@class='AdContainerBox308']
+	//*[@class='AdHere']
+	//*[@class='AdPlaceHolder']
+	//*[@class='AdRingtone']
+	//*[@class='AdSense']
+	//*[@class='AdSpace']
+	//*[@class='AdUnit']
+	//*[@class='AdUnit300']
+	//*[@class='Ad_C']
+	//*[@class='Ad_D_Wrapper']
+	//*[@class='Ad_E_Wrapper']
+	//*[@class='Ad_Right']
+	//*[@class='AdsBoxSection']
+	//*[@class='AdsLinks1']
+	//*[@class='AdsLinks2']
+	//*[@class='AdvertMidPage']
+	//*[@class='AdvertiseWithUs']
+	//*[@class='AdvertisementTextTag']
+	//*[@class='ArticleInlineAd']
+	//*[@class='BannerAd']
+	//*[@class='BlockAd']
+	//*[@class='BottomAffiliate']
+	//*[@class='CG_adkit_leaderboard']
+	//*[@class='CommentAd']
+	//*[@class='DeptAd']
+	//*[@class='FT_Ad']
+	//*[@class='FlatAds']
+	//*[@class='HPNewAdsBannerDiv']
+	//*[@class='HomeContentAd']
+	//*[@class='LeftTowerAd']
+	//*[@class='M2Advertisement']
+	//*[@class='MD_adZone']
+	//*[@class='MPU']
+	//*[@class='MPUHolder']
+	//*[@class='MiddleAdContainer']
+	//*[@class='PU_DoubleClickAdsContent']
+	//*[@class='Post5ad']
+	//*[@class='RelatedAds']
+	//*[@class='RightRailTop300x250Ad']
+	//*[@class='RightSponsoredAdTitle']
+	//*[@class='RightTowerAd']
+	//*[@class='SidebarAd']
+	//*[@class='SponsoredAdTitle']
+	//*[@class='SponsoredLinksGrayBox']
+	//*[@class='StandardAdLeft']
+	//*[@class='StandardAdRight']
+	//*[@class='TextAd']
+	//*[@class='TheEagleGoogleAdSense300x250']
+	//*[@class='TopAd']
+	//*[@class='TopAdL']
+	//*[@class='TopAdR']
+	//*[@class='UIStandardFrame_SidebarAds']
+	//*[@class='UIWashFrame_SidebarAds']
+	//*[@class='UnderAd']
+	//*[@class='VerticalAd']
+	//*[@class='WidgetAdvertiser']
+	//*[@class='ad-160x600']
+	//*[@class='ad-300']
+	//*[@class='ad-300-block']
+	//*[@class='ad-300-blog']
+	//*[@class='ad-300x100']
+	//*[@class='ad-300x250']
+	//*[@class='ad-600']
+	//*[@class='ad-728']
+	//*[@class='ad-background']
+	//*[@class='ad-banner']
+	//*[@class='ad-bigsize']
+	//*[@class='ad-block']
+	//*[@class='ad-bottom']
+	//*[@class='ad-cell']
+	//*[@class='ad-div']
+	//*[@class='ad-filler']
+	//*[@class='ad-footer']
+	//*[@class='ad-footer-leaderboard']
+	//*[@class='ad-google']
+	//*[@class='ad-gray']
+	//*[@class='ad-hdr']
+	//*[@class='ad-head']
+	//*[@class='ad-holder']
+	//*[@class='ad-homeleaderboard']
+	//*[@class='ad-island']
+	//*[@class='ad-leaderboard']
+	//*[@class='ad-links']
+	//*[@class='ad-medium']
+	//*[@class='ad-medium-two']
+	//*[@class='ad-mpu']
+	//*[@class='ad-other']
+	//*[@class='ad-placeholder']
+	//*[@class='ad-postText']
+	//*[@class='ad-poster']
+	//*[@class='ad-rect']
+	//*[@class='ad-rectangle']
+	//*[@class='ad-rectangle-text']
+	//*[@class='ad-related']
+	//*[@class='ad-rh']
+	//*[@class='ad-ri']
+	//*[@class='ad-right']
+	//*[@class='ad-right-txt']
+	//*[@class='ad-section']
+	//*[@class='ad-sidebar300']
+	//*[@class='ad-slot']
+	//*[@class='ad-space']
+	//*[@class='ad-space-mpu-box']
+	//*[@class='ad-spot']
+	//*[@class='ad-text']
+	//*[@class='ad-tile']
+	//*[@class='ad-top']
+	//*[@class='ad-top-left']
+	//*[@class='ad-unit']
+	//*[@class='ad-wrap']
+	//*[@class='ad-wrapper']
+	//*[@class='ad0']
+	//*[@class='ad1']
+	//*[@class='ad10']
+	//*[@class='ad120']
+	//*[@class='ad160']
+	//*[@class='ad18']
+	//*[@class='ad19']
+	//*[@class='ad2']
+	//*[@class='ad21']
+	//*[@class='ad250c']
+	//*[@class='ad3']
+	//*[@class='ad300']
+	//*[@class='ad300_250']
+	//*[@class='ad300x250']
+	//*[@class='ad300x250Top']
+	//*[@class='ad300x250box']
+	//*[@class='ad300x600']
+	//*[@class='ad310']
+	//*[@class='ad336x280']
+	//*[@class='ad343x290']
+	//*[@class='ad450']
+	//*[@class='ad468_60']
+	//*[@class='ad6']
+	//*[@class='ad620x70']
+	//*[@class='ad626X35']
+	//*[@class='ad7']
+	//*[@class='ad728']
+	//*[@class='ad728_90']
+	//*[@class='ad728x90']
+	//*[@class='ad8']
+	//*[@class='adAgate']
+	//*[@class='adBanner']
+	//*[@class='adBannerTyp1']
+	//*[@class='adBannerTypSortableList']
+	//*[@class='adBannerTypW300']
+	//*[@class='adBgBottom']
+	//*[@class='adBgMId']
+	//*[@class='adBgTop']
+	//*[@class='adBoxContent']
+	//*[@class='adBoxSidebar']
+	//*[@class='adBoxSingle']
+	//*[@class='adCMRight']
+	//*[@class='adColumn']
+	//*[@class='adCreative']
+	//*[@class='adFrame']
+	//*[@class='adFtr']
+	//*[@class='adFullWidthMiddle']
+	//*[@class='adGoogle']
+	//*[@class='adHeader']
+	//*[@class='adHeadline']
+	//*[@class='adHome300x250']
+	//*[@class='adInNews']
+	//*[@class='adLabel']
+	//*[@class='adLeader']
+	//*[@class='adLeaderForum']
+	//*[@class='adLeaderboard']
+	//*[@class='adLeft']
+	//*[@class='adMkt2Colw']
+	//*[@class='adNewsChannel']
+	//*[@class='adNoOutline']
+	//*[@class='adNoticeOut']
+	//*[@class='adObj']
+	//*[@class='adPageBorderL']
+	//*[@class='adPageBorderR']
+	//*[@class='adRect']
+	//*[@class='adRight']
+	//*[@class='adServer']
+	//*[@class='adSlot']
+	//*[@class='adSpBelow']
+	//*[@class='adSpacer']
+	//*[@class='adSpot']
+	//*[@class='adSpot-searchAd']
+	//*[@class='adSpot-textBox']
+	//*[@class='adSpotIsland']
+	//*[@class='adSquare']
+	//*[@class='adSuperboard']
+	//*[@class='adTag']
+	//*[@class='adText']
+	//*[@class='adTileWrap']
+	//*[@class='adTiler']
+	//*[@class='adTout']
+	//*[@class='adTxt']
+	//*[@class='adWithTab']
+	//*[@class='adWrap']
+	//*[@class='adWrapper']
+	//*[@class='ad_1']
+	//*[@class='ad_125']
+	//*[@class='ad_130x90']
+	//*[@class='ad_160']
+	//*[@class='ad_160x600']
+	//*[@class='ad_2']
+	//*[@class='ad_3']
+	//*[@class='ad_300']
+	//*[@class='ad_300_250']
+	//*[@class='ad_300x250']
+	//*[@class='ad_336']
+	//*[@class='ad_336x280']
+	//*[@class='ad_350x250']
+	//*[@class='ad_468']
+	//*[@class='ad_600']
+	//*[@class='ad_728']
+	//*[@class='ad_728x90']
+	//*[@class='ad_amazon']
+	//*[@class='ad_biz']
+	//*[@class='ad_block_338']
+	//*[@class='ad_bottom_leaderboard']
+	//*[@class='ad_box']
+	//*[@class='ad_box2']
+	//*[@class='ad_caption']
+	//*[@class='ad_contain']
+	//*[@class='ad_container']
+	//*[@class='ad_content_wide']
+	//*[@class='ad_contents']
+	//*[@class='ad_descriptor']
+	//*[@class='ad_footer']
+	//*[@class='ad_framed']
+	//*[@class='ad_front_promo']
+	//*[@class='ad_hpm']
+	//*[@class='ad_info_block']
+	//*[@class='ad_launchpad']
+	//*[@class='ad_leader']
+	//*[@class='ad_leaderboard']
+	//*[@class='ad_left']
+	//*[@class='ad_linkunit']
+	//*[@class='ad_loc']
+	//*[@class='ad_lrec']
+	//*[@class='ad_medrect']
+	//*[@class='ad_mpu']
+	//*[@class='ad_mr']
+	//*[@class='ad_mrec']
+	//*[@class='ad_mrec_title_article']
+	//*[@class='ad_notice']
+	//*[@class='ad_p360']
+	//*[@class='ad_partner']
+	//*[@class='ad_partners']
+	//*[@class='ad_plus']
+	//*[@class='ad_post']
+	//*[@class='ad_power']
+	//*[@class='ad_rectangle']
+	//*[@class='ad_sidebar']
+	//*[@class='ad_skyscraper']
+	//*[@class='ad_slug_table']
+	//*[@class='ad_space']
+	//*[@class='ad_sponsor']
+	//*[@class='ad_sponsoredsection']
+	//*[@class='ad_spot_b']
+	//*[@class='ad_spot_c']
+	//*[@class='ad_square_r']
+	//*[@class='ad_square_top']
+	//*[@class='ad_title']
+	//*[@class='ad_top']
+	//*[@class='ad_top_leaderboard']
+	//*[@class='ad_tower']
+	//*[@class='ad_unit']
+	//*[@class='ad_unit_rail']
+	//*[@class='ad_wide']
+	//*[@class='ad_wrap']
+	//*[@class='ad_wrapper']
+	//*[@class='ad_wrapper_fixed']
+	//*[@class='ad_zone']
+	//*[@class='adarea']
+	//*[@class='adbannerright']
+	//*[@class='adbar']
+	//*[@class='adborder']
+	//*[@class='adbot']
+	//*[@class='adbottom']
+	//*[@class='adbox-outer']
+	//*[@class='adbox_366x280']
+	//*[@class='adbox_468X60']
+	//*[@class='adbox_bottom']
+	//*[@class='adboxclass']
+	//*[@class='adcode']
+	//*[@class='adcolumn_wrapper']
+	//*[@class='adcontainer']
+	//*[@class='adcopy']
+	//*[@class='adfoot']
+	//*[@class='adhead']
+	//*[@class='adheader']
+	//*[@class='adheader100']
+	//*[@class='adhere']
+	//*[@class='adi']
+	//*[@class='adinside']
+	//*[@class='adjlink']
+	//*[@class='adkit-advert']
+	//*[@class='adkit-lb-footer']
+	//*[@class='adlabel-horz']
+	//*[@class='adlabel-vert']
+	//*[@class='adline']
+	//*[@class='adlnklst']
+	//*[@class='admarker']
+	//*[@class='admedrec']
+	//*[@class='admodule']
+	//*[@class='admpu']
+	//*[@class='adnotice']
+	//*[@class='adops']
+	//*[@class='adpadding']
+	//*[@class='adrow']
+	//*[@class='adrow-post']
+	//*[@class='adrule']
+	//*[@class='ads-banner']
+	//*[@class='ads-categories-bsa']
+	//*[@class='ads-links-general']
+	//*[@class='ads-mpu']
+	//*[@class='ads-profile']
+	//*[@class='ads-right']
+	//*[@class='ads-sidebar']
+	//*[@class='ads-sky']
+	//*[@class='ads-text']
+	//*[@class='ads2']
+	//*[@class='ads3']
+	//*[@class='adsArea']
+	//*[@class='adsBelowHeadingNormal']
+	//*[@class='adsBox']
+	//*[@class='adsImages']
+	//*[@class='adsTextHouse']
+	//*[@class='adsWithUs']
+	//*[@class='ads_300']
+	//*[@class='ads_728x90']
+	//*[@class='ads_big']
+	//*[@class='ads_big-half']
+	//*[@class='ads_catDiv']
+	//*[@class='ads_container']
+	//*[@class='ads_disc_anchor']
+	//*[@class='ads_disc_leader']
+	//*[@class='ads_disc_lwr_square']
+	//*[@class='ads_disc_skyscraper']
+	//*[@class='ads_disc_square']
+	//*[@class='ads_div']
+	//*[@class='ads_header']
+	//*[@class='ads_mpu']
+	//*[@class='ads_right']
+	//*[@class='ads_sc_tl_i']
+	//*[@class='ads_side']
+	//*[@class='ads_takeover']
+	//*[@class='ads_tr']
+	//*[@class='adsborder']
+	//*[@class='adsbyyahoo']
+	//*[@class='adscreen']
+	//*[@class='adsection_a2']
+	//*[@class='adsection_c2']
+	//*[@class='adsense-heading']
+	//*[@class='adsense-right']
+	//*[@class='adsense-title']
+	//*[@class='adsenseBlock']
+	//*[@class='adsenseContainer']
+	//*[@class='adsenselr']
+	//*[@class='adsensesq']
+	//*[@class='adsingle']
+	//*[@class='adslogan']
+	//*[@class='adspace']
+	//*[@class='adspace-MR']
+	//*[@class='adspacer']
+	//*[@class='adstrip']
+	//*[@class='adtag']
+	//*[@class='adtop']
+	//*[@class='adtravel']
+	//*[@class='adv-mpu']
+	//*[@class='adverTag']
+	//*[@class='adver_cont_below']
+	//*[@class='advert-box']
+	//*[@class='advert-head']
+	//*[@class='advert-mpu']
+	//*[@class='advert-skyscraper']
+	//*[@class='advert-text']
+	//*[@class='advertCont']
+	//*[@class='advertContainer']
+	//*[@class='advertHeadline']
+	//*[@class='advertRight']
+	//*[@class='advertText']
+	//*[@class='advert_468x60']
+	//*[@class='advert_box']
+	//*[@class='advert_cont']
+	//*[@class='advert_leaderboard']
+	//*[@class='advert_note']
+	//*[@class='advertise-homestrip']
+	//*[@class='advertise-horz']
+	//*[@class='advertise-leaderboard']
+	//*[@class='advertise-vert']
+	//*[@class='advertiseContainer']
+	//*[@class='advertisement-728x90']
+	//*[@class='advertisement-block']
+	//*[@class='advertisement-top']
+	//*[@class='advertisement468']
+	//*[@class='advertisementColumnGroup']
+	//*[@class='advertisementContainer']
+	//*[@class='advertisementLabel']
+	//*[@class='advertisementPanel']
+	//*[@class='advertisement_caption']
+	//*[@class='advertisement_g']
+	//*[@class='advertisement_header']
+	//*[@class='advertisement_horizontal']
+	//*[@class='advertiser']
+	//*[@class='advertising-header']
+	//*[@class='advertisingTable']
+	//*[@class='advertising_block']
+	//*[@class='advertisment_two']
+	//*[@class='advertize']
+	//*[@class='advertorial']
+	//*[@class='adverts']
+	//*[@class='advt']
+	//*[@class='advt-banner-3']
+	//*[@class='advt300']
+	//*[@class='advt720']
+	//*[@class='adwrapper']
+	//*[@class='adwrapper-lrec']
+	//*[@class='affiliate-link']
+	//*[@class='affiliate-sidebar']
+	//*[@class='affiliateAdvertText']
+	//*[@class='agi-adsaleslinks']
+	//*[@class='alt_ad']
+	//*[@class='anchorAd']
+	//*[@class='aolSponsoredLinks']
+	//*[@class='aopsadvert']
+	//*[@class='article-ads']
+	//*[@class='articleAd']
+	//*[@class='articleAds']
+	//*[@class='articleAdsL']
+	//*[@class='articleEmbeddedAdBox']
+	//*[@class='article_ad']
+	//*[@class='article_adbox']
+	//*[@class='aseadn']
+	//*[@class='aux-ad-widget-2']
+	//*[@class='b-astro-sponsored-links_horizontal']
+	//*[@class='b-astro-sponsored-links_vertical']
+	//*[@class='banner-ad']
+	//*[@class='banner-ads']
+	//*[@class='banner-adverts']
+	//*[@class='banner300x100']
+	//*[@class='banner300x250']
+	//*[@class='banner468']
+	//*[@class='bannerAd']
+	//*[@class='bannerAdWrapper300x250']
+	//*[@class='bannerAdWrapper730x86']
+	//*[@class='banner_300x250']
+	//*[@class='banner_728x90']
+	//*[@class='banner_ad']
+	//*[@class='banner_ad_footer']
+	//*[@class='banner_ad_leaderboard']
+	//*[@class='bannerad']
+	//*[@class='barkerAd']
+	//*[@class='base-ad-mpu']
+	//*[@class='bgnavad']
+	//*[@class='bigAd']
+	//*[@class='big_ads']
+	//*[@class='bigad']
+	//*[@class='billboard_ad']
+	//*[@class='block-ad']
+	//*[@class='block-adsense']
+	//*[@class='block_ad']
+	//*[@class='blocked-ads']
+	//*[@class='blog-ads-container']
+	//*[@class='blogAdvertisement']
+	//*[@class='blogBigAd']
+	//*[@class='blog_ad']
+	//*[@class='body_ad']
+	//*[@class='body_sponsoredresults_bottom']
+	//*[@class='body_sponsoredresults_middle']
+	//*[@class='body_sponsoredresults_top']
+	//*[@class='bookseller-header-advt']
+	//*[@class='bottomAd']
+	//*[@class='bottomAds']
+	//*[@class='bottom_ad_block']
+	//*[@class='bottom_sponsor']
+	//*[@class='bottomad']
+	//*[@class='bottomrightrailAd']
+	//*[@class='box-ads']
+	//*[@class='boxAd']
+	//*[@class='box_ad']
+	//*[@class='box_advertisment_62_border']
+	//*[@class='box_content_ad']
+	//*[@class='box_content_ads']
+	//*[@class='bps-ad-wrapper']
+	//*[@class='bps-advertisement']
+	//*[@class='bps-advertisement-inline-ads']
+	//*[@class='bullet-sponsored-links']
+	//*[@class='bullet-sponsored-links-gray']
+	//*[@class='burstContentAdIndex']
+	//*[@class='buttonAd']
+	//*[@class='buttonadbox']
+	//*[@class='bx_ad']
+	//*[@class='bx_ad_right']
+	//*[@class='cA-adStrap']
+	//*[@class='cColumn-TextAdsBox']
+	//*[@class='care2_adspace']
+	//*[@class='cb_footer_sponsor']
+	//*[@class='cb_navigation_ad']
+	//*[@class='cbzadvert']
+	//*[@class='cdAdTitle']
+	//*[@class='cdmainlineSearchAdParent']
+	//*[@class='cdsidebarSearchAdParent']
+	//*[@class='centerAd']
+	//*[@class='center_ad']
+	//*[@class='centerad']
+	//*[@class='clearerad']
+	//*[@class='cm_ads']
+	//*[@class='cms-Advert']
+	//*[@class='cnn160AdFooter']
+	//*[@class='cnnAd']
+	//*[@class='cnnMosaic160Container']
+	//*[@class='cnnStoreAd']
+	//*[@class='cnnStoryElementBoxAd']
+	//*[@class='cnnWCAdBox']
+	//*[@class='cnnWireAdLtgBox']
+	//*[@class='cnn_728adbin']
+	//*[@class='cnn_adcntr300x100']
+	//*[@class='cnn_adspc336cntr']
+	//*[@class='cnn_adtitle']
+	//*[@class='column2-ad']
+	//*[@class='conductor_ad']
+	//*[@class='confirm_ad_left']
+	//*[@class='confirm_ad_right']
+	//*[@class='confirm_leader_ad']
+	//*[@class='consoleAd']
+	//*[@class='container_serendipity_plugin_google_adsense']
+	//*[@class='content_ad']
+	//*[@class='content_adsq']
+	//*[@class='contentad']
+	//*[@class='contenttextad']
+	//*[@class='cp_ad']
+	//*[@class='cpmstarHeadline']
+	//*[@class='cpmstarText']
+	//*[@class='cs-mpu']
+	//*[@class='cspAd']
+	//*[@class='ct_ad']
+	//*[@class='cubeAd']
+	//*[@class='cube_ads']
+	//*[@class='darla_ad']
+	//*[@class='dartAdImage']
+	//*[@class='dart_ad']
+	//*[@class='dart_tag']
+	//*[@class='dartadvert']
+	//*[@class='dartiframe']
+	//*[@class='dc-ad']
+	//*[@class='dcAdvertHeader']
+	//*[@class='deckAd']
+	//*[@class='deckads']
+	//*[@class='detail-ads']
+	//*[@class='detailMpu']
+	//*[@class='divads']
+	//*[@class='dmco_advert_iabrighttitle']
+	//*[@class='download_ad']
+	//*[@class='downloadad']
+	//*[@class='dynamic_ad']
+	//*[@class='ec-ads']
+	//*[@class='entryad']
+	//*[@class='ez-clientAd']
+	//*[@class='f_Ads']
+	//*[@class='featuredAds']
+	//*[@class='featuredadvertising']
+	//*[@class='flagads']
+	//*[@class='flash_advert']
+	//*[@class='flashad']
+	//*[@class='flexiad']
+	//*[@class='flipbook_v2_sponsor_ad']
+	//*[@class='footerAd']
+	//*[@class='footerAdModule']
+	//*[@class='footerTextAd']
+	//*[@class='footer_ad']
+	//*[@class='footer_ads']
+	//*[@class='footer_block_ad']
+	//*[@class='footer_line_ad']
+	//*[@class='footerad']
+	//*[@class='ft-ad']
+	//*[@class='ftdContentAd']
+	//*[@class='full_ad_box']
+	//*[@class='g3rtn-ad-site']
+	//*[@class='g_ggl_ad']
+	//*[@class='ga-textads-bottom']
+	//*[@class='ga-textads-top']
+	//*[@class='gads_cb']
+	//*[@class='gglAds']
+	//*[@class='google-ad-container']
+	//*[@class='google-ads']
+	//*[@class='google-ads-boxout']
+	//*[@class='google-right-ad']
+	//*[@class='google-sponsored-ads']
+	//*[@class='google468_60']
+	//*[@class='googleAd']
+	//*[@class='googleAd-content']
+	//*[@class='googleAd-list']
+	//*[@class='googleAdBox']
+	//*[@class='googleAdSense']
+	//*[@class='googleAd_body']
+	//*[@class='googleAds']
+	//*[@class='googleAds_article_page_above_comments']
+	//*[@class='googleAdsense']
+	//*[@class='googleProfileAd']
+	//*[@class='google_ads_bom_title']
+	//*[@class='googlead']
+	//*[@class='googleads']
+	//*[@class='googleads_300x250']
+	//*[@class='googleads_title']
+	//*[@class='gpAds']
+	//*[@class='gradientAd']
+	//*[@class='gt_ad_300x250']
+	//*[@class='gt_ad_728x90']
+	//*[@class='gutter-ad-left']
+	//*[@class='gutter-ad-right']
+	//*[@class='h_Ads']
+	//*[@class='h_ad']
+	//*[@class='hd_advert']
+	//*[@class='header-advert']
+	//*[@class='headerAds']
+	//*[@class='headerAdvert']
+	//*[@class='header_ad']
+	//*[@class='header_advertisment']
+	//*[@class='hi5-ad']
+	//*[@class='highlightsAd']
+	//*[@class='hm_advertisment']
+	//*[@class='home-ad-links']
+	//*[@class='homeAd']
+	//*[@class='homeMediumAdGroup']
+	//*[@class='homepage-ad']
+	//*[@class='homepageFlexAdOuter']
+	//*[@class='homepageMPU']
+	//*[@class='hor_ad']
+	//*[@class='horizontalAd']
+	//*[@class='hortad']
+	//*[@class='houseAdsStyle']
+	//*[@class='hp2-adtag']
+	//*[@class='hp_ad_cont']
+	//*[@class='hp_ad_text']
+	//*[@class='hp_t_ad']
+	//*[@class='hp_w_ad']
+	//*[@class='ic-ads']
+	//*[@class='ico-adv']
+	//*[@class='idMultiAd']
+	//*[@class='image-advertisement']
+	//*[@class='imageads']
+	//*[@class='in-page-ad']
+	//*[@class='in-story-text-ad']
+	//*[@class='indy_googleads']
+	//*[@class='inline-mpu-left']
+	//*[@class='inlineSideAd']
+	//*[@class='inline_ad_title']
+	//*[@class='inlinead']
+	//*[@class='inlist-ad']
+	//*[@class='inner-advt-banner-3']
+	//*[@class='innerAds']
+	//*[@class='innerad']
+	//*[@class='inpostad']
+	//*[@class='islandAd']
+	//*[@class='islandAdvert']
+	//*[@class='islandad']
+	//*[@class='jp-advertisment-promotional']
+	//*[@class='js-advert']
+	//*[@class='kw_advert']
+	//*[@class='kw_advert_pair']
+	//*[@class='l_ad_sub']
+	//*[@class='l_banner.ads_show_if']
+	//*[@class='largeRectangleAd']
+	//*[@class='leader_ad']
+	//*[@class='leaderboardAd']
+	//*[@class='left-ad']
+	//*[@class='leftAd']
+	//*[@class='leftad']
+	//*[@class='leftnavad']
+	//*[@class='lgRecAd']
+	//*[@class='linead']
+	//*[@class='link_advertise']
+	//*[@class='live-search-list-ad-container']
+	//*[@class='log_ads']
+	//*[@class='lowerAds']
+	//*[@class='m_banner_ads']
+	//*[@class='macAd']
+	//*[@class='macad']
+	//*[@class='main-tabs-ad-block']
+	//*[@class='main_ad']
+	//*[@class='main_adbox']
+	//*[@class='map_media_banner_ad']
+	//*[@class='marginadsthin']
+	//*[@class='marketing-ad']
+	//*[@class='mdl-ad']
+	//*[@class='media-advert']
+	//*[@class='medium-rectangle-ad']
+	//*[@class='messageBoardAd']
+	//*[@class='micro_ad']
+	//*[@class='mid_ad']
+	//*[@class='midad']
+	//*[@class='min_navi_ad']
+	//*[@class='miniad']
+	//*[@class='mod-ad-lrec']
+	//*[@class='mod-ad-n']
+	//*[@class='mod-adopenx']
+	//*[@class='mod_admodule']
+	//*[@class='module-ad-small']
+	//*[@class='module-ads']
+	//*[@class='modulegad']
+	//*[@class='moduletable-advert']
+	//*[@class='moduletablesquaread']
+	//*[@class='mpu-ad']
+	//*[@class='mpu-footer']
+	//*[@class='mpu-fp']
+	//*[@class='mpu-title']
+	//*[@class='mpu-top-left']
+	//*[@class='mpu-top-right']
+	//*[@class='mpuAd']
+	//*[@class='mpuBox']
+	//*[@class='mpuContainer']
+	//*[@class='mpuTextAd']
+	//*[@class='mpu_ad']
+	//*[@class='mpu_gold']
+	//*[@class='mpu_platinum']
+	//*[@class='mpuholderportalpage']
+	//*[@class='mrec_advert']
+	//*[@class='ms-ads-link']
+	//*[@class='msfg-shopping-mpu']
+	//*[@class='mwaads']
+	//*[@class='nSponsoredLcContent']
+	//*[@class='nSponsoredLcTopic']
+	//*[@class='nadvt300']
+	//*[@class='narrow_ads']
+	//*[@class='naviad']
+	//*[@class='nba300Ad']
+	//*[@class='nbaT3Ad160']
+	//*[@class='nbaTVPodAd']
+	//*[@class='nbaTwo130Ads']
+	//*[@class='nbc_ad_carousel_wrp']
+	//*[@class='newTopAdContainer']
+	//*[@class='newad']
+	//*[@class='nf-adbox']
+	//*[@class='nn-mpu']
+	//*[@class='noAdForLead']
+	//*[@class='normalAds']
+	//*[@class='nrAds']
+	//*[@class='oas-bottom-ads']
+	//*[@class='oio-banner-zone']
+	//*[@class='oio-link-sidebar']
+	//*[@class='oio-zone-position']
+	//*[@class='onethirdadholder']
+	//*[@class='openx']
+	//*[@class='openx-ad']
+	//*[@class='ov_spns']
+	//*[@class='pageLeaderAd']
+	//*[@class='pagead']
+	//*[@class='partnersTextLinks']
+	//*[@class='pencil_ad']
+	//*[@class='player_ad_box']
+	//*[@class='player_page_ad_box']
+	//*[@class='pnp_ad']
+	//*[@class='podSponsoredLink']
+	//*[@class='post-ad']
+	//*[@class='post_ad']
+	//*[@class='post_sponsor_unit']
+	//*[@class='postbit_adbit_register']
+	//*[@class='postbit_adcode']
+	//*[@class='prebodyads']
+	//*[@class='premium_ad_container']
+	//*[@class='promoAd']
+	//*[@class='promoAds']
+	//*[@class='promo_ad']
+	//*[@class='publication-ad']
+	//*[@class='publicidad']
+	//*[@class='puff-advertorials']
+	//*[@class='qa_ad_left']
+	//*[@class='quigo-ad']
+	//*[@class='qzvAdDiv']
+	//*[@class='r_ad_box']
+	//*[@class='rad_container']
+	//*[@class='rectad']
+	//*[@class='rectangleAd']
+	//*[@class='rectanglead']
+	//*[@class='redads_cont']
+	//*[@class='regularad']
+	//*[@class='relatedAds']
+	//*[@class='remads']
+	//*[@class='result_ad']
+	//*[@class='results_sponsor']
+	//*[@class='results_sponsor_right']
+	//*[@class='rght300x250']
+	//*[@class='rhads']
+	//*[@class='rhs-ad']
+	//*[@class='rhs-ads-panel']
+	//*[@class='right-ad']
+	//*[@class='right-ad-holder']
+	//*[@class='right-ad2']
+	//*[@class='right-ads2']
+	//*[@class='rightAd']
+	//*[@class='right_ad']
+	//*[@class='right_ad_text']
+	//*[@class='right_hand_advert_column']
+	//*[@class='rightad']
+	//*[@class='rightad_1']
+	//*[@class='rightad_2']
+	//*[@class='rightads']
+	//*[@class='rightadunit']
+	//*[@class='rightcol_boxad']
+	//*[@class='rightcoladvert']
+	//*[@class='rt_ad1_300x90']
+	//*[@class='rt_ad_300x250']
+	//*[@class='rt_ad_call']
+	//*[@class='savvyad_unit']
+	//*[@class='sb-ad-sq-bg']
+	//*[@class='sbAdUnitContainer']
+	//*[@class='sb_adsN']
+	//*[@class='sb_adsNv2']
+	//*[@class='sb_adsW']
+	//*[@class='sb_adsWv2']
+	//*[@class='scanAd']
+	//*[@class='sci-ad-main']
+	//*[@class='sci-ad-sub']
+	//*[@class='search-sponsor']
+	//*[@class='search-sponsored']
+	//*[@class='searchAd']
+	//*[@class='searchSponsoredResultsBox']
+	//*[@class='search_column_results_sponsored']
+	//*[@class='search_results_sponsored_top']
+	//*[@class='section-sponsor']
+	//*[@class='section_mpu_wrapper']
+	//*[@class='selfServeAds']
+	//*[@class='sidbaread']
+	//*[@class='side-ad']
+	//*[@class='side-ads']
+	//*[@class='side_ad']
+	//*[@class='sidead']
+	//*[@class='sideadsbox']
+	//*[@class='sideadvert']
+	//*[@class='sidebar-ad']
+	//*[@class='sidebar-text-ad']
+	//*[@class='sidebarAd']
+	//*[@class='sidebarAdUnit']
+	//*[@class='sidebarAdvert']
+	//*[@class='sidebar_ad']
+	//*[@class='sidebar_box_ad']
+	//*[@class='sidebarad']
+	//*[@class='sidebarad_bottom']
+	//*[@class='sideheadnarrowad']
+	//*[@class='sideheadsponsorsad']
+	//*[@class='singleAd']
+	//*[@class='singleAdsContainer']
+	//*[@class='singlead']
+	//*[@class='sitesponsor']
+	//*[@class='skinAd']
+	//*[@class='skin_ad_638']
+	//*[@class='sky-ad']
+	//*[@class='skyAd']
+	//*[@class='skyAdd']
+	//*[@class='sky_ad']
+	//*[@class='skyscraper-ad']
+	//*[@class='smallSkyAd1']
+	//*[@class='smallSkyAd2']
+	//*[@class='small_ad']
+	//*[@class='small_ads']
+	//*[@class='smallad-left']
+	//*[@class='smallsponsorad']
+	//*[@class='specialAd175x90']
+	//*[@class='spl_ad']
+	//*[@class='spl_ad2']
+	//*[@class='spl_ad_plus']
+	//*[@class='splitAd']
+	//*[@class='spons-link']
+	//*[@class='sponslink']
+	//*[@class='sponsor-ad']
+	//*[@class='sponsor-links']
+	//*[@class='sponsorArea']
+	//*[@class='sponsorPost']
+	//*[@class='sponsorPostWrap']
+	//*[@class='sponsor_line']
+	//*[@class='sponsoradtitle']
+	//*[@class='sponsorbox']
+	//*[@class='sponsored-chunk']
+	//*[@class='sponsored-links']
+	//*[@class='sponsored-post']
+	//*[@class='sponsored-text']
+	//*[@class='sponsoredLinks']
+	//*[@class='sponsoredLinksHeader']
+	//*[@class='sponsored_ads']
+	//*[@class='sponsored_box']
+	//*[@class='sponsored_box_search']
+	//*[@class='sponsored_by']
+	//*[@class='sponsored_links']
+	//*[@class='sponsored_links_title_container']
+	//*[@class='sponsored_links_title_container_top']
+	//*[@class='sponsored_links_top']
+	//*[@class='sponsoredibbox']
+	//*[@class='sponsoredlinks']
+	//*[@class='sponsorlink']
+	//*[@class='squareAd']
+	//*[@class='square_ad']
+	//*[@class='squared_ad']
+	//*[@class='ss-ad-mpu']
+	//*[@class='staticAd']
+	//*[@class='store-ads']
+	//*[@class='story_AD']
+	//*[@class='subad']
+	//*[@class='subcontent-ad']
+	//*[@class='supercommentad_left']
+	//*[@class='supercommentad_right']
+	//*[@class='supportAdItem']
+	//*[@class='surveyad']
+	//*[@class='t10ad']
+	//*[@class='tab_ad']
+	//*[@class='tab_ad_area']
+	//*[@class='tablebordersponsor']
+	//*[@class='tadsanzeige']
+	//*[@class='tadsbanner']
+	//*[@class='tadselement']
+	//*[@class='tblTopAds']
+	//*[@class='tbl_ad']
+	//*[@class='teaserAdContainer']
+	//*[@class='teaser_adtiles']
+	//*[@class='text-ad-links']
+	//*[@class='text-g-advertisement']
+	//*[@class='text-g-group-short-rec-ad']
+	//*[@class='text-g-net-grp-google-ads-article-page']
+	//*[@class='textAd']
+	//*[@class='textAds']
+	//*[@class='text_ad']
+	//*[@class='text_ads']
+	//*[@class='textad']
+	//*[@class='textad_headline']
+	//*[@class='textadbox']
+	//*[@class='textlink-ads']
+	//*[@class='thisIsAd']
+	//*[@class='thisIsAnAd']
+	//*[@class='ticket-ad']
+	//*[@class='tileAds']
+	//*[@class='title-ad']
+	//*[@class='title_adbig']
+	//*[@class='tncms-region-ads']
+	//*[@class='toolad']
+	//*[@class='toolbar-ad']
+	//*[@class='top-ad']
+	//*[@class='top-ad-space']
+	//*[@class='top-ads']
+	//*[@class='top-menu-ads']
+	//*[@class='topAdWrap']
+	//*[@class='topAdvertisement']
+	//*[@class='topBannerAd']
+	//*[@class='top_ad']
+	//*[@class='top_ad_disclaimer']
+	//*[@class='top_ad_wrapper']
+	//*[@class='top_advert']
+	//*[@class='top_container_ad']
+	//*[@class='top_sponsor']
+	//*[@class='topad']
+	//*[@class='topadbox']
+	//*[@class='topadspot']
+	//*[@class='topcontentadvertisement']
+	//*[@class='topic_inad']
+	//*[@class='topstoriesad']
+	//*[@class='towerAds']
+	//*[@class='tower_ad_disclaimer']
+	//*[@class='ts-ad_unit_bigbox']
+	//*[@class='ts-banner_ad']
+	//*[@class='ttlAdsensel']
+	//*[@class='twoColumnAd']
+	//*[@class='twoadcoll']
+	//*[@class='twoadcolr']
+	//*[@class='tx_smartadserver_pi1']
+	//*[@class='txt-ads']
+	//*[@class='txtadvertise']
+	//*[@class='type_miniad']
+	//*[@class='type_promoads']
+	//*[@class='usenext']
+	//*[@class='vertad']
+	//*[@class='videoAd']
+	//*[@class='videoBoxAd']
+	//*[@class='view-promo-mpu-right']
+	//*[@class='wide-ad']
+	//*[@class='wide-skyscraper-ad']
+	//*[@class='wideAdTable']
+	//*[@class='wide_ads']
+	//*[@class='widget-entry-ads-160']
+	//*[@class='wikia_ad_placeholder']
+	//*[@class='withAds']
+	//*[@class='wnMultiAd']
+	//*[@class='wpn_ad_content']
+	//*[@class='x03-adunit']
+	//*[@class='x04-adunit']
+	//*[@class='y-ads']
+	//*[@class='y7-advertisement']
+	//*[@class='yahoo-sponsored']
+	//*[@class='yahoo_ads']
+	//*[@class='yan-sponsored']
+	//*[@class='ygrp-ad']
+	//*[@class='yrail_ad_wrap']
+	//*[@class='yrail_ads']
+	//*[@class='ysmsponsor']
+	//*[@class='ysponsor']
+
+123people.co.uk:
+	//*[@id='l_banner']
+
+1911encyclopedia.org:
+	//*[@class='google_block_style']
+
+4chan.org:
+	//*[@id='ad']
+
+6lyrics.com:
+	//*[@class='ad']
+
+7tutorials.com:
+	//*[@class='block-openx']
+
+9news.com:
+	//*[@class='poster']
+
+9to5mac.com:
+	//*[@id='block-dealmac-0']
+
+9to5mac.com:
+	//*[@id='page-top']
+
+a10.com:
+	//*[@id='gameunderbanner']
+
+abclocal.go.com:
+	//*[@id='bannerTop']
+
+abcnews.go.com:
+	//*[@class='ad']
+
+abndigital.com:
+	//*[@id='banner468']
+
+abndigital.com:
+	//*[@id='leaderboard_728x90']
+
+about.com:
+	//*[@class='gB']
+
+achieve360points.com:
+	//*[@id='a1']
+
+achieve360points.com:
+	//*[@id='a3']
+
+actiontrip.com:
+	//*[@id='banner300']
+
+adultswim.com:
+	//*[@id='ad']
+
+advocate.com:
+	//*[@id='BottomBanners']
+
+advocate.com:
+	//*[@id='TopBanners']
+
+afterdawn.com:
+	//*[@class='uniblue']
+
+alarabiya.net:
+	//*[@id='side_banner']
+
+allakhazam.com:
+	//*[@id='bannerMain']
+
+allakhazam.com:
+	//*[@id='towerRt']
+
+allexperts.com:
+	//*[@id='sl']
+
+altavista.com:
+	//*[@id='spons']
+
+amazon.co.uk:
+	//*[@class='bm']
+
+amazon.co.uk:
+	//*[@class='tigerbox']
+
+amazon.com:
+	//*[@class='pa_containerWrapper']
+
+america.fm:
+	//*[@id='banbo']
+
+anandtech.com:
+	//*[@class='ad']
+
+animenewsnetwork.com:
+	//*[@id='page-header-banner']
+
+animetake.com:
+	//*[@class='top-banner']
+
+anonymouse.org:
+	//*[@id='mouselayer']
+
+ansearch.com.au:
+	//*[@class='sponsor']
+
+answerology.com:
+	//*[@class='leaderboard']
+
+aol.co.uk:
+	//*[@id='rA']
+
+aol.co.uk:
+	//*[@class='sidebarBanner']
+
+aol.com:
+	//*[@id='rA']
+
+aol.com:
+	//*[@class='g_slm']
+
+aol.com:
+	//*[@class='gsl']
+
+aol.com:
+	//*[@class='sad_cont']
+
+aolnews.com:
+	//*[@class='fauxArticleIMU']
+
+app.com,argusleader.com,battlecreekenquirer.com,baxterbulletin.com,bucyrustelegraphforum.com,burlingtonfreepress.com,centralohio.com,chillicothegazette.com,cincinnati.com,citizen-times.com,clarionledger.com,coloradoan.com,coshoctontribune.com,courier-journal.com,courierpostonline.com,dailyrecord.com,dailyworld.com,delawareonline.com,delmarvanow.com,democratandchronicle.com,desmoinesregister.com,dnj.com,fdlreporter.com,freep.com,greatfallstribune.com,greenbaypressgazette.com,greenvilleonline.com,guampdn.com,hattiesburgamerican.com,hometownlife.com,honoluluadvertiser.com,htrnews.com,indystar.com,jacksonsun.com,jconline.com,lancastereaglegazette.com,lansingstatejournal.com,livingstondaily.com,lohud.com,mansfieldnewsjournal.com,marionstar.com,marshfieldnewsherald.com,montgomeryadvertiser.com,mycentraljersey.com,mydesert.com,newarkadvocate.com,news-leader.com,news-press.com,newsleader.com,pal-item.com,pnj.com,portclintonnewsherald.com,postcrescent.com,poughkeepsiejournal.com,press-citizen.com,pressconnects.com,rgj.com,sctimes.com,sheboyganpress.com,shreveporttimes.com,stargazette.com,statesmanjournal.com,stevenspointjournal.com,tallahassee.com,tennessean.com,theadvertiser.com,thecalifornian.com,thedailyjournal.com,theithacajournal.com,theleafchronicle.com,thenews-messenger.com,thenewsstar.com,thenorthwestern.com,thespectrum.com,thestarpress.com,thetimesherald.com,thetowntalk.com,visaliatimesdelta.com,wausaudailyherald.com,wisconsinrapidstribune.com,zanesvilletimesrecorder.com:
+	//*[@class='articleflex-container']
+
+app.com,argusleader.com,battlecreekenquirer.com,baxterbulletin.com,bucyrustelegraphforum.com,burlingtonfreepress.com,centralohio.com,chillicothegazette.com,cincinnati.com,citizen-times.com,clarionledger.com,coloradoan.com,coshoctontribune.com,courier-journal.com,courierpostonline.com,dailyrecord.com,dailyworld.com,delawareonline.com,delmarvanow.com,democratandchronicle.com,desmoinesregister.com,dnj.com,fdlreporter.com,freep.com,greatfallstribune.com,greenbaypressgazette.com,greenvilleonline.com,guampdn.com,hattiesburgamerican.com,hometownlife.com,honoluluadvertiser.com,htrnews.com,indystar.com,jacksonsun.com,jconline.com,lancastereaglegazette.com,lansingstatejournal.com,livingstondaily.com,lohud.com,mansfieldnewsjournal.com,marionstar.com,marshfieldnewsherald.com,montgomeryadvertiser.com,mycentraljersey.com,mydesert.com,newarkadvocate.com,news-leader.com,news-press.com,newsleader.com,pal-item.com,pnj.com,portclintonnewsherald.com,postcrescent.com,poughkeepsiejournal.com,press-citizen.com,pressconnects.com,rgj.com,sctimes.com,sheboyganpress.com,shreveporttimes.com,stargazette.com,statesmanjournal.com,stevenspointjournal.com,tallahassee.com,tennessean.com,theadvertiser.com,thecalifornian.com,thedailyjournal.com,theithacajournal.com,theleafchronicle.com,thenews-messenger.com,thenewsstar.com,thenorthwestern.com,thespectrum.com,thestarpress.com,thetimesherald.com,thetowntalk.com,visaliatimesdelta.com,wausaudailyherald.com,wisconsinrapidstribune.com,zanesvilletimesrecorder.com:
+	//*[@class='leaderboard-container']
+
+app.com,argusleader.com,battlecreekenquirer.com,baxterbulletin.com,bucyrustelegraphforum.com,burlingtonfreepress.com,centralohio.com,chillicothegazette.com,cincinnati.com,citizen-times.com,clarionledger.com,coloradoan.com,coshoctontribune.com,courier-journal.com,courierpostonline.com,dailyrecord.com,dailyworld.com,delawareonline.com,delmarvanow.com,democratandchronicle.com,desmoinesregister.com,dnj.com,fdlreporter.com,freep.com,greatfallstribune.com,greenbaypressgazette.com,greenvilleonline.com,guampdn.com,hattiesburgamerican.com,hometownlife.com,honoluluadvertiser.com,htrnews.com,indystar.com,jacksonsun.com,jconline.com,lancastereaglegazette.com,lansingstatejournal.com,livingstondaily.com,lohud.com,mansfieldnewsjournal.com,marionstar.com,marshfieldnewsherald.com,montgomeryadvertiser.com,mycentraljersey.com,mydesert.com,newarkadvocate.com,news-leader.com,news-press.com,newsleader.com,pal-item.com,pnj.com,portclintonnewsherald.com,postcrescent.com,poughkeepsiejournal.com,press-citizen.com,pressconnects.com,rgj.com,sctimes.com,sheboyganpress.com,shreveporttimes.com,stargazette.com,statesmanjournal.com,stevenspointjournal.com,tallahassee.com,tennessean.com,theadvertiser.com,thecalifornian.com,thedailyjournal.com,theithacajournal.com,theleafchronicle.com,thenews-messenger.com,thenewsstar.com,thenorthwestern.com,thespectrum.com,thestarpress.com,thetimesherald.com,thetowntalk.com,visaliatimesdelta.com,wausaudailyherald.com,wisconsinrapidstribune.com,zanesvilletimesrecorder.com:
+	//*[@class='leaderboard-container-top']
+
+appleinsider.com:
+	//*[@id='aadbox']
+
+appleinsider.com:
+	//*[@class='bottombox']
+
+appleinsider.com:
+	//*[@class='leaderboard']
+
+appleinsider.com:
+	//*[@class='main_box4']
+
+arabianbusiness.com:
+	//*[@id='banner-container']
+
+armorgames.com:
+	//*[@id='leaderboard']
+
+arnnet.com.au:
+	//*[@id='marketplace']
+
+arnnet.com.au:
+	//*[@class='careerone_search']
+
+arsenal.com:
+	//*[@id='banner']
+
+arstechnica.com:
+	//*[@id='daehtsam-da']
+
+arto.com:
+	//*[@id='BannerInfobox']
+
+asia.cnet.com:
+	//*[@id='sp-box']
+
+asia.cnet.com:
+	//*[@class='splink']
+
+asylum.co.uk:
+	//*[@class='sidebarBanner']
+
+asylum.com:
+	//*[@class='sidebarBanner']
+
+asylum.com:
+	//*[@class='topBanner']
+
+atom.com:
+	//*[@id='iframe_container300x250']
+
+atomicgamer.com:
+	//*[@id='bannerFeatures']
+
+au.yahoo.com:
+	//*[@id='y708-windowshade']
+
+audioreview.com:
+	//*[@class='MiddleTableRightColumn']
+
+autoblog.com:
+	//*[@class='leader']
+
+autoblog.com:
+	//*[@class='medrect']
+
+autoblog.com:
+	//*[@class='topleader']
+
+autobloggreen.com:
+	//*[@class='medrect']
+
+autotrader.co.uk:
+	//*[@id='placeholderTopLeaderboard']
+
+azarask.in:
+	//*[@class='ad']
+
+azstarnet.com:
+	//*[@class='bannerinstory']
+
+babble.com.au:
+	//*[@id='leaderboard-bottom']
+
+babble.com.au:
+	//*[@id='leaderboard-top']
+
+babble.com.au:
+	//*[@id='medium-rectangle']
+
+babynamegenie.com:
+	//*[@class='promo']
+
+bangkokpost.com:
+	//*[@class='boomboxSize1']
+
+bangkokpost.com:
+	//*[@class='buzzBoombox']
+
+bbc.co.uk:
+	//*[@class='bbccom_display_none']
+
+bdnews24.com:
+	//*[@id='bannerdiv2']
+
+bdnews24.com:
+	//*[@class='add']
+
+bebo.com:
+	//*[@class='sa']
+
+bebo.com:
+	//*[@class='spon-mod']
+
+bigblueball.com:
+	//*[@id='text-384255551']
+
+bizrate.com:
+	//*[@id='banner_top']
+
+bizrate.com:
+	//*[@id='rectangular']
+
+blackmesasource.com:
+	//*[@class='ad']
+
+block.opendns.com:
+	//*[@id='acbox']
+
+bloggingbuyouts.com:
+	//*[@class='topleader']
+
+bloggingstocks.com:
+	//*[@class='topleader']
+
+blogoscoped.com:
+	//*[@class='adBlock']
+
+blogoscoped.com:
+	//*[@class='adBlockBottom']
+
+blogoscoped.com:
+	//*[@class='adBlockBottomBreak']
+
+bloomberg.com:
+	//*[@class='leaderboard']
+
+break.com:
+	//*[@class='ad']
+
+break.com:
+	//*[@class='breaking_news']
+
+breakingviews.com:
+	//*[@id='floatit']
+
+breitbart.com:
+	//*[@class='sidebar']
+
+brighouseecho.co.uk:
+	//*[@id='banner01']
+
+brisbanetimes.com.au:
+	//*[@class='ad']
+
+broadcastnewsroom.com:
+	//*[@id='shopperartbox']
+
+broadcastnewsroom.com:
+	//*[@class='bfua']
+
+broadcastnewsroom.com:
+	//*[@class='bottombanner']
+
+browsershots.org:
+	//*[@id='sponsors']
+
+buffalonews.com:
+	//*[@id='bot-main']
+
+buffalonews.com:
+	//*[@class='leaderboard_top']
+
+businessinsider.com:
+	//*[@id='FM1']
+
+businessweek.com:
+	//*[@id='bwMall']
+
+businessweek.com:
+	//*[@class='ad']
+
+buxtonadvertiser.co.uk:
+	//*[@id='banner01']
+
+buzzfocus.com:
+	//*[@id='eyebrowtop']
+
+buzznet.com:
+	//*[@id='topSection']
+
+campustechnology.com:
+	//*[@id='leaderboard']
+
+candystand.com:
+	//*[@class='cs_square_banner']
+
+candystand.com:
+	//*[@class='cs_wide_banner']
+
+canoe.ca:
+	//*[@id='commerce']
+
+canoe.ca:
+	//*[@id='subbanner']
+
+cartoonnetwork.com:
+	//*[@id='leaderboard']
+
+caymannewsservice.com:
+	//*[@id='content-top']
+
+cbsnews.com:
+	//*[@class='searchSponsoredResultsList']
+
+ccfcforum.com:
+	//*[@class='tablepad']
+
+celebnipslipblog.com:
+	//*[@id='HeaderBanner']
+
+cell.com:
+	//*[@id='main_banner']
+
+cgenie.com:
+	//*[@id='ja-banner']
+
+cgenie.com:
+	//*[@class='cgenie_banner4']
+
+channel3000.com:
+	//*[@id='leaderboard-sticky']
+
+channel4.com:
+	//*[@id='c4ad-Middle1']
+
+chicagotribune.com:
+	//*[@id='story-body-parent + .rail']
+
+chinasmack.com:
+	//*[@class='ad']
+
+chinatechnews.com:
+	//*[@id='banner1']
+
+christianitytoday.com:
+	//*[@class='bgbanner']
+
+christianitytoday.com:
+	//*[@class='bgshop']
+
+cio.com.au:
+	//*[@class='careerone_search']
+
+cio.com.au:
+	//*[@class='careerone_tj_box']
+
+citynews.ca:
+	//*[@id='SuperBannerContainer']
+
+citynews.ca:
+	//*[@class='Box.BigBox']
+
+classifieds.aol.co.uk:
+	//*[@id='dmn_results']
+
+classifieds.aol.co.uk:
+	//*[@id='dmn_results1']
+
+cnet.com:
+	//*[@class='ad']
+
+cnet.com:
+	//*[@class='bidwar']
+
+cnet.com.au:
+	//*[@class='ad']
+
+cnet.com.au:
+	//*[@class='explain-promo']
+
+cnmnewsnetwork.com:
+	//*[@id='rightcol']
+
+cnn.com:
+	//*[@class='cnnSearchSponsorBox']
+
+cocoia.com:
+	//*[@id='ad']
+
+codeasily.com:
+	//*[@class='money']
+
+codinghorror.com:
+	//*[@class='welovecodinghorror']
+
+collegehumor.com:
+	//*[@class='partner_links']
+
+columbiatribune.com:
+	//*[@class='ad']
+
+columbiatribune.com:
+	//*[@class='skyscraper']
+
+comcast.net:
+	//*[@class='ad']
+
+comedy.com:
+	//*[@id='hat']
+
+comicgenesis.com:
+	//*[@id='ks_da']
+
+comicsalliance.com:
+	//*[@class='sidebarBanner']
+
+comicsalliance.com:
+	//*[@class='topBanner']
+
+comingsoon.net:
+	//*[@id='col2TopPub']
+
+comingsoon.net:
+	//*[@id='upperPub']
+
+complex.com:
+	//*[@class='ad']
+
+computeractive.co.uk:
+	//*[@class='leaderboard']
+
+computerandvideogames.com:
+	//*[@id='skyslot']
+
+computerworld.com.au:
+	//*[@class='careerone_search']
+
+computerworld.com.au:
+	//*[@class='careerone_tj_box']
+
+computerworlduk.com:
+	//*[@id='bottomBanner']
+
+computerworlduk.com:
+	//*[@id='topBanner']
+
+computerworlduk.com:
+	//*[@id='trendmicro']
+
+computingondemand.com:
+	//*[@id='sub-nav']
+
+coolest-gadgets.com:
+	//*[@class='banner1']
+
+coolest-gadgets.com:
+	//*[@class='contentbox']
+
+coolest-gadgets.com:
+	//*[@class='contentboxred']
+
+core77.com:
+	//*[@id='rsDesignDir']
+
+countryliving.com:
+	//*[@id='sub_promo']
+
+cracked.com:
+	//*[@class='Ad']
+
+crazymotion.net:
+	//*[@id='fadeinbox']
+
+cricbuzz.com:
+	//*[@id='chrome_home_banner']
+
+cricbuzz.com:
+	//*[@id='tata_phton_home_banner']
+
+cricinfo.com:
+	//*[@class='ciHomeSponcerLink']
+
+cricinfo.com:
+	//*[@class='hpSpncrHead']
+
+cricinfo.com:
+	//*[@class='seriesSpncr']
+
+cricinfo.com:
+	//*[@class='spncrSmry']
+
+crikey.com.au:
+	//*[@id='top']
+
+crmbuyer.com:
+	//*[@class='content-block-slinks']
+
+crmbuyer.com:
+	//*[@class='content-tab-slinks']
+
+crn.com:
+	//*[@id='channelwebmarketplacewrapper']
+
+crunchgear.com:
+	//*[@class='ad']
+
+crunchgear.com:
+	//*[@class='sponsor_units']
+
+crunchyroll.com:
+	//*[@class='anime-mrec']
+
+cyberciti.biz:
+	//*[@id='leaderboard']
+
+dailyfinance.com:
+	//*[@id='attic']
+
+dailyfinance.com:
+	//*[@class='medrect']
+
+dailyfreegames.com:
+	//*[@id='banner_886x40']
+
+dailyfreegames.com:
+	//*[@id='topratedgames']
+
+dailyhaha.com:
+	//*[@id='sponheader']
+
+dailymail.co.uk:
+	//*[@class='classified-list']
+
+dailymotion.com:
+	//*[@class='masscast_box_Middle']
+
+daniweb.com:
+	//*[@id='textsponsor']
+
+daringfireball.net:
+	//*[@id='SidebarTheDeck']
+
+darkhorizons.com:
+	//*[@id='content-island']
+
+dataopedia.com:
+	//*[@class='container_banner']
+
+deadspin.com:
+	//*[@id='skyscraper']
+
+dealbrothers.com:
+	//*[@class='specials']
+
+dealmac.com:
+	//*[@id='banner-bottom']
+
+dealnews.com:
+	//*[@class='banner']
+
+delicious.com:
+	//*[@id='spns']
+
+demonoid.com:
+	//*[@class='pad9px_right']
+
+denofgeek.com:
+	//*[@class='skyright']
+
+derbyshiretimes.co.uk:
+	//*[@id='banner01']
+
+derbyshiretimes.co.uk:
+	//*[@class='roundedboxesgoogle']
+
+deseretnews.com:
+	//*[@class='continue']
+
+develop-online.net:
+	//*[@class='newsinsert']
+
+deviantart.com:
+	//*[@class='ad-blocking-makes-fella-confused']
+
+deviantart.com:
+	//*[@class='hidoframe']
+
+deviantart.com:
+	//*[@class='sleekadbubble']
+
+discovery.com:
+	//*[@class='rectangle']
+
+disney.go.com:
+	//*[@id='banner']
+
+divxstage.net:
+	//*[@class='ad']
+
+dkszone.net:
+	//*[@class='liutilities-top']
+
+dogpile.com:
+	//*[@class='paidSearchResult']
+
+dosgamesarchive.com:
+	//*[@id='banner']
+
+dosgamesarchive.com:
+	//*[@class='rectangle']
+
+dosgamesarchive.com:
+	//*[@class='skyscraper']
+
+downloadhelper.net:
+	//*[@class='pub']
+
+downloadhelper.net:
+	//*[@class='pub_top']
+
+downloadsquad.com:
+	//*[@id='topleader-wrap']
+
+downloadsquad.com:
+	//*[@class='medrect']
+
+dragcave.net:
+	//*[@id='prefooter']
+
+drive.com.au:
+	//*[@class='cA-twinPromo']
+
+drugs.com:
+	//*[@id='topbannerWrap']
+
+dt-updates.com:
+	//*[@class='adv_items']
+
+dumblittleman.com:
+	//*[@class='ad']
+
+dumblittleman.com:
+	//*[@class='cats_box2']
+
+earthweb.com:
+	//*[@class='footerbanner']
+
+ebaumsworld.com:
+	//*[@id='eacs-sidebar']
+
+ebuddy.com:
+	//*[@id='banner_rectangle']
+
+ecommerce-journal.com:
+	//*[@id='runnews']
+
+ecommercetimes.com:
+	//*[@class='slink-text']
+
+ecommercetimes.com:
+	//*[@class='slink-title']
+
+economist.com:
+	//*[@id='classified_wrapper']
+
+economist.com:
+	//*[@id='footer-classifieds']
+
+economist.com:
+	//*[@id='leaderboard']
+
+economist.com:
+	//*[@id='top_banner']
+
+ectnews.com:
+	//*[@id='welcome-box']
+
+ectnews.com:
+	//*[@class='content-block-slinks']
+
+ectnews.com:
+	//*[@class='content-tab-slinks']
+
+edge-online.com:
+	//*[@id='above-header-region']
+
+edn.com:
+	//*[@id='headerwildcard']
+
+edn.com:
+	//*[@class='sponsorcontent']
+
+eeeuser.com:
+	//*[@id='header']
+
+electronista.com:
+	//*[@id='leaderboard']
+
+electronista.com:
+	//*[@id='supportbod']
+
+emedtv.com:
+	//*[@id='leaderboard']
+
+engadget.com:
+	//*[@class='medrect']
+
+england.fm:
+	//*[@id='banbo']
+
+englishforums.com:
+	//*[@id='facebox']
+
+englishforums.com:
+	//*[@id='facebox_overlay']
+
+eonline.com:
+	//*[@id='module_sky_scraper']
+
+esecurityplanet.com:
+	//*[@id='gemhover']
+
+esecurityplanet.com:
+	//*[@id='partners']
+
+esecurityplanet.com:
+	//*[@class='vspace']
+
+esl.eu:
+	//*[@class='bannerContainer']
+
+esoft.web.id:
+	//*[@id='content-top']
+
+espn.go.com:
+	//*[@class='spons_optIn']
+
+etonline.com:
+	//*[@class='superbanner']
+
+eurogamer.net:
+	//*[@id='tabbaz']
+
+euronews.net:
+	//*[@class='col-pub-skyscraper']
+
+euronews.net:
+	//*[@class='google-banner']
+
+eweek.com:
+	//*[@id='Table_01']
+
+eweek.com:
+	//*[@id='hp_special_reports']
+
+eweek.com:
+	//*[@id='syndication']
+
+eweek.com:
+	//*[@class='hp_link_online_classifieds']
+
+eweek.com:
+	//*[@class='omniture_module_tracker']
+
+examiner.co.uk:
+	//*[@class='promotop']
+
+examiner.com:
+	//*[@class='headerbg']
+
+excelforum.com:
+	//*[@class='contentLeft']
+
+excite.com:
+	//*[@class='mexContentBdr']
+
+expertreviews.co.uk:
+	//*[@id='skin']
+
+expertreviews.co.uk:
+	//*[@id='skyScrapper']
+
+expertreviews.co.uk:
+	//*[@class='leaderBoard']
+
+expertreviews.co.uk:
+	//*[@class='leaderLeft']
+
+expertreviews.co.uk:
+	//*[@class='leaderRight']
+
+experts-exchange.com:
+	//*[@id='compCorpAcc']
+
+experts-exchange.com:
+	//*[@id='compSky']
+
+experts-exchange.com:
+	//*[@class='ontopBanner']
+
+facebook.com:
+	//*[@id='home_sponsor_nile']
+
+facebook.com:
+	//*[@class='ego_spo']
+
+facebook.com:
+	//*[@class='fbEmu']
+
+fairyshare.com:
+	//*[@class='google_top']
+
+fanpix.net:
+	//*[@id='leaderboard']
+
+fanpop.com:
+	//*[@id='rgad']
+
+fark.com:
+	//*[@id='rightSideRightMenubar']
+
+fasterlouder.com.au:
+	//*[@class='ad']
+
+fatwallet.com:
+	//*[@id='promoBand']
+
+fayobserver.com:
+	//*[@id='bottom-leaderboard']
+
+feedicons.com:
+	//*[@id='footerboard']
+
+ffiles.com:
+	//*[@id='right_col']
+
+file-extensions.org:
+	//*[@id='uniBan']
+
+filedropper.com:
+	//*[@id='sidebar']
+
+filefactory.com:
+	//*[@id='aContainer']
+
+filehippo.com:
+	//*[@class='ad']
+
+filestube.com:
+	//*[@class='nova']
+
+filestube.com:
+	//*[@class='remads']
+
+filetrip.net:
+	//*[@id='products']
+
+finance.yahoo.com:
+	//*[@id='yfi_pf_ysm']
+
+finance.yahoo.com:
+	//*[@id='yfi_ysm']
+
+finance.yahoo.com:
+	//*[@class='ysm']
+
+flashgot.net:
+	//*[@class='tla']
+
+fontstock.net:
+	//*[@class='mediaBox']
+
+foodnetwork.com:
+	//*[@class='mrec']
+
+fool.com:
+	//*[@id='promoAndLeaderboard']
+
+forbes.com:
+	//*[@class='fifthN']
+
+forums.scifi.com:
+	//*[@id='flippingBanner']
+
+forums.vr-zone.com:
+	//*[@class='perm_announcement']
+
+fox.com:
+	//*[@class='ad']
+
+foxbusiness.com:
+	//*[@id='cb_medrect1_div']
+
+foxnews.com:
+	//*[@id='console300x100']
+
+foxnews.com:
+	//*[@id='marketplace']
+
+foxnews.com:
+	//*[@class='ad']
+
+foxnews.com:
+	//*[@class='quigo']
+
+freecodesource.com:
+	//*[@id='banner']
+
+freedict.com:
+	//*[@class='partners']
+
+freshmeat.net:
+	//*[@class='banner-imu']
+
+freshmeat.net:
+	//*[@class='banner1']
+
+ft.com:
+	//*[@id='leaderboard']
+
+fudzilla.com:
+	//*[@id='showcase']
+
+fudzilla.com:
+	//*[@class='artbannersxtd']
+
+fxnetworks.com:
+	//*[@id='adBlock']
+
+gadgetzone.com.au:
+	//*[@id='Leaderboard-placeholder']
+
+gadling.com:
+	//*[@class='medrect']
+
+gadling.com:
+	//*[@class='topleader']
+
+gamebanshee.com:
+	//*[@class='banner']
+
+gamepro.com.au:
+	//*[@class='rhs_300x250']
+
+gamernode.com:
+	//*[@class='ad']
+
+gamersyde.com:
+	//*[@class='placeholder-top']
+
+gamesindustry.biz:
+	//*[@id='leader']
+
+gamesradar.com:
+	//*[@class='tablets']
+
+gawker.com:
+	//*[@id='skySpacer']
+
+gawker.com:
+	//*[@id='skyscraper']
+
+geek.com:
+	//*[@class='leaderboard']
+
+geekologie.com:
+	//*[@id='leaderboard']
+
+generation-nt.com:
+	//*[@class='pub125']
+
+generation-nt.com:
+	//*[@class='pub2']
+
+generation-nt.com:
+	//*[@class='pub3']
+
+genuineforextrading.com:
+	//*[@id='clickbank']
+
+gigwise.com:
+	//*[@id='skyscraper']
+
+giveawayoftheday.com:
+	//*[@class='before_hot_tags']
+
+gizmodo.com:
+	//*[@id='marquee-frame']
+
+gizmodo.com:
+	//*[@id='skySpacer']
+
+gizmodo.com:
+	//*[@id='skyscraper']
+
+gizmodo.com:
+	//*[@id='spacer160']
+
+goal.com:
+	//*[@id='marketplaceModule']
+
+goodhopefm.co.za:
+	//*[@class='mrec']
+
+goodhousekeeping.com:
+	//*[@id='hpV2_728x90']
+
+googlewatch.eweek.com:
+	//*[@id='topBanner']
+
+gpsreview.net:
+	//*[@id='lead']
+
+grindtv.com:
+	//*[@id='LREC']
+
+grindtv.com:
+	//*[@id='SKY']
+
+grindtv.com:
+	//*[@id='hLREC']
+
+growingbusiness.co.uk:
+	//*[@class='siteLeaderBoard']
+
+guardian.co.uk:
+	//*[@id='commercial-partners']
+
+guardian.co.uk:
+	//*[@class='kelkoo']
+
+guruji.com:
+	//*[@id='SideBar']
+
+h-online.com:
+	//*[@class='bcadv']
+
+halifaxcourier.co.uk:
+	//*[@id='banner01']
+
+hardocp.com:
+	//*[@class='ad']
+
+harpers.org:
+	//*[@class='topbanner']
+
+hebdenbridgetimes.co.uk:
+	//*[@id='banner01']
+
+help.com:
+	//*[@id='bwp']
+
+helpwithwindows.com:
+	//*[@id='ad']
+
+helpwithwindows.com:
+	//*[@id='desc']
+
+heraldscotland.com:
+	//*[@id='leaderboard']
+
+hi5.com:
+	//*[@id='hi5-common-header-banner']
+
+hi5.com:
+	//*[@class='hi5-common-header-banner-ad']
+
+hitfix.com:
+	//*[@class='googlewide']
+
+hollywoodreporter.com:
+	//*[@class='ad']
+
+hotjobs.yahoo.com:
+	//*[@id='sponsorResults']
+
+hotlinkfiles.com:
+	//*[@id='leaderboard']
+
+howstuffworks.com:
+	//*[@id='MedRectHome']
+
+howstuffworks.com:
+	//*[@id='SponLogo']
+
+howstuffworks.com:
+	//*[@class='adv']
+
+howstuffworks.com:
+	//*[@class='search-span']
+
+hplusmagazine.com:
+	//*[@id='bottom']
+
+huffingtonpost.com:
+	//*[@class='contin_below']
+
+i4u.com:
+	//*[@id='topBanner > div#right']
+
+iafrica.com:
+	//*[@id='c_row1_bannerHolder']
+
+iafrica.com:
+	//*[@class='article_Banner']
+
+icenews.is:
+	//*[@id='topbanner']
+
+idg.com.au:
+	//*[@id='top_adblock_fix']
+
+ign.com:
+	//*[@id='boards_medrec_relative']
+
+illimitux.net:
+	//*[@id='screens']
+
+illimitux.net:
+	//*[@class='pub_bot']
+
+illimitux.net:
+	//*[@class='pub_top']
+
+iloubnan.info:
+	//*[@id='bann']
+
+images.search.yahoo.com:
+	//*[@id='r-e']
+
+imageshack.us:
+	//*[@id='add_frame']
+
+indeed.co.uk:
+	//*[@class='sjl']
+
+independent.co.uk:
+	//*[@id='article > .box']
+
+independent.co.uk:
+	//*[@id='yahooLinks']
+
+independent.co.uk:
+	//*[@class='commercialpromo']
+
+indiatimes.com:
+	//*[@id='jobsbox']
+
+indiatimes.com:
+	//*[@class='hover2bg']
+
+indiatimes.com:
+	//*[@class='tpgrynw > .topbrnw:first-child + div']
+
+indystar.com:
+	//*[@class='ad']
+
+info.co.uk:
+	//*[@class='p']
+
+info.co.uk:
+	//*[@class='spon']
+
+infoplease.com:
+	//*[@id='gob']
+
+informationweek.com:
+	//*[@class='ad']
+
+informit.com:
+	//*[@id='leaderboard']
+
+inquirer.net:
+	//*[@id='bottom_container']
+
+inquirer.net:
+	//*[@id='leaderboard_frame']
+
+inquirer.net:
+	//*[@id='marketplace_vertical_container']
+
+inquirer.net:
+	//*[@class='bgadgray10px']
+
+inquirer.net:
+	//*[@class='fontgraysmall']
+
+inquirer.net:
+	//*[@class='padtopbot5']
+
+inquisitr.com:
+	//*[@id='topx2']
+
+insanelymac.com:
+	//*[@class='ad']
+
+instapaper.com:
+	//*[@id='deckpromo']
+
+intelligencer.ca:
+	//*[@id='banZone']
+
+intelligencer.ca:
+	//*[@class='bnr']
+
+interfacelift.com:
+	//*[@class='ad']
+
+investopedia.com:
+	//*[@id='leader']
+
+investopedia.com:
+	//*[@class='mainbodyleftcolumntrade']
+
+io9.com:
+	//*[@id='marquee']
+
+io9.com:
+	//*[@id='marquee-frame']
+
+io9.com:
+	//*[@id='skyscraper']
+
+io9.com:
+	//*[@class='highlite']
+
+ipmart-forum.com:
+	//*[@id='table1']
+
+irishtimes.com:
+	//*[@id='banner-area']
+
+itpro.co.uk:
+	//*[@id='skyScraper']
+
+itproportal.com:
+	//*[@id='hp-accordion']
+
+itproportal.com:
+	//*[@class='teaser']
+
+itworld.com:
+	//*[@id='more_resources']
+
+itworld.com:
+	//*[@id='partner_strip']
+
+jakeludington.com:
+	//*[@id='ablock']
+
+jalopnik.com:
+	//*[@id='skyscraper']
+
+jamendo.com:
+	//*[@id='ad']
+
+jamendo.com:
+	//*[@class='col_extra']
+
+japantimes.co.jp:
+	//*[@id='FooterAdBlock']
+
+japanvisitor.com:
+	//*[@id='sponsor']
+
+jarrowandhebburngazette.com:
+	//*[@id='banner01']
+
+jayisgames.com:
+	//*[@class='bfg-feature']
+
+jeuxvideo-flash.com:
+	//*[@id='pub_header']
+
+jezebel.com:
+	//*[@id='skyscraper']
+
+joox.net:
+	//*[@id='body-sidebar']
+
+joystickdivision.com:
+	//*[@id='Page_Header']
+
+joystiq.com:
+	//*[@id='topleader-wrap']
+
+joystiq.com:
+	//*[@class='medrect']
+
+jpost.com:
+	//*[@id='topBanner']
+
+jpost.com:
+	//*[@class='padtopblubar']
+
+kaldata.net:
+	//*[@id='header2']
+
+katu.com:
+	//*[@id='mrktplace_tabbed']
+
+katu.com:
+	//*[@class='callout']
+
+katzforums.com:
+	//*[@id='aff']
+
+keepvid.com:
+	//*[@class='sponsors']
+
+keepvid.com:
+	//*[@class='sponsors-s']
+
+kewlshare.com:
+	//*[@id='rollAdRKLA']
+
+kidzworld.com:
+	//*[@class='layout_stub']
+
+knowyourmeme.com:
+	//*[@class='a160x600']
+
+knowyourmeme.com:
+	//*[@class='a250x250']
+
+knowyourmeme.com:
+	//*[@class='a728x90']
+
+knoxnews.com:
+	//*[@id='leaderboard']
+
+knoxnews.com:
+	//*[@class='big_box']
+
+komonews.com:
+	//*[@id='leader-sponsor']
+
+kotaku.com:
+	//*[@id='skySpacer']
+
+kotaku.com:
+	//*[@id='skyscraper']
+
+kovideo.net:
+	//*[@class='h-728']
+
+kovideo.net:
+	//*[@class='right-def-160']
+
+kovideo.net:
+	//*[@class='search-728']
+
+kuklaskorner.com:
+	//*[@id='ultimate']
+
+kval.com:
+	//*[@id='mrktplace_tabbed']
+
+kval.com:
+	//*[@class='callout']
+
+lastminute.com:
+	//*[@id='sponsoredFeature']
+
+law.com:
+	//*[@id='leaderboard']
+
+layoutstreet.com:
+	//*[@class='ad']
+
+lbc.co.uk:
+	//*[@id='topbanner']
+
+lemondrop.com:
+	//*[@class='sidebarBanner']
+
+lemondrop.com:
+	//*[@class='topBanner']
+
+licensing.biz:
+	//*[@class='newsinsert']
+
+life.com:
+	//*[@class='ad']
+
+lifehack.org:
+	//*[@class='offer']
+
+lifehacker.com:
+	//*[@id='skySpacer']
+
+lifehacker.com:
+	//*[@id='skyscraper']
+
+lifespy.com:
+	//*[@class='SRR']
+
+linux-mag.com:
+	//*[@class='sponsor-widget']
+
+linuxforums.org:
+	//*[@id='rightColumn']
+
+linuxinsider.com:
+	//*[@id='welcome-box']
+
+linuxinsider.com:
+	//*[@class='content-block-slinks']
+
+linuxinsider.com:
+	//*[@class='content-tab-slinks']
+
+linuxtopia.org:
+	//*[@id='bookcover_sky']
+
+lionsdenu.com:
+	//*[@id='banner300-top-right']
+
+lionsdenu.com:
+	//*[@id='sidebar-bottom-left']
+
+lionsdenu.com:
+	//*[@id='sidebar-bottom-right']
+
+live365.com:
+	//*[@class='ad']
+
+livejournal.com:
+	//*[@class='ljad']
+
+liverpooldailypost.co.uk:
+	//*[@class='promotop']
+
+livestream.com:
+	//*[@class='ad']
+
+livevss.net:
+	//*[@id='ad']
+
+living.aol.co.uk:
+	//*[@class='wide.horizontal_promo_HPHT']
+
+lmgtfy.com:
+	//*[@id='sponsor']
+
+loaded.it:
+	//*[@id='apDiv1']
+
+loaded.it:
+	//*[@id='bottomcorner']
+
+loaded.it:
+	//*[@id='ppad1']
+
+local.yahoo.com:
+	//*[@class='yls-rs-paid']
+
+londonstockexchange.com:
+	//*[@class='banner']
+
+londonstockexchange.com:
+	//*[@class='bannerTop']
+
+loombo.com:
+	//*[@class='ad']
+
+lotro-lore.com:
+	//*[@id='banner']
+
+lowbird.com:
+	//*[@class='teaser']
+
+luxist.com:
+	//*[@id='topleader-wrap']
+
+luxist.com:
+	//*[@class='medrect']
+
+lyricsfreak.com:
+	//*[@class='ad']
+
+lyricwiki.org:
+	//*[@id='p-navigation + .portlet']
+
+lyrster.com:
+	//*[@class='el_results']
+
+macdailynews.com:
+	//*[@id='right']
+
+macleans.ca:
+	//*[@id='leaderboard']
+
+maclife.com:
+	//*[@id='top-banner']
+
+macnewsworld.com:
+	//*[@class='content-block-slinks']
+
+macnewsworld.com:
+	//*[@class='content-tab-slinks']
+
+macnn.com:
+	//*[@id='leaderboard']
+
+macnn.com:
+	//*[@id='supportbod']
+
+macobserver.com:
+	//*[@class='dealsontheweb']
+
+macobserver.com:
+	//*[@class='specials']
+
+macrumors.com:
+	//*[@id='googleblock300']
+
+macrumors.com:
+	//*[@id='mr_banner_topad']
+
+macstories.net:
+	//*[@id='ad']
+
+macthemes2.net:
+	//*[@id='imagelinks']
+
+macupdate.com:
+	//*[@id='promoSidebar']
+
+macworld.co.uk:
+	//*[@id='footer']
+
+macworld.co.uk:
+	//*[@id='topBannerSpot']
+
+macworld.com:
+	//*[@id='shopping']
+
+madeformums.com:
+	//*[@id='contentbanner']
+
+magic.co.uk:
+	//*[@id='headerRowOne']
+
+magme.com:
+	//*[@id='top_banner']
+
+mail.google.com:
+	//*[@class='oM']
+
+mail.yahoo.com:
+	//*[@id='MNW']
+
+mail.yahoo.com:
+	//*[@id='northbanner']
+
+malaysiastory.com:
+	//*[@class='box2']
+
+maltonmercury.co.uk:
+	//*[@id='banner01']
+
+map24.com:
+	//*[@id='cont_m24up']
+
+mapquest.com:
+	//*[@id='offers']
+
+marketingpilgrim.com:
+	//*[@id='ad']
+
+mashable.com:
+	//*[@class='header-banner']
+
+massively.com:
+	//*[@id='topleader-wrap']
+
+mcvuk.com:
+	//*[@class='newsinsert']
+
+mediafire.com:
+	//*[@id='catfish_div']
+
+mediafire.com:
+	//*[@class='download_banner_container']
+
+mediaite.com:
+	//*[@id='magnify_widget_rect_handle']
+
+mercurynews.com:
+	//*[@id='mn_SP_Links']
+
+mercurynews.com:
+	//*[@class='articleEmbeddedAdBox']
+
+merriam-webster.com:
+	//*[@id='google_creative_3']
+
+metadivx.com:
+	//*[@class='ad']
+
+metblogs.com:
+	//*[@id='a_medrect']
+
+metblogs.com:
+	//*[@id='a_widesky']
+
+metro.co.uk:
+	//*[@class='google-sky']
+
+metro.co.uk:
+	//*[@class='sky']
+
+metrolyrics.com:
+	//*[@id='cee_box']
+
+metrolyrics.com:
+	//*[@id='cee_overlay']
+
+mg.co.za:
+	//*[@id='miway-creative']
+
+mg.co.za:
+	//*[@class='articlecontinues']
+
+miamiherald.com:
+	//*[@id='leaderboard']
+
+microsoft-watch.com:
+	//*[@id='topBannerContainer']
+
+miniclip.com:
+	//*[@class='block_300x250']
+
+miniclip.com:
+	//*[@class='letterbox']
+
+missoulian.com:
+	//*[@id='yahoo-contentmatch']
+
+mmosite.com:
+	//*[@class='c_gg']
+
+mmosite.com:
+	//*[@class='mmo_gg']
+
+mmosite.com:
+	//*[@class='mmo_gg2']
+
+mmosite.com:
+	//*[@class='mmo_textsponsor']
+
+mobile-ent.biz:
+	//*[@class='newsinsert']
+
+mobilecrunch.com:
+	//*[@class='ad']
+
+mobilecrunch.com:
+	//*[@class='sponsor_units']
+
+mofunzone.com:
+	//*[@id='ldrbrd_td']
+
+money.cnn.com:
+	//*[@id='moneySponsorBox']
+
+montanasnewsstation.com:
+	//*[@id='COLUMN4']
+
+morningstar.com:
+	//*[@class='LeaderWrap']
+
+morningstar.com:
+	//*[@class='aadsection_b1']
+
+morningstar.com:
+	//*[@class='aadsection_b2']
+
+mortgageguide101.com:
+	//*[@id='ppc']
+
+mosnews.com:
+	//*[@class='right_pop']
+
+motherproof.com:
+	//*[@id='leader']
+
+motorcycle-usa.com:
+	//*[@class='bannergoogle']
+
+movie2k.com:
+	//*[@id='ball']
+
+moviecritic.com.au:
+	//*[@id='glinks']
+
+moviefone.com:
+	//*[@id='WIAModule']
+
+moviefone.com:
+	//*[@class='ent_promo_sidetexttitle']
+
+movies.yahoo.com:
+	//*[@id='banner']
+
+movies.yahoo.com:
+	//*[@class='lrec']
+
+moviesplanet.com:
+	//*[@class='Banner468X60']
+
+moviesplanet.com:
+	//*[@class='gb']
+
+movshare.net:
+	//*[@class='ad']
+
+msn.com:
+	//*[@id='lgad']
+
+msn.com:
+	//*[@id='mlad']
+
+msn.com:
+	//*[@id='rtMod_wonderwall']
+
+msn.com:
+	//*[@class='abs']
+
+msn.com:
+	//*[@class='ad']
+
+msn.com:
+	//*[@class='prtnrtbs']
+
+msnbc.msn.com:
+	//*[@id='Dcolumn']
+
+msnbc.msn.com:
+	//*[@id='marketplace']
+
+msnbc.msn.com:
+	//*[@class='w460']
+
+mstar.com:
+	//*[@class='MPFBannerWrapper']
+
+mumbaimirror.com:
+	//*[@class='bottombanner']
+
+mumbaimirror.com:
+	//*[@class='topbanner']
+
+music.yahoo.com:
+	//*[@id='YMusicRegion_T3_R2C2_R1']
+
+music.yahoo.com:
+	//*[@id='lrec']
+
+music.yahoo.com:
+	//*[@id='lrecTop']
+
+myfoxphoenix.com:
+	//*[@id='leaderboard']
+
+myfoxphoenix.com:
+	//*[@class='marketplace']
+
+myfoxphoenix.com:
+	//*[@class='module.horizontal']
+
+myfoxphoenix.com:
+	//*[@class='vert.expanded']
+
+mylifeisaverage.com:
+	//*[@class='ad']
+
+myoutsourcedbrain.com:
+	//*[@id='HTML2']
+
+myspace.com:
+	//*[@id='marketing']
+
+myspace.com:
+	//*[@id='medRec']
+
+myspace.com:
+	//*[@id='music_googlelinks']
+
+myspace.com:
+	//*[@id='music_medrec']
+
+myspace.com:
+	//*[@id='tkn_medrec']
+
+nationalpost.com:
+	//*[@class='ad']
+
+nbc.com:
+	//*[@id='nbc-300']
+
+nbcsandiego.com:
+	//*[@id='partnerBar']
+
+nbcsandiego.com:
+	//*[@class='ad']
+
+nearlygood.com:
+	//*[@id='abf']
+
+neopets.com:
+	//*[@id='ban']
+
+neopets.com:
+	//*[@id='ban_bottom']
+
+neowin.net:
+	//*[@id='header-banner']
+
+neowin.net:
+	//*[@id='header-promos']
+
+neowin.net:
+	//*[@id='sidebar > #latest-community + #social-links + .sidebar-block']
+
+neowin.net:
+	//*[@id='sidebar > #latest-community + #social-links + .sidebar-block + .sidebar-block + #poll + .sidebar-block + .sidebar-block']
+
+neowin.net:
+	//*[@id='sidebar > #sidebar-author + .sidebar-block']
+
+neowin.net:
+	//*[@id='sidebar > #sidebar-author + .sidebar-block + #promo + .sidebar-block + .sidebar-block']
+
+nerve.com:
+	//*[@id='topBanner']
+
+netchunks.com:
+	//*[@id='af_adblock']
+
+netchunks.com:
+	//*[@id='m_top_adblock']
+
+netchunks.com:
+	//*[@id='sponsorsM']
+
+networkworld.com:
+	//*[@id='lb_container_top']
+
+networkworld.com:
+	//*[@id='promoslot']
+
+networkworld.com:
+	//*[@class='sponsor']
+
+nevadaappeal.com:
+	//*[@class='youradhere']
+
+newgrounds.com:
+	//*[@class='wide_storepromo']
+
+newgrounds.com:
+	//*[@class='wide_storepromobot']
+
+news.aol.co.uk:
+	//*[@id='tdiv60']
+
+news.aol.co.uk:
+	//*[@id='tdiv71']
+
+news.aol.co.uk:
+	//*[@id='tdiv74']
+
+news.cnet.com:
+	//*[@id='bottom-leader']
+
+news.com.au:
+	//*[@class='ad']
+
+news.com.au:
+	//*[@class='sponsors']
+
+news.yahoo.com:
+	//*[@id='ymh-invitational-recs']
+
+newsarama.com:
+	//*[@class='marketplace']
+
+newsmax.com:
+	//*[@id='noprint1']
+
+newsmax.com:
+	//*[@class='sponsors_spacer']
+
+newsonjapan.com:
+	//*[@id='squarebanner300x250']
+
+newsroomamerica.com:
+	//*[@id='promotional']
+
+newstatesman.com:
+	//*[@id='footerbanner']
+
+newsweek.com:
+	//*[@class='sponsor']
+
+nicknz.co.nz:
+	//*[@class='lrec']
+
+nicknz.co.nz:
+	//*[@class='top-banner']
+
+ninemsn.com.au:
+	//*[@id='ad']
+
+ninemsn.seek.com.au:
+	//*[@id='msnhd_div3']
+
+nintendolife.com:
+	//*[@class='the300x250']
+
+notebooks.com:
+	//*[@class='efbleft']
+
+noupe.com:
+	//*[@class='ad']
+
+nwsource.com:
+	//*[@id='skyscraperwide']
+
+nwsource.com:
+	//*[@class='adblock']
+
+nwsource.com:
+	//*[@class='googlemiddle']
+
+ny1.com:
+	//*[@class='bannerSidebar']
+
+ny1.com:
+	//*[@class='bannerTop']
+
+nydailynews.com:
+	//*[@id='nydn-topbar']
+
+nydailynews.com:
+	//*[@class='z_sponsor']
+
+nymag.com:
+	//*[@class='google-bottom']
+
+nypost.com:
+	//*[@class='ad']
+
+nytimes.com:
+	//*[@class='ad']
+
+nzgamer.com:
+	//*[@id='premierholder']
+
+nzgamer.com:
+	//*[@class='article_banner_holder']
+
+nzherald.co.nz:
+	//*[@class='marketPlace']
+
+ocregister.com:
+	//*[@id='bannertop2']
+
+omg.yahoo.com:
+	//*[@id='omg-lrec']
+
+omgili.com:
+	//*[@id='ad']
+
+online-literature.com:
+	//*[@class='leader-wrap-bottom']
+
+online-literature.com:
+	//*[@class='leader-wrap-middle']
+
+online-literature.com:
+	//*[@class='leader-wrap-top']
+
+onlineathens.com:
+	//*[@class='story-insert']
+
+onlineathens.com:
+	//*[@class='yahoo_hoz']
+
+opendrivers.com:
+	//*[@id='google336x280']
+
+orange.co.uk:
+	//*[@id='home_leaderboard']
+
+orange.co.uk:
+	//*[@id='home_mpu']
+
+orange.co.uk:
+	//*[@id='home_partnerlinks']
+
+orange.co.uk:
+	//*[@id='home_shoppinglinks']
+
+orange.co.uk:
+	//*[@class='spon_sored']
+
+oreillynet.com:
+	//*[@id='leaderboard']
+
+osnews.com:
+	//*[@class='ad']
+
+ovguide.com:
+	//*[@class='banner-rectangleMedium']
+
+p2pnet.net:
+	//*[@id='sidebar2']
+
+pbs.org:
+	//*[@class='newshour-support-wrap']
+
+pcauthority.com.au:
+	//*[@class='featured-retailers']
+
+pcmag.com:
+	//*[@id='special_offers_trio']
+
+pcmag.com:
+	//*[@class='content-links']
+
+pcmag.com:
+	//*[@class='partners']
+
+pcmag.com:
+	//*[@class='sp-links']
+
+pcmag.com:
+	//*[@class='special-offers']
+
+pcmag.com:
+	//*[@class='spotlight']
+
+pcpro.co.uk:
+	//*[@id='skyScrapper']
+
+pcpro.co.uk:
+	//*[@class='leaderBoard']
+
+pcpro.co.uk:
+	//*[@class='mpuBox']
+
+pcr-online.biz:
+	//*[@class='newsinsert']
+
+pctipsbox.com:
+	//*[@id='daikos-text-4']
+
+pcworld.co.nz:
+	//*[@id='sponsor_div']
+
+pcworld.com:
+	//*[@id='industryWebcasts']
+
+pcworld.com:
+	//*[@id='resourceLinks']
+
+pdfmyurl.com:
+	//*[@class='banner']
+
+pdfzone.com:
+	//*[@class='Skyscraper_BG']
+
+pdfzone.com:
+	//*[@class='sponsors_container']
+
+pedulum.com:
+	//*[@id='header_top']
+
+penny-arcade.com:
+	//*[@id='funding-h']
+
+perl.com:
+	//*[@id='leaderboard']
+
+pettube.com:
+	//*[@id='ca']
+
+phonescoop.com:
+	//*[@id='botlink']
+
+phonescoop.com:
+	//*[@id='promob']
+
+photobucket.com:
+	//*[@class='bannerContainer']
+
+pingtest.net:
+	//*[@class='ad']
+
+planetxbox360.com:
+	//*[@id='rightCol3gameHome']
+
+play.tm:
+	//*[@id='lbc']
+
+play.tm:
+	//*[@id='sky']
+
+politico.com:
+	//*[@class='in-story-banner']
+
+politics.co.uk:
+	//*[@id='top-banner']
+
+politifact.com:
+	//*[@class='pfad']
+
+ponged.com:
+	//*[@class='adv']
+
+popeater.com:
+	//*[@class='sidebarBanner']
+
+popularmechanics.com:
+	//*[@id='circ620x100']
+
+press-citizen.com:
+	//*[@class='rightrail-promo']
+
+pressf1.co.nz:
+	//*[@id='sponsor_div']
+
+pricegrabber.com:
+	//*[@class='topBanner']
+
+pricespy.co.nz:
+	//*[@class='ad']
+
+prisonplanet.com:
+	//*[@id='bottombanners']
+
+prisonplanet.com:
+	//*[@id='efoods']
+
+psu.com:
+	//*[@id='ad']
+
+ptinews.com:
+	//*[@class='fullstoryadd']
+
+ptinews.com:
+	//*[@class='fullstorydivright']
+
+pureoverclock.com:
+	//*[@id='adblock1']
+
+pureoverclock.com:
+	//*[@id='adblock2']
+
+pureoverclock.com:
+	//*[@id='mainbanner']
+
+qj.net:
+	//*[@id='shoppingapi']
+
+radaronline.com:
+	//*[@id='videoExternalBanner']
+
+radaronline.com:
+	//*[@id='videoSkyscraper']
+
+ratemyprofessors.com:
+	//*[@class='rmp_leaderboard']
+
+readwriteweb.com:
+	//*[@id='ad_block']
+
+realitytvobsession.com:
+	//*[@id='glinks']
+
+reddit.com:
+	//*[@class='promotedlink']
+
+reference.com:
+	//*[@id='Resource_Center']
+
+reference.com:
+	//*[@id='abvFold']
+
+reference.com:
+	//*[@id='bannerTop']
+
+reference.com:
+	//*[@id='bnrTop']
+
+reference.com:
+	//*[@id='centerbanner_game']
+
+reference.com:
+	//*[@id='rc']
+
+reference.com:
+	//*[@class='spl_unshd']
+
+reference.com:
+	//*[@class='spl_unshd_NC']
+
+restaurants.com:
+	//*[@class='latad']
+
+reverso.net:
+	//*[@class='columnBanner2']
+
+rivals.com:
+	//*[@id='thecontainer']
+
+rockpapershotgun.com:
+	//*[@class='marketing']
+
+rollcall.com:
+	//*[@class='ad']
+
+rollingstone.com:
+	//*[@class='ad']
+
+rottentomatoes.com:
+	//*[@id='afc_sidebar']
+
+roughlydrafted.com:
+	//*[@id='banner']
+
+rte.ie:
+	//*[@id='island300x250-inside']
+
+rte.ie:
+	//*[@id='story_island']
+
+rte.ie:
+	//*[@id='tilesHolder']
+
+runescape.com:
+	//*[@id='tb']
+
+rushlimbaugh.com:
+	//*[@id='top_leaderboard']
+
+sbsun.com:
+	//*[@class='articleEmbeddedAdBox']
+
+scienceblogs.com:
+	//*[@id='leaderboard']
+
+scienceblogs.com:
+	//*[@class='skyscraper']
+
+sciencedaily.com:
+	//*[@class='rectangle']
+
+sciencedaily.com:
+	//*[@class='skyscraper']
+
+sciencedirect.com:
+	//*[@id='leaderboard']
+
+scoop.co.nz:
+	//*[@id='top-banner']
+
+scoop.co.nz:
+	//*[@id='top-banner-base']
+
+scoop.co.nz:
+	//*[@id='topHeader']
+
+scotsman.com:
+	//*[@id='banner01']
+
+search.aol.co.uk:
+	//*[@class='PMB']
+
+search.aol.co.uk:
+	//*[@class='SLL']
+
+search.aol.co.uk:
+	//*[@class='WOL']
+
+search.aol.com:
+	//*[@class='PMB']
+
+search.aol.com:
+	//*[@class='SLL']
+
+search.aol.com:
+	//*[@class='WOL']
+
+search.cnbc.com:
+	//*[@id='ms_aur']
+
+search.excite.co.uk:
+	//*[@id='results11_container']
+
+search.icq.com:
+	//*[@class='more_sp']
+
+search.icq.com:
+	//*[@class='res_sp']
+
+search.netscape.com:
+	//*[@class='SLL']
+
+search.netscape.com:
+	//*[@class='SWOL']
+
+search.winamp.com:
+	//*[@class='SLL']
+
+search.winamp.com:
+	//*[@class='SWOL']
+
+search.yahoo.com:
+	//*[@id='east']
+
+search.yahoo.com:
+	//*[@id='sec-col']
+
+search.yahoo.com:
+	//*[@class='bbox']
+
+seattlepi.com:
+	//*[@class='wingadblock']
+
+sensis.com.au:
+	//*[@class='pfpRightParent']
+
+sensis.com.au:
+	//*[@class='pfplist']
+
+sevenload.com:
+	//*[@id='superbaannerContainer']
+
+sevenload.com:
+	//*[@id='yahoo-container']
+
+sfx.co.uk:
+	//*[@id='banner']
+
+shacknews.com:
+	//*[@class='recentcategories']
+
+shinyshiny.tv:
+	//*[@class='leaderboard']
+
+shopping.yahoo.com:
+	//*[@class='shmod-ysm']
+
+silverlight.net:
+	//*[@class='banner_header']
+
+simplyhired.com:
+	//*[@class='featured']
+
+siteadvisor.com:
+	//*[@class='midPageSmallOuterDiv']
+
+sitepoint.com:
+	//*[@class='industrybrains']
+
+siteseer.ca:
+	//*[@id='banZone']
+
+sk-gaming.com:
+	//*[@id='pts']
+
+sk-gaming.com:
+	//*[@id='ptsf']
+
+skins.be:
+	//*[@class='shortBioShadowB.w240']
+
+skyrock.com:
+	//*[@id='pub_up']
+
+slate.com:
+	//*[@class='bizbox_promo']
+
+smarter.com:
+	//*[@class='favboxmiddlesearch']
+
+smarter.com:
+	//*[@class='favwrapper']
+
+smash247.com:
+	//*[@id='RT1']
+
+smashingmagazine.com:
+	//*[@id='commentsponsortarget']
+
+smashingmagazine.com:
+	//*[@id='mediumrectangletarget']
+
+smashingmagazine.com:
+	//*[@id='sidebaradtarget']
+
+smashingmagazine.com:
+	//*[@id='sponsorlisttarget']
+
+smashingmagazine.com:
+	//*[@class='ed']
+
+smh.com.au:
+	//*[@class='ad']
+
+snapfiles.com:
+	//*[@id='bannerbar']
+
+snapfiles.com:
+	//*[@id='borderbar']
+
+snapfiles.com:
+	//*[@id='prodmsg']
+
+snow.co.nz:
+	//*[@id='content-footer-wrap']
+
+snow.co.nz:
+	//*[@id='header-banner']
+
+snowtv.co.nz:
+	//*[@id='header-banner']
+
+soccerphile.com:
+	//*[@id='midbanners']
+
+soccerphile.com:
+	//*[@id='topbanners']
+
+softonic.com:
+	//*[@class='topbanner']
+
+softonic.com:
+	//*[@class='topbanner_program']
+
+softpedia.com:
+	//*[@class='pagehead_op2']
+
+someecards.com:
+	//*[@id='shop']
+
+someecards.com:
+	//*[@id='some-ads']
+
+someecards.com:
+	//*[@id='some-more-ads']
+
+someecards.com:
+	//*[@id='store']
+
+somethingawful.com:
+	//*[@class='oma_pal']
+
+songlyrics.com:
+	//*[@class='content-bottom-banner']
+
+sowetan.co.za:
+	//*[@id='leaderboard_container']
+
+sowetan.co.za:
+	//*[@class='ad']
+
+space.com:
+	//*[@id='expandedBanner']
+
+speedtest.net:
+	//*[@class='ad']
+
+spikedhumor.com:
+	//*[@id='ctl00_CraveBanners']
+
+spikedhumor.com:
+	//*[@class='ad']
+
+spokesman.com:
+	//*[@class='ad']
+
+squidoo.com:
+	//*[@id='header_banner']
+
+startpage.com:
+	//*[@id='inlinetable']
+
+startribune.com:
+	//*[@id='bottomLeaderboard']
+
+startribune.com:
+	//*[@id='topLeaderboard']
+
+stickam.com:
+	//*[@id='h_TopBanner']
+
+stv.tv:
+	//*[@id='collapsedBanner']
+
+sunderlandecho.com:
+	//*[@id='banner01']
+
+sunderlandecho.com:
+	//*[@class='sitesponsor']
+
+superfastfile.com:
+	//*[@id='topbar']
+
+superfastfile.com:
+	//*[@id='topbar_fuckyou']
+
+superpages.com:
+	//*[@class='sponsreulst']
+
+swamppolitics.com:
+	//*[@id='leaderboard']
+
+switched.com:
+	//*[@id='topleader-wrap']
+
+switched.com:
+	//*[@class='medrect']
+
+sys-con.com:
+	//*[@id='elementDiv']
+
+talkingpointsmemo.com:
+	//*[@class='seventwentyeight']
+
+talksport.net:
+	//*[@id='headerPromoContainer']
+
+talkxbox.com:
+	//*[@id='features-sub']
+
+tarot.com:
+	//*[@id='leaderboardOuter']
+
+tcmagazine.com:
+	//*[@id='bannerfulltext']
+
+tcmagazine.com:
+	//*[@id='topbanner']
+
+tcmagazine.info:
+	//*[@id='bannerfulltext']
+
+tcmagazine.info:
+	//*[@id='topbanner']
+
+tech-recipes.com:
+	//*[@id='first-300-ad']
+
+tech-recipes.com:
+	//*[@id='leaderboard']
+
+techcrunch.com:
+	//*[@id='post_unit_medrec']
+
+techcrunch.com:
+	//*[@class='ad']
+
+techcrunch.com:
+	//*[@class='sponsor_units']
+
+techcrunchit.com:
+	//*[@class='ad']
+
+techcrunchit.com:
+	//*[@class='sponsor_units']
+
+techdigest.tv:
+	//*[@class='leaderboard']
+
+techdirt.com:
+	//*[@class='ad']
+
+technewsworld.com:
+	//*[@class='content-block-slinks']
+
+technewsworld.com:
+	//*[@class='content-tab-slinks']
+
+technorati.com:
+	//*[@id='ad']
+
+technorati.com:
+	//*[@class='ad']
+
+techrepublic.com.com:
+	//*[@id='medusa']
+
+techrepublic.com.com:
+	//*[@id='ppeHotspot']
+
+techrepublic.com.com:
+	//*[@id='spotlight']
+
+techrepublic.com.com:
+	//*[@id='wpPromo']
+
+techrepublic.com.com:
+	//*[@class='essentialTopics']
+
+techrepublic.com.com:
+	//*[@class='hotspot']
+
+techweb.com:
+	//*[@id='h_banner']
+
+tectonic.co.za:
+	//*[@class='tdad125']
+
+telegraph.co.uk:
+	//*[@id='gafsslot1']
+
+telegraph.co.uk:
+	//*[@id='gafsslot2']
+
+telegraph.co.uk:
+	//*[@class='comPuff']
+
+telegraphindia.com:
+	//*[@class='Caption']
+
+tesco.com:
+	//*[@id='dartLeftSkipper']
+
+tesco.com:
+	//*[@id='dartRightSkipper']
+
+tesco.com:
+	//*[@class='dart']
+
+tgdaily.com:
+	//*[@id='right-banner']
+
+theaa.com:
+	//*[@id='unanimis1']
+
+theage.com.au:
+	//*[@class='ad']
+
+thebizzare.com:
+	//*[@class='adblock']
+
+thecellfreak.com:
+	//*[@class='banheader']
+
+thecellfreak.com:
+	//*[@class='block-tcftv']
+
+thecellfreak.com:
+	//*[@class='hotdeals2']
+
+thecourier.co.uk:
+	//*[@id='sidebarMiddleCol']
+
+theeagle.com:
+	//*[@class='SectionRightRail300x600Box']
+
+thefashionspot.com:
+	//*[@id='roadblock']
+
+thegameslist.com:
+	//*[@class='leader']
+
+theglobeandmail.com:
+	//*[@class='ad']
+
+thehill.com:
+	//*[@id='topbanner']
+
+thehill.com:
+	//*[@class='banner']
+
+thehill.com:
+	//*[@class='lbanner']
+
+thehill.com:
+	//*[@class='vbanner']
+
+themoscowtimes.com:
+	//*[@class='adv_block']
+
+themoscowtimes.com:
+	//*[@class='top_banner']
+
+thenation.com:
+	//*[@class='ad']
+
+thenation.com:
+	//*[@class='modalContainer']
+
+thenation.com:
+	//*[@class='modalOverlay']
+
+thenextweb.com:
+	//*[@class='promotion_frame']
+
+theonion.com:
+	//*[@class='ad']
+
+thepittsburghchannel.com:
+	//*[@class='MS']
+
+thepspblog.com:
+	//*[@id='featured']
+
+thepspblog.com:
+	//*[@id='mta_bar']
+
+theregister.co.uk:
+	//*[@id='jobs-promo']
+
+theregister.co.uk:
+	//*[@id='msdn-promo']
+
+theregister.co.uk:
+	//*[@class='papers-promo']
+
+thesaurus.com:
+	//*[@id='abvFold']
+
+thesaurus.com:
+	//*[@class='spl_unshd']
+
+thesixthaxis.com:
+	//*[@class='map-header-mainblock']
+
+thesixthaxis.com:
+	//*[@class='map-main-right-takeover']
+
+thesmokinggun.com:
+	//*[@id='skyscraper']
+
+thestandard.com:
+	//*[@id='leaderboard_banner']
+
+thestates.fm:
+	//*[@id='banbo']
+
+thestreet.com:
+	//*[@id='brokerage']
+
+thestreet.com:
+	//*[@id='textLinks']
+
+thestreet.com:
+	//*[@id='textLinksContainer']
+
+thesun.co.uk:
+	//*[@id='takeoverleft']
+
+thesun.co.uk:
+	//*[@id='takeoverright']
+
+thesun.co.uk:
+	//*[@class='srch_cont']
+
+thesuperficial.com:
+	//*[@id='leaderboard']
+
+thetandd.com:
+	//*[@class='yahoo_content_match']
+
+thevarguy.com:
+	//*[@id='middlebannerwrapper']
+
+thevarguy.com:
+	//*[@class='squarebanner160x160']
+
+thinkpads.com:
+	//*[@id='sponsorbar']
+
+thisisbath.co.uk:
+	//*[@id='mast-head']
+
+thisisleicestershire.co.uk:
+	//*[@id='mast-head']
+
+thisisleicestershire.co.uk:
+	//*[@class='banner-extButton']
+
+thisismoney.co.uk:
+	//*[@id='Sky']
+
+thisisplymouth.co.uk:
+	//*[@class='leaderboard']
+
+tidbits.com:
+	//*[@id='top_banner']
+
+time.com:
+	//*[@class='sep']
+
+timeout.com:
+	//*[@class='MD_textLinks01']
+
+timeoutdubai.com:
+	//*[@id='tleaderb']
+
+timesdispatch.com:
+	//*[@id='dealoftheday']
+
+timesonline.co.uk:
+	//*[@class='bg-f0eff5.padding-left-right-9.padding-top-6.link-width.word-wrap']
+
+timesonline.co.uk:
+	//*[@class='bg-f0eff5.padding-left-right-9.padding-top-6.padding-bottom-7.word-wrap']
+
+timesonline.co.uk:
+	//*[@class='classifieds-long-container']
+
+tinypic.com:
+	//*[@class='ad']
+
+tinypic.com:
+	//*[@class='medrec']
+
+tips.net:
+	//*[@id='googlebig']
+
+tmz.com:
+	//*[@id='leaderboard']
+
+tmz.com:
+	//*[@id='skyscraper']
+
+todaystmj4.com:
+	//*[@id='leaderboard1']
+
+tomsgames.com:
+	//*[@id='pub_header']
+
+tomsgames.it:
+	//*[@id='pub_header']
+
+tomsguide.com:
+	//*[@class='sideOffers']
+
+tomwans.com:
+	//*[@class='big_button']
+
+toptenreviews.com:
+	//*[@class='google_add_container']
+
+torontosun.com:
+	//*[@id='buttonRow']
+
+torrent-finder.com:
+	//*[@class='cont_lb']
+
+totalfark.com:
+	//*[@id='rightSideRightMenubar']
+
+tothepc.com:
+	//*[@class='sidebsa']
+
+toynews-online.biz:
+	//*[@class='newsinsert']
+
+travel.yahoo.com:
+	//*[@class='spon']
+
+travel.yahoo.com:
+	//*[@class='tgl-block']
+
+treehugger.com:
+	//*[@class='google-indiv-box2']
+
+treehugger.com:
+	//*[@class='leaderboard']
+
+tripadvisor.com:
+	//*[@id='COMMERCE_REPEAT']
+
+tripadvisor.com:
+	//*[@id='COMMERCE_RHS']
+
+tripadvisor.com:
+	//*[@id='COMMERCE_TOP']
+
+tripadvisor.com:
+	//*[@class='goLists']
+
+trueslant.com:
+	//*[@class='bot_banner']
+
+trustedreviews.com:
+	//*[@id='bottom-sky']
+
+trustedreviews.com:
+	//*[@id='top-sky']
+
+trutv.com:
+	//*[@class='banner']
+
+tuaw.com:
+	//*[@class='medrect']
+
+tuaw.com:
+	//*[@class='topleader']
+
+tucows.com:
+	//*[@class='w952.h85']
+
+tucsoncitizen.com:
+	//*[@class='bigbox_container']
+
+tucsoncitizen.com:
+	//*[@class='leaderboard_container_top']
+
+tucsoncitizen.com:
+	//*[@class='skyscraper_container']
+
+tutsplus.com:
+	//*[@id='AdobeBanner']
+
+tutsplus.com:
+	//*[@class='leader_board']
+
+tv.yahoo.com:
+	//*[@class='spons']
+
+twilightwap.com:
+	//*[@class='ahblock2']
+
+u-file.net:
+	//*[@class='spottt_tb']
+
+unknown-horizons.org:
+	//*[@id='akct']
+
+unrealitymag.com:
+	//*[@id='header']
+
+unrealitymag.com:
+	//*[@id='sidebar300X250']
+
+urbandictionary.com:
+	//*[@id='rollup']
+
+urbandictionary.com:
+	//*[@class='zazzle_links']
+
+urlesque.com:
+	//*[@class='sidebarBanner']
+
+urlesque.com:
+	//*[@class='topBanner']
+
+usatoday.com:
+	//*[@id='footerSponsorOne']
+
+usatoday.com:
+	//*[@id='footerSponsorTwo']
+
+usatoday.com:
+	//*[@class='ad']
+
+userscripts.org:
+	//*[@class='sponsor']
+
+userstyles.org:
+	//*[@class='ad']
+
+usnews.com:
+	//*[@class='ad']
+
+usniff.com:
+	//*[@id='bottom']
+
+usniff.com:
+	//*[@class='top-usniff-torrents']
+
+v3.co.uk:
+	//*[@id='superSky']
+
+v3.co.uk:
+	//*[@class='ad']
+
+v3.co.uk:
+	//*[@class='hpu']
+
+v3.co.uk:
+	//*[@class='leaderboard']
+
+variety.com:
+	//*[@id='googlesearch']
+
+variety.com:
+	//*[@id='w300x250']
+
+variety.com:
+	//*[@class='sponsor']
+
+veehd.com:
+	//*[@class='isad']
+
+venturebeat.com:
+	//*[@id='leader']
+
+vgchartz.com:
+	//*[@id='topFooter']
+
+video.foxnews.com:
+	//*[@id='cb_medrect1_div']
+
+videogamer.com:
+	//*[@class='skinClick']
+
+videojug.com:
+	//*[@class='forceMPUSize']
+
+videoweed.com:
+	//*[@class='ad']
+
+vimeo.com:
+	//*[@class='ad']
+
+virus.gr:
+	//*[@id='block-block-19']
+
+vladtv.com:
+	//*[@id='banner-bottom']
+
+walesonline.co.uk:
+	//*[@class='promobottom']
+
+walesonline.co.uk:
+	//*[@class='promotop']
+
+walletpop.com:
+	//*[@id='attic']
+
+walletpop.com:
+	//*[@class='medrect']
+
+walletpop.com:
+	//*[@class='sponsWidget']
+
+washingtonpost.com:
+	//*[@id='textlinkWrapper']
+
+watoday.com.au:
+	//*[@class='ad']
+
+weather.ninemsn.com.au:
+	//*[@id='msnhd_div3']
+
+weatherbug.com:
+	//*[@class='wXcds1']
+
+weatherbug.com:
+	//*[@class='wXcds2']
+
+webdesignstuff.com:
+	//*[@id='headbanner']
+
+webpronews.com:
+	//*[@class='articleleftcol']
+
+webpronews.com:
+	//*[@class='tallad > *']
+
+webresourcesdepot.com:
+	//*[@class='Banners']
+
+weeklyworldnews.com:
+	//*[@class='top-banner']
+
+wefollow.com:
+	//*[@class='ad']
+
+wenn.com:
+	//*[@id='topbanner']
+
+westlothianhp.co.uk:
+	//*[@id='banner01']
+
+westsussextoday.co.uk:
+	//*[@id='banner01']
+
+wftv.com:
+	//*[@id='leaderboard-sticky']
+
+wikia.com:
+	//*[@id='HOME_LEFT_SKYSCRAPER_1']
+
+wikia.com:
+	//*[@id='HOME_TOP_LEADERBOARD']
+
+wikia.com:
+	//*[@id='LEFT_SKYSCRAPER_1']
+
+wikia.com:
+	//*[@id='LEFT_SKYSCRAPER_2']
+
+wikia.com:
+	//*[@id='TOP_LEADERBOARD']
+
+winamp.com:
+	//*[@id='subheader']
+
+windowsitpro.com:
+	//*[@id='dnn_pentonRoadblock_pnlRoadblock']
+
+wired.co.uk:
+	//*[@class='banner-top']
+
+wired.co.uk:
+	//*[@class='banner1']
+
+wordreference.com:
+	//*[@class='bannertop']
+
+worksopguardian.co.uk:
+	//*[@id='banner01']
+
+worthingherald.co.uk:
+	//*[@id='banner01']
+
+wow.com:
+	//*[@id='topleader-wrap']
+
+wow.com:
+	//*[@class='medrect']
+
+wowwiki.com:
+	//*[@id='HOME_LEFT_SKYSCRAPER_1']
+
+wowwiki.com:
+	//*[@id='HOME_TOP_LEADERBOARD']
+
+wowwiki.com:
+	//*[@id='LEFT_SKYSCRAPER_1']
+
+wowwiki.com:
+	//*[@id='TOP_LEADERBOARD']
+
+wsj.com:
+	//*[@class='spn_links_box']
+
+wwl.com:
+	//*[@id='BannerXGroup']
+
+wwtdd.com:
+	//*[@class='post_insert']
+
+xbox360rally.com:
+	//*[@id='topbanner']
+
+xfm.co.uk:
+	//*[@id='commercial']
+
+xml.com:
+	//*[@id='leaderboard']
+
+xml.com:
+	//*[@class='recommended_div2']
+
+yahoo.com:
+	//*[@id='ad']
+
+yahoo.com:
+	//*[@id='marketplace']
+
+yahoo.com:
+	//*[@id='ygmapromo']
+
+yahoo.com:
+	//*[@id='yn-gmy-promo-answers']
+
+yahoo.com:
+	//*[@id='yn-gmy-promo-groups']
+
+yahoo.com:
+	//*[@id='yschsec > h2 + ul > li']
+
+yahoo.com:
+	//*[@class='fpad']
+
+yahoo.com:
+	//*[@class='yschspns']
+
+yatsoba.com:
+	//*[@class='sponsors']
+
+yesasia.com:
+	//*[@class='advHr']
+
+yorkshireeveningpost.co.uk:
+	//*[@id='banner01']
+
+yorkshirepost.co.uk:
+	//*[@id='banner01']
+
+youtube.com:
+	//*[@id='feedmodule-PRO']
+
+youtube.com:
+	//*[@id='homepage-chrome-side-promo']
+
+youtube.com:
+	//*[@id='search-pva']
+
+youtube.com:
+	//*[@id='watch-buy-urls']
+
+youtube.com:
+	//*[@class='promoted-videos']
+
+youtube.com:
+	//*[@class='watch-extra-info-column']
+
+youtube.com:
+	//*[@class='watch-extra-info-right']
+
+zdnet.co.uk:
+	//*[@class='sponsor']
+
+zdnet.com:
+	//*[@id='pplayLinks']
+
+zdnet.com:
+	//*[@class='hotspot']
+
+zdnet.com:
+	//*[@class='promoBox']
+
+zeenews.com:
+	//*[@class='ban-720-container']
+
+zone.msn.com:
+	//*[@class='SuperBannerTVMain']
+
+zuploads.com:
+	//*[@class='hispeed']
+
+~2gb-hosting.com,~addoway.com,~apple.com,~block-adblock-plus.com,~dailykos.com,~facebook.com,~harpers.org,~radio.de,~tomwans.com,~tonprenom.com,~www.google.com,~zuploads.com:
+	//*[@id='ads']
+
+~academics.de:
+	//*[@id='ad_container']
+
+~amnestyusa.org,~drownedinsound.com:
+	//*[@id='ad_wrapper']
+
+~anzwers.com.au,~quoka.de,~u-file.net:
+	//*[@class='adtext']
+
+~apple.com:
+	//*[@id='ad-container']
+
+~apple.com:
+	//*[@id='ad-wrap']
+
+~arbetsformedlingen.se:
+	//*[@class='ad-container']
+
+~assetbar.com:
+	//*[@class='ad-button']
+
+~assetbar.com,~burningangel.com:
+	//*[@class='header-ad']
+
+~associatedcontent.com:
+	//*[@class='header_ad_center']
+
+~backpage.com:
+	//*[@class='AdInfo']
+
+~backpage.com:
+	//*[@class='adinfo']
+
+~bbs.newhua.com,~leboncoin.fr:
+	//*[@class='ad_text']
+
+~beginyouridea.com,~jobs.wa.gov.au,~travelblog.dailymail.co.uk,~tu-chemnitz.de,~yourvids.nl:
+	//*[@class='advert']
+
+~bipbip.co.il:
+	//*[@class='adlist']
+
+~bipbip.co.il,~quoka.de:
+	//*[@class='adpic']
+
+~blurst.com:
+	//*[@class='boxad']
+
+~bodybuilding.com,~gametop.com:
+	//*[@class='adbox']
+
+~bumpshack.com:
+	//*[@id='topad']
+
+~buy.com,~superbikeplanet.com:
+	//*[@class='AdTitle']
+
+~campusdish.com:
+	//*[@id='adBanner']
+
+~chw.net,~cub.com,~joinmyband.co.uk,~lets-sell.info,~tonprenom.com:
+	//*[@class='ads:not(body)']
+
+~cmt.com:
+	//*[@id='header_ad']
+
+~co-operative.coop:
+	//*[@class='AdBox']
+
+~cynamite.de:
+	//*[@id='Adbanner']
+
+~designspotter.com:
+	//*[@id='AdvertiseFrame']
+
+~didaktik-der-mathematik.de:
+	//*[@class='ad_right']
+
+~digitalhome.ca:
+	//*[@id='Ad1']
+
+~discuss.com.hk,~uwants.com:
+	//*[@id='featuread']
+
+~facebook.com,~japantoday.com:
+	//*[@id='sidebar_ads']
+
+~finn.no,~gcrg.org,~kalaydo.de,~secondamano.it,~sepa.org.uk:
+	//*[@id='advert']
+
+~frogueros.com:
+	//*[@class='textads']
+
+~gamespot.com:
+	//*[@class='mpu']
+
+~gamespot.com,~mint.com,~slidetoplay.com,~zattoo.com:
+	//*[@class='sponsored']
+
+~investopedia.com:
+	//*[@id='footer_ads']
+
+~itavisen.no:
+	//*[@class='ad468']
+
+~jobs.wa.gov.au,~pricewatch.com:
+	//*[@id='adContainer']
+
+~kalaydo.de:
+	//*[@id='adbox']
+
+~ksl.com:
+	//*[@class='adBox']
+
+~lalsace.fr,~lepays.fr,~tonprenom.com:
+	//*[@class='adsense']
+
+~linux.com:
+	//*[@class='adframe']
+
+~macwelt.de:
+	//*[@class='advertisment']
+
+~marktplaats.nl:
+	//*[@class='adSummary']
+
+~mercurynews.com:
+	//*[@id='adposition3']
+
+~mercurynews.com:
+	//*[@class='adElement']
+
+~metblogs.com,~oreilly.com:
+	//*[@id='adspace']
+
+~mobifrance.com:
+	//*[@class='advert-horizontal']
+
+~mycareer.com.au,~nytimes.com:
+	//*[@class='adContainer']
+
+~natgeo.tv:
+	//*[@id='ad728x90']
+
+~news.yahoo.com:
+	//*[@class='ad_header']
+
+~nownews.com:
+	//*[@class='adbanner']
+
+~o2online.de:
+	//*[@class='adSpace']
+
+~outspark.com:
+	//*[@class='adModule']
+
+~photobucket.com:
+	//*[@class='headerAd']
+
+~ping-timeout.de:
+	//*[@id='advertisement']
+
+~radaronline.com:
+	//*[@class='horizontal_ad']
+
+~salon.com:
+	//*[@class='ad_content']
+
+~stadtlist.de,~superbikeplanet.com:
+	//*[@class='adTitle']
+
+~streetinsider.com:
+	//*[@id='ad_space']
+
+~superbikeplanet.com:
+	//*[@class='adDiv']
+
+~superbikeplanet.com:
+	//*[@class='addiv']
+
+~superbikeplanet.com:
+	//*[@class='adlink']
+
+~superhry.cz:
+	//*[@class='adHolder']
+
+~thecoolhunter.net:
+	//*[@class='Ads']
+
+~theology.edu:
+	//*[@class='contentAd']
+
+~timescall.com:
+	//*[@class='topAds']
+
+~tomwans.com:
+	//*[@class='adright']
+
+~tonprenom.com:
+	//*[@class='advertise']
+
+~tonprenom.com,~trove.nla.gov.au:
+	//*[@class='advertising']
+
+~tphousing.com,~tvgorge.com:
+	//*[@id='ad1']
+
+~trailvoy.com:
+	//*[@class='top_ads']
+
+~uwcu.org:
+	//*[@id='head-ad']
+
+~virginmobile.fr:
+	//*[@class='affiliate']
+
+~wired.com:
+	//*[@class='advertisement']
+
+~wretch.cc:
+	//*[@id='ad_square']
+
+~zlatestranky.cz:
+	//*[@id='advertise']
