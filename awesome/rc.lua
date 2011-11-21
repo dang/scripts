@@ -563,27 +563,27 @@ globalkeys = awful.util.table.join(
 		awful.tag.viewonly(t)
 	end),
     awful.key({ modkey, "Control", }, "h", function() awful.tag.viewonly(dfg_pick_desktop("west")) end),
-    awful.key({ modkey, "Control", }, "l", function() awful.tag.viewonly(dfg_pick_desktop("east")) end),
-    awful.key({ modkey, "Control", }, "k", function() awful.tag.viewonly(dfg_pick_desktop("north")) end),
-    awful.key({ modkey, "Control", }, "j", function() awful.tag.viewonly(dfg_pick_desktop("south")) end),
+    awful.key({ modkey, "Control", }, "i", function() awful.tag.viewonly(dfg_pick_desktop("east")) end),
+    awful.key({ modkey, "Control", }, "u", function() awful.tag.viewonly(dfg_pick_desktop("north")) end),
+    awful.key({ modkey, "Control", }, "e", function() awful.tag.viewonly(dfg_pick_desktop("south")) end),
 
 
-    awful.key({ modkey,           }, "j",
+    awful.key({ modkey,           }, "e",
         function ()
             awful.client.focus.bydirection("down")
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey,           }, "k",
+    awful.key({ modkey,           }, "u",
         function ()
             awful.client.focus.bydirection("up")
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey,           }, "h",
+    awful.key({ modkey,           }, "n",
         function ()
             awful.client.focus.bydirection("left")
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey,           }, "l",
+    awful.key({ modkey,           }, "i",
         function ()
             awful.client.focus.bydirection("right")
             if client.focus then client.focus:raise() end
@@ -592,7 +592,7 @@ globalkeys = awful.util.table.join(
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "h", function () awful.client.swap.byidx(  1) end),
     awful.key({ modkey, "Shift"   }, "l", function () awful.client.swap.byidx( -1) end),
-    awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
+    awful.key({ modkey, "Shift"   }, "u", awful.client.urgent.jumpto),
     awful.key({ modkey,           }, "Tab",
         function ()
             awful.client.focus.history.previous()
@@ -612,12 +612,12 @@ globalkeys = awful.util.table.join(
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey,           }, "b", function () awful.util.spawn(browser) end),
-    awful.key({ modkey,           }, "e", function () awful.util.spawn(email) end),
-    awful.key({ modkey,           }, "i", function () awful.util.spawn(im) end),
+    awful.key({ modkey, "Shift"   }, "e", function () awful.util.spawn(email) end),
+    awful.key({ modkey, "Shift"   }, "i", function () awful.util.spawn(im) end),
     awful.key({ modkey,           }, "c", function () awful.util.spawn(comics) end),
     awful.key({ modkey,           }, "m", function () awful.util.spawn(music) end),
     awful.key({ modkey,           }, "r", function () awful.util.spawn(reader) end),
-    awful.key({ modkey,           }, "k", function () awful.util.spawn(bookmarks) end),
+    -- awful.key({ modkey,           }, "k", function () awful.util.spawn(bookmarks) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
@@ -648,7 +648,7 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
     awful.key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end),
-    awful.key({ modkey,           }, "n",      function (c) c.minimized = not c.minimized    end),
+    awful.key({ modkey, "Control" }, "n",      function (c) c.minimized = not c.minimized    end),
     awful.key({ modkey,           }, "Left",   function (c) c.maximized_horizontal = false end),
     awful.key({ modkey,           }, "Right",   function (c) c.maximized_horizontal = true end),
     awful.key({ modkey,           }, "Down",   function (c) c.maximized_vertical = false end),
