@@ -37,7 +37,7 @@ nmap ; A;
 "noremap U J
 
 " Mappings for Colemak
-set langmap=nh,ej,il,uk,fn,ke,KE,si,hu,HU,jf,JF
+set langmap=nh,ej,il,uk,fn,ke,KE,si,hu,HU,jf
 "set langmap=fe,pr,gt,jy,lu,ui,yo,\;p,rs,sd,tf,dg,nj,ek,il,o\;,kn,FE,PR,GT,JY,LU,UI,YO,:P,RS,SD,TF,DG,NJ,EK,IL,O:,KN
 nnoremap N n
 nnoremap E e
