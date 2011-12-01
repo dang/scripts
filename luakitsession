@@ -1,0 +1,46 @@
+#!/bin/bash
+#
+# Script that starts a named session of luakit
+#
+
+# Set usage output
+USAGE="[-h |--help] <session>"
+LONGUSAGE="\t-h, --help\n\t\tPrint this help message
+\t<session>\n\t\tName of session."
+
+# Standard functions
+source ${HOME}/.scripts/functions.sh
+
+# Script name
+ME=$(basename $0)
+
+# Parse arguments
+ARGS=`getopt -o h --long help -n "${ME}" -- "$@"`
+
+if [ $? != 0 ] ; then
+	usage 
+fi
+eval set -- "$ARGS"
+
+while true ; do
+	case "$1" in
+		-h|--help) usage; shift ;;
+		--) shift ; break ;;
+		* ) usage "Invalid argument $1";;
+	esac
+done
+
+# Remaining arguments are in $1, $2, etc. as normal
+if [ -z "$1" ]; then
+	usage "Must give session name"
+fi
+
+SESSION="$1"
+
+export XDG_DATA_HOME=~/.sessions/${SESSION}/data/
+export XDG_CACHE_HOME=~/.sessions/${SESSION}/cache/
+
+mkdir -p ${XDG_DATA_HOME}
+mkdir -p ${XDG_CACHE_HOME}
+
+luakit -U

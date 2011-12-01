@@ -26,7 +26,8 @@ email = "chromium"
 im = "pidgin"
 music = "schedtool -I -e rhythmbox"
 ebook = "calibre"
-reader = "uzbl-tabbed http://www.google.com/reader"
+reader = "luakitsession feeds"
+pr0n = "luakitsession pr0n"
 comics = "uzbl-tabbed http://www.comicagg.com/comics/read/"
 bookmarks = "uzbl-tabbed file:///home/dang/bookmarks.html"
 
@@ -616,7 +617,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "i", function () awful.util.spawn(im) end),
     awful.key({ modkey,           }, "c", function () awful.util.spawn(comics) end),
     awful.key({ modkey,           }, "m", function () awful.util.spawn(music) end),
-    awful.key({ modkey,           }, "r", function () awful.util.spawn(reader) end),
+    awful.key({ modkey, "Shift"   }, "r", function () awful.util.spawn(reader) end),
+    awful.key({ modkey, "Shift"   }, "p", function () awful.util.spawn(pr0n) end),
     -- awful.key({ modkey,           }, "k", function () awful.util.spawn(bookmarks) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
