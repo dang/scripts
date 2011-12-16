@@ -1554,45 +1554,45 @@ function s:SetKeybindings(where)
 
 	    " Decomment must be defined here. Everything else is mapped below.
 	    if bindInNormal 
-		execute 'nmap '. where .' <silent> <unique> '. s:C
+		execute 'nnoremap '. where .' <silent> <unique> '. s:C
 			    \ .' <Plug>DeCommentj'
-		execute 'nmap '. where .' <silent> <unique> '. s:X
+		execute 'nnoremap '. where .' <silent> <unique> '. s:X
 			    \ .' <Plug>DeComment'
 	    endif
 
 	    if bindInInsert
-		execute 'imap '. where .' <silent> <unique> '. s:C
+		execute 'inoremap '. where .' <silent> <unique> '. s:C
 			    \ .' <Esc><Plug>DeCommentji'
-		execute 'imap '. where .' <silent> <unique> '. s:X
+		execute 'inoremap '. where .' <silent> <unique> '. s:X
 			    \ .' <Esc><Plug>DeCommenti'
 	    endif
 
 	    if bindInVisual
-		execute 'vmap '. where .' <silent> <unique> '. s:C
+		execute 'vnoremap '. where .' <silent> <unique> '. s:C
 			    \ .' <Plug>VisualDeCommentj'
-		execute 'vmap '. where .' <silent> <unique> '. s:X
+		execute 'vnoremap '. where .' <silent> <unique> '. s:X
 			    \ .' <Plug>VisualDeComment'
 	    endif
 	endif
 
 	if bindInNormal
-	    execute 'nmap '. where .' <silent> <unique> '. s:c
+	    execute 'nnoremap '. where .' <silent> <unique> '. s:c
 			\ .' <Plug>'. s:Method .'j'
-	    execute 'nmap '. where .' <silent> <unique> '. s:x
+	    execute 'nnoremap '. where .' <silent> <unique> '. s:x
 			\ .' <Plug>'. s:Method
 	endif
 
 	if bindInInsert
-	    execute 'imap '. where .' <silent> <unique> '. s:c
+	    execute 'inoremap '. where .' <silent> <unique> '. s:c
 			\ .' <Esc><Plug>'. s:Method .'ji'
-	    execute 'imap '. where .' <silent> <unique> '. s:x
+	    execute 'inoremap '. where .' <silent> <unique> '. s:x
 			\ .' <Esc><Plug>'. s:Method
 	endif
 
 	if bindInVisual
-	    execute 'vmap <silent> <unique> '. s:c
+	    execute 'vnoremap <silent> <unique> '. s:c
 			\ .' <Plug>Visual'. s:Method .'j'
-	    execute 'vmap '. where .' <silent> <unique> '. s:x
+	    execute 'vnoremap '. where .' <silent> <unique> '. s:x
 			\ .' <Plug>Visual'. s:Method
 	endif
     endif

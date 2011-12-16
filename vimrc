@@ -90,6 +90,12 @@ let g:EnhCommentifyTraditionalMode="No"
 let g:EnhCommentifyFirstLineMode='no'
 let g:EnhCommentifyUserBindings='no'
 let g:EnhCommentifyUserMode='yes'
+" langmap broke the key bindings somehow.  Manually add them.
+nnoremap <Leader>c :call EnhancedCommentify('', 'comment')<CR>e
+nnoremap <Leader>C :call EnhancedCommentify('', 'decomment')<CR>e
+nnoremap <Leader>x :call EnhancedCommentify('', 'comment')<CR>
+nnoremap <Leader>X :call EnhancedCommentify('', 'decomment')<CR>
+let g:EnhCommentifyBindInNormal='no'
 
 "
 " Cindent options
