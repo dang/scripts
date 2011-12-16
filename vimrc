@@ -45,6 +45,10 @@ nnoremap U u
 nnoremap I i
 nnoremap F N
 nnoremap S I
+nnoremap <C-E> <C-F>
+nnoremap <C-U> <C-B>
+nnoremap o :
+nnoremap O :
 
 "
 " Behavior settings
