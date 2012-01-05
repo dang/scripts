@@ -17,7 +17,7 @@ syn keyword logMsgType	STATE SPF DB QREF FLOOD CREATE ADD DR ELECTION contained
 
 syn match logO3NEvts	"EvtStart\|EvtHelloRecv\|Evt2Way\|EvtNegDone\|EvtExchDone\|EvtLoadDone\|EvtAdjOK?\|EvtBadLSReq\|EvtSeqNumMis\|Evt1Way\|EvtKillNbr\|EvtInacTimer\|EvtLLDown"
 syn match logO3NStates	"\<Down\>\|\<Attempt\>\|\<Init\>\|\<2 Way\>\|\<Exch Start\>\|\<Exchange\>\|\<Loading\>\|\<Full\>\|\<Restarting\>"
-syn match logO3IStates	"\<Down\>\|\<Loopback\>\|\<Waiting\>\|\<P2P\>\|\<DR\>\|\<Backup DR\>\|\<DR Other\>"
+syn match logO3IStates	"\<Down\>\|\<Loopback\>\|\<Waiting\>\|\<P2P\>\|\<DR\>\|\<BDR\>\|\<Backup DR\>\|\<DR Other\>"
 syn match logDate	"^[A-Z][a-z][a-z] [0-9]\{2} [0-9]\{2}:[0-9]\{2}:[0-9]\{2}"
 syn match logPktType	"Hello\|Database Description\|LS Request\|LS Update"
 syn match logV4Address	"[0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}"
