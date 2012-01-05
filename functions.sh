@@ -584,7 +584,7 @@ function vcs_log() {
 			svn log -r ${VERSION} || die "svn log failed"
 			;;
 		git)
-			git log -r ${VERSION} $* || die "git log failed"
+			git show ${VERSION} || die "git log failed"
 			;;
 		cvs)
 			# CVS doesn't do revert...
