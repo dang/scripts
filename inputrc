@@ -7,8 +7,8 @@ set keymap vi-move
 	"u": previous-history
 	"e": next-history
 	"i": forward-char
-	"f": vi-search-again
-	"F": vi-search-again
+	"f": non-incremental-reverse-search-history-again
+	"F": non-incremental-forward-search-history-again
 	"h": vi-undo
 	"H": revert-line
 	"k": vi-end-word
@@ -20,8 +20,8 @@ set keymap vi-command
 	"u": previous-history
 	"e": next-history
 	"i": forward-char
-	"f": vi-search-again
-	"F": vi-search-again
+	"f": non-incremental-reverse-search-history-again
+	"F": non-incremental-forward-search-history-again
 	"h": vi-undo
 	"H": revert-line
 	"k": vi-end-word
