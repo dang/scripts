@@ -159,8 +159,8 @@ function c2mp4 {
 #}
 alias ripdvd="mencoder -dvd 1 -alang en -ovc lavc -lavcopts vcodec=mpeg4:vhq:vbitrate=1800 -oac copy -vop scale -zoom -xy 640 -o "
 function ripdvd2pass {
-		mencoder dvd://$1 -alang en -ovc lavc -lavcopts vcodec=mpeg4:vbitrate=1000:mbd=0:vpass=1:vqmin=2:vqmax=31:turbo:autoaspect -vop lavcdeint -oac copy $3 $4 -o $2
-		mencoder dvd://$1 -alang en -ovc lavc -lavcopts vcodec=mpeg4:vbitrate=1000:mbd=0:vpass=2:vqmin=2:vqmax=31:autoaspect -vop lavcdeint -oac copy $3 $4 -o $2
+		mencoder dvd://$1 -alang en -ovc lavc -lavcopts vcodec=mpeg4:vbitrate=1000:mbd=0:vpass=1:vqmin=2:vqmax=31:turbo:autoaspect -vf pp=lb -oac copy $3 $4 -o $2
+		mencoder dvd://$1 -alang en -ovc lavc -lavcopts vcodec=mpeg4:vbitrate=1000:mbd=0:vpass=2:vqmin=2:vqmax=31:autoaspect -vf pp=lb -oac copy $3 $4 -o $2
 	}
 function ripdvd2passmp3 {
 		mencoder dvd://$1 -alang en -ovc lavc -vop lavcdeint -lavcopts vcodec=mpeg4:vbitrate=1000:mbd=0:vpass=1:vqmin=2:vqmax=31:turbo:autoaspect -oac mp3lame $3 $4 -o $2
