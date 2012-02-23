@@ -28,6 +28,7 @@ export EMAIL="dang@fprintf.net"
 export MAILCHECK=-1
 export MOZILLA_NEWTYPE="tab"
 export ECHANGELOG_USER="Daniel Gryniewicz <dang@gentoo.org>"
+export FIGNORE=".o:.swp:.swo"
 # Keep gnome-autogen from running configure
 export NOCONFIGURE=yes
 # Set your window manager here!
@@ -39,6 +40,12 @@ export HISTCONTROL="erasedups"
 
 # Update LINES and COLUMNS after each command
 shopt -s checkwinsize
+
+# Don't complete empty commands
+shopt -s no_empty_cmd_completion
+
+# CD with just a path
+shopt -s autocd
 
 # per-box customizations.  These are done *after* all env settings (so those can be overridden) and
 # *before* any prompt settings, so those can be set up
