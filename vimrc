@@ -26,6 +26,8 @@ nmap <F2> :nohlsearch<CR>
 imap <F1> <esc>
 " Append a semicolon
 nmap ; A;
+" Open tagbar and jump to it
+nnoremap <silent> <F9> :TagbarOpen fj<CR>
 
 " Mappings for QWERTY
 " Map keys to move between split windows
@@ -37,7 +39,7 @@ nmap ; A;
 "noremap U J
 
 " Mappings for Colemak
-set langmap=nh,ej,il,uk,fn,ke,KE,si,hu,HU,jf
+set langmap=nh,ej,il,uk,fn,ke,si,hu,HU,jf
 "set langmap=fe,pr,gt,jy,lu,ui,yo,\;p,rs,sd,tf,dg,nj,ek,il,o\;,kn,FE,PR,GT,JY,LU,UI,YO,:P,RS,SD,TF,DG,NJ,EK,IL,O:,KN
 nnoremap N n
 nnoremap E e
@@ -45,10 +47,11 @@ nnoremap U u
 nnoremap I i
 nnoremap F N
 nnoremap S I
+nnoremap K E
 nnoremap <C-E> <C-F>
 nnoremap <C-U> <C-B>
-nnoremap o :
-nnoremap O :
+"nnoremap o :
+"nnoremap O :
 
 "
 " Behavior settings
@@ -252,6 +255,7 @@ autocmd BufNewFile,BufRead gated*log set filetype=gated
 autocmd BufNewFile,BufRead gated*log.* set filetype=gated
 autocmd BufNewFile,BufRead gated-trace set filetype=gated
 autocmd BufNewFile,BufRead *gated_log* set filetype=gated
+autocmd BufNewFile,BufRead *.dml set filetype=dml
 
 "
 " Settings for C syntax highlighting (see .vim/doc/std_c.txt)

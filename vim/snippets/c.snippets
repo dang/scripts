@@ -147,6 +147,13 @@ snippet /**s
 	 *
 	 * ${2:long description}
 	 */
+# Doxygen define comment
+snippet /**d
+	/**
+	 * @def $1
+	 * @brief ${2:brief}
+	 */
+	#define ${1:define} ${3:value}
 # GTQ_FOREACH
 snippet GTQF
 	GTQ_FOREACH(${1:headp}, ${2:elemp}, ${3:link}) {
@@ -157,3 +164,10 @@ snippet GTQFS
 	GTQ_FOREACH_SAFE(${1:headp}, ${2:elemp}, ${3:link}) {
 		${4:/* code */}
 	} GTQ_FOREACH_SAFE_END;
+
+# bmalloc
+snippet bma
+	${1:var} = bmalloc(sizeof(*$1);
+	if (!$1) {
+		${2:error}
+	}
