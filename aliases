@@ -423,6 +423,9 @@ alias ps_mem="sudo ${HOME}/bin/ps_mem.py"
 
 alias storage="sshfs storage.fprintf.net:/storage /storage"
 
+alias android-connect="mtpfs -o allow_other /media/g2x"
+alias android-disconnect="fusermount -u /media/g2x"
+
 #Get the list of devices and the associated kernel drivers
 alias kernel_drivers="lspci -nnk"
 
