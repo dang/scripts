@@ -249,6 +249,33 @@ add_binds("normal", {
 
     -- Enter passthrough mode
     key({"Control"}, "z",           function (w) w:set_mode("passthrough") end),
+
+    -- Search
+    key({}, "w", function (w, m)
+        for i=1,m.count do w:search(nil, true)  end
+        if w.search_state.ret == false then
+            w:error("Pattern not found: " .. w.search_state.last_search)
+        elseif w.search_state.wrapped then
+            if w.search_state.forward then
+                w:warning("Search hit BOTTOM, continuing at TOP")
+            else
+                w:warning("Search hit TOP, continuing at BOTTOM")
+            end
+        end
+    end, {count=1}),
+
+    key({}, "W", function (w, m)
+        for i=1,m.count do w:search(nil, false) end
+        if w.search_state.ret == false then
+            w:error("Pattern not found: " .. w.search_state.last_search)
+        elseif w.search_state.wrapped then
+            if w.search_state.forward then
+                w:warning("Search hit TOP, continuing at BOTTOM")
+            else
+                w:warning("Search hit BOTTOM, continuing at TOP")
+            end
+        end
+    end, {count=1}),
 })
 
 add_binds("insert", {
