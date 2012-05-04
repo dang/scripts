@@ -167,7 +167,7 @@ snippet GTQFS
 
 # bmalloc
 snippet bma
-	${1:var} = bmalloc(sizeof(*$1);
+	${1:var} = bmalloc(sizeof(*$1));
 	if (!$1) {
 		${2:error}
 	}
