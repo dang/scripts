@@ -42,7 +42,7 @@ done
 
 git branch 2>&1 | grep -i "Not a git repository" > /dev/null 2>/dev/null && die "Not a git repo"
 
-GITDIR="$(git rev-parse --show-toplevel 2>/dev/null)/.git"
+GITDIR="$(git rev-parse --git-dir 2>/dev/null)"
 if [ -d ${GITDIR}/svn/refs ]; then
 	SVN="yes"
 fi
