@@ -21,7 +21,7 @@ beautiful.init("/home/dang/.config/awesome/theme.lua")
 terminal = "gnome-terminal"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
-browser = "uzbl-tabbed http://www.google.com"
+browser = "luakitsession browser"
 email = "chromium"
 im = "pidgin"
 music = "schedtool -I -e rhythmbox"
