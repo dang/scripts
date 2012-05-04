@@ -50,6 +50,8 @@ nnoremap S I
 nnoremap K E
 nnoremap <C-E> <C-F>
 nnoremap <C-U> <C-B>
+vnoremap <C-E> <C-F>
+vnoremap <C-U> <C-B>
 "nnoremap o :
 "nnoremap O :
 
@@ -78,6 +80,7 @@ set scrolloff=4
 " Set completion modes
 set wildmode=longest,list,full
 set wildignore=*.o,*.lo
+set wildignorecase
 " Automatically write changes with tagging to a new file
 set autowrite
 " Put vertical splits to the right of the current window
@@ -93,16 +96,31 @@ set t_Co=256
 "
 
 " Set it so \x comments, and \X uncomments
-let g:EnhCommentifyTraditionalMode="No"
-let g:EnhCommentifyFirstLineMode='no'
-let g:EnhCommentifyUserBindings='no'
-let g:EnhCommentifyUserMode='yes'
+"let g:EnhCommentifyTraditionalMode="No"
+"let g:EnhCommentifyFirstLineMode='no'
+"let g:EnhCommentifyUserBindings='no'
+"let g:EnhCommentifyUserMode='yes'
 " langmap broke the key bindings somehow.  Manually add them.
-nnoremap <Leader>c :call EnhancedCommentify('', 'comment')<CR>e
-nnoremap <Leader>C :call EnhancedCommentify('', 'decomment')<CR>e
-nnoremap <Leader>x :call EnhancedCommentify('', 'comment')<CR>
-nnoremap <Leader>X :call EnhancedCommentify('', 'decomment')<CR>
-let g:EnhCommentifyBindInNormal='no'
+"nnoremap <Leader>c :call EnhancedCommentify('', 'comment')<CR>e
+"nnoremap <Leader>C :call EnhancedCommentify('', 'decomment')<CR>e
+"vnoremap <Leader>c :call EnhancedCommentify('', 'comment')<CR>e
+"vnoremap <Leader>C :call EnhancedCommentify('', 'decomment')<CR>e
+"nnoremap <Leader>x :call EnhancedCommentify('', 'comment')<CR>
+"nnoremap <Leader>X :call EnhancedCommentify('', 'decomment')<CR>
+"let g:EnhCommentifyBindInNormal='no'
+"let g:EnhCommentifyBindInVisual='no'
+
+"
+" Settings for NERDCommenter
+"
+
+let g:NERDCreateDefaultMappings='0'
+let g:NERDRemoveExtraSpaces='1'
+let g:NERDCompactSexyComs='1'
+nnoremap <Leader>c  :call NERDComment(0, "norm")<cr>
+vnoremap <Leader>c  :call NERDComment(1, "norm")<cr>
+nnoremap <Leader>C  :call NERDComment(0, "uncomment")<cr>
+vnoremap <Leader>C  :call NERDComment(1, "uncomment")<cr>
 
 "
 " Cindent options
