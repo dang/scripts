@@ -41,11 +41,11 @@ source "$(git --exec-path)/git-sh-setup"
 
 BRANCH=$(git-branch  | grep '\*' | awk '{print $2}')
 REMOTE=$(git-config --get remote.origin.url)
-SVN=$(git-config --get svn-remote.svn.url)
+SVN=$(git svn info 2>/dev/null | grep URL)
 
 echo "BRANCH: ${BRANCH}"
 if [ -n "${REMOTE}" ]; then
 	echo "URL: ${REMOTE}"
 else
-	echo "SVN REMOTE: ${SVN}"
+	echo "SVN ${SVN}"
 fi
