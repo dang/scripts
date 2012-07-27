@@ -306,6 +306,9 @@ function emailstable() {
 	grep KEYWORD $1 | sed 's/KEYWORDS="//' | sed 's/"//' | sed 's/ /\n/g' | awk '(/~/) {printf "%s@gentoo.org, ", $0} END {printf "\n"}' | sed 's/~//g'
 }
 
+# Arch linux aliases
+alias pacman="sudo pacman"
+
 alias webcol="webcollage -root -v > $HOME/.webcollage 2>/dev/null </dev/null &"
 function ntpfix {
 	sudo /etc/init.d/ntpd stop
