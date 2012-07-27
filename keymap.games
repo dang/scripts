@@ -6,6 +6,7 @@
 
 keycode  49 = underscore asciitilde
 keycode  20 = minus grave
+keycode  66 = Escape
 ! Esc on caps lock :-))
 !remove Lock = Caps_Lock
 !keysym Caps_Lock = Escape

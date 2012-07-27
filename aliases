@@ -341,7 +341,8 @@ function resize {
 
 alias netfix="sudo /etc/init.d/net.eth1 restart"
 alias gamespeed="sudo speedfreq -p 800"
-alias keyfix="xmodmap ${HOME}/.scripts/keymap; sudo ifconfig wlan0 txqueuelen 0; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Off' 0; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Palm Detection' 1; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Tap Action' 0, 0, 0, 0, 1, 2, 3"
+#alias keyfix="xmodmap ${HOME}/.scripts/keymap; sudo ifconfig wlan0 txqueuelen 0; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Off' 0; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Palm Detection' 1; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Tap Action' 0, 0, 0, 0, 1, 2, 3"
+alias keyfix="xmodmap ${HOME}/.scripts/keymap; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Off' 0; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Palm Detection' 1; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Tap Action' 0, 0, 0, 0, 1, 2, 3"
 alias keyfixgames="xmodmap ${HOME}/.scripts/keymap.games"
 alias danosmount="sudo losetup /dev/loop/0 /home/dang/src/danos/kernel/image/image; sudo mount /dev/loop/0 /home/dang/src/danos/kernel/image/mnt"
 alias danosumount="sudo umount /home/dang/src/danos/kernel/image/mnt; sudo losetup -d /dev/loop/0"
