@@ -33,8 +33,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
 fi
 
 setxkbmap us -variant colemak
-/usr/libexec/gconfd-2 &
-/usr/libexec/gnome-settings-daemon &
+/usr/lib/gnome-settings-daemon/gnome-settings-daemon &
 #/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 eval $(/usr/bin/gnome-keyring-daemon)
 export GNOME_KEYRING_SOCKET
