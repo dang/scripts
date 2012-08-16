@@ -8,6 +8,7 @@
 REPO="git://github.com/dang/scripts.git"
 LNFILES="bashrc cvsrc face gvimrc inputrc lesskey profile screenrc tmux.conf vim vimrc xinitrc"
 CPFILES="bash_local gitconfig"
+CFGDIRS="awesome luakit"
 
 function die {
 	echo "$@"
@@ -34,9 +35,15 @@ else
 	SCRIPTDIR=$1
 fi
 
+# Make config dir
+mkdir -p "${HOME}/.config"
+
 # Check for conflicts
 for i in ${LNFILES}; do
 	[ -a "${HOME}/.${i}" ] && die "${HOME}/.${i} exists; not continuing"
+done
+for i in ${CFGDIRS}; do
+	[ -a "${HOME}/.config/${i}" ] && die "${HOME}/.config/${i} exists; not continuing"
 done
 
 if [ ! -d "${SCRIPTDIR}/.git" ]; then
@@ -58,6 +65,9 @@ for FILE in ${CPFILES}; do
 done
 for FILE in ${LNFILES}; do
 	ln -s ".scripts/${FILE}" ".${FILE}"
+done
+for DIR in ${CFGDIRS}; do
+	ln -s "${HOME}/.scripts/${DIR}" ".config/${DIR}"
 done
 
 echo "Done."
