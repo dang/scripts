@@ -69,11 +69,11 @@ rm ${TMPFILE}
 cscope -q -L ${KERNEL} -i cscope.files
 if [ -n "${SKIPRE}" ]; then
 	# We're skipping files; only use files in the list
-	exuberant-ctags -L- < cscope.files
+	ctags -L- < cscope.files
 elif [ -n "${PERL}" ]; then
 	# Only want perl files
-	exuberant-ctags -L- < cscope.files
+	ctags -L- < cscope.files
 else
 	# Tag everything, so that we get languages other than C/C++
-	exuberant-ctags -R
+	ctags -R
 fi
