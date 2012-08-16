@@ -179,7 +179,7 @@ alias mpsub='mplayer -alang eng -slang eng -osdlevel 3'
 function dvd {
 	TITLE=$1
 	shift
-	mp -alang en dvd://${TITLE} $@
+	mp -alang en -dvd-device /dev/sr0 dvd://${TITLE} $@
 	}
 function dvddeint {
 	TITLE=$1
