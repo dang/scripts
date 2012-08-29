@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+# Kill xfwm4 and run awesome
+#
+
+killall xfwm4
+exec awesome

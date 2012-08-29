@@ -18,7 +18,7 @@ require("naughty")
 beautiful.init(awful.util.getdir("config") .. "/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "gnome-terminal"
+terminal = "terminal"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
 browser = "luakitsession browser"
@@ -49,7 +49,6 @@ layouts =
     awful.layout.suit.fair,
     awful.layout.suit.magnifier,
     awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
     awful.layout.suit.floating
 }
 -- }}}
@@ -63,10 +62,12 @@ names[1] = { "T", "T", "T", "V", 5, 6, 7, "Book", "IM", "T", "T", "M", "E", "B",
 tags = {}
 ---[[ dang.ghs.com screen layout
 s = 1
-tags[s] = awful.tag(names[1], s, layouts[10])
+tags[s] = awful.tag(names[1], s, layouts[9])
 -- Fix tags with non-default layout
 t = 1
 awful.layout.set(layouts[1], tags[s][t])
+awful.tag.setmwfact(0.3333333, tags[s][t])
+awful.tag.setncol(3, tags[s][t])
 t = 2
 awful.layout.set(layouts[1], tags[s][t])
 t = 3
