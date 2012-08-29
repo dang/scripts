@@ -41,8 +41,8 @@ syn keyword lsType	RTR NTW AIP ABR AEX NSSA OPQ9 OPQ10 OPQ11 IAP IAR GRP NSA NAP
 syn keyword lsTags	len seq cksum age
 syn match lsLSID	"[0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}" contained
 syn match lsAdvRt	"\[[0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}]" contained
-syn match lsLSAHdr		"\<LS\> [A-Z]\+:\_.\{-}\]" contains=logDate,lsType,lsTags,lsLSID,lsAdvRt
-syn match lsVTXHdr		"\<VTX\> [A-Z]\+:\_.\{-}\]" contains=logDate,lsType,lsTags,lsLSID,lsAdvRt
+syn match lsLSAHdr		"\<LS\> [A-Z]\+[0-9]*:\_.\{-}\]" contains=logDate,lsType,lsTags,lsLSID,lsAdvRt
+syn match lsVTXHdr		"\<VTX\> [A-Z]\+[0-9]*:\_.\{-}\]" contains=logDate,lsType,lsTags,lsLSID,lsAdvRt
 
 syn keyword evtEmit	Emitting contained
 syn keyword evtDeliver	Delivering contained

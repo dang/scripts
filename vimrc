@@ -10,6 +10,10 @@ behave xterm
 set selectmode=mouse
 " Hide the mouse pointer while typing
 set mousehide
+" Use the X clipboard for default yanking
+set clipboard=autoselect,unnamed,unnamedplus,exclude:cons\|linux
+" Want status line
+set laststatus=2
 
 
 "
@@ -26,8 +30,6 @@ nmap <F2> :nohlsearch<CR>
 imap <F1> <esc>
 " Append a semicolon
 nmap ; A;
-" Open tagbar and jump to it
-nnoremap <silent> <F9> :TagbarOpen fj<CR>
 
 " Mappings for QWERTY
 " Map keys to move between split windows
@@ -79,7 +81,7 @@ set visualbell t_vb=
 set scrolloff=4
 " Set completion modes
 set wildmode=longest,list,full
-set wildignore=*.o,*.lo
+set wildignore=*.o,*.lo,*.pyc
 set wildignorecase
 " Automatically write changes with tagging to a new file
 set autowrite
@@ -248,15 +250,14 @@ autocmd BufNewFile,BufRead *.cpp  let Tlist_Auto_Open=1
 autocmd BufNewFile,BufRead *.cxx  let Tlist_Auto_Open=1
 autocmd BufNewFile,BufRead *.hpp  let Tlist_Auto_Open=1
 autocmd BufNewFile,BufRead *akefile*    set noexpandtab
-autocmd BufNewFile,BufRead *.py   set ts=4 sw=4 expandtab
 autocmd BufNewFile,BufRead *.auto.unf set formatoptions-=t ts=4 tw=0
 autocmd BufNewFile,BufRead *.cfg.unf set formatoptions-=t ts=4 tw=0
 autocmd BufNewFile,BufRead *.auto set formatoptions-=t tw=0
 autocmd BufNewFile,BufRead *.cfg set formatoptions-=t ts=4 tw=0
 autocmd BufNewFile,BufRead *.map set formatoptions-=t  ts=8
-autocmd BufNewFile,BufRead *.pl   set nocst
-autocmd BufNewFile,BufRead *.pm   set nocst
-autocmd BufNewFile,BufRead *.perl   set nocst
+autocmd BufNewFile,BufRead *.pl   set nocst formatoptions-=r
+autocmd BufNewFile,BufRead *.pm   set nocst formatoptions-=r
+autocmd BufNewFile,BufRead *.perl   set nocst formatoptions-=r
 autocmd BufNewFile,BufRead *.ksh  set tw=0
 autocmd BufNewFile,BufRead *.conf  set tw=0
 autocmd BufNewFile,BufRead distbuild  set tw=0
@@ -374,7 +375,7 @@ highlight DiffText	ctermfg=black		ctermbg=darkred
 highlight Folded	ctermfg=grey		ctermbg=darkblue
 highlight FoldColumn	ctermfg=darkblue	ctermbg=gray
 highlight Pmenu		ctermfg=black	ctermbg=13
-highlight PmenuSel	ctermfg=white 	ctermfg=242
+highlight PmenuSel	ctermfg=white 	ctermbg=242
 "highlight PreProc ctermfg=Red
 
 "
@@ -447,3 +448,46 @@ autocmd BufWritePre *.[ch]
   \   exe "g#\\cCOPYRIGHT \\(".strftime("%Y")."\\)\\@![0-9]\\{4\\}\\(-".strftime("%Y")."\\)\\@!#s#\\([0-9]\\{4\\}\\)\\(-[0-9]\\{4\\}\\)\\?#\\1-".strftime("%Y") |
   \ endif
 
+"
+" Python-mode
+"
+
+" I don't like folding
+let g:pymode_folding = 0
+
+" These extra options are redundant, wrong, or annoying
+let g:pymode_options_other = 0
+
+" Don't lint on the fly
+let g:pymode_lint_onfly = 0
+
+" Make rope use current directory
+let g:pymode_rope_guess_project = 0
+
+" Rope omni completion crashes
+let g:pymode_rope_vim_completion = 0
+
+" mccabe's complexity warning hits *way* to soon
+let g:pymode_lint_mccabe_complexity = 10
+
+" No side bar with EE or WW.  Makes windows too small
+let g:pymode_lint_signs = 0
+
+"
+" Tagbar
+"
+
+" Open tagbar and jump to it
+"nnoremap <silent> <F9> :TagbarOpen fj<CR>
+" Toggle Tagbar
+nnoremap <silent> <F9> :TagbarToggle<CR>
+
+" Adjust width
+let g:tagbar_width = 28
+
+"
+" Screen
+"
+
+" Use tmux, not screen
+let g:ScreenImpl = 'Tmux'

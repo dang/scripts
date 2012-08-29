@@ -26,7 +26,7 @@ syn match unfReplace			":.\{-}:"
 syn match  cfgVarStart		 "$[A-Za-z0-9]"
 "syn match  cfgVarPlain		 "$[adefhilmopstwx]"
 "syn match  cfgVarPlain		 "$[\\\"\[\]'&`+*.,;=%~!?@$<>(0-9-]"
-syn region cfgVar			start="[$]" end="="me=e-1
+syn region cfgVar			start="[$]" end="="me=e-1 end="$"
 syn region cfgBuiltin			start="[&]" end="("
 syn match cfgBuiltinEnd			")"
 syn match cfgMachine			"rack[0-9]*-box[a-o]"
