@@ -39,7 +39,7 @@ function psg {
 		}
 #function psg {
 #                ps auwwx | head -1;
-#                ps auwwx | grep $* | grep -v grep;
+#                ps auwwx | egrep $* | egrep -v egrep;
 #		}
 function psu {
 				ps --pid $(pgrep -d, -u $*)
@@ -62,7 +62,7 @@ function schedretype {
 	sudo schedtool ${MODE} $(pgrep -d, -f $*)
 	}
 #function slay {
-#                set j=`ps ax|grep $*|head -1`; kill -9 `echo $j[1]`;
+#                set j=`ps ax|egrep $*|head -1`; kill -9 `echo $j[1]`;
 #							}
 alias slay="echo use pkill"
 alias nuke="kill -9"
@@ -233,22 +233,22 @@ alias rcp="rsync --rsh=ssh -avzS --progress "
 ##
 # These are development related aliases.
 function cppgrep {
-	find . "(" -name "*.c" -or -name "*.cpp" ")" -exec grep --color=auto -H "$@" "{}" ";"
+	find . "(" -name "*.c" -or -name "*.cpp" ")" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function hppgrep {
-	find . "(" -name "*.h" -or -name "*.hpp" ")" -exec grep --color=auto -H "$@" "{}" ";"
+	find . "(" -name "*.h" -or -name "*.hpp" ")" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function chppgrep {
-	find . "(" -name "*.[ch]" -or -name "*.[ch]pp" ")" -exec grep --color=auto -H "$@" "{}" ";"
+	find . "(" -name "*.[ch]" -or -name "*.[ch]pp" ")" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function cgrep {
-	find . -name "*.c" -exec grep --color=auto -H "$@" "{}" ";"
+	find . -name "*.c" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function chgrep {
-	find . -name "*.[ch]" -exec grep --color=auto -H "$@" "{}" ";"
+	find . -name "*.[ch]" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function hgrep {
-	find . -name "*.h" -exec grep --color=auto -H "$@" "{}" ";"
+	find . -name "*.h" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function dgrep {
 	if [ -z "${1}" ]; then
@@ -257,15 +257,15 @@ function dgrep {
 	fi
 	PATTERN=$1
 	shift
-	find . -name "*${PATTERN}*" -exec grep --color=auto -H "$@" "{}" ";"
+	find . -name "*${PATTERN}*" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function igrep {
 	PATTERN=$1
 	shift
-	find . -iname "*${PATTERN}*" -exec grep --color=auto -H "$@" "{}" ";"
+	find . -iname "*${PATTERN}*" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function grepall {
-	find . -regextype posix-extended ! \( -regex '.*cscope.*' -o -regex '.*tags.*' -o -regex '.*\.orig' -o -regex '.*\.rej' -o -regex '.*CVS.*' -o -regex '.*\.#maketags.dfg' -o -regex '.*\.svn.*' -o -regex '.*\.git.*' \) -exec grep --color=auto -H "$@" "{}" ";"
+	find . -regextype posix-extended ! \( -regex '.*cscope.*' -o -regex '.*tags.*' -o -regex '.*\.orig' -o -regex '.*\.rej' -o -regex '.*CVS.*' -o -regex '.*\.#maketags.dfg' -o -regex '.*\.svn.*' -o -regex '.*\.git.*' \) -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function cleanuppatch {
 	find . -name "*.orig" -exec rm {} \;
@@ -292,7 +292,7 @@ function echeck {
 	else
 		TARGET="$1"
 	fi
-	emerge -puvDN ${TARGET} | grep "=>0"
+	emerge -puvDN ${TARGET} | egrep "=>0"
 }
 alias etc-update='sudo etc-update'
 alias edistmon='DISTCC_DIR=/home/portage/portage/.distcc distccmon-gnome'
@@ -303,7 +303,7 @@ alias schediso='schedtool -I -e'
 alias genpatch="svnpatchset /home/portage/overlays/gentopia/ /home/dang/tmp/gentopia-patches"
 
 function emailstable() {
-	grep KEYWORD $1 | sed 's/KEYWORDS="//' | sed 's/"//' | sed 's/ /\n/g' | awk '(/~/) {printf "%s@gentoo.org, ", $0} END {printf "\n"}' | sed 's/~//g'
+	egrep KEYWORD $1 | sed 's/KEYWORDS="//' | sed 's/"//' | sed 's/ /\n/g' | awk '(/~/) {printf "%s@gentoo.org, ", $0} END {printf "\n"}' | sed 's/~//g'
 }
 
 # Arch linux aliases
@@ -353,7 +353,7 @@ alias thanatosvnc="vncviewer -via nemesis.fprintf.net thanatos.fprintf.net:1"
 alias poseidonvnc="vncviewer -via nemesis.fprintf.net poseidon.fprintf.net:1"
 
 function cookiegrep {
-	grep $@ ${HOME}/.mozilla/firefox/4rl18vit.default/hostperm.1
+	egrep $@ ${HOME}/.mozilla/firefox/4rl18vit.default/hostperm.1
 }
 
 alias cookieedit="vim ${HOME}/.mozilla/firefox/4rl18vit.default/hostperm.1"
@@ -396,7 +396,7 @@ function dscreen {
 }
 
 function git_add_modified {
-	git add $(git status | grep modified | awk '{print $3}')
+	git add $(git status | egrep modified | awk '{print $3}')
 }
 
 function git_tar ()
@@ -477,7 +477,7 @@ function suspend {
 	# Lock the screen (must be done as me)
 	#gnome-screensaver-command -l
 	#sudo /home/dang/bin/suspend
-	if grep storage /proc/mounts  2>&1 > /dev/null; then
+	if egrep storage /proc/mounts  2>&1 > /dev/null; then
 		sudo umount -f /storage || return
 	fi
 	sudo nmcli nm wifi off
