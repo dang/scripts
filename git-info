@@ -40,12 +40,12 @@ LONG_USAGE="${LONGUSAGE}"
 source "$(git --exec-path)/git-sh-setup"
 
 BRANCH=$(git-branch  | grep '\*' | awk '{print $2}')
-REMOTE=$(git-config --get remote.origin.url)
-SVN=$(git svn info 2>/dev/null | grep URL)
-
 echo "BRANCH: ${BRANCH}"
-if [ -n "${REMOTE}" ]; then
-	echo "URL: ${REMOTE}"
-else
+if git-issvn > /dev/null 2>&1; then
+	SVN=$(git svn info 2>/dev/null | grep URL)
 	echo "SVN ${SVN}"
+else
+	REMOTE=$(git-config --get remote.origin.url)
+	echo "URL: ${REMOTE}"
 fi
+
