@@ -9,6 +9,8 @@ export PATH=${HOME}/.scripts:${HOME}/bin:${PATH}
 [ -f /etc/profile.d/bash_completion.sh ] && . /etc/profile.d/bash_completion.sh
 # Bash completion addons: Ubuntu
 [ -f /etc/bash_completion ] && . /etc/bash_completion
+# Bash completion addons: Arch
+[ -r /usr/share/bash-completion/bash_completion   ] && . /usr/share/bash-completion/bash_completion
 
 # Set up the main aliases
 source ${HOME}/.scripts/aliases
