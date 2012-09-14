@@ -54,6 +54,10 @@ shopt -s autocd
 [ -f ${HOME}/.bash_local ] && . ${HOME}/.bash_local
 
 # Prompts
+if [ -z "${USER}" ]; then
+	export USER=$(whoami)
+	export LOGNAME=${USER}
+fi
 if [ "${USER}" = "root" ]; then
    	PCHAR="#"
 else
