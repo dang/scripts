@@ -257,15 +257,15 @@ function dgrep {
 	fi
 	PATTERN=$1
 	shift
-	find . -name "*${PATTERN}*" -exec egrep --color=auto -H "$@" "{}" ";"
+	find . -type f -name "*${PATTERN}*" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function igrep {
 	PATTERN=$1
 	shift
-	find . -iname "*${PATTERN}*" -exec egrep --color=auto -H "$@" "{}" ";"
+	find . -type f -iname "*${PATTERN}*" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function grepall {
-	find . -regextype posix-extended ! \( -regex '.*cscope.*' -o -regex '.*tags.*' -o -regex '.*\.orig' -o -regex '.*\.rej' -o -regex '.*CVS.*' -o -regex '.*\.#maketags.dfg' -o -regex '.*\.svn.*' -o -regex '.*\.git.*' \) -exec egrep --color=auto -H "$@" "{}" ";"
+	find . -type f -regextype posix-extended ! \( -regex '.*cscope.*' -o -regex '.*tags.*' -o -regex '.*\.orig' -o -regex '.*\.rej' -o -regex '.*CVS.*' -o -regex '.*\.#maketags.dfg' -o -regex '.*\.svn.*' -o -regex '.*\.git.*' \) -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function cleanuppatch {
 	find . -name "*.orig" -exec rm {} \;
