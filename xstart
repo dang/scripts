@@ -66,4 +66,5 @@ export GPG_AGENT_INFO
 xfce4-power-manager &
 
 exec startxfce4
+#nm-applet &
 #exec awesome
