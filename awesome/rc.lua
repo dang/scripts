@@ -58,7 +58,7 @@ layouts =
 -- This fucking sucks.  But it's not doable in a sane manor anymore.
 names = {}
 names[1] = { "T", "T", "T", "V", 5, 6, 7, "Book", "IM", "T", "T", "M", "E", "B", "F", 16 }
--- names[2] = { "Utility", "Dev1", "Dev1", "Dev3", "Dev4", "Build1", "Build2", "Build3", "Consoles", "Config", 11, 12, "Virtualization1", "Virtualization2", 15, 16 }
+names[2] = { "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T" }
 -- Define tags table.
 tags = {}
 ---[[ dang.ghs.com screen layout
@@ -86,6 +86,16 @@ t = 14
 awful.layout.set(layouts[8], tags[s][t])
 t = 15
 awful.layout.set(layouts[8], tags[s][t])
+
+if screen.count() == 2 then
+	s = 2
+	tags[s] = awful.tag(names[1], s, layouts[9])
+	for i, t in ipairs(tags[s]) do
+		awful.tag.setmwfact(0.3333333, tags[s][i])
+		awful.tag.setncol(3, tags[s][i])
+	end
+end
+
 -- }}}
 
 -- {{{ Menu

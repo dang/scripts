@@ -4,4 +4,4 @@
 #
 
 killall xfwm4
-exec awesome > ${HOME}/tmp/awesome.log 2>&1
+exec awesome
