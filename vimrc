@@ -15,7 +15,6 @@ set clipboard=autoselect,unnamed,unnamedplus,exclude:cons\|linux
 " Want status line
 set laststatus=2
 
-
 "
 " Key mappings
 "
@@ -241,6 +240,9 @@ command Spell call Spell()
 " If you type #i<space> then it completes to #include
 ab #i #include
 
+" Pathogen
+call pathogen#infect()
+
 "
 " Filetype plugins.  These are file-type specific settings.
 "
@@ -456,7 +458,7 @@ autocmd BufWritePre *.[ch]
 let g:pymode_folding = 0
 
 " These extra options are redundant, wrong, or annoying
-let g:pymode_options_other = 0
+let g:pymode_options = 0
 
 " Don't lint on the fly
 let g:pymode_lint_onfly = 0
@@ -491,3 +493,21 @@ let g:tagbar_width = 28
 
 " Use tmux, not screen
 let g:ScreenImpl = 'Tmux'
+
+"
+" Syntastic
+"
+
+" Syntastic status line
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+
+" Automatically check when file opened
+"let g:syntastic_check_on_open=1
+" Jump to first error
+"let g:syntastic_auto_jump=1
+" Auto-open error list
+let g:syntastic_auto_loc_list=1
+" 10 lines is too big
+let g:syntastic_loc_list_height=5
