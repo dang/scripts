@@ -59,6 +59,10 @@ fi
 cd ${HOME}
 # Set up .scripts symlink
 ln -s ${SCRIPTDIR} .scripts
+if [ -h "${SCRIPTDIR}/.scripts" ]; then
+	# installed into .scripts; remove extra symlink
+	rm "${SCRIPTDIR}/.scripts"
+fi
 
 for FILE in ${CPFILES}; do
 	[ -a ".${FILE}" ] || cp ".scripts/${FILE}" ".${FILE}"
