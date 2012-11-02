@@ -37,8 +37,8 @@ fi
 
 SESSION="$1"
 
-OLD_DATA="${XDG_DATA_HOME}"
-OLD_CACHE="${XDG_CACHE_HOME}"
+OLD_DATA="${XDG_DATA_HOME:-${HOME}/.local/share}"
+OLD_CACHE="${XDG_CACHE_HOME:-${HOME}/.cache}"
 
 export XDG_DATA_HOME=${OLD_DATA}/sessions/${SESSION}/
 export XDG_CACHE_HOME=${OLD_CACHE}/sessions/${SESSION}/
