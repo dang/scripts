@@ -1,0 +1,9 @@
+unbind-key -n y
+unbind-key -n Enter
+unbind-key -n q
+unbind-key -n C-c
+bind-key -t vi-copy T copy-selection
+send-keys T
+unbind-key -t vi-copy T
+run-shell "tmux show-buffer | xclip -i -sel clipboard"
+

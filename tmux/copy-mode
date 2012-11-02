@@ -1,0 +1,5 @@
+bind-key -n y source ~/.scripts/tmux/copy-selection
+bind-key -n Enter source ~/.scripts/tmux/copy-selection
+bind-key -n q source ~/.scripts/tmux/cancel-selection
+bind-key -n C-c source ~/.scripts/tmux/cancel-selection
+copy-mode
