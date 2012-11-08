@@ -1,3 +1,4 @@
+# ex: set filetype=tmux:
 unbind-key -n y
 unbind-key -n Enter
 unbind-key -n q
