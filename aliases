@@ -233,13 +233,13 @@ alias rcp="rsync --rsh=ssh -avzS --progress "
 ##
 # These are development related aliases.
 function cppgrep {
-	find . "(" -name "*.c" -or -name "*.cpp" ")" -exec egrep --color=auto -H "$@" "{}" ";"
+	find . "(" -name "*.c" -or -name "*.cc" -or -name "*.cpp" ")" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function hppgrep {
 	find . "(" -name "*.h" -or -name "*.hpp" ")" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function chppgrep {
-	find . "(" -name "*.[ch]" -or -name "*.[ch]pp" ")" -exec egrep --color=auto -H "$@" "{}" ";"
+	find . "(" -name "*.[ch]" -or -name "*.cc" -or -name "*.[ch]pp" ")" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function cgrep {
 	find . -name "*.c" -exec egrep --color=auto -H "$@" "{}" ";"
