@@ -26,3 +26,9 @@
 	default = matching
 [core]
 	excludesfile = "$HOME/.gitignore"
+[svn]
+	rmdir = true
+[diff]
+	renamelimit = 1500
+[alias]
+	ls = show --pretty="format:" --name-only
