@@ -25,7 +25,7 @@ editor_cmd = terminal .. " -e " .. editor
 browser = "luakitsession browser"
 email = "chromium"
 im = "pidgin"
-music = "schedtool -I -e rhythmbox"
+music = "nuvolaplayer"
 ebook = "calibre"
 reader = "luakitsession feeds"
 pr0n = "luakitsession pr0n"
@@ -59,11 +59,18 @@ layouts =
 names = {}
 names[1] = { "T", "T", "T", "V", 5, 6, 7, "Book", "IM", "T", "T", "M", "E", "B", "F", 16 }
 names[2] = { "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T" }
+--names[1] = { "Email", "Browser", "IM", "Chrome", "VNC", "Build1", "Build2", "Logs", "Build3", "Build4", "Build5", "Build6", "Music", 14, 15, "GATT" }
+--names[2] = { "Utility", "Dev1", "Dev2", "Dev3", "Dev4", "Dev5", "Dev6", "Dev7", "Consoles", "Config", "C trunk", "C 3.2", "Virtualization1", 14, "C 3.3", "C 3.1" }
 -- Define tags table.
 tags = {}
 ---[[ dang.ghs.com screen layout
 s = 1
 tags[s] = awful.tag(names[1], s, layouts[9])
+-- Set default settings: 3 colums, floating layout
+for i, t in ipairs(tags[s]) do
+	awful.tag.setmwfact(0.3333333, tags[s][i])
+	awful.tag.setncol(3, tags[s][i])
+end
 -- Fix tags with non-default layout
 t = 1
 awful.layout.set(layouts[1], tags[s][t])
@@ -89,7 +96,7 @@ awful.layout.set(layouts[8], tags[s][t])
 
 if screen.count() == 2 then
 	s = 2
-	tags[s] = awful.tag(names[1], s, layouts[9])
+	tags[s] = awful.tag(names[2], s, layouts[9])
 	for i, t in ipairs(tags[s]) do
 		awful.tag.setmwfact(0.3333333, tags[s][i])
 		awful.tag.setncol(3, tags[s][i])
@@ -182,20 +189,6 @@ for s = 1, screen.count() do
                                               return awful.widget.tasklist.label.currenttags(c, s)
                                           end, mytasklist.buttons)
 
-    -- Create an obvious CPU graph
---    mycpu = obvious.cpu()
---    mycpu.layout = awful.widget.layout.horizontal.rightleft
-    -- Initialize widget
-    mycpu = awful.widget.graph()
-    -- -- Graph properties
-    mycpu:set_width(50)
-    mycpu:set_max_value(100)
-    mycpu:set_background_color("#494B4F")
-    mycpu:set_color("#FF5656")
-    mycpu:set_gradient_colors({ "#FF5656", "#88A175", "#AECF96" })
-    -- -- Register widget
---    vicious.register(mycpu, vicious.widgets.cpu, "$1")
-
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
     -- Add widgets to the wibox - order matters
@@ -208,7 +201,6 @@ for s = 1, screen.count() do
         },
         mylayoutbox[s],
         mytextclock,
-	mycpu,
         s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
@@ -742,9 +734,9 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
-      -- Force uzbl to be on my browser page
-     { rule = { class = "Uzbl-tabbed" },
-       properties = { tag = tags[1][14] } },
+      ---- Force uzbl to be on my browser page
+     --{ rule = { class = "Uzbl-tabbed" },
+       --properties = { tag = tags[1][14] } },
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
