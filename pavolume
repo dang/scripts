@@ -1,12 +1,12 @@
 #!/bin/bash
 #
-# filename: pulsevolbar.sh
+# filename: pavolume
 # Usage:
-#      pulsevolbar.sh <increase/decrease/mute>
+#      pulsevolbar [0-100|up|down|toggle|mute|unmute|default]
 # 
 #
 #Customize this stuff
-SECS="1"            # sleep $SECS
+SECS="2"            # sleep $SECS
 BG="#444444"        # background colour of window
 FG="#857E7E"        # foreground colour of text/icon
 BAR_FG="#77A2D4"    # foreground colour of volume bar
@@ -18,82 +18,54 @@ FONT="-*-terminus-medium-r-*-*-14-*-*-*-*-*-*-*"
 ICON_VOL=~/.pulse/icons/volume.xpm
 ICON_VOL_MUTE=~/.pulse/icons/mute.xpm
 ICON=$ICON_VOL
-PULSE_MAX_VOL=65536
 
 # No need to customize this variable
-PIPE="/tmp/pulesvolpipe"
+PIPE="/tmp/pavolume.dfg"
 
 # Lets find the appropriate positioning for the volume bar
-XRES=`xdpyinfo|grep 'dimensions:'|awk '{print $2}'|cut -dx -f1`
+#XRES=`xdpyinfo|grep 'dimensions:'|awk '{print $2}'|cut -dx -f1`
+XRES=$(xrandr | grep "\\*" | awk '{print $1}' | uniq | awk -F x '{print $1}')
 XPOS=$[$XRES / 2 - $WIDTH / 2]          # horizontal positioning
-YRES=`xdpyinfo|grep 'dimensions:'|awk '{print $2}'|cut -dx -f2`
+#YRES=`xdpyinfo|grep 'dimensions:'|awk '{print $2}'|cut -dx -f2`
+YRES=$(xrandr | grep "\\*" | awk '{print $1}' | uniq | awk -F x '{print $2}')
 YPOS=$[$YRES * 4 / 5]          # vertical positioning
 
-# Sets the desired volume
-function set_volume()
-{
-	CURVOL=$1
-	pactl set-sink-volume 0 $CURVOL
-}
+PAVOL="${HOME}/.scripts/pavolume.rb"
 
-# Gets the current volume
+# Gets the current volume, sets it into VOLUME
 function get_volume()
 {
-    MIXER=$(pacmd list-sinks 0 | grep -i "volume: 0:")
-    echo $MIXER | cut -d ' ' -f 3 | cut -d '%' -f 1
+	VOLUME=$(${PAVOL} 2>/dev/null | grep "^1" | awk '{print $4}' | sed 's/%//')
 }
 
-# Get muted ? returns yes or no
+# Get muted, sets icon
 function get_muted()
 {
-    MUTED=$(pacmd list-sinks 0 | grep muted | cut -d ' ' -f 2)
-    echo $MUTED
+	MUTED=$(${PAVOL} 2>/dev/null | grep "^1" | awk '{print $3}')
+	if [[ $MUTED == "yes" ]]; then
+		ICON=$ICON_VOL_MUTE
+	else
+		ICON=$ICON_VOL
+	fi
 }
 
-VOL=$(get_volume)
-CURVOL=$[$VOL * $PULSE_MAX_VOL / 100 ]
-MUTE=$(get_muted)         # Reads mute state
-if [[ $MUTE == "yes" ]]	# Sets the icon to mute_icon as the increase or decrease will not make speaker speak
-then
-    ICON=$ICON_VOL_MUTE
-fi
-
-if [[ $1 == "increase" ]]
-then
-    CURVOL=$(($CURVOL + 3277))	# 3277 is 5% of the total volume, you can change this to suit your needs.
-    if [[ $CURVOL -ge $PULSE_MAX_VOL ]]
-    then
-        CURVOL=$PULSE_MAX_VOL        
-    fi
-    set_volume $CURVOL
-elif [[ $1 == "decrease" ]]
-then
-    CURVOL=$(($CURVOL - 3277))
-    if [[ $CURVOL -le 0 ]]
-    then
-        CURVOL=0        
-    fi
-    set_volume $CURVOL
-elif [[ $1 == "mute" ]]
-then
-    if [[ $MUTE == "no" ]]
-    then
-        pactl set-sink-mute 0 1
-	ICON=$ICON_VOL_MUTE
-    else
-        pactl set-sink-mute 0 0
-	ICON=$ICON_VOL
-    fi
+if [[ $1 == "up" ]]; then
+	${PAVOL} up q 2>/dev/null
+elif [[ $1 == "down" ]]; then
+	${PAVOL} down q 2>/dev/null
+elif [[ $1 == "toggle" ]]; then
+	${PAVOL} toggle q 2>/dev/null
 fi
 
 # showing in dzen2
-if [ ! -e "$PIPE" ];
-# if pipe file does not exists 
-then
+if [ ! -e "$PIPE" ]; then
 	mkfifo "$PIPE"
 	(dzen2 -tw "$WIDTH" -h "$HEIGHT" -x "$XPOS" -y "$YPOS" -fn "$FONT" -bg "$BG" -fg "$FG" < "$PIPE" 
 	rm  -f "$PIPE") &
 fi
 
+get_volume
+get_muted
+echo $ICON
 # feed the pipe
-(echo $[$CURVOL *  100 / $PULSE_MAX_VOL]| gdbar -l "^i(${ICON})" -fg "$BAR_FG" -bg "$BAR_BG" -w "$BAR_WIDTH"  ; sleep "$SECS" ) > "$PIPE"
+(echo $VOLUME | gdbar -l "^i(${ICON})" -fg "$BAR_FG" -bg "$BAR_BG" -w "$BAR_WIDTH"  ; sleep "$SECS" ) > "$PIPE"
