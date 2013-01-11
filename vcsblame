@@ -45,8 +45,8 @@ vcs_detect
 #
 # Arguments
 FILENAME=$1
-BLAMENAME=`tempfile`
-LOGNAME=`tempfile`
+BLAMENAME=`mktemp`
+LOGNAME=`mktemp`
 
 vcs_annotate $FILENAME > $BLAMENAME
 
