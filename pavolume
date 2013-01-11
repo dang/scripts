@@ -55,6 +55,8 @@ elif [[ $1 == "down" ]]; then
 	${PAVOL} down q 2>/dev/null
 elif [[ $1 == "toggle" ]]; then
 	${PAVOL} toggle q 2>/dev/null
+elif [[ $1 == "default" ]]; then
+	${PAVOL} 50 q 2>/dev/null
 fi
 
 # showing in dzen2
