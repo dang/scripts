@@ -45,7 +45,7 @@ end
 beautiful.init(awful.util.getdir("config") .. "/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "terminal"
+terminal = "xfce4-terminal"
 backup_terminal = "xterm"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
@@ -589,9 +589,9 @@ end
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
+    awful.key({ "Control", }, "Left", function() awful.tag.viewonly(dfg_pick_desktop("west")) end),
+    awful.key({ "Control", }, "Right", function() awful.tag.viewonly(dfg_pick_desktop("east")) end),
     awful.key({ "Control", }, "Up", function() awful.tag.viewonly(dfg_pick_desktop("north")) end),
     awful.key({ "Control", }, "Down", function() awful.tag.viewonly(dfg_pick_desktop("south")) end),
     awful.key({ modkey, "Control", "Shift", }, "Left", function()
