@@ -6,5 +6,5 @@ unbind-key -n C-c
 bind-key -t vi-copy T copy-selection
 send-keys T
 unbind-key -t vi-copy T
-run-shell "tmux show-buffer | xclip -i -sel clipboard"
+run-shell -b "tmux show-buffer | xclip -i -sel clipboard"
 
