@@ -277,6 +277,7 @@ autocmd BufNewFile,BufRead gated*log.* set filetype=gated
 autocmd BufNewFile,BufRead gated-trace set filetype=gated
 autocmd BufNewFile,BufRead *gated_log* set filetype=gated
 autocmd BufNewFile,BufRead *.dml set filetype=dml
+autocmd BufNewFile,BufRead *.pde setlocal ft=arduino
 
 "
 " Settings for C syntax highlighting (see .vim/doc/std_c.txt)
@@ -443,6 +444,12 @@ augroup END
 "Snippits - see .vim/doc/snipMate.txt
 "
 let g:snips_author = 'Daniel Gryniewicz'
+"
+" UltiSnips
+"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " Automatically update copyright notice with current year
 autocmd BufWritePre *.[ch]
