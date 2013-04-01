@@ -35,13 +35,13 @@ PAVOL="${HOME}/.scripts/pavolume.rb"
 # Gets the current volume, sets it into VOLUME
 function get_volume()
 {
-	VOLUME=$(${PAVOL} 2>/dev/null | grep "^1" | awk '{print $4}' | sed 's/%//')
+	VOLUME=$(${PAVOL} 2>/dev/null | grep "^0" | awk '{print $4}' | sed 's/%//')
 }
 
 # Get muted, sets icon
 function get_muted()
 {
-	MUTED=$(${PAVOL} 2>/dev/null | grep "^1" | awk '{print $3}')
+	MUTED=$(${PAVOL} 2>/dev/null | grep "^0" | awk '{print $3}')
 	if [[ $MUTED == "yes" ]]; then
 		ICON=$ICON_VOL_MUTE
 	else
