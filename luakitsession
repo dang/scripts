@@ -49,4 +49,11 @@ if [ ! -d "${XDG_DATA_HOME}" ]; then
 	ln -s "${OLD_DATA}/luakit/scripts" "${XDG_DATA_HOME}/luakit/scripts"
 fi
 
+# Update adblock
+${HOME}/.config/luakit/plugins/tools/adblock-update.sh
+#cd "${XDG_DATA_HOME}/luakit"
+#pwd
+#wget -N https://easylist-downloads.adblockplus.org/easylist.txt
+#cd -
+
 luakit -U

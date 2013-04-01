@@ -145,6 +145,9 @@ require "go_input"
 require "go_next_prev"
 require "go_up"
 
+-- Plugins repo
+require "plugins"
+
 -----------------------------
 -- End user script loading --
 -----------------------------
