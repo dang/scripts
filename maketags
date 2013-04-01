@@ -8,15 +8,17 @@ LONGUSAGE="\t-h\tPrint this help message
 \t-k\tKernel database (no system includes)
 \t-c\tClean build (no .maketagsrc)
 \t-p\tOnly tag perl and python
+\t-j\tOnly tag java
 \t<directories>\tDirectories to scan (defaults to '.')"
 
 source ${HOME}/.scripts/functions.sh
 
-while getopts ":hkcp" option; do
+while getopts ":hkcpj" option; do
 	case ${option} in
 		c ) CLEAN="-c";;
 		k ) KERNEL="-k";;
 		p ) PERL="-p";;
+		j ) JAVA="-j";;
 		h ) usage;;
 		\? ) usage "Invalid argument ${OPTARG}";;
 		* ) usage "Invalid argument ${option}";;
@@ -55,6 +57,8 @@ TMPFILE=`mktemp -t maketags.XXXXXXXXXX` || die "Couldn't make tempfile"
 
 if [ -n "${PERL}" ]; then
 	find ${DIRS} -type f -and \( -name "*.pl" -or -name "*.pm" -or -name "*.perl"  -or -name "*.py" \) >> ${TMPFILE}
+elif [ -n "${JAVA}" ]; then
+	find ${DIRS} -type f -and \( -name "*.java" \) >> ${TMPFILE}
 else
 	if [ -n "${SYSTEM_HDRS}" ]; then
 		find ${SYSTEM_HDRS} -type f -and \( -name "*.h++" -or -name "*.hxx" -or -name "*.hh" -or -name "*.hpp" -or -name "*.H" -or -name "*.h" \) >> ${TMPFILE}
@@ -74,6 +78,9 @@ if [ -n "${SKIPRE}" ]; then
 	ctags -L- < cscope.files
 elif [ -n "${PERL}" ]; then
 	# Only want perl files
+	ctags -L- < cscope.files
+elif [ -n "${JAVA}" ]; then
+	# Only want java files
 	ctags -L- < cscope.files
 else
 	# Tag everything, so that we get languages other than C/C++

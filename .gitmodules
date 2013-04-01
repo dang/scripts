@@ -1,0 +1,3 @@
+[submodule "luakit/plugins"]
+	path = luakit/plugins
+	url = https://github.com/mason-larobina/luakit-plugins.git
