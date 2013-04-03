@@ -11,6 +11,14 @@ endif
 
 " case off
 " syn case ignore
+"
+" Prefixes
+syn match addressV4	#[0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}#
+syn match addressV6	#\([0-9a-fA-F]\{1,4}:\)\{7}[0-9a-fA-F]\{1,4}\|\([0-9a-fA-F]\{1,4}:\)\{1,7}:\([0-9a-fA-F]\{1,4}:\)\{0,7}\([0-9a-fA-F]\{1,4}\)\{0,1}\|::\([0-9a-fA-F]\{1,4}:\)\{0,6}[0-9a-fA-F]\{1,4}#
+syn match prefixV4	#\([1-9][0-9]\{0,2}\(\.[0-9]\{1,3}\)\{0,3}/[0-9]\{1,2}\>\(\.[0-9]\{1,3}\)\{0,3}\)\|\(0\(\.0\)\{0,3}/0\>\)#
+syn match prefixV6	#\(\([0-9a-fA-F]\{1,4}:\)\{7}[0-9a-fA-F]\{1,4}\|\([0-9a-fA-F]\{1,4}:\)\{1,7}:\([0-9a-fA-F]\{1,4}:\)\{0,7}\([0-9a-fA-F]\{1,4}\)\{0,1}\|::\([0-9a-fA-F]\{1,4}:\)\{0,6}[0-9a-fA-F]\{1,4}\)/[0-9]\{1,3}\>#
+
+" OSPF log messages
 syn keyword logPktIn	RECV contained
 syn keyword logPktOut	SEND contained
 syn keyword logMsgType	STATE SPF DB QREF FLOOD CREATE ADD DR ELECTION contained
@@ -20,12 +28,10 @@ syn match logO3NStates	"\<Down\>\|\<Attempt\>\|\<Init\>\|\<2 Way\>\|\<Exch Start
 syn match logO3IStates	"\<Down\>\|\<Loopback\>\|\<Waiting\>\|\<P2P\>\|\<DR\>\|\<BDR\>\|\<Backup DR\>\|\<DR Other\>"
 syn match logDate	"^[A-Z][a-z][a-z] [0-9]\{2} [0-9]\{2}:[0-9]\{2}:[0-9]\{2}"
 syn match logPktType	"Hello\|Database Description\|LS Request\|LS Update"
-syn match logV4Address	"[0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}"
-syn match logV6Address	"\([0-9a-fA-F]\{1,4}:\)\{7}[0-9a-fA-F]\{1,4}\|\([0-9a-fA-F]\{1,4}:\)\{1,7}:\([0-9a-fA-F]\{1,4}:\)\{0,7}\([0-9a-fA-F]\{1,4}\)\{0,1}\|::\([0-9a-fA-F]\{1,4}:\)\{0,6}[0-9a-fA-F]\{1,4}"
 syn match logSequence	"Sequence [0-9]\+"
 
 syn region logFlags	matchgroup=logFlagsStart start="Options <\|Flags <" end=">"
-syn region logProto	start=" OSPF\| OSPF3\| RIP\| RIPng\| BGP" end=":" contains=logPktIn,logPktOut,logMsgType oneline
+syn region logProto	start=" OSPF\| OSPF3\| RIP\| RIPng\| BGP\| KRT" end=":" contains=logPktIn,logPktOut,logMsgType oneline
 
 " Timers
 syn region logTimerName	matchgroup=LogTimer start="calling" start="returned from" start="timer" start="created timer" start="resetting" start="deleting" start="set on" end="," contained
@@ -34,7 +40,7 @@ syn match logTimerLate	"late by [0-9]\+\.[0-9]\+" contained
 syn match logTimerSet	"to fire in [0-9]\+\.[0-9]\+" contained
 syn match logTimerBad	"late by [1-9]\.[0-9]\+\|late by [1-9][0-9]\+\.[0-9]\+" contained
 syn keyword logTimerNoMatch	task_timer_hiprio_dispatch
-syn region logTimer	matchgroup=logTimerStart start="\(SIGIO\)\@<!ITIMER:" start="task_timer[a-z_]\+:" end="$" contains=logV4Address,logV6Address,logTimerLate,logTimerSet,logTimerBad,logTimerName keepend
+syn region logTimer	matchgroup=logTimerStart start="\(SIGIO\)\@<!ITIMER:" start="task_timer[a-z_]\+:" end="$" contains=addressV4,addressV6,logTimerLate,logTimerSet,logTimerBad,logTimerName keepend
 
 " OSPF LSAs
 syn keyword lsType	RTR NTW AIP ABR AEX NSSA OPQ9 OPQ10 OPQ11 IAP IAR GRP NSA NAP LNK GRC contained
@@ -44,6 +50,7 @@ syn match lsAdvRt	"\[[0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}]" contai
 syn match lsLSAHdr		"\<LS\> [A-Z]\+[0-9]*:\_.\{-}\]" contains=logDate,lsType,lsTags,lsLSID,lsAdvRt
 syn match lsVTXHdr		"\<VTX\> [A-Z]\+[0-9]*:\_.\{-}\]" contains=logDate,lsType,lsTags,lsLSID,lsAdvRt
 
+" Events
 syn keyword evtEmit	Emitting contained
 syn keyword evtDeliver	Delivering contained
 syn match evtRegister	"Client registered" contained
@@ -57,6 +64,10 @@ syn match  logString	"\".*\"" contained
 syn match  logString    "'.*'"   contained
 
 " Define the default hightlighting.
+    hi link prefixV4		Comment
+    hi link prefixV6		Comment
+    hi link addressV4		Comment
+    hi link addressV6		Comment
     hi link logProto		Statement
     hi link logPktIn		SpecialKey
     hi link logPktOut		Title
@@ -67,8 +78,6 @@ syn match  logString    "'.*'"   contained
     hi link logO3NEvts		PreProc
     hi link logO3NStates	Identifier
     hi link logO3IStates	Identifier
-    hi link logV4Address	Comment
-    hi link logV6Address	Comment
     hi link logFlagsStart	PreProc
     hi link logFlags		Constant
     hi link logSequence		PreProc
