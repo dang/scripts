@@ -8,7 +8,9 @@
 # will be sourced,  allowing you to make local, persistant modifications.  The most useful
 # things to do here are:
 #
-# Set USER_MOUNT_DIRS to a space separated string of directories to bind-mount into the chroot
+# Set USER_MOUNT_DIRS to an array of <source,dest> pairs of directories to mount
+#	declare -A USER_MOUNT_DIRS=(["/opt/home/dang"]="/home/dang" ["/share"]="/share")
+
 # Set BASEDIR to some other base directory
 # Set NOPORTAGE, NOSCREEN, AUTOSTOP, DETACHED, or OVERLAYS to avoid having to
 # use command line options
@@ -83,7 +85,13 @@ if [ ! -d ${CHROOTDIR} ]; then
 fi
 
 if [ -z "${NOPORTAGE}" ]; then
-	source ${CHROOTDIR}/etc/make.globals
+	if [ -f "${CHROOTDIR}/etc/make.globals" ]; then
+		source ${CHROOTDIR}/etc/make.globals
+	elif [ -f "${CHROOTDIR}/usr/share/portage/config/make.globals" ]; then
+		source "${CHROOTDIR}/usr/share/portage/config/make.globals"
+	else
+		die "Could not find make.globals"
+	fi
 	source ${CHROOTDIR}/etc/make.conf
 	# Re-source after portage stuff, so that it can override
 	if [ -f ${HOME}/.dchroot.rc.d/${CHROOTNAME} ]; then
