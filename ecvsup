@@ -15,8 +15,7 @@ HERDSXMLDIR="/home/os/gentoo/gentoo/xml/htdocs/proj/en/metastructure/herds"
 source ${HOME}/.scripts/functions.sh
 
 # PORTDIR and PORTDIR_OVERLAY
-source /etc/make.globals
-source /etc/make.conf
+portage_setup
 
 # Parse arguments
 while getopts ":hfnv" option; do

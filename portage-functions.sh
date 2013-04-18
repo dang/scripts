@@ -20,7 +20,7 @@ DISTDIR="/usr/portage/distfiles"
 PORTDIR="/usr/portage"
 
 # Get info from make.conf
-source /etc/make.conf
+portage_setup
 
 # Get PORTDIR.  First, see if the PWD is in one of the directories in ${PORTDIR}
 # or ${PORTDIR_OVERLAY}  If it is, use that as PORTDIR.  Otherwise, fall back on

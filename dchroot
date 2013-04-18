@@ -85,30 +85,15 @@ if [ ! -d ${CHROOTDIR} ]; then
 fi
 
 if [ -z "${NOPORTAGE}" ]; then
-	if [ -f "${CHROOTDIR}/etc/make.globals" ]; then
-		source ${CHROOTDIR}/etc/make.globals
-	elif [ -f "${CHROOTDIR}/usr/share/portage/config/make.globals" ]; then
-		source "${CHROOTDIR}/usr/share/portage/config/make.globals"
-	else
-		die "Could not find make.globals"
-	fi
-	source ${CHROOTDIR}/etc/make.conf
+	portage_setup ${CHROOTDIR}
+
 	# Re-source after portage stuff, so that it can override
 	if [ -f ${HOME}/.dchroot.rc.d/${CHROOTNAME} ]; then
 		source ${HOME}/.dchroot.rc.d/${CHROOTNAME}
 	fi
 	
-	if [ -z "${PORTDIR}" ]; then
-		die "No PORTDIR.  Are /etc/make.globals and /etc/make.conf broken?"
-	fi
 	SYS_MOUNT_DIRS="${SYS_MOUNT_DIRS} ${PORTDIR}"
-	if [ -z "${PORTAGE_TMPDIR}" ]; then
-		die "No PORTAGE_TMPDIR.  Are /etc/make.globals and /etc/make.conf broken?"
-	fi
 	SYS_MOUNT_DIRS="${SYS_MOUNT_DIRS} ${PORTAGE_TMPDIR}"
-	if [ -z "${DISTDIR}" ]; then
-		die "No DISTDIR.  Are /etc/make.globals and /etc/make.conf broken?"
-	fi
 	SYS_MOUNT_DIRS="${SYS_MOUNT_DIRS} ${DISTDIR}"
 
 	if [ -n "${OVERLAYS}" ]; then

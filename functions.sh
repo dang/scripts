@@ -602,3 +602,37 @@ function vcs_log() {
 	esac
 }
 
+#
+# Set up portage variables
+function portage_setup() {
+	BASEDIR="/"
+	if [ -n "${1}" ]; then
+		BASEDIR="${1}"
+		shift
+	fi
+
+	if [ -f "${BASEDIR}/etc/make.globals" ]; then
+		source ${BASEDIR}/etc/make.globals
+	elif [ -f "${BASEDIR}/usr/share/portage/config/make.globals" ]; then
+		source "${BASEDIR}/usr/share/portage/config/make.globals"
+	else
+		die "Could not find make.globals"
+	fi
+	if [ -f "${BASEDIR}/etc/make.conf" ]; then
+		source ${BASEDIR}/etc/make.conf
+	elif [ -f "${BASEDIR}/etc/portage/make.conf" ]; then
+		source "${BASEDIR}/etc/portage/make.conf"
+	else
+		die "Could not find make.conf"
+	fi
+
+	if [ -z "${PORTDIR}" ]; then
+		die "No PORTDIR.  Are make.globals and make.conf broken?"
+	fi
+	if [ -z "${PORTAGE_TMPDIR}" ]; then
+		die "No PORTAGE_TMPDIR.  Are make.globals and make.conf broken?"
+	fi
+	if [ -z "${DISTDIR}" ]; then
+		die "No DISTDIR.  Are make.globals and make.conf broken?"
+	fi
+}
