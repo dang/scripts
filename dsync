@@ -30,11 +30,9 @@ if [ "${OPTIND}" != "0" ]; then
 fi
 
 ${HOME}/.scripts/ecvsup ${ECVSUPARGS} || die "Error during ecvsup"
-tmpfile=$(mktemp)
-sudo cp /var/cache/eix ${tmpfile} || die "Error while copying cache-file to a save location."
+sudo cp /var/cache/eix/portage.eix /var/cache/eix/previous.eix || die "Error while copying cache-file to a save location."
 sudo eix-update                         || die "Problems with eix-update."
-sudo eix-diff ${tmpfile} || die "Error while diffing."
-sudo rm -f ${tmpfile} || die "Couldn't remove ${tmpfile}"
+sudo eix-diff /var/cache/eix/previous.eix || die "Error while diffing."
 if [ -z "${NOSYSCSCOPE}" ]; then
 	cd /usr/src/debug
 	sudo ${HOME}/.scripts/maketags -k
