@@ -50,6 +50,7 @@ if [ ! -d "${SCRIPTDIR}/.git" ]; then
 	cmd_exists git
 	cd $(dirname "${SCRIPTDIR}")
 	git clone ${REPO} $(basename ${SCRIPTDIR})
+	git submodule update --init --recursive
 fi
 if [ ! -d "${SCRIPTDIR}/.git" ]; then
 	echo "Failed to clone scripts repo from ${REPO}"
