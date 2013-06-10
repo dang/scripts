@@ -307,7 +307,7 @@ function emailstable() {
 
 # Arch linux aliases
 alias pacman="sudo pacman"
-aliar aurget="aurget --noedit --deps"
+alias aurget="aurget --noedit --deps"
 
 alias webcol="webcollage -root -v > $HOME/.webcollage 2>/dev/null </dev/null &"
 function ntpfix {
