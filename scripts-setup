@@ -75,5 +75,8 @@ for DIR in ${CFGDIRS}; do
 	ln -s "${HOME}/.scripts/${DIR}" ".config/${DIR}"
 done
 
+# Set up less
+lesskey
+
 echo "Done."
 echo "You need to edit ${HOME}/.bash_local for your your local settings"
