@@ -1,5 +1,5 @@
-# .ALIASES -- script that sets up many handy command shortcuts.
-# Called from ".TCSHRC" file.
+# vim: ft=sh:
+# .aliases -- script that sets up many handy command shortcuts.
 #
 # Created by Daniel Gryniewicz 
 
@@ -269,6 +269,11 @@ function igrep {
 function grepall {
 	find . -type f -regextype posix-extended ! \( -regex '.*cscope.*' -o -regex '.*tags.*' -o -regex '.*\.orig' -o -regex '.*\.rej' -o -regex '.*CVS.*' -o -regex '.*\.#maketags.dfg' -o -regex '.*\.svn.*' -o -regex '.*\.git.*' \) -exec egrep --color=auto -H "$@" "{}" ";"
 }
+function grepdir {
+	DIR=$1
+	shift
+	find ${DIR} -type f -regextype posix-extended ! \( -regex '.*cscope.*' -o -regex '.*tags.*' -o -regex '.*\.orig' -o -regex '.*\.rej' -o -regex '.*CVS.*' -o -regex '.*\.#maketags.dfg' -o -regex '.*\.svn.*' -o -regex '.*\.git.*' \) -exec egrep --color=auto -H "$@" "{}" ";"
+}
 function cleanuppatch {
 	find . -name "*.orig" -exec rm {} \;
 	find . -name "*.rej" -exec rm {} \;
@@ -496,7 +501,9 @@ alias arst="setxkbmap us"
 alias asdf="setxkbmap us -variant colemak; xmodmap ${HOME}/.scripts/keymap"
 
 # Start a tmux and split it into 3 vertical panes
-alias tm3="tmux new-session \; split-window -v  \; split-window -v  \; select-layout even-horizontal"
+function tm3 {
+	tmux new-session $@ \; split-window -v  \; split-window -v  \; select-layout even-horizontal
+}
 
 function p0rnget {
 	wget $(curl "$1" 2>/dev/null | grep "_file"  | sed 's/ /\n/g' | grep _file | sed 's/src=//;s/\\x22//g').mp4
