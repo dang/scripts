@@ -122,7 +122,7 @@ VCS="unknown"
 # Detect the VCS.  Call this first.
 function vcs_detect() {
 	VCS="unknown"
-	if [ -d "${PWD}/.svn" ]; then
+	if [ -n "$(svn info 2>/dev/null | grep Path)" ]; then
 		VCS="svn"
 	elif [ -n "$(git rev-parse --git-dir 2>/dev/null)" ]; then
 		VCS="git"
