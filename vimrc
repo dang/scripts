@@ -279,6 +279,7 @@ autocmd BufNewFile,BufRead gated-trace set filetype=gated
 autocmd BufNewFile,BufRead *gated_log* set filetype=gated
 autocmd BufNewFile,BufRead *.dml set filetype=dml
 autocmd BufNewFile,BufRead *.pde setlocal ft=arduino
+autocmd BufNewFile,BufRead *.ftl set filetype=xhtml
 
 "
 " Settings for C syntax highlighting (see .vim/doc/std_c.txt)
