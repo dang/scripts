@@ -21,7 +21,7 @@ alias ll="ls -al"
 alias cp="cp --sparse=always"
 #
 # df
-alias df="df -h"
+alias df="df -Th"
 #
 # grep
 alias grep='egrep --color=auto'
