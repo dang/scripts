@@ -3,19 +3,21 @@
 # Recursively make tags file for all c, cpp, C, c++, h files
 #
 
-USAGE="[-hk] [<directories>]"
+USAGE="[-hkecpj] [<directories>]"
 LONGUSAGE="\t-h\tPrint this help message
 \t-k\tKernel database (no system includes)
-\t-c\tClean build (no .maketagsrc)
+\t-e\tEmtpy build (no .maketagsrc)
+\t-c\tOnly tag C/C++
 \t-p\tOnly tag perl and python
 \t-j\tOnly tag java
 \t<directories>\tDirectories to scan (defaults to '.')"
 
 source ${HOME}/.scripts/functions.sh
 
-while getopts ":hkcpj" option; do
+while getopts ":hkecpj" option; do
 	case ${option} in
-		c ) CLEAN="-c";;
+		e ) CLEAN="-e";;
+		c ) CPP="-c";;
 		k ) KERNEL="-k";;
 		p ) PERL="-p";;
 		j ) JAVA="-j";;
@@ -55,15 +57,17 @@ fi
 
 TMPFILE=`mktemp -t maketags.XXXXXXXXXX` || die "Couldn't make tempfile"
 
-if [ -n "${PERL}" ]; then
+if [ -n "${CPP}" ]; then
+	if [ -n "${HDRS}" ]; then
+		find ${HDRS} -type f -and \( -name "*.h++" -or -name "*.hxx" -or -name "*.hh" -or -name "*.hpp" -or -name "*.H" -or -name "*.h" \) >> ${TMPFILE}
+	fi
+	find ${DIRS} ${EXTRA_DIRS} -type f -and \( -name "*.c" -or -name "*.cpp" -or -name "*.cxx" -or -name "*.h++" -or -name "*.hxx" -or -name "*.hh" -or -name "*.hpp" -or -name "*.H" -or -name "*.C" -or -name "*.c++" -or -name "*.cc" -or -name "*.h" \) >> ${TMPFILE}
+elif [ -n "${PERL}" ]; then
 	find ${DIRS} -type f -and \( -name "*.pl" -or -name "*.pm" -or -name "*.perl"  -or -name "*.py" \) >> ${TMPFILE}
 elif [ -n "${JAVA}" ]; then
 	find ${DIRS} -type f -and \( -name "*.java" \) >> ${TMPFILE}
 else
-	if [ -n "${SYSTEM_HDRS}" ]; then
-		find ${SYSTEM_HDRS} -type f -and \( -name "*.h++" -or -name "*.hxx" -or -name "*.hh" -or -name "*.hpp" -or -name "*.H" -or -name "*.h" \) >> ${TMPFILE}
-	fi
-	find ${DIRS} ${EXTRA_DIRS} -type f -and \( -name "*.c" -or -name "*.cpp" -or -name "*.cxx" -or -name "*.h++" -or -name "*.hxx" -or -name "*.hh" -or -name "*.hpp" -or -name "*.H" -or -name "*.C" -or -name "*.c++" -or -name "*.cc" -or -name "*.h" \) >> ${TMPFILE}
+	find ${DIRS} -type f >> ${TMPFILE}
 fi
 
 if [ -n "${SKIPRE}" ]; then
@@ -75,6 +79,9 @@ rm ${TMPFILE}
 cscope -q -L ${KERNEL} -i cscope.files
 if [ -n "${SKIPRE}" ]; then
 	# We're skipping files; only use files in the list
+	ctags -L- < cscope.files
+elif [ -n "${CPP}" ]; then
+	# Only want C/C++ files
 	ctags -L- < cscope.files
 elif [ -n "${PERL}" ]; then
 	# Only want perl files
