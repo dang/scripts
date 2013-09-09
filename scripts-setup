@@ -6,7 +6,7 @@
 #
 
 REPO="git://github.com/dang/scripts.git"
-LNFILES="bashrc cvsrc face gvimrc inputrc lesskey profile screenrc tmux.conf vim vimrc vrapperrc xinitrc"
+LNFILES="ackrc bashrc cvsrc face gvimrc inputrc lesskey profile screenrc tmux.conf vim vimrc vrapperrc xinitrc"
 CPFILES="bash_local gitconfig"
 CFGDIRS="awesome luakit"
 
