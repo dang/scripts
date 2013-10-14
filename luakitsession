@@ -47,7 +47,10 @@ if [ ! -d "${XDG_DATA_HOME}" ]; then
 	mkdir -p "${XDG_DATA_HOME}/luakit"
 	mkdir -p "${XDG_CACHE_HOME}"
 	ln -s "${OLD_DATA}/luakit/scripts" "${XDG_DATA_HOME}/luakit/scripts"
+	echo "'# Config for the ${SESSION} session" > "${XDG_DATA_HOME}/config.sh"
 fi
+
+source "${XDG_DATA_HOME}/config.sh"
 
 # Update adblock
 ${HOME}/.config/luakit/plugins/tools/adblock-update.sh
