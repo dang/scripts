@@ -11,7 +11,7 @@ LONGUSAGE="\t-h, --help\n\t\tPrint this help message
 \t<archive>\n\t\tPath to archive to extract"
 
 # Standard functions
-source ${HOME}/.scripts/functions.sh
+source ${SCRIPTS}/functions.sh
 
 atool --help > /dev/null 2>&1
 if [ "$?" != "0" ]; then

@@ -1,0 +1,12 @@
+# vim: ft=sh:
+# Aliases for ubuntu
+
+me=$(readlink --canonicalize --no-newline $BASH_SOURCE)
+
+source "${SCRIPTS}/functions.sh"
+#source "${SCRIPTS}/flavor/${FLAVOR}/functions.sh"
+
+#
+# Make new source this too
+export ALIASFILES="${ALIASFILES} ${me}"
+

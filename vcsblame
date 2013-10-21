@@ -11,7 +11,7 @@ LONGUSAGE="\t-h, --help\n\t\tPrint this help message
 \t<file>\n\t\tFile to annotate"
 
 # Standard functions
-source ${HOME}/.scripts/functions.sh
+source ${SCRIPTS}/functions.sh
 
 # Script name
 ME=$(basename $0)

@@ -7,7 +7,7 @@
 
 REPO="git://github.com/dang/scripts.git"
 LNFILES="ackrc bashrc cvsrc face gvimrc inputrc lesskey profile screenrc tmux.conf vim vimrc vrapperrc xinitrc"
-CPFILES="bash_local gitconfig"
+CPFILES="gitconfig"
 CFGDIRS="awesome luakit"
 
 function die {
@@ -45,6 +45,7 @@ done
 for i in ${CFGDIRS}; do
 	[ -a "${HOME}/.config/${i}" ] && die "${HOME}/.config/${i} exists; not continuing"
 done
+[ -a "${HOME}/.bashrc.d" ] && die "${HOME}/.bashrc.d exists; not continuing"
 
 if [ ! -d "${SCRIPTDIR}/.git" ]; then
 	cmd_exists git
@@ -65,6 +66,9 @@ if [ -h "${SCRIPTDIR}/.scripts" ]; then
 	rm "${SCRIPTDIR}/.scripts"
 fi
 
+mkdir -p "${HOME}/.bashrc.d"
+cp -a "${SCRIPTDIR}/bashrc.d/local/"* "${HOME}/.bashrc.d"
+
 for FILE in ${CPFILES}; do
 	[ -a ".${FILE}" ] || cp ".scripts/${FILE}" ".${FILE}"
 done
@@ -79,4 +83,4 @@ done
 lesskey
 
 echo "Done."
-echo "You need to edit ${HOME}/.bash_local for your your local settings"
+echo "You need to edit ${HOME}/.bashrc.d/* for your your local settings"

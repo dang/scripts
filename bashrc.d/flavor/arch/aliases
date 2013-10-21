@@ -1,0 +1,17 @@
+# vim: ft=sh:
+# Aliases for arch
+
+me=$(readlink --canonicalize --no-newline $BASH_SOURCE)
+
+source "${SCRIPTS}/functions.sh"
+#source "${SCRIPTS}/flavor/${FLAVOR}/functions.sh"
+
+#
+# Make new source this too
+export ALIASFILES="${ALIASFILES} ${me}"
+
+alias which=" (alias; declare -f) | /usr/bin/which --tty-only --read-alias --read-functions --show-tilde --show-dot"
+
+alias pacman="sudo pacman"
+alias aurget="aurget --noedit --deps"
+

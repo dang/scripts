@@ -30,7 +30,7 @@ XPOS=$[$XRES / 2 - $WIDTH / 2]          # horizontal positioning
 YRES=$(xrandr | grep "\\*" | awk '{print $1}' | uniq | awk -F x '{print $2}')
 YPOS=$[$YRES * 4 / 5]          # vertical positioning
 
-PAVOL="${HOME}/.scripts/pavolume.rb"
+PAVOL="${SCRIPTS}/pavolume.rb"
 
 # Gets the current volume, sets it into VOLUME
 function get_volume()

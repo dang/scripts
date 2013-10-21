@@ -3,7 +3,7 @@
 # Parse log
 #
 
-source ${HOME}/.scripts/portage-functions.sh
+source ${SCRIPTS}/functions.sh
 
 OUT=$(danglop_current)
 

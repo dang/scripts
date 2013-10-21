@@ -2,4 +2,4 @@
 #
 # See .xstart
 
-exec dbus-launch ${HOME}/.scripts/xstart
+exec dbus-launch ${SCRIPTS}/xstart

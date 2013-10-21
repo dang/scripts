@@ -1,0 +1,10 @@
+# vim: ft=sh:
+# Bash completion addons: Gentoo
+[ -f /etc/profile.d/bash-completion.sh ] && . /etc/profile.d/bash-completion.sh
+# Bash completion addons: Fedora
+[ -f /etc/profile.d/bash_completion.sh ] && . /etc/profile.d/bash_completion.sh
+# Bash completion addons: Debian/Ubuntu
+[ -f /etc/bash_completion ] && ! shopt -oq posix && . /etc/bash_completion
+# Bash completion addons: Arch
+[ -r /usr/share/bash-completion/bash_completion   ] && . /usr/share/bash-completion/bash_completion
+

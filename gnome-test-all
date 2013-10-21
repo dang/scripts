@@ -13,7 +13,7 @@ LONGUSAGE="\t-h, --help\n\t\tPrint this help message
 \t<test-directory>\n\t\tDirectory to work in; defaults to ${BASEDIR}/date"
 
 # Standard functions
-source ${HOME}/.scripts/functions.sh
+source ${SCRIPTS}/functions.sh
 
 # Script name
 ME=$(basename $0)

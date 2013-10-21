@@ -12,7 +12,7 @@ LONGUSAGE="\t-h\tPrint this help message
 HERDSXMLDIR="/home/os/gentoo/gentoo/xml/htdocs/proj/en/metastructure/herds"
 
 # Standard functions
-source ${HOME}/.scripts/functions.sh
+source ${SCRIPTS}/functions.sh
 
 # PORTDIR and PORTDIR_OVERLAY
 portage_setup

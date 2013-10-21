@@ -4,7 +4,7 @@
 #
 
 # Portage functions
-source ${HOME}/.scripts/portage-functions.sh
+source ${SCRIPTS}/functions.sh
 
 #
 # Local parameters
@@ -35,7 +35,7 @@ LONGUSAGE="\t-h\tPrint this help message
 \tIf none of <basename> <old-version> <new-version> is given, ebump tries to guess what to bump"
 
 # Standard functions
-source ${HOME}/.scripts/functions.sh
+source ${SCRIPTS}/functions.sh
 
 # Parse arguments
 while getopts ":hbcCiknsPp:d:t:T" option; do

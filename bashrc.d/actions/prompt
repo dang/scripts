@@ -1,0 +1,75 @@
+# vim: ft=sh:
+# Set the shell prompts to nice color settings
+
+if [ "${USER}" = "root" ]; then
+   	PCHAR="#"
+else
+	PCHAR=">"
+fi
+
+# Set prompt path to max 2 levels for best compromise of readability and usefulness
+promptpath () {
+    realpwd=$(realpath $PWD)
+    realhome=$(realpath $HOME)
+
+    # if we are in the home directory
+    if echo $realpwd | grep -q "^$realhome"; then
+        path=$(echo $realpwd | sed "s|^$realhome|\~|")
+        if [ "$path" = "~" ] || [ "$(dirname "$path")" = "~" ]; then
+            echo $path
+        else
+            echo $(basename $(dirname "$path"))/$(basename "$path")
+        fi
+        return
+    fi
+
+    path_dir=$(dirname "$PWD")
+    # if our parent dir is a top-level directory, don't mangle it
+    if [ $(dirname "$path_dir") = "/" ]; then
+        echo $PWD
+    else
+        path_parent=$(basename "$path_dir")
+        path_base=$(basename "$PWD")
+
+        echo $path_parent/$path_base
+    fi
+}
+
+# For systems without color:
+#PS1="[ $BOXNAME] "`tput bold`'${PWD##*/}'`tput sgr0`" > "
+
+# Colors:
+# 	30 - grey
+# 	31 - red
+# 	32 - green
+# 	33 - yellow
+# 	34 - blue
+# 	35 - purple
+# 	36 - cyan
+# 	37 - white
+if [ -z "${COLOR1}" ]; then
+	# Default colors are blue/red
+	COLOR1=34
+	COLOR2=31
+fi
+PCOLOR1="\[\033[1;${COLOR1}m\]"
+PCOLOR2="\[\033[1;${COLOR2}m\]"
+PCOLORN="\[\033[0m\]"
+#PS1="${PCOLOR1}[${PCOLOR2}\$(date +%H%M)${PCOLOR1}][\h] ${PCOLOR2}\w${PCOLORN}${PCHAR} "
+#PS1='\e[1;${COLOR1}m[\A \h] \e[1;${COLOR2}m\W\e[0m${PCHAR} '
+#PS1='[${COLOR1};1m[\A \h] [${COLOR2};1m\W[0m${PCHAR} '
+#PS1='\[\033[${COLOR1};1m\][\A \h] \[\033[${COLOR2};1m\]\W\[\033[0m\]${PCHAR} '
+#PS1='\[\033[01;${COLOR1}m\][\A \h]\[\033[01;${COLOR2}m\] \W\[\033[00m\]${PCHAR} '
+#PS1='\[\033[01;${COLOR1}m\]\D{%H:%M%S} \h\[\033[01;${COLOR2}m\] \W \[\033[00m\]${PCHAR} '
+if [ -z "${PHOSTNAME}" ]; then
+PS1="${PCOLOR1}[${PCOLOR1}\A${PCOLOR1}\
+${PCOLOR1} ${PCOLOR1}\h${PCOLOR1}]\
+${PCOLOR2} \$(promptpath)\
+${PCOLORN}${PCHAR}${PCOLORN} "
+else
+PS1="${PCOLOR1}[${PCOLOR1}\A${PCOLOR1}\
+${PCOLOR1} ${PCOLOR1}${PHOSTNAME}${PCOLOR1}]\
+${PCOLOR2} \$(promptpath)\
+${PCOLORN}${PCHAR}${PCOLORN} "
+fi
+

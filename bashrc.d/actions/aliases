@@ -1,7 +1,13 @@
 # vim: ft=sh:
-# .aliases -- script that sets up many handy command shortcuts.
+# .aliases -- Common aliases for all linux flavors.
 #
 # Created by Daniel Gryniewicz 
+
+me=$(readlink --canonicalize --no-newline $BASH_SOURCE)
+
+#
+# Make new source this file
+export ALIASFILES="${me}"
 
 #
 # Make sure extended globbing is on
@@ -72,10 +78,6 @@ alias lo="logout"
 # utilities
 alias md="mkdir -p"
 alias rd="rmdir"
-alias which=" (alias; declare -f) | /usr/bin/which --tty-only --read-alias --read-functions --show-tilde --show-dot"
-#alias mktar="tar -cvf"
-#alias mktbz="tar -cjvf"
-#alias mktgz="tar -czvf"
 function mktbz {
 	if [ -z "$1" ]; then
 		echo "Usage: mktbz <directory> [<tbzname>]"
@@ -102,16 +104,6 @@ function mktgz {
 	fi
 	${SUDO} tar -czf "${TGZNAME}" "${DIRNAME}"
 }
-#alias untar="tar -xvf"
-#alias untgz="tar zxf"
-#alias untbz="tar jxf"
-alias untar="echo Use duntarball"
-#alias mktar="echo Use duntarball"
-alias untgz="echo Use duntarball"
-alias untbz="echo Use duntarball"
-#function untbz {
-#                bzip2 -cd $* | tar xfv -;
-#		}
 alias rezip="gunzip *.gz && bzip2 *.tar"
 function manf {
                 nroff -man $* | $MANPAGER;
@@ -121,16 +113,14 @@ function manf {
 function ws {
                 w $* |sort|more;
 		}
-# alias whois="/usr/ucb/whois -h rs.internic.net"
 if [ $SHELL = "/bin/ksh" ]; then
 	unalias rm
 fi
-alias diff='/usr/bin/diff --exclude-from="${HOME}/.scripts/diffrc" -up'
+alias diff='/usr/bin/diff --exclude-from="${SCRIPTS}/diffrc" -up'
 # The bloody bc does *integer* math be default!
 alias bc="bc -l"
 #
 # gotta have it
-export ALIASFILES="${HOME}/.scripts/aliases"
 function new {
 	for i in ${ALIASFILES}; do
 		source $i
@@ -172,9 +162,9 @@ function ripdvd2passmp3 {
 #	}
 
 alias ripcd="rip cd rip --offset 103"
-alias mp='mplayer -alang eng -osdlevel 3'
-alias mpj='mplayer -alang jpn -osdlevel 3'
-alias mpsub='mplayer -alang eng -slang eng -osdlevel 3'
+alias mp='mpv -alang eng'
+alias mpj='mpv -alang jpn'
+alias mpsub='mpv -alang eng -slang eng'
 #alias dvd="mp -ni -alang en dvd://"
 function dvd {
 	TITLE=$1
@@ -194,7 +184,6 @@ function dvdiso {
 alias vcd="mp vcd://1 -ni -alang en"
 #alias vcd="mp -vo xv -ao sdl -vcd 1 -framedrop -ni -nofs"
 #alias vcd="mp -vcd 1"
-#alias mp='mplayer'
 alias mp2="mp -vf scale=w=2:h=-2 -zoom"
 function mpmulti {
 	for i in $@; do
@@ -215,7 +204,7 @@ function html {
                 curl $@ | html2text -width 1000
 		}
 alias sprt="enscript --media=Letter -2 -j -G -B --landscape --margins=::40:40"
-eval `dircolors -b ${HOME}/.scripts/dir_colors` # set up color-ls variables
+eval `dircolors -b ${SCRIPTS}/dir_colors` # set up color-ls variables
 unset autologout
 alias telent=telnet
 
@@ -285,97 +274,30 @@ function findfile {
 	find . -iname "*${*}*"
 }
 
-# Gentoo related aliases
-alias emerge="sudo emerge"
-alias eix-sync='sudo eix-sync'
-#alias eworld='emerge -auvD --reinstall changed-use world'
-alias eworld='emerge -auDv --keep-going --reinstall changed-use world'
-alias unmerge='emerge --unmerge'
-alias eresume='emerge --resume'
-alias eskipfirst='emerge --resume --skipfirst'
-function echeck {
-	if [ -z "$1" ]; then
-		TARGET="world"
-	else
-		TARGET="$1"
-	fi
-	emerge -puvDN ${TARGET} | egrep "=>0"
-}
-alias etc-update='sudo etc-update'
-alias edistmon='DISTCC_DIR=/home/portage/portage/.distcc distccmon-gnome'
-alias schedidle='schedtool -D -e'
-alias schediso='schedtool -I -e'
-
-
-alias genpatch="svnpatchset /home/portage/overlays/gentopia/ /home/dang/tmp/gentopia-patches"
-
-function emailstable() {
-	egrep KEYWORD $1 | sed 's/KEYWORDS="//' | sed 's/"//' | sed 's/ /\n/g' | awk '(/~/) {printf "%s@gentoo.org, ", $0} END {printf "\n"}' | sed 's/~//g'
-}
-
-# Arch linux aliases
-alias pacman="sudo pacman"
-alias aurget="aurget --noedit --deps"
-
 alias webcol="webcollage -root -v > $HOME/.webcollage 2>/dev/null </dev/null &"
-function ntpfix {
-	sudo /etc/init.d/ntpd stop
-	sudo /etc/init.d/ntp-client restart
-	sudo /etc/init.d/ntpd start
-}
-function pcmciastart {
-	sudo /etc/init.d/pcmcia zap
-	sleep 1
-	sudo /etc/init.d/pcmcia start
-}
-
-function ipwfix {
-	sudo /etc/init.d/net.eth1 stop
-	sleep 4
-	sudo /etc/init.d/net.eth1 start
-}
-
-function ipwkick {
-	sudo /etc/init.d/net.eth1 stop
-	sudo rmmod ipw2200
-	sleep 4
-	sudo modprobe ipw2200
-}
 
 alias screenshot="import -frame"
 function resize {
 	convert -scale 450x450 "$1" "$1";
 }
 
-alias netfix="sudo /etc/init.d/net.eth1 restart"
 alias gamespeed="sudo speedfreq -p 800"
-#alias keyfix="xmodmap ${HOME}/.scripts/keymap; sudo ifconfig wlan0 txqueuelen 0; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Off' 0; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Palm Detection' 1; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Tap Action' 0, 0, 0, 0, 1, 2, 3"
-#alias keyfix="xmodmap ${HOME}/.scripts/keymap; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Off' 0; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Palm Detection' 1; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Tap Action' 0, 0, 0, 0, 1, 2, 3"
-#alias keyfix="xmodmap ${HOME}/.scripts/keymap; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Palm Detection' 1; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Palm Dimensions' 4, 100; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Soft Button Areas' 1630, 0, 1373, 0, 0, 0, 0, 0; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Two-Finger Scrolling' 1, 1"
-alias keyfix="xmodmap ${HOME}/.scripts/keymap"
-alias keyfixgames="xmodmap ${HOME}/.scripts/keymap.games"
+#alias keyfix="xmodmap ${SCRIPTS}/keymap; sudo ifconfig wlan0 txqueuelen 0; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Off' 0; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Palm Detection' 1; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Tap Action' 0, 0, 0, 0, 1, 2, 3"
+#alias keyfix="xmodmap ${SCRIPTS}/keymap; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Off' 0; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Palm Detection' 1; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Tap Action' 0, 0, 0, 0, 1, 2, 3"
+#alias keyfix="xmodmap ${SCRIPTS}/keymap; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Palm Detection' 1; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Palm Dimensions' 4, 100; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Soft Button Areas' 1630, 0, 1373, 0, 0, 0, 0, 0; xinput set-prop 'ETPS/2 Elantech Touchpad' 'Synaptics Two-Finger Scrolling' 1, 1"
+alias keyfix="xmodmap ${SCRIPTS}/keymap"
+alias keyfixgames="xmodmap ${SCRIPTS}/keymap.games"
 alias danosmount="sudo losetup /dev/loop/0 /home/dang/src/danos/kernel/image/image; sudo mount /dev/loop/0 /home/dang/src/danos/kernel/image/mnt"
 alias danosumount="sudo umount /home/dang/src/danos/kernel/image/mnt; sudo losetup -d /dev/loop/0"
 
 alias thanatosvnc="vncviewer -via nemesis.fprintf.net thanatos.fprintf.net:1"
 alias poseidonvnc="vncviewer -via nemesis.fprintf.net poseidon.fprintf.net:1"
 
-function cookiegrep {
-	egrep $@ ${HOME}/.mozilla/firefox/4rl18vit.default/hostperm.1
-}
-
-alias cookieedit="vim ${HOME}/.mozilla/firefox/4rl18vit.default/hostperm.1"
-
 alias display="display -auto-orient"
 alias xv="display -geometry +0+0 -resize 1432x850"
 
 function reniceX {
 	sudo renice -12 -p $(pgrep X)
-}
-
-function reniceevo {
-#	renice-X
-	sudo renice -10 -p $(pgrep evolution)
 }
 
 # play simialar artists...
@@ -401,6 +323,11 @@ function dscreen {
 	SCREENNAME=${1}
 	shift
 	dtach -A /tmp/dang-dtach/${SCREENNAME} -r winch dvtm $@
+}
+
+# Start a tmux and split it into 3 vertical panes
+function tm3 {
+	tmux new-session $@ \; split-window -v  \; split-window -v  \; select-layout even-horizontal
 }
 
 function git_add_modified {
@@ -430,8 +357,6 @@ function git_tar ()
 
     echo $tar
 }
-
-alias qdepends="qdepends -Q"
 
 alias ps_mem="sudo ${HOME}/bin/ps_mem.py"
 
@@ -476,8 +401,6 @@ function xmark ()
 #          END { print "" }' total_size=$(stat -c '%s' "${1}") count=0
 # }
 
-alias ttsync="sudo /home/portage/overlays/32bit-userland/ttsync"
-
 # These are the aliases for things that need root.
 alias reboot="sudo shutdown -r now"
 alias halt="sudo shutdown -h now"
@@ -498,12 +421,7 @@ function suspend {
 alias wakeup="sudo kbdrate -r 30"
 alias keepassx="/usr/bin/keepassx ~/Dropbox/keepass.kdb"
 alias arst="setxkbmap us"
-alias asdf="setxkbmap us -variant colemak; xmodmap ${HOME}/.scripts/keymap"
-
-# Start a tmux and split it into 3 vertical panes
-function tm3 {
-	tmux new-session $@ \; split-window -v  \; split-window -v  \; select-layout even-horizontal
-}
+alias asdf="setxkbmap us -variant colemak; xmodmap ${SCRIPTS}/keymap"
 
 function p0rnget {
 	wget $(curl "$1" 2>/dev/null | grep "_file"  | sed 's/ /\n/g' | grep _file | sed 's/src=//;s/\\x22//g').mp4

@@ -1,40 +1,25 @@
-# skeleton .bashrc
+# .bashrc
 
-# Set up path.  Need ${HOME}/.scripts and ~/bin
-export PATH=${HOME}/.scripts:${HOME}/bin:${PATH}
+# Install location for scripts
+export SCRIPTS="${HOME}/.scripts"
 
-# Bash completion addons: Gentoo
-[ -f /etc/profile.d/bash-completion.sh ] && . /etc/profile.d/bash-completion.sh
-# Bash completion addons: Fedora
-[ -f /etc/profile.d/bash_completion.sh ] && . /etc/profile.d/bash_completion.sh
-# Bash completion addons: Ubuntu
-[ -f /etc/bash_completion ] && . /etc/bash_completion
-# Bash completion addons: Arch
-[ -r /usr/share/bash-completion/bash_completion   ] && . /usr/share/bash-completion/bash_completion
+pathadd() {
+	if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+		PATH="${1}${PATH:+:$PATH}"
+	fi
+}
 
-# Set up the main aliases
-source ${HOME}/.scripts/aliases
+pathappend() {
+	if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+		PATH="${PATH:+$PATH:}${1}:"
+	fi
+}
+
+# Add scripts dir to path
+pathadd "${SCRIPTS}"
 
 # Give group write by default
 umask 002
-
-# Environment for various things
-export LC_ALL=en_US.utf8
-export LC_COLLATE=C
-export LESS="-eFfgimRX -j2 -z-3"
-export CVS_RSH=ssh
-export MANPAGER="less -sr"
-export LESSCHARSET="utf-8"
-export EDITOR=vim
-export EMAIL="dang@fprintf.net"
-export MAILCHECK=-1
-export MOZILLA_NEWTYPE="tab"
-export ECHANGELOG_USER="Daniel Gryniewicz <dang@gentoo.org>"
-export FIGNORE=".o:.swp:.swo"
-# Keep gnome-autogen from running configure
-export NOCONFIGURE=yes
-# Set your window manager here!
-export WINDOW_MANAGER=awesome
 
 # history
 shopt -s histappend
@@ -49,56 +34,29 @@ shopt -s no_empty_cmd_completion
 # CD with just a path
 shopt -s autocd
 
+run_scripts()
+{
+	echo "run_scripts $1"
+	for script in "$1"/*; do
+		[ -x "${script}" ] || continue
+		. "${script}"
+	done
+}
+
+# Run the common env
+run_scripts "${SCRIPTS}/bashrc.d/env"
+# Run the local env
+run_scripts "${HOME}/.bashrc.d"
+# Run the actions
+run_scripts "${SCRIPTS}/bashrc.d/actions"
+# If there's a flavor, run that
+if [ -d "${SCRIPTS}/bashrc.d/flavor/${FLAVOR}" ]; then
+	run_scripts "${SCRIPTS}/bashrc.d/flavor/${FLAVOR}"
+fi
+
 # per-box customizations.  These are done *after* all env settings (so those can be overridden) and
 # *before* any prompt settings, so those can be set up
 [ -f ${HOME}/.bash_local ] && . ${HOME}/.bash_local
-
-# Prompts
-if [ -z "${USER}" ]; then
-	export USER=$(whoami)
-	export LOGNAME=${USER}
-fi
-if [ "${USER}" = "root" ]; then
-   	PCHAR="#"
-else
-	PCHAR=">"
-fi
-# For systems without color:
-#PS1="[ $BOXNAME] "`tput bold`'${PWD##*/}'`tput sgr0`" > "
-# Colors:
-# 	30 - grey
-# 	31 - red
-# 	32 - green
-# 	33 - yellow
-# 	34 - blue
-# 	35 - purple
-# 	36 - cyan
-# 	37 - white
-if [ -z "${COLOR1}" ]; then
-	# Default colors are blue/red
-	COLOR1=34
-	COLOR2=31
-fi
-PCOLOR1="\[\033[1;${COLOR1}m\]"
-PCOLOR2="\[\033[1;${COLOR2}m\]"
-PCOLORN="\[\033[0m\]"
-#PS1="${PCOLOR1}[${PCOLOR2}\$(date +%H%M)${PCOLOR1}][\h] ${PCOLOR2}\w${PCOLORN}${PCHAR} "
-#PS1='\e[1;${COLOR1}m[\A \h] \e[1;${COLOR2}m\W\e[0m${PCHAR} '
-#PS1='[${COLOR1};1m[\A \h] [${COLOR2};1m\W[0m${PCHAR} '
-#PS1='\[\033[${COLOR1};1m\][\A \h] \[\033[${COLOR2};1m\]\W\[\033[0m\]${PCHAR} '
-#PS1='\[\033[01;${COLOR1}m\][\A \h]\[\033[01;${COLOR2}m\] \W\[\033[00m\]${PCHAR} '
-#PS1='\[\033[01;${COLOR1}m\]\D{%H:%M%S} \h\[\033[01;${COLOR2}m\] \W \[\033[00m\]${PCHAR} '
-if [ -z "${PHOSTNAME}" ]; then
-PS1="${PCOLOR1}[${PCOLOR1}\A${PCOLOR1}\
-${PCOLOR1} ${PCOLOR1}\h${PCOLOR1}]\
- ${PCOLOR2}\W\
-${PCOLORN}${PCHAR}${PCOLORN} "
-else
-PS1="${PCOLOR1}[${PCOLOR1}\A${PCOLOR1}\
-${PCOLOR1} ${PCOLOR1}${PHOSTNAME}${PCOLOR1}]\
- ${PCOLOR2}\W\
-${PCOLORN}${PCHAR}${PCOLORN} "
-fi
 
 # Core file size
 [ -z "${CORESIZE}" ] && CORESIZE=0
@@ -123,3 +81,4 @@ fi
 if [ -n "${TMUX}" ]; then
 	export TERM="screen-256color"
 fi
+

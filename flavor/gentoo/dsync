@@ -9,7 +9,7 @@ LONGUSAGE="\t-h\tPrint this help message
 \t-v\tBe verbose"
 
 # Standard functions
-source ${HOME}/.scripts/functions.sh
+source ${SCRIPTS}/functions.sh
 
 ECVSUPARGS=""
 # Parse arguments
@@ -29,12 +29,12 @@ if [ "${OPTIND}" != "0" ]; then
        shift $((OPTIND-1))
 fi
 
-${HOME}/.scripts/ecvsup ${ECVSUPARGS} || die "Error during ecvsup"
+${SCRIPTS}/ecvsup ${ECVSUPARGS} || die "Error during ecvsup"
 sudo cp /var/cache/eix/portage.eix /var/cache/eix/previous.eix || die "Error while copying cache-file to a save location."
 sudo eix-update                         || die "Problems with eix-update."
 sudo eix-diff /var/cache/eix/previous.eix || die "Error while diffing."
 if [ -z "${NOSYSCSCOPE}" ]; then
 	cd /usr/src/debug
-	sudo ${HOME}/.scripts/maketags -k
+	sudo ${SCRIPTS}/maketags -k
 fi
 exit 0

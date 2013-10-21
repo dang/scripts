@@ -13,7 +13,7 @@ LONGUSAGE="\t-h, --help\n\t\tPrint this help message
 \t-f, --force\n\t\tFix whitespace even if there is staged changes"
 
 # Standard functions
-source ${HOME}/.scripts/functions.sh
+source ${SCRIPTS}/functions.sh
 
 # Script name
 ME=$(basename $0)

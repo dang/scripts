@@ -3,7 +3,7 @@
 # Untar a tarball regardless of it's compression format (or lack thereof)
 #
 
-source ${HOME}/.scripts/functions.sh
+source ${SCRIPTS}/functions.sh
 
 if [ -z "${1}" ]; then
 	die "Usage: ${0} [ --patch ] <tarball>"

@@ -1,0 +1,24 @@
+# vim: ft=sh:
+# Default environment Environment for various things
+export LC_ALL=en_US.utf8
+export LC_COLLATE=C
+export LESS="-eFfgimRX -j2 -z-3"
+export CVS_RSH=ssh
+export MANPAGER="less -sr"
+export LESSCHARSET="utf-8"
+export EDITOR=vim
+export EMAIL="dang@fprintf.net"
+export MAILCHECK=-1
+export MOZILLA_NEWTYPE="tab"
+export ECHANGELOG_USER="Daniel Gryniewicz <dang@gentoo.org>"
+export FIGNORE=".o:.swp:.swo"
+# Keep gnome-autogen from running configure
+export NOCONFIGURE=yes
+# Set your window manager here!
+export WINDOW_MANAGER=awesome
+
+if [ -z "${USER}" ]; then
+	export USER=$(whoami)
+	export LOGNAME=${USER}
+fi
+

@@ -1,0 +1,6 @@
+# vim: ft=sh:
+# set PATH so it includes user's private bin if it exists
+pathadd "${HOME}/bin"
+
+# set PATH for the flavor
+pathadd "${SCRIPTS}/flavor/${FLAVOR}"

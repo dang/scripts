@@ -31,7 +31,7 @@ LONGUSAGE="\t-h, --help\n\t\tPrint this help message
 \tstart | stop | join | run\n\t\tStart, stop, or join the chroot, or run a command in it"
 
 # Standard functions
-source ${HOME}/.scripts/functions.sh
+source ${SCRIPTS}/functions.sh
 
 # Script name
 ME=$(basename $0)

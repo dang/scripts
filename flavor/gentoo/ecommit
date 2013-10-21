@@ -4,7 +4,7 @@
 #
 
 # Portage functions
-source ${HOME}/.scripts/portage-functions.sh
+source ${SCRIPTS}/functions.sh
 
 #
 # Default Local parameters
@@ -22,7 +22,7 @@ LONGUSAGE="\t-h\tPrint this help message
 \t<commitmsg>\tCommit message.  Overrides -m"
 
 # Standard functions
-source ${HOME}/.scripts/functions.sh
+source ${SCRIPTS}/functions.sh
 
 # Parse arguments
 while getopts ":hfpInm:" option; do

@@ -1,12 +1,46 @@
-#
+# vim: ft=sh:
 # Aliases for gentoo development work
 
-source "${HOME}/.scripts/functions.sh"
-source "${HOME}/.scripts/portage-functions.sh"
+me=$(readlink --canonicalize --no-newline $BASH_SOURCE)
+
+source "${SCRIPTS}/functions.sh"
+source "${SCRIPTS}/flavor/${FLAVOR}/functions.sh"
 
 #
 # Make new source this too
-export ALIASFILES="${ALIASFILES} ${HOME}/.scripts/gentoo-dev-aliases"
+export ALIASFILES="${ALIASFILES} ${me}"
+
+# General aliases
+alias which=" (alias; declare -f) | /usr/bin/which --tty-only --read-alias --read-functions --show-tilde --show-dot"
+alias emerge="sudo emerge"
+alias eix-sync='sudo eix-sync'
+#alias eworld='emerge -auvD --reinstall changed-use world'
+alias eworld='emerge -auDv --keep-going --reinstall changed-use world'
+alias unmerge='emerge --unmerge'
+alias eresume='emerge --resume'
+alias eskipfirst='emerge --resume --skipfirst'
+alias qdepends="qdepends -Q"
+alias ttsync="sudo /home/portage/overlays/32bit-userland/ttsync"
+function echeck {
+	if [ -z "$1" ]; then
+		TARGET="world"
+	else
+		TARGET="$1"
+	fi
+	emerge -puvDN ${TARGET} | egrep "=>0"
+}
+alias etc-update='sudo etc-update'
+alias edistmon='DISTCC_DIR=/home/portage/portage/.distcc distccmon-gnome'
+alias schedidle='schedtool -D -e'
+alias schediso='schedtool -I -e'
+
+
+alias genpatch="svnpatchset /home/portage/overlays/gentopia/ /home/dang/tmp/gentopia-patches"
+
+function emailstable() {
+	egrep KEYWORD $1 | sed 's/KEYWORDS="//' | sed 's/"//' | sed 's/ /\n/g' | awk '(/~/) {printf "%s@gentoo.org, ", $0} END {printf "\n"}' | sed 's/~//g'
+}
+
 
 # Get metadata about a package
 # Usage: meta <packagename>

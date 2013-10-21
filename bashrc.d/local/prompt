@@ -1,0 +1,22 @@
+# vim: ft=sh:
+# Local prompt colors
+#
+
+# Prompt colors.  Prompt is:
+# <COLOR1>[<time/> <hostname/>]</COLOR1> <COLOR2><directory/></COLOR2> \>
+
+# Colors:
+# 	30 - grey
+# 	31 - red
+# 	32 - green
+# 	33 - yellow
+# 	34 - blue
+# 	35 - purple
+# 	36 - cyan
+# 	37 - white
+# COLOR1=32
+# COLOR2=34
+
+# Prompt hostname.  This overrides the hostname
+# PHOSTNAME="chroot-${HOSTNAME}"
+
