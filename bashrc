@@ -36,7 +36,6 @@ shopt -s autocd
 
 run_scripts()
 {
-	echo "run_scripts $1"
 	for script in "$1"/*; do
 		[ -x "${script}" ] || continue
 		. "${script}"
