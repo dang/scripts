@@ -3,7 +3,7 @@
 # Install location for scripts
 export SCRIPTS="${HOME}/.scripts"
 
-pathadd() {
+pathprepend() {
 	if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
 		PATH="${1}${PATH:+:$PATH}"
 	fi
@@ -16,7 +16,7 @@ pathappend() {
 }
 
 # Add scripts dir to path
-pathadd "${SCRIPTS}"
+pathprepend "${SCRIPTS}"
 
 # Give group write by default
 umask 002

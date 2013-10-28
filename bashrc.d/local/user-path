@@ -1,8 +1,9 @@
 # vim: ft=sh:
 # Local path
 
-#pathappend("/usr/games/bin")
-#pathappend("/sbin")
-#pathappend("/usr/sbin")
-#pathappend("/usr/local/bin")
-#pathappend("/usr/local/sbin")
+#pathprepend "${HOME}/src/gtws"
+#pathappend "/usr/games/bin"
+#pathappend "/sbin"
+#pathappend "/usr/sbin"
+#pathappend "/usr/local/bin"
+#pathappend "/usr/local/sbin"
