@@ -89,7 +89,7 @@ function mktbz {
 	else
 		TBZNAME="${DIRNAME%/}.tar.bz2"
 	fi
-	${SUDO} tar -cjf "${TBZNAME}" "${DIRNAME}"
+	${SUDO} apack "${TBZNAME}" "${DIRNAME}"
 }
 function mktgz {
 	if [ -z "$1" ]; then
@@ -102,7 +102,7 @@ function mktgz {
 	else
 		TGZNAME="${DIRNAME%/}.tar.gz"
 	fi
-	${SUDO} tar -czf "${TGZNAME}" "${DIRNAME}"
+	${SUDO} apack "${TGZNAME}" "${DIRNAME}"
 }
 alias rezip="gunzip *.gz && bzip2 *.tar"
 function manf {
