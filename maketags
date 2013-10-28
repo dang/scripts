@@ -73,7 +73,7 @@ fi
 if [ -n "${SKIPRE}" ]; then
 	egrep -v "${SKIPRE}" ${TMPFILE} > cscope.files
 else
-	cp ${TMPFILE} cscope.files
+	egrep -v ".svn" ${TMPFILE} > cscope.files
 fi
 rm ${TMPFILE}
 cscope -q -L ${KERNEL} -i cscope.files
