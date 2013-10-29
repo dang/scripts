@@ -5,7 +5,7 @@ FLAVOR="unknown"
 
 if hash lsb_release 2>/dev/null; then
 	FLAVOR=$(lsb_release -is)
-elif [ -d "/etc/os-release" ]; then
+elif [ -f "/etc/os-release" ]; then
 	. /etc/os-release
 	FLAVOR="${ID}"
 fi
