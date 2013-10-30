@@ -51,10 +51,10 @@ nnoremap k e
 nnoremap s i
 nnoremap h u
 nnoremap j f
-nnoremap N n
-nnoremap E e
-nnoremap U u
-nnoremap I i
+nnoremap N h
+nnoremap E j
+nnoremap U k
+nnoremap I l
 nnoremap F N
 nnoremap S I
 nnoremap K E
