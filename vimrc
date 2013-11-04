@@ -42,15 +42,15 @@ nmap ; A;
 " Mappings for Colemak
 "set langmap=nh,ej,il,uk,fn,ke,si,hu,jf
 "set langmap=fe,pr,gt,jy,lu,ui,yo,\;p,rs,sd,tf,dg,nj,ek,il,o\;,kn,FE,PR,GT,JY,LU,UI,YO,:P,RS,SD,TF,DG,NJ,EK,IL,O:,KN
-nnoremap n h
-nnoremap e j
-nnoremap i l
-nnoremap u k
-nnoremap f n
-nnoremap k e
-nnoremap s i
-nnoremap h u
-nnoremap j f
+noremap n h
+noremap e j
+noremap i l
+noremap u k
+noremap f n
+noremap k e
+noremap s i
+noremap h u
+noremap j f
 nnoremap N h
 nnoremap E j
 nnoremap U k
@@ -96,6 +96,8 @@ set wildignorecase
 set autowrite
 " Put vertical splits to the right of the current window
 set splitright
+" Put horizontal splits below the current window
+set splitbelow
 " Make visual-/ search rather than extend the visual
 :vmap / y/<C-R>"<CR>
 
