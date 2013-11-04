@@ -29,6 +29,8 @@ nmap <F2> :nohlsearch<CR>
 imap <F1> <esc>
 " Append a semicolon
 nmap ; A;
+" Re-syntax long files
+noremap <F12> :syntax sync fromstart<CR>
 
 " Mappings for QWERTY
 " Map keys to move between split windows
