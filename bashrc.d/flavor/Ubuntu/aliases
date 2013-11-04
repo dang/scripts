@@ -10,3 +10,7 @@ source "${SCRIPTS}/functions.sh"
 # Make new source this too
 export ALIASFILES="${ALIASFILES} ${me}"
 
+# dumbed down which...
+alias which="type"
+
+alias apt-get="sudo apt-get"

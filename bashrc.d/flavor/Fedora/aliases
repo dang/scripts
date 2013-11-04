@@ -10,3 +10,4 @@ source "${SCRIPTS}/functions.sh"
 # Make new source this too
 export ALIASFILES="${ALIASFILES} ${me}"
 
+alias yum="sudo yum"
