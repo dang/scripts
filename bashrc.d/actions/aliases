@@ -20,7 +20,7 @@ alias cd..="cd .."
 #
 # ls
 alias ls="/bin/ls -s -h --color=auto"
-alias la="ls -a"
+alias la="ls -A"
 alias ll="ls -al"
 #
 # cp
