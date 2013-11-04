@@ -1,6 +1,9 @@
 "
 " My modifications to C syntax
 
+" C uses doxygen
+UltiSnipsAddFiletypes c.doxygen
+
 if filereadable('.project.vim')
 	source .project.vim
 else
