@@ -39,7 +39,7 @@ alias diskusage='sudo du -hx --max-depth 1 . | sort -h'
 # control
 alias j="jobs -l"
 # Linux only
-alias ps="/usr/bin/ps -o user,pid,ppid,class,nice,nlwp,sgi_p,start,stat,tty,rss,cputime,args ww"
+alias ps="ps -o user,pid,ppid,class,nice,nlwp,sgi_p,start,stat,tty,rss,cputime,args ww"
 function psg {
 				ps --pid $(pgrep -d, -f $*)
 		}
