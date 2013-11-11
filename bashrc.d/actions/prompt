@@ -9,8 +9,8 @@ fi
 
 # Set prompt path to max 2 levels for best compromise of readability and usefulness
 promptpath () {
-    realpwd=$(realpath $PWD)
-    realhome=$(realpath $HOME)
+    realpwd=$(realpath "$PWD")
+    realhome=$(realpath "$HOME")
 
     # if we are in the home directory
     if echo $realpwd | grep -q "^$realhome"; then
