@@ -262,18 +262,19 @@ call pathogen#infect()
 "
 filetype plugin on
 filetype plugin indent on
-autocmd BufNewFile,BufRead *.cpp  let Tlist_Auto_Open=1
-autocmd BufNewFile,BufRead *.cxx  let Tlist_Auto_Open=1
-autocmd BufNewFile,BufRead *.hpp  let Tlist_Auto_Open=1
+autocmd BufNewFile,BufRead *.{c,h,php} set formatoptions-=w formatoptions+=a
+autocmd BufNewFile,BufRead *.cpp  let Tlist_Auto_Open=1 set formatoptions-=w formatoptions+=a
+autocmd BufNewFile,BufRead *.cxx  let Tlist_Auto_Open=1 set formatoptions-=w formatoptions+=a
+autocmd BufNewFile,BufRead *.hpp  let Tlist_Auto_Open=1 set formatoptions-=w formatoptions+=a
 autocmd BufNewFile,BufRead *akefile*    set noexpandtab
 autocmd BufNewFile,BufRead *.auto.unf set formatoptions-=t ts=4 tw=0
 autocmd BufNewFile,BufRead *.cfg.unf set formatoptions-=t ts=4 tw=0
 autocmd BufNewFile,BufRead *.auto set formatoptions-=t tw=0
 autocmd BufNewFile,BufRead *.cfg set formatoptions-=t ts=4 tw=0
 autocmd BufNewFile,BufRead *.map set formatoptions-=t  ts=8
-autocmd BufNewFile,BufRead *.pl   set nocst formatoptions-=r
-autocmd BufNewFile,BufRead *.pm   set nocst formatoptions-=r
-autocmd BufNewFile,BufRead *.perl   set nocst formatoptions-=r
+autocmd BufNewFile,BufRead *.pl   set nocst formatoptions-=rw formatoptions+=a
+autocmd BufNewFile,BufRead *.pm   set nocst formatoptions-=rw formatoptions+=a
+autocmd BufNewFile,BufRead *.perl   set nocst formatoptions-=rw formatoptions+=a
 autocmd BufNewFile,BufRead *.ksh  set tw=0
 autocmd BufNewFile,BufRead *.conf  set tw=0
 autocmd BufNewFile,BufRead distbuild  set tw=0
