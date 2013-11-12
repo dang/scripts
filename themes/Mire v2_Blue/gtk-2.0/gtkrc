@@ -54,7 +54,6 @@ xthickness = 1
 engine "murrine" 
   {
 	menuitemstyle = 0 # 0 = flat, 1 = glassy, 2 = striped
-	scrollbar_color = "#acacac"
 	scrollbarstyle = 0
 	contrast = 1.0
 	menustyle = 0
@@ -65,9 +64,7 @@ engine "murrine"
 	listviewheaderstyle = 0 # 0 = flat, 1 = glassy
 	roundness = 0 # 0 = squared, 1 = old default, more will increase roundness
     	animation = TRUE # FALSE = disabled, TRUE = enabled
- 	
-      hilight_ratio = 1.0
-        gradients = TRUE
+	#hilight_shade = 1.0
         listviewstyle = 1
    }
 }
