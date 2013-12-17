@@ -4,10 +4,12 @@
 FLAVOR="unknown"
 
 if hash lsb_release 2>/dev/null; then
-	FLAVOR=$(lsb_release -is)
+	f=$(lsb_release -is)
+	FLAVOR=${f,,}
 elif [ -f "/etc/os-release" ]; then
 	. /etc/os-release
-	FLAVOR="${ID}"
+	f="${ID}"
+	FLAVOR=${f,,}
 fi
 
 export FLAVOR
