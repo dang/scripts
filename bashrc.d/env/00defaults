@@ -22,3 +22,5 @@ if [ -z "${USER}" ]; then
 	export LOGNAME=${USER}
 fi
 
+# If colorgcc (or something else) is in the path, it will break ccache
+export CCACHE_PATH="/usr/bin"

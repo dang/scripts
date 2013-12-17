@@ -2,6 +2,7 @@
 # Local path
 
 #pathprepend "${HOME}/src/gtws"
+#pathprepend "/usr/lib/colorgcc/bin"
 #pathappend "/usr/games/bin"
 #pathappend "/sbin"
 #pathappend "/usr/sbin"
