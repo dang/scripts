@@ -1,5 +1,9 @@
 #set horizontal-scroll-mode On
-set editing-mode vi
+$if cgdb
+	set editing-mode emacs
+$else
+	set editing-mode vi
+$endif
 set completion-ignore-case On
 
 set keymap vi-move
