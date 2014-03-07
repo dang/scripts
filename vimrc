@@ -263,9 +263,9 @@ call pathogen#infect()
 filetype plugin on
 filetype plugin indent on
 autocmd BufNewFile,BufRead *.{c,h,php} set formatoptions+=cqj
-autocmd BufNewFile,BufRead *.cpp  let Tlist_Auto_Open=1 set formatoptions+=cqj
-autocmd BufNewFile,BufRead *.cxx  let Tlist_Auto_Open=1 set formatoptions+=cqj
-autocmd BufNewFile,BufRead *.hpp  let Tlist_Auto_Open=1 set formatoptions+=cqj
+autocmd BufNewFile,BufRead *.cpp  set formatoptions+=cqj
+autocmd BufNewFile,BufRead *.cxx  set formatoptions+=cqj
+autocmd BufNewFile,BufRead *.hpp  set formatoptions+=cqj
 autocmd BufNewFile,BufRead *akefile*    set noexpandtab
 autocmd BufNewFile,BufRead *.auto.unf set formatoptions-=t ts=4 tw=0
 autocmd BufNewFile,BufRead *.cfg.unf set formatoptions-=t ts=4 tw=0
