@@ -429,3 +429,11 @@ alias asdf="setxkbmap us -variant colemak; xmodmap ${SCRIPTS}/keymap"
 function p0rnget {
 	wget $(curl "$1" 2>/dev/null | grep "_file"  | sed 's/ /\n/g' | grep _file | sed 's/src=//;s/\\x22//g').mp4
 }
+
+function hex2dec {
+	HEX=$(echo "$@" | tr '[:lower:]' '[:upper:]')
+	echo "ibase=16; ${HEX}" | bc
+}
+function dec2hex {
+	echo "obase=16; $@" | bc
+}
