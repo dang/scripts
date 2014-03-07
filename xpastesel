@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+
+# This will use a virtual keyboard device to paste the PRIMARY selection into
+# the active window.  To use, bind it to SHIFT-INS in your window manager.
+
+xclip -o -sel | xvkbd -xsendevent -file - 2>/dev/null

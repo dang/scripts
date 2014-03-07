@@ -9,6 +9,7 @@ REPO="git://github.com/dang/scripts.git"
 LNFILES="ackrc atoolrc bashrc cvsrc face gvimrc inputrc lesskey profile screenrc tmux.conf vim vimrc vrapperrc xinitrc"
 CPFILES="gitconfig"
 CFGDIRS="awesome luakit"
+WANTPROGS="atool realpath tmux xclip xvkbd"
 
 function die {
 	echo "$@"
@@ -82,5 +83,16 @@ done
 # Set up less
 lesskey
 
+# Look to see if my desired programs are installed
+for i in ${WANTPROGS}; do
+	which $i > /dev/null 2>&1
+	if [ "$?" == "1" ]; then
+		NEEDPROGS="$i ${NEEDPROGS}"
+	fi
+done
+
 echo "Done."
 echo "You need to edit ${HOME}/.bashrc.d/* for your your local settings"
+if [ -n "${NEEDPROGS}" ]; then
+	echo "Please install ${NEEDPROGS}"
+fi
