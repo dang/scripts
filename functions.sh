@@ -2,12 +2,29 @@
 # A useful set of bash functions for my scripts
 #
 
+# if is_interactive; then echo "interactive" fi
+#
+# Check for an interactive shell
+is_interactive() {
+	case $- in
+		*i*)
+			# Don't die in interactive shells
+			return 0
+			;;
+		*)
+			return 1
+			;;
+	esac
+}
+
 die() {
-	echo "$@"
+	echo "Failed: $@"
 	if [ ! -z "$(declare -F | grep "DFGcleanup")" ]; then
 		DFGcleanup "$@"
 	fi
-	exit 1
+	if ! is_interactive; then
+		exit 1
+	fi
 }
 
 usage() {
