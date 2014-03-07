@@ -1,0 +1,73 @@
+#!/bin/bash
+#
+# Setup environment after sudo/su.
+#
+
+# Set usage output
+USAGE="[-h |--help] [-s <scripts-dir> | --scripts-dir=<scripts-dir>] <homedir>"
+LONGUSAGE="\t-h, --help\n\t\tPrint this help message
+\t-s <scripts-dir>, --scripts-dir=<scripts-dir>\n\t\tScripts directory (default: HOME/.scripts)
+\t<homedir>\n\t\tPath to home directory"
+
+die() {
+	echo "Failed: $@"
+	exit 1
+}
+
+usage() {
+	local myusage;
+	if [ -n "${USAGE}" ]; then
+		myusage=${USAGE}
+	else
+		myusage="No usage given"
+	fi
+	if [ -n "$1" ]; then
+		echo "$@"
+	fi
+	echo ""
+	echo "Usage:"
+	echo "`basename $0` ${myusage}"
+	if [ -n "${LONGUSAGE}" ]; then
+		echo -e "${LONGUSAGE}"
+	fi
+	exit 1
+}
+
+# Script name
+ME=$(basename $0)
+
+# Parse arguments
+ARGS=`getopt -o hs: --long help,scripts-dir: -n "${ME}" -- "$@"`
+
+if [ $? != 0 ] ; then
+	usage
+fi
+eval set -- "$ARGS"
+
+while true ; do
+	case "$1" in
+		-h|--help) usage; shift ;;
+		-s|--scripts) SCRIPTS=$2 ; shift 2 ;;
+		--) shift ; break ;;
+		* ) usage "Invalid argument $1";;
+	esac
+done
+
+# Remaining arguments are in $1, $2, etc. as normal
+HOME=${1}
+
+if [ ! -d "${HOME}" ]; then
+	usage "Must give homedir"
+fi
+
+if [ -z "${SCRIPTS}" ]; then
+	SCRIPTS="${HOME}/.scripts"
+fi
+
+if [ ! -d "${SCRIPTS}" ]; then
+	usage "Scripts dir ${SCRIPTS} doesn'd exist"
+fi
+
+export HOME
+export SCRIPTS
+exec bash

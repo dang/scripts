@@ -419,6 +419,9 @@ function suspend {
 }
 #alias suspend="sudo /home/dang/bin/suspend"
 alias wakeup="sudo kbdrate -r 30"
+alias dsu="sudo ${SCRIPTS}/dsu-helper ${HOME}"
+
+
 alias keepassx="/usr/bin/keepassx ~/Dropbox/keepass.kdb"
 alias arst="setxkbmap us"
 alias asdf="setxkbmap us -variant colemak; xmodmap ${SCRIPTS}/keymap"
