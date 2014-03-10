@@ -61,6 +61,7 @@ nnoremap F N
 nnoremap S I
 nnoremap K E
 nnoremap H U
+nnoremap J F
 nnoremap <C-E> <C-F>
 nnoremap <C-U> <C-B>
 vnoremap <C-E> <C-F>
