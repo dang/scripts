@@ -1,0 +1,44 @@
+
+# Cursor navigation
+#bind generic	k	move-up
+bind generic	u	move-up
+#bind generic	j	move-down
+bind generic	e	move-down
+#bind generic	Space	move-page-down
+bind generic	E	move-page-down
+#bind generic	PgUp	move-page-up
+bind generic	PgUp	move-page-up
+#bind generic	-	move-page-up
+bind generic	U	move-page-up
+
+# Scrolling
+#bind generic	Left	scroll-left
+bind generic	n	scroll-left
+#bind generic	Right	scroll-right
+bind generic	i	scroll-right
+
+# View specific
+#bind status	u	status-update		# Stage/unstage changes in file
+bind status	n	status-update		# Stage/unstage changes in file
+#bind stage	u	status-update		# Stage/unstage current diff (c)hunk
+bind stage	k	status-update		# Stage/unstage current diff (c)hunk
+
+# Misc
+#bind generic	e	edit			# Open in editor
+bind generic	k	edit			# Open in editor
+
+# Searching
+#bind generic	n	find-next
+bind generic	f	find-next
+#bind generic	N	find-prev
+bind generic	F	find-prev
+
+# View switching
+#bind generic	f	view-blob
+bind generic	j	view-blob
+
+# Option manipulation
+#bind generic	F	toggle-refs
+bind generic	J	toggle-refs
+#bind generic	i	toggle-sort-field
+bind generic	s	toggle-sort-field
