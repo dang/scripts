@@ -42,24 +42,5 @@ fi
 
 vcs_detect
 
-#
-# Arguments
-FILENAME=$1
-BLAMENAME=`mktemp`
-LOGNAME=`mktemp`
-
-vcs_annotate $FILENAME > $BLAMENAME
-
-echo "line ${LINE}"
-if [ -z "${LINE}" ]; then
-	echo "No version" > ${LOGNAME}
-	LINE="0"
-else
-	VERSION=`awk '(NR == line){print $1}' line=${LINE} ${BLAMENAME}`
-	echo "VERSION ${VERSION}"
-	vcs_log ${VERSION} ${FILENAME} > ${LOGNAME}
-fi
-
-vim +${LINE} -o ${BLAMENAME} ${LOGNAME}
-rm ${BLAMENAME} ${LOGNAME}
+vcs_blame $1 $LINE
 

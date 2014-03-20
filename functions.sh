@@ -605,7 +605,44 @@ function vcs_log() {
 			;;
 		cvs)
 			# CVS doesn't do revert...
-			colorcvs log -r ${VERSION} $* || die "cvs annotate failed"
+			colorcvs log -r ${VERSION} $* || die "cvs log failed"
+			;;
+		fake)
+			;;
+		*)
+			if [ -n "${VCS_FATAL_ERRORS}" ]; then
+				die "Unknown VCS for ${PWD}"
+			else
+				echo "Unknown VCS for ${PWD}"
+			fi
+			;;
+	esac
+}
+
+# blame a line in a file
+function vcs_blame() {
+	vcs_int_setup
+	file=$1
+	line=$2
+	case "${VCS}" in
+		git)
+			tig blame $file +$line
+			;;
+		svn|cvs)
+			blamename=`mktemp`
+			logname=`mktemp`
+			vcs_annotate $file > $blamename
+			if [ -z "${line}" ]; then
+				echo "No version" > ${logname}
+				line="0"
+			else
+				version=`awk '(NR == line){print $1}' line=${line} ${blamename}`
+				echo "version ${version}"
+				vcs_log ${version} ${file} > ${logname}
+			fi
+
+			vim +${line} -o ${blamename} ${logname}
+			rm ${blamename} ${logname}
 			;;
 		fake)
 			;;

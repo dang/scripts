@@ -61,7 +61,6 @@ nnoremap F N
 nnoremap S I
 nnoremap K E
 nnoremap H U
-nnoremap J F
 nnoremap <C-E> <C-F>
 nnoremap <C-U> <C-B>
 vnoremap <C-E> <C-F>
@@ -171,6 +170,7 @@ vnoremap <Leader>C  :call NERDComment(1, "uncomment")<cr>
 command Reload checktime
 " Blame in svn for the current line
 command Vcsblame exe "!vcsblame --line "  . line(".") . " " . expand("%")
+"command Vcsblame exe "!tig blame " . expand("%") . " +"  . line(".")
 " Check when a symbol was added to git
 map <Leader>1 :!git log --reverse -p -S <cword> %<cr>
 nmap ) :tn<cr>
