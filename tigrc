@@ -6,8 +6,8 @@ bind generic	u	move-up
 bind generic	e	move-down
 #bind generic	Space	move-page-down
 bind generic	E	move-page-down
-#bind generic	PgUp	move-page-up
-bind generic	PgUp	move-page-up
+#bind generic	PageUp	move-page-up
+bind generic	PageUp	move-page-up
 #bind generic	-	move-page-up
 bind generic	U	move-page-up
 
