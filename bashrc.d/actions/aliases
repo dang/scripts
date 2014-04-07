@@ -221,25 +221,25 @@ alias rcp="rsync --rsh=ssh -avzS --progress "
 ##
 # These are development related aliases.
 function cppgrep {
-	find . "(" -name "*.c" -or -name "*.cc" -or -name "*.cpp" ")" -exec egrep --color=auto -H -- "$@" "{}" ";"
+	find . "(" -name "*.c" -or -name "*.cc" -or -name "*.cpp" ")" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function hppgrep {
-	find . "(" -name "*.h" -or -name "*.hpp" ")" -exec egrep --color=auto -H -- "$@" "{}" ";"
+	find . "(" -name "*.h" -or -name "*.hpp" ")" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function chppgrep {
-	find . "(" -name "*.[ch]" -or -name "*.cc" -or -name "*.[ch]pp" ")" -exec egrep --color=auto -H -- "$@" "{}" ";"
+	find . "(" -name "*.[ch]" -or -name "*.cc" -or -name "*.[ch]pp" ")" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function cgrep {
-	find . -name "*.c" -exec egrep --color=auto -H -- "$@" "{}" ";"
+	find . -name "*.c" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function chgrep {
-	find . -name "*.[ch]" -exec egrep --color=auto -H -- "$@" "{}" ";"
+	find . -name "*.[ch]" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function hgrep {
-	find . -name "*.h" -exec egrep --color=auto -H -- "$@" "{}" ";"
+	find . -name "*.h" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function jgrep {
-	find . -name "*.java" -exec egrep --color=auto -H -- "$@" "{}" ";"
+	find . -name "*.java" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function dgrep {
 	if [ -z "${1}" ]; then
@@ -248,20 +248,20 @@ function dgrep {
 	fi
 	PATTERN=$1
 	shift
-	find . -type f -name "*${PATTERN}*" -exec egrep --color=auto -H -- "$@" "{}" ";"
+	find . -type f -name "*${PATTERN}*" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function igrep {
 	PATTERN=$1
 	shift
-	find . -type f -iname "*${PATTERN}*" -exec egrep --color=auto -H -- "$@" "{}" ";"
+	find . -type f -iname "*${PATTERN}*" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function grepall {
-	find . -type f -regextype posix-extended ! \( -regex '.*cscope.*' -o -regex '.*tags.*' -o -regex '.*\.orig' -o -regex '.*\.rej' -o -regex '.*CVS.*' -o -regex '.*\.#maketags.dfg' -o -regex '.*\.svn.*' -o -regex '.*\.git.*' \) -exec egrep --color=auto -H -- "$@" "{}" ";"
+	find . -type f -regextype posix-extended ! \( -regex '.*cscope.*' -o -regex '.*tags.*' -o -regex '.*\.orig' -o -regex '.*\.rej' -o -regex '.*CVS.*' -o -regex '.*\.#maketags.dfg' -o -regex '.*\.svn.*' -o -regex '.*\.git.*' \) -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function grepdir {
 	DIR=$1
 	shift
-	find ${DIR} -type f -regextype posix-extended ! \( -regex '.*cscope.*' -o -regex '.*tags.*' -o -regex '.*\.orig' -o -regex '.*\.rej' -o -regex '.*CVS.*' -o -regex '.*\.#maketags.dfg' -o -regex '.*\.svn.*' -o -regex '.*\.git.*' \) -exec egrep --color=auto -H -- "$@" "{}" ";"
+	find ${DIR} -type f -regextype posix-extended ! \( -regex '.*cscope.*' -o -regex '.*tags.*' -o -regex '.*\.orig' -o -regex '.*\.rej' -o -regex '.*CVS.*' -o -regex '.*\.#maketags.dfg' -o -regex '.*\.svn.*' -o -regex '.*\.git.*' \) -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function cleanuppatch {
 	find . -name "*.orig" -exec rm {} \;
