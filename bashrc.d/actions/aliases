@@ -117,6 +117,9 @@ if [ $SHELL = "/bin/ksh" ]; then
 	unalias rm
 fi
 alias diff='/usr/bin/diff --exclude-from="${SCRIPTS}/diffrc" -up'
+function bdiff {
+	cmp -l $@ | gawk '{printf "%08X %02X %02X\n", $1-1, strtonum(0$2), strtonum(0$3)}'
+}
 # The bloody bc does *integer* math be default!
 alias bc="bc -l"
 #
