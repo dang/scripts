@@ -10,3 +10,4 @@
 [submodule "gtws"]
 	path = gtws
 	url = git://github.com/dang/gtws.git
+	branch = master
