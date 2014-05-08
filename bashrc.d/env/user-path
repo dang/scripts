@@ -4,3 +4,6 @@ pathprepend "${HOME}/bin"
 
 # set PATH for the flavor
 pathprepend "${SCRIPTS}/flavor/${FLAVOR}"
+
+# Add GTWS to path
+pathappend "${SCRIPTS}/gtws"
