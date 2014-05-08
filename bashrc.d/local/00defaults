@@ -18,3 +18,7 @@
 #
 # Fix 3D rendering/speeds
 #export LIBGL_ALWAYS_INDIRECT=1
+
+#
+# Turn stty stop back on, overriding default
+stty stop ^s

@@ -97,7 +97,7 @@ set wildignorecase
 " Automatically write changes with tagging to a new file
 set autowrite
 " Put vertical splits to the right of the current window
-set splitright
+"set splitright
 " Put horizontal splits below the current window
 set splitbelow
 " Make visual-/ search rather than extend the visual
@@ -136,6 +136,16 @@ nnoremap <Leader>c  :call NERDComment(0, "norm")<cr>
 vnoremap <Leader>c  :call NERDComment(1, "norm")<cr>
 nnoremap <Leader>C  :call NERDComment(0, "uncomment")<cr>
 vnoremap <Leader>C  :call NERDComment(1, "uncomment")<cr>
+
+"
+" Settings for dwm
+"
+
+nmap <C-S> <Plug>DWMSplit
+nmap <C-F> <Plug>DWMClose
+nmap <C-'> <Plug>DWMGrowMaster
+nmap <C-H> <Plug>DWMShrinkMaster
+nmap <C-L> <Plug>DWMResetMaster
 
 "
 " Cindent options

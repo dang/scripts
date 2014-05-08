@@ -1,3 +1,9 @@
 [submodule "luakit/plugins"]
 	path = luakit/plugins
 	url = https://github.com/mason-larobina/luakit-plugins.git
+[submodule "vim/bundle/vim-fugitive"]
+	path = vim/bundle/vim-fugitive
+	url = git://github.com/tpope/vim-fugitive.git
+[submodule "vim/bundle/dwm.vim"]
+	path = vim/bundle/dwm.vim
+	url = git://github.com/dang/dwm.vim.git

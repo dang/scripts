@@ -24,3 +24,6 @@ fi
 
 # If colorgcc (or something else) is in the path, it will break ccache
 export CCACHE_PATH="/usr/bin"
+
+# Turn off stty stop, so I can use ctrl-s in vim
+stty stop undef
