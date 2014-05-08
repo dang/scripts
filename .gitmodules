@@ -7,3 +7,6 @@
 [submodule "vim/bundle/dwm.vim"]
 	path = vim/bundle/dwm.vim
 	url = git://github.com/dang/dwm.vim.git
+[submodule "gtws"]
+	path = gtws
+	url = git://github.com/dang/gtws.git

@@ -17,6 +17,7 @@ pathappend() {
 
 # Add scripts dir to path
 pathprepend "${SCRIPTS}"
+pathprepend "${SCRIPTS}/gtws"
 
 # Give group write by default
 umask 002
