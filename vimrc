@@ -10,6 +10,11 @@ behave xterm
 set selectmode=mouse
 " Hide the mouse pointer while typing
 set mousehide
+" Use mouse in terminals; this allows selection inside tmux
+if has('mouse')
+	set mouse=a
+	set selectmode=
+endif
 " Use the X clipboard for default yanking
 set clipboard=autoselect,unnamed,unnamedplus,exclude:cons\|linux
 " Want status line
@@ -142,10 +147,14 @@ vnoremap <Leader>C  :call NERDComment(1, "uncomment")<cr>
 "
 
 nmap <C-Left> <Plug>DWMSplit
+nmap [D <Plug>DWMSplit
 nmap <C-Right> <Plug>DWMClose
+nmap [C <Plug>DWMClose
 nmap <C-Up> <Plug>DWMGrowMaster
+nmap [A <Plug>DWMGrowMaster
 nmap <C-Down> <Plug>DWMShrinkMaster
-nmap <C-[E> <Plug>DWMResetMaster
+nmap [B <Plug>DWMShrinkMaster
+nmap [E <Plug>DWMResetMaster
 nmap <C-PageDown> <Plug>DWMRotateCounterclockwise
 nmap <C-PageUp> <Plug>DWMRotateClockwise
 nmap <Ok> <Plug>DWMTag
@@ -286,9 +295,9 @@ autocmd BufNewFile,BufRead *.cfg.unf set formatoptions-=t ts=4 tw=0
 autocmd BufNewFile,BufRead *.auto set formatoptions-=t tw=0
 autocmd BufNewFile,BufRead *.cfg set formatoptions-=t ts=4 tw=0
 autocmd BufNewFile,BufRead *.map set formatoptions-=t  ts=8
-autocmd BufNewFile,BufRead *.pl   set nocst formatoptions-=r set formatoptions+=cqj
-autocmd BufNewFile,BufRead *.pm   set nocst formatoptions-=r set formatoptions+=cqj
-autocmd BufNewFile,BufRead *.perl   set nocst formatoptions-=r set formatoptions+=cqj
+autocmd BufNewFile,BufRead *.pl   set nocst formatoptions-=r formatoptions+=cqj
+autocmd BufNewFile,BufRead *.pm   set nocst formatoptions-=r formatoptions+=cqj
+autocmd BufNewFile,BufRead *.perl   set nocst formatoptions-=r formatoptions+=cqj
 autocmd BufNewFile,BufRead *.ksh  set tw=0
 autocmd BufNewFile,BufRead *.conf  set tw=0
 autocmd BufNewFile,BufRead distbuild  set tw=0
@@ -308,6 +317,23 @@ autocmd BufNewFile,BufRead *gated_log* set filetype=gated
 autocmd BufNewFile,BufRead *.dml set filetype=dml
 autocmd BufNewFile,BufRead *.pde setlocal ft=arduino
 autocmd BufNewFile,BufRead *.ftl set filetype=xhtml
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+" (happens when dropping a file on gvim).
+" Also don't do it when the mark is in the first line, that is the default
+" position when opening a file.
+autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+		  \ | wincmd p | diffthis
+endif
 
 "
 " Settings for C syntax highlighting (see .vim/doc/std_c.txt)
