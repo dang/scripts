@@ -49,10 +49,13 @@ done
 [ -a "${HOME}/.bashrc.d" ] && die "${HOME}/.bashrc.d exists; not continuing"
 
 if [ ! -d "${SCRIPTDIR}/.git" ]; then
+	SAVEDIR=${PWD}
 	cmd_exists git
 	cd $(dirname "${SCRIPTDIR}")
 	git clone ${REPO} $(basename ${SCRIPTDIR})
+	cd $(basename "${SCRIPTDIR}")
 	git submodule update --init --recursive
+	cd "${SAVEDIR}"
 fi
 if [ ! -d "${SCRIPTDIR}/.git" ]; then
 	echo "Failed to clone scripts repo from ${REPO}"
