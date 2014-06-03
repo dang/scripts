@@ -137,10 +137,10 @@ set t_Co=256
 let g:NERDCreateDefaultMappings='0'
 let g:NERDRemoveExtraSpaces='1'
 let g:NERDCompactSexyComs='1'
-nnoremap <Leader>c  :call NERDComment(0, "norm")<cr>
-vnoremap <Leader>c  :call NERDComment(1, "norm")<cr>
-nnoremap <Leader>C  :call NERDComment(0, "uncomment")<cr>
-vnoremap <Leader>C  :call NERDComment(1, "uncomment")<cr>
+nnoremap <Leader>c  :call NERDComment('n', "comment")<cr>
+vnoremap <Leader>c  :call NERDComment('x', "comment")<cr>
+nnoremap <Leader>C  :call NERDComment('n', "uncomment")<cr>
+vnoremap <Leader>C  :call NERDComment('x', "uncomment")<cr>
 
 "
 " Settings for dwm
