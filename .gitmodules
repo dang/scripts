@@ -12,3 +12,6 @@
 	path = gtws
 	url = git://github.com/dang/gtws.git
 	branch = master
+[submodule "vim/bundle/nerdcommenter"]
+	path = vim/bundle/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter.git
