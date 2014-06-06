@@ -317,6 +317,10 @@ autocmd BufNewFile,BufRead *gated_log* set filetype=gated
 autocmd BufNewFile,BufRead *.dml set filetype=dml
 autocmd BufNewFile,BufRead *.pde setlocal ft=arduino
 autocmd BufNewFile,BufRead *.ftl set filetype=xhtml
+
+" Save the X clipboard on exit
+autocmd VimLeave * call system("xsel -ip", getreg('+'))
+
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
 " (happens when dropping a file on gvim).
