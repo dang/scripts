@@ -54,7 +54,9 @@ noremap e j
 noremap i l
 noremap u k
 noremap f n
+noremap F N
 noremap k e
+noremap K E
 noremap s i
 noremap h u
 noremap j f
@@ -62,9 +64,7 @@ nnoremap N h
 nnoremap E j
 nnoremap U k
 nnoremap I l
-nnoremap F N
 nnoremap S I
-nnoremap K E
 nnoremap H U
 nnoremap <C-E> <C-F>
 nnoremap <C-U> <C-B>
