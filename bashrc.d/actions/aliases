@@ -129,6 +129,11 @@ function new {
 		source $i
 	done
 }
+
+function vialias {
+	vim -O ${ALIASFILES}
+}
+
 #
 # Terminal Reset Command -- Fixes screen when it gets messy (ie. wierd font)
 function terr
