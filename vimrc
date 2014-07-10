@@ -319,7 +319,14 @@ autocmd BufNewFile,BufRead *.pde setlocal ft=arduino
 autocmd BufNewFile,BufRead *.ftl set filetype=xhtml
 
 " Save the X clipboard on exit
-autocmd VimLeave * call system("xsel -ip", getreg('+'))
+function SaveXClip()
+	call system("xsel -ip", getreg('+'))
+	call system("xsel -k")
+	call system("cat >> /home/dang/output.dfg", getreg('+'))
+endfunction
+command SaveXClip call SaveXClip()
+autocmd VimLeave * call SaveXClip()
+:nnoremap <silent> <C-z> :SaveXClip<CR><C-z>
 
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
