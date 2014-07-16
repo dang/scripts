@@ -2,6 +2,11 @@ u back-line
 e forw-line
 U back-scroll
 E forw-scroll
+^U back-scroll
+^E forw-scroll
+
+i right-scroll
+n left-scroll
 
 f repeat-search
 F reverse-search

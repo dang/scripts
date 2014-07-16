@@ -32,3 +32,4 @@ set keymap vi-command
 	"K": vi-end-word
 	"s": vi-insertion-mode
 	"S": vi-insert-beg
+	"\C-r": re-read-init-file
