@@ -278,6 +278,13 @@ command Spell call Spell()
 ab #i #include
 
 " Pathogen
+"To disable a plugin, add it's bundle name to the following list
+let g:pathogen_disabled = []
+
+" Gundo requires at least vim 7.3
+if !has('python')
+	call add(g:pathogen_disabled, 'ultisnips')
+endif
 call pathogen#infect()
 
 "
