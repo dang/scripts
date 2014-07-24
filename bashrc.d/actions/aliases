@@ -282,6 +282,9 @@ function findfile {
 	find . -iname "*${*}*"
 }
 
+export NPROC=$(($(nproc) * 2))
+alias pmake="make -j $NPROC"
+
 alias webcol="webcollage -root -v > $HOME/.webcollage 2>/dev/null </dev/null &"
 
 alias screenshot="import -frame"
