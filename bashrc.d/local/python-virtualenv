@@ -1,0 +1,5 @@
+# vim: ft=sh:
+# pyhton-virtualenvwrapper environment
+
+export WORKON_HOME="${HOME}/src/python-virtualenv"
+source /usr/bin/virtualenvwrapper.sh
