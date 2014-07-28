@@ -277,6 +277,14 @@ command Spell call Spell()
 " If you type #i<space> then it completes to #include
 ab #i #include
 
+"
+" Delete timestamps from kernel logs
+" ^[[:alpha:]]\{3} [[:digit:]]\{1,2} [[:digit:]]\{1,2}:[[:digit:]]\{2}:[[:digit:]]\{2}
+function KernLogCleanup()
+	%s#^[[:alpha:]]\{3} [[:digit:]]\{1,2} [[:digit:]]\{1,2}:[[:digit:]]\{2}:[[:digit:]]\{2}##g
+endfunction
+command KernLogCleanup call KernLogCleanup()
+
 " Pathogen
 "To disable a plugin, add it's bundle name to the following list
 let g:pathogen_disabled = []
