@@ -281,7 +281,7 @@ ab #i #include
 " Delete timestamps from kernel logs
 " ^[[:alpha:]]\{3} [[:digit:]]\{1,2} [[:digit:]]\{1,2}:[[:digit:]]\{2}:[[:digit:]]\{2}
 function KernLogCleanup()
-	%s#^[[:alpha:]]\{3} [[:digit:]]\{1,2} [[:digit:]]\{1,2}:[[:digit:]]\{2}:[[:digit:]]\{2}##g
+	%s#^[[:alpha:]]\{3} [[:digit:]]\{1,2} [[:digit:]]\{1,2}:[[:digit:]]\{2}:[[:digit:]]\{2} \f\{-} kernel: \[.\{-}\] ##g
 endfunction
 command KernLogCleanup call KernLogCleanup()
 
