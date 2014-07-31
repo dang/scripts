@@ -157,7 +157,7 @@ nmap [B <Plug>DWMShrinkMaster
 nmap [E <Plug>DWMResetMaster
 nmap <C-PageDown> <Plug>DWMRotateCounterclockwise
 nmap <C-PageUp> <Plug>DWMRotateClockwise
-nmap <Ok> <Plug>DWMTag
+nmap OM <Plug>DWMTag
 
 "
 " Cindent options
