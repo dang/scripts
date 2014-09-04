@@ -11,3 +11,5 @@ source "${SCRIPTS}/functions.sh"
 export ALIASFILES="${ALIASFILES} ${me}"
 
 alias yum="sudo yum"
+
+alias systemctl="sudo systemctl"

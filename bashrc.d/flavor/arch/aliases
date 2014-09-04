@@ -16,3 +16,5 @@ alias pacman="sudo pacman"
 alias aurget="aurget --noedit --deps"
 
 alias uumount="udiskie-umount -2"
+
+alias systemctl="sudo systemctl"
