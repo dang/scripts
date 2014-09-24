@@ -6,19 +6,35 @@
 set nocompatible
 " Act like we're in an xterm
 behave xterm
+" Want status line
+set laststatus=2
+
+"
+" Mouse/clipboard settings
+"
+" Save the X clipboard on exit
 " Select with the mouse
 set selectmode=mouse
 " Hide the mouse pointer while typing
 set mousehide
+" Use the X clipboard for default yanking
+set clipboard=autoselect,unnamed,unnamedplus,exclude:cons\|linux
 " Use mouse in terminals; this allows selection inside tmux
 if has('mouse')
 	set mouse=a
 	set selectmode=
 endif
-" Use the X clipboard for default yanking
-set clipboard=autoselect,unnamed,unnamedplus,exclude:cons\|linux
-" Want status line
-set laststatus=2
+function SaveXClip()
+	let reg = getreg('+')
+	if !empty(reg)
+		call system("xsel -ip", reg)
+		call system("xsel -k")
+		call system("cat >> /home/dang/tmp/vimclip.log", getreg('+'))
+	endif
+endfunction
+command SaveXClip call SaveXClip()
+autocmd VimLeave * call SaveXClip()
+:nnoremap <silent> <C-z> :SaveXClip<CR><C-z>
 
 "
 " Key mappings
@@ -332,16 +348,6 @@ autocmd BufNewFile,BufRead *gated_log* set filetype=gated
 autocmd BufNewFile,BufRead *.dml set filetype=dml
 autocmd BufNewFile,BufRead *.pde setlocal ft=arduino
 autocmd BufNewFile,BufRead *.ftl set filetype=xhtml
-
-" Save the X clipboard on exit
-function SaveXClip()
-	call system("xsel -ip", getreg('+'))
-	call system("xsel -k")
-	call system("cat >> /home/dang/output.dfg", getreg('+'))
-endfunction
-command SaveXClip call SaveXClip()
-autocmd VimLeave * call SaveXClip()
-:nnoremap <silent> <C-z> :SaveXClip<CR><C-z>
 
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
