@@ -1,5 +1,5 @@
 [submodule "luakit/plugins"]
-	path = luakit/plugins
+	path = config/luakit/plugins
 	url = https://github.com/mason-larobina/luakit-plugins.git
 [submodule "vim/bundle/vim-fugitive"]
 	path = vim/bundle/vim-fugitive

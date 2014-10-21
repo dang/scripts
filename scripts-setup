@@ -8,7 +8,7 @@
 REPO="git://github.com/dang/scripts.git"
 LNFILES="ackrc atoolrc bashrc cvsrc face gitignore gvimrc inputrc lesskey profile tigrc tmux.conf vim vimrc vrapperrc xinitrc"
 CPFILES="gitconfig"
-CFGDIRS="awesome luakit"
+CFGDIRS="awesome luakit xfce4/terminal"
 WANTPROGS="atool realpath tmux udiskie xclip xvkbd"
 
 function die {
@@ -74,13 +74,15 @@ mkdir -p "${HOME}/.bashrc.d"
 cp -a "${SCRIPTDIR}/bashrc.d/local/"* "${HOME}/.bashrc.d"
 
 for FILE in ${CPFILES}; do
-	[ -a ".${FILE}" ] || cp ".scripts/${FILE}" ".${FILE}"
+	[ -a ".${FILE}" ] || cp ".scripts/${FILE}" "${HOME}/.${FILE}"
 done
 for FILE in ${LNFILES}; do
-	ln -s ".scripts/${FILE}" ".${FILE}"
+	ln -s "${HOME}/.scripts/${FILE}" "${HOME}/.${FILE}"
 done
 for DIR in ${CFGDIRS}; do
-	ln -s "${HOME}/.scripts/${DIR}" ".config/${DIR}"
+	BASEDIR=$(dirname $DIR{})
+	mkdir -p "${HOME}/.config/${BASEDIR}"
+	ln -s "${HOME}/.scripts/config/${DIR}" "${HOME}/.config/${DIR}"
 done
 
 # Set up less
