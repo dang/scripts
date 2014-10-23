@@ -20,21 +20,23 @@ set mousehide
 " Use the X clipboard for default yanking
 set clipboard=autoselect,unnamed,unnamedplus,exclude:cons\|linux
 " Use mouse in terminals; this allows selection inside tmux
-if has('mouse')
-	set mouse=a
-	set selectmode=
-endif
-function SaveXClip()
-	let reg = getreg('+')
-	if !empty(reg)
-		call system("xsel -ip", reg)
-		call system("xsel -k")
-		call system("cat >> /home/dang/tmp/vimclip.log", getreg('+'))
+if !empty($DISPLAY) && executable('xsel')
+	if has('mouse')
+		set mouse=a
+		set selectmode=
 	endif
-endfunction
-command SaveXClip call SaveXClip()
-autocmd VimLeave * call SaveXClip()
-:nnoremap <silent> <C-z> :SaveXClip<CR><C-z>
+	function SaveXClip()
+		let reg = getreg('+')
+		if !empty(reg)
+			call system("xsel -ip", reg)
+			call system("xsel -k")
+			call system("cat >> /home/dang/tmp/vimclip.log", getreg('+'))
+		endif
+	endfunction
+	command SaveXClip call SaveXClip()
+	autocmd VimLeave * call SaveXClip()
+	:nnoremap <silent> <C-z> :SaveXClip<CR><C-z>
+endif
 
 "
 " Key mappings
