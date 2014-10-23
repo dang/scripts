@@ -229,46 +229,86 @@ alias rcp="rsync --rsh=ssh -avzS --progress "
 ##
 # These are development related aliases.
 function cppgrep {
+	if [ -z "${1}" ]; then
+		echo "usage: ${FUNCNAME} <regex>"
+		return 1
+	fi
 	find . "(" -name "*.c" -or -name "*.cc" -or -name "*.cpp" ")" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function hppgrep {
+	if [ -z "${1}" ]; then
+		echo "usage: ${FUNCNAME} <regex>"
+		return 1
+	fi
 	find . "(" -name "*.h" -or -name "*.hpp" ")" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function chppgrep {
+	if [ -z "${1}" ]; then
+		echo "usage: ${FUNCNAME} <regex>"
+		return 1
+	fi
 	find . "(" -name "*.[ch]" -or -name "*.cc" -or -name "*.[ch]pp" ")" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function cgrep {
+	if [ -z "${1}" ]; then
+		echo "usage: ${FUNCNAME} <regex>"
+		return 1
+	fi
 	find . -name "*.c" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function chgrep {
+	if [ -z "${1}" ]; then
+		echo "usage: ${FUNCNAME} <regex>"
+		return 1
+	fi
 	find . -name "*.[ch]" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function hgrep {
+	if [ -z "${1}" ]; then
+		echo "usage: ${FUNCNAME} <regex>"
+		return 1
+	fi
 	find . -name "*.h" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function jgrep {
+	if [ -z "${1}" ]; then
+		echo "usage: ${FUNCNAME} <regex>"
+		return 1
+	fi
 	find . -name "*.java" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function dgrep {
-	if [ -z "${1}" ]; then
-		echo "dgrep <file-pattern> <regex>"
-		return
-	fi
 	PATTERN=$1
 	shift
+	if [ -z "${PATTERN}" ]; then
+		echo "usage: ${FUNCNAME} <file-patten> <regex>"
+		return 1
+	fi
 	find . -type f -name "*${PATTERN}*" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function igrep {
 	PATTERN=$1
 	shift
+	if [ -z "${PATTERN}" ]; then
+		echo "usage: ${FUNCNAME} <file-patten> <regex>"
+		return 1
+	fi
 	find . -type f -iname "*${PATTERN}*" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function grepall {
+	if [ -z "${1}" ]; then
+		echo "usage: ${FUNCNAME} <regex>"
+		return 1
+	fi
 	find . -type f -regextype posix-extended ! \( -regex '.*\.ko' -o -regex '.*\.o' -o -regex '.*cscope.*' -o -regex '.*tags.*' -o -regex '.*\.orig' -o -regex '.*\.rej' -o -regex '.*CVS.*' -o -regex '.*\.#maketags.dfg' -o -regex '.*\.svn.*' -o -regex '.*\.git.*' \) -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function grepdir {
 	DIR=$1
 	shift
+	if [ -z "${DIR}" ]; then
+		echo "usage: ${FUNCNAME} <dir> <regex>"
+		return 1
+	fi
 	find ${DIR} -type f -regextype posix-extended ! \( -regex '.*\.ko' -o -regex '.*\.o' -o -regex '.*cscope.*' -o -regex '.*tags.*' -o -regex '.*\.orig' -o -regex '.*\.rej' -o -regex '.*CVS.*' -o -regex '.*\.#maketags.dfg' -o -regex '.*\.svn.*' -o -regex '.*\.git.*' \) -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function cleanuppatch {
