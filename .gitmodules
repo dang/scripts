@@ -21,3 +21,6 @@
 [submodule "vim/bundle/vimoutliner"]
 	path = vim/bundle/vimoutliner
 	url = https://github.com/vimoutliner/vimoutliner.git
+[submodule "vim/bundle/rfc-syntax"]
+	path = vim/bundle/rfc-syntax
+	url = https://github.com/vim-scripts/rfc-syntax
