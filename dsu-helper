@@ -68,6 +68,14 @@ if [ ! -d "${SCRIPTS}" ]; then
 	usage "Scripts dir ${SCRIPTS} doesn'd exist"
 fi
 
+. "${SCRIPTS}/bashrc.d/env/flavor"
+case "${FLAVOR}" in
+	fedora) __bashargs="-l" ;;
+	*) __bashargs="" ;;
+esac
+
+echo "${FLAVOR} __bashargs=${__bashargs}"
+
 export HOME
 export SCRIPTS
-exec bash
+exec bash ${__bashargs}
