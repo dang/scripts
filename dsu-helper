@@ -74,8 +74,6 @@ case "${FLAVOR}" in
 	*) __bashargs="" ;;
 esac
 
-echo "${FLAVOR} __bashargs=${__bashargs}"
-
 export HOME
 export SCRIPTS
 exec bash ${__bashargs}
