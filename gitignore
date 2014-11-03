@@ -3,4 +3,4 @@
 .project.vim
 cscope.*
 tags
-*.swp
+*.sw?
