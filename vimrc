@@ -83,7 +83,7 @@ nnoremap E j
 nnoremap U k
 nnoremap I l
 nnoremap S I
-nnoremap H U
+"nnoremap H U " Leave H jumping to the top of the window
 nnoremap <C-E> <C-F>
 nnoremap <C-U> <C-B>
 vnoremap <C-E> <C-F>
