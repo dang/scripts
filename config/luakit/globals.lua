@@ -75,7 +75,7 @@ domain_props = {
     ["youtube.com"] = {
         enable_plugins = true,
     },
-    ["youtube.com"] = {
+    ["google.com"] = {
         enable_plugins = true,
     },
     [".vimeo.com"] = {
