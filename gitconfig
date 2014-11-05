@@ -20,15 +20,19 @@
 	changed = green
 	untracked = cyan
 [branch]
-	autosetupmerge = true
+	autosetupmerge = always
 	autosetuprebase = always
 [push]
 	default = matching
 [core]
-	excludesfile = "$HOME/.gitignore"
+	excludesfile = "~/.gitignore"
+	whitespace = trailing-space,space-before-tab
 [svn]
 	rmdir = true
 [diff]
 	renamelimit = 1500
+	renames = copies
 [alias]
 	ls = show --pretty="format:" --name-only
+[apply]
+	whitespace = fix
