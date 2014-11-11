@@ -18,7 +18,7 @@ promptpath () {
         if [ "$path" = "~" ] || [ "$(dirname "$path")" = "~" ]; then
             echo $path
         else
-            echo $(basename $(dirname "$path"))/$(basename "$path")
+            echo $(basename "$(dirname "$path")")/$(basename "$path")
         fi
         return
     fi
