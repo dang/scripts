@@ -14,3 +14,5 @@ export ALIASFILES="${ALIASFILES} ${me}"
 alias which="type"
 
 alias apt-get="sudo apt-get"
+
+alias ack="ack-grep"
