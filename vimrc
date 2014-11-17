@@ -350,6 +350,7 @@ autocmd BufNewFile,BufRead *gated_log* set filetype=gated
 autocmd BufNewFile,BufRead *.dml set filetype=dml
 autocmd BufNewFile,BufRead *.pde setlocal ft=arduino
 autocmd BufNewFile,BufRead *.ftl set filetype=xhtml
+autocmd BufNewFile,BufRead ceph.conf set filetype=ceph
 
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
