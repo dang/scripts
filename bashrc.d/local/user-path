@@ -1,7 +1,10 @@
 # vim: ft=sh:
 # Local path
 
+# Compiler wrappers - at this point, ccache and colorgcc don't mix
+#pathprepend "/usr/lib/ccache/bin/"
 #pathprepend "/usr/lib/colorgcc/bin"
+
 #pathappend "/usr/games/bin"
 #pathappend "/sbin"
 #pathappend "/usr/sbin"
