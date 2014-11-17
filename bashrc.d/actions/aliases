@@ -470,7 +470,13 @@ function suspend {
 }
 #alias suspend="sudo /home/dang/bin/suspend"
 alias wakeup="sudo kbdrate -r 30"
-alias dsu="sudo ${SCRIPTS}/dsu-helper ${HOME}"
+function  dsu {
+	local dsu_wsdir=""
+	if [ -n "${GTWS_WSPATH}" ]; then
+		dsu_wsdir="--workspace-dir ${GTWS_WSPATH}"
+	fi
+	sudo ${SCRIPTS}/dsu-helper ${dsu_wsdir} ${HOME}
+}
 
 
 alias keepassx="/usr/bin/keepassx ~/Dropbox/keepass.kdb"

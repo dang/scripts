@@ -1,0 +1,29 @@
+# vim: ft=sh:
+# Enter a workspace if DSU asks us to
+
+function dsu_wsdir_helper {
+
+	if [ "${USER}" != "root" ]; then
+		# Only useful if we're root
+		return
+	fi
+
+	local __dsu_wsdir="${DSU_WSDIR}"
+	# Stop recursing
+	unset DSU_WSDIR
+
+	if [ -z "${__dsu_wsdir}" ]; then
+		# Not given
+		return
+	fi
+
+	if [ ! -d "${__dsu_wsdir}" ]; then
+		return
+	fi
+
+	cd "${__dsu_wsdir}"
+	exec startws
+}
+
+
+dsu_wsdir_helper

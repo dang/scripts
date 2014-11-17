@@ -81,3 +81,5 @@ if [ -n "${TMUX}" ]; then
 	export TERM="screen-256color"
 fi
 
+# Run the finals
+run_scripts "${SCRIPTS}/bashrc.d/finals"

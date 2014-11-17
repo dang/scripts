@@ -4,9 +4,10 @@
 #
 
 # Set usage output
-USAGE="[-h |--help] [-s <scripts-dir> | --scripts-dir=<scripts-dir>] <homedir>"
+USAGE="[-h |--help] [-s <scripts-dir> | --scripts-dir=<scripts-dir>] [-w <workspace-dir> | --workspace-dir=<workspace-dir>] <homedir>"
 LONGUSAGE="\t-h, --help\n\t\tPrint this help message
 \t-s <scripts-dir>, --scripts-dir=<scripts-dir>\n\t\tScripts directory (default: HOME/.scripts)
+\t-w <workspace-dir>, --workspace-dir=<workspace-dir>\n\t\tWorkspace directory (default: none)
 \t<homedir>\n\t\tPath to home directory"
 
 die() {
@@ -37,7 +38,7 @@ usage() {
 ME=$(basename $0)
 
 # Parse arguments
-ARGS=`getopt -o hs: --long help,scripts-dir: -n "${ME}" -- "$@"`
+ARGS=`getopt -o hs:w: --long help,scripts-dir:,workspace-dir: -n "${ME}" -- "$@"`
 
 if [ $? != 0 ] ; then
 	usage
@@ -47,7 +48,8 @@ eval set -- "$ARGS"
 while true ; do
 	case "$1" in
 		-h|--help) usage; shift ;;
-		-s|--scripts) SCRIPTS=$2 ; shift 2 ;;
+		-s|--scripts-dir) SCRIPTS=$2 ; shift 2 ;;
+		-w|--workspace-dir) DSU_WSDIR=$2 ; shift 2 ;;
 		--) shift ; break ;;
 		* ) usage "Invalid argument $1";;
 	esac
@@ -76,4 +78,10 @@ esac
 
 export HOME
 export SCRIPTS
+if [ -n "${DSU_WSDIR}" ]; then
+	if [ ! -d "${DSU_WSDIR}" ]; then
+		usage "Workspace dir ${DSU_WSDIR} doesn'd exist"
+	fi
+	export DSU_WSDIR
+fi
 exec bash ${__bashargs}
