@@ -1,12 +1,10 @@
 " Vim syntax file
-" Language:               Configuration File (ini file) for MSDOS/MS Windows
-" Version:                2.1
-" Original Author:        Sean M. McKee <mckee@misslink.net>
-" Previous Maintainer:    Nima Talebi <nima@it.net.au>
-" Current Maintainer:     Hong Xu <xuhdev@gmail.com>
-" Homepage:               http://www.vim.org/scripts/script.php?script_id=3747
-"                         https://bitbucket.org/xuhdev/syntax-dosini.vim
-" Last Change:            2011 Nov 8
+" Language:               Configuration File (ini file) for Ceph configuration
+" Version:                1.0
+" Original Author:        Daniel Gryniewicz <dang@cohortfs.com>
+" Current Maintainer:     Daniel Gryniewicz <dang@cohortfs.com>
+" Homepage:               http://github.com/dang/
+" Last Change:            2014 Nov 17
 
 
 " For version 5.x: Clear all syntax items
@@ -20,32 +18,34 @@ endif
 " shut case off
 syn case ignore
 
-syn match  dosiniNumber   "\<\d\+\>"
-syn match  dosiniNumber   "\<\d*\.\d\+\>"
-syn match  dosiniNumber   "\<\d\+e[+-]\=\d\+\>"
-syn match  dosiniLabel    "^.\{-}="
-syn region dosiniHeader   start="^\s*\[" end="\]"
-syn match  dosiniComment  "^\s*[#;].*$"
+syn match  cephNumber   "\<\d\+\>"
+syn match  cephNumber   "\<\d*\.\d\+\>"
+syn match  cephNumber   "\<\d\+e[+-]\=\d\+\>"
+syn match  cephLabel    "^.\{-}="
+syn region cephHeader   start="^\s*\[" end="\]"
+syn match  cephComment  "[#;].*$"
+syn match  cephID       "\$\w\+\>"
 
 " Define the default highlighting.
 " For version 5.7 and earlier: only when not done already
 " For version 5.8 and later: only when an item doesn't have highlighting yet
-if version >= 508 || !exists("did_dosini_syntax_inits")
+if version >= 508 || !exists("did_ceph_syntax_inits")
   if version < 508
-    let did_dosini_syntax_inits = 1
+    let did_ceph_syntax_inits = 1
     command -nargs=+ HiLink hi link <args>
   else
     command -nargs=+ HiLink hi def link <args>
   endif
 
-  HiLink dosiniNumber   Number
-  HiLink dosiniHeader   Special
-  HiLink dosiniComment  Comment
-  HiLink dosiniLabel    Type
+  HiLink cephNumber   Number
+  HiLink cephHeader   Special
+  HiLink cephComment  Comment
+  HiLink cephLabel    Type
+  HiLink cephID       Identifier
 
   delcommand HiLink
 endif
 
-let b:current_syntax = "dosini"
+let b:current_syntax = "ceph"
 
 " vim: sts=2 sw=2 et
