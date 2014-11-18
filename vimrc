@@ -129,6 +129,9 @@ set splitbelow
 " Colors, baby
 set t_Co=256
 
+" I want sh files to be highlighted bash
+let g:is_bash=1
+
 "
 " Settings for EnhancedCommentify
 "
