@@ -1,0 +1,31 @@
+#!/bin/bash
+#
+# Fix scripts after reorganization
+#
+# Requires: git, sed
+#
+
+REPO="git://github.com/dang/scripts.git"
+LNFILES="ackrc atoolrc bashrc cvsrc face gitignore gvimrc inputrc lesskey profile tigrc tmux.conf vim vimrc vrapperrc xinitrc"
+CFGDIRS="awesome luakit xfce4/terminal"
+
+function die {
+	echo "$@"
+	exit 1
+}
+
+function cmd_exists {
+	which $1 > /dev/null 2>&1
+	if [ "$?" == "1" ]; then
+		die "You don't have $1 installed, sorry"
+	fi
+}
+
+for FILE in ${LNFILES}; do
+	rm ".${FILE}" && ln -s "${HOME}/.scripts/cfg/.${FILE}" "${HOME}/.${FILE}"
+done
+for DIR in ${CFGDIRS}; do
+	rm "${HOME}/.config/${DIR}" && ln -s "${HOME}/.scripts/cfg/.config/${DIR}" "${HOME}/.config/${DIR}"
+done
+
+echo "Fixed."

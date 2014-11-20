@@ -74,15 +74,15 @@ mkdir -p "${HOME}/.bashrc.d"
 cp -a "${SCRIPTDIR}/bashrc.d/local/"* "${HOME}/.bashrc.d"
 
 for FILE in ${CPFILES}; do
-	[ -a ".${FILE}" ] || cp ".scripts/${FILE}" "${HOME}/.${FILE}"
+	[ -a ".${FILE}" ] || cp ".scripts/cfg/.${FILE}" "${HOME}/.${FILE}"
 done
 for FILE in ${LNFILES}; do
-	ln -s "${HOME}/.scripts/${FILE}" "${HOME}/.${FILE}"
+	ln -s "${HOME}/.scripts/cfg/.${FILE}" "${HOME}/.${FILE}"
 done
 for DIR in ${CFGDIRS}; do
 	BASEDIR=$(dirname $DIR{})
 	mkdir -p "${HOME}/.config/${BASEDIR}"
-	ln -s "${HOME}/.scripts/config/${DIR}" "${HOME}/.config/${DIR}"
+	ln -s "${HOME}/.scripts/cfg/.config/${DIR}" "${HOME}/.config/${DIR}"
 done
 
 # Set up less
