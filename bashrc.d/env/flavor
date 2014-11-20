@@ -10,6 +10,9 @@ elif [ -f "/etc/os-release" ]; then
 	. /etc/os-release
 	f="${ID}"
 	FLAVOR=${f,,}
+elif [ -f "/etc/system-release" ]; then
+	f=$(awk '{print $1}' /etc/system-release)
+	FLAVOR=${f,,}
 fi
 
 export FLAVOR

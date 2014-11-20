@@ -1,0 +1,4 @@
+# vim: ft=sh:
+# Bash completion addons: Fedora
+[ -f /etc/profile.d/bash_completion.sh ] && . /etc/profile.d/bash_completion.sh
+

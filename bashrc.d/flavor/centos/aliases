@@ -13,4 +13,4 @@ export ALIASFILES="${ALIASFILES} ${me}"
 alias yum="sudo yum"
 alias rpm="sudo rpm"
 
-alias systemctl="sudo systemctl"
+alias service="sudo service"
