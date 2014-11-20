@@ -6,14 +6,67 @@
 #
 
 REPO="git://github.com/dang/scripts.git"
-LNFILES="ackrc atoolrc bashrc cvsrc face gitignore gvimrc inputrc lesskey profile tigrc tmux.conf vim vimrc vrapperrc xinitrc"
-CPFILES="gitconfig"
-CFGDIRS="awesome luakit xfce4/terminal"
+
+# Array formats are: array["<targetpath>"] = "<file> [<file>...]"
+#  Each entry is found in $SCRIPTDIR/cfg/<targetpath>/<file> and is installed into ${HOME}/<targetpath>/<file>
+
+# These are items that should be symlinked to the scripts dir, so they're always up-to-date.
+declare -A LNSET=(
+	["."]=".ackrc .atoolrc .bashrc .cvsrc .face .gitignore .gvimrc .inputrc .lesskey .profile .tigrc .tmux.conf .vim .vimrc .vrapperrc .xinitrc" 
+	[".config"]="awesome luakit"
+	[".config/xfce4"]="terminal"
+)
+
+# These are copied, so that they can be locally modified
+declare -A CPSET=(
+	["."]=".gitconfig"
+	[".ssh"]="config"
+	[".bashrc.d"]="00defaults  prompt  python-virtualenv  user-path"
+)
+
 WANTPROGS="atool tmux udiskie xclip xvkbd"
 
-function die {
-	echo "$@"
-	exit 1
+umask 0077
+
+# if is_interactive; then echo "interactive" fi
+#
+# Check for an interactive shell
+is_interactive() {
+	case $- in
+		*i*)
+			# Don't die in interactive shells
+			return 0
+			;;
+		*)
+			return 1
+			;;
+	esac
+}
+
+# if can_die; then exit
+#
+# Check to see if it's legal to exit during die
+can_die() {
+	if (( BASH_SUBSHELL > 0 )); then
+		return 0
+	fi
+	if ! is_interactive; then
+		return 0
+	fi
+	return 1
+}
+
+# command | die "message"
+#
+# Print a message and exit with failure
+die() {
+	echo "Failed: $@"
+	if [ ! -z "$(declare -F | grep "DFGcleanup")" ]; then
+		DFGcleanup "$@"
+	fi
+	if can_die; then
+		exit 1
+	fi
 }
 
 function cmd_exists {
@@ -21,6 +74,62 @@ function cmd_exists {
 	if [ "$?" == "1" ]; then
 		die "You don't have $1 installed, sorry"
 	fi
+}
+
+# checkexists ASSOC_ARRAY
+#
+# Check if the entries in the array exist
+#
+# Note: do *not* dereference the array in the call
+function checkexists {
+	local _str_arr="$(declare -p $1)"
+	eval "local -A array=${_str_arr#*=}"
+	(
+	for k in "${!array[@]}"; do
+		for f in ${array[$k]}; do
+			local base="$k/$f"
+			if [ "$k" == "." ]; then
+				# no extra ./
+				base="$f"
+			fi
+			[ -a "${HOME}/${base}" ] && die "${HOME}/${base} exists; not continuing"
+		done
+	done
+	exit 0
+	)
+	return $?
+}
+
+
+# install ASSOC_ARRAY [$copy]
+#
+# Install the entries in the array.  If copy is given and not empty, copy them.
+# Otherwise, symlink them
+#
+# Note: do *not* dereference the array in the call
+function install {
+	local _str_arr="$(declare -p $1)"
+	eval "local -A array=${_str_arr#*=}"
+	local copy=$2
+	(
+	for k in "${!array[@]}"; do
+		for f in ${array[$k]}; do
+			local base="$k/$f"
+			if [ "$k" == "." ]; then
+				# no extra ./
+				base="$f"
+			fi
+			local basedir=$(dirname $base{})
+			mkdir -p "${HOME}/${basedir}"
+			if [ -z "${copy}" ]; then
+				ln -s "${HOME}/.scripts/cfg/${base}" "${HOME}/${base}" || die "failed to link ${base}"
+			else
+				cp -a "${HOME}/.scripts/cfg/${base}" "${HOME}/${base}" || die "failed to copy ${base}"
+			fi
+		done
+	done
+	)
+	return $?
 }
 
 cmd_exists sed
@@ -36,17 +145,9 @@ else
 	SCRIPTDIR=$1
 fi
 
-# Make config dir
-mkdir -p "${HOME}/.config"
-
 # Check for conflicts
-for i in ${LNFILES}; do
-	[ -a "${HOME}/.${i}" ] && die "${HOME}/.${i} exists; not continuing"
-done
-for i in ${CFGDIRS}; do
-	[ -a "${HOME}/.config/${i}" ] && die "${HOME}/.config/${i} exists; not continuing"
-done
-[ -a "${HOME}/.bashrc.d" ] && die "${HOME}/.bashrc.d exists; not continuing"
+checkexists LNSET || die "Not overriting symlink files"
+checkexists CPSET || die "Not overriting copy files"
 
 if [ ! -d "${SCRIPTDIR}/.git" ]; then
 	SAVEDIR=${PWD}
@@ -70,20 +171,9 @@ if [ -h "${SCRIPTDIR}/.scripts" ]; then
 	rm "${SCRIPTDIR}/.scripts"
 fi
 
-mkdir -p "${HOME}/.bashrc.d"
-cp -a "${SCRIPTDIR}/bashrc.d/local/"* "${HOME}/.bashrc.d"
-
-for FILE in ${CPFILES}; do
-	[ -a ".${FILE}" ] || cp ".scripts/cfg/.${FILE}" "${HOME}/.${FILE}"
-done
-for FILE in ${LNFILES}; do
-	ln -s "${HOME}/.scripts/cfg/.${FILE}" "${HOME}/.${FILE}"
-done
-for DIR in ${CFGDIRS}; do
-	BASEDIR=$(dirname $DIR{})
-	mkdir -p "${HOME}/.config/${BASEDIR}"
-	ln -s "${HOME}/.scripts/cfg/.config/${DIR}" "${HOME}/.config/${DIR}"
-done
+# Install files
+install LNSET || die "Failed to install symlink files"
+install CPSET "copy" || die "Failed to install copy files"
 
 # Set up less
 lesskey
