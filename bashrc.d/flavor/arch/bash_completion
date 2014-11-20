@@ -1,0 +1,4 @@
+# vim: ft=sh:
+# Bash completion addons: Arch
+[ -r /usr/share/bash-completion/bash_completion   ] && . /usr/share/bash-completion/bash_completion
+

@@ -1,0 +1,4 @@
+# vim: ft=sh:
+# Bash completion addons: Gentoo
+[ -f /etc/profile.d/bash-completion.sh ] && . /etc/profile.d/bash-completion.sh
+
