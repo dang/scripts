@@ -1,9 +1,15 @@
-dang's scripts
+dang's *nix environment
 
-These are my scripts.  I use them for all of my accounts everywhere.  They consist of:
+This is my (increasingly complicated) *nix environment, complete with
+complicated install method.  It consists of:
 
-- bash .files (.profile, .bashrc, .bash_local)
-- aliases (aliases, gentoo-dev-aliases)
-- gentoo scripts
+- A full bash environment, tailored for several flavors of *nix
+- A full compliment of dotfiles and config files including Xfce and luakit
+- A full vim environment, including a number of plugins
+- A full tmux environment
+- A full development environment based on "workstpaces" called GTWS
+- A number of useful scripts/commands
 
 See http://apollo.fprintf.net/scripts/ for installation.
+
+TODO - Move this to a github .md file with instal instructions
