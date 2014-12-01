@@ -1,5 +1,5 @@
 #
-.#maketags.dfg
+.maketags*
 .project.vim
 cscope.*
 tags

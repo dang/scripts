@@ -237,11 +237,7 @@ if has("cscope")
 	set csverb
 	map <C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
 	function Csrebuild()
-		if filereadable('.#maketags.dfg')
-			silent !sh .\#maketags.dfg
-		else
-			silent !maketags
-		endif
+		silent !maketags -r
 		set nocsverb
 		cs kill 0
 		cs add cscope.out
