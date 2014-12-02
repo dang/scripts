@@ -23,7 +23,7 @@ syn match  cephNumber   "\<\d*\.\d\+\>"
 syn match  cephNumber   "\<\d\+e[+-]\=\d\+\>"
 syn match  cephLabel    "^.\{-}="
 syn region cephHeader   start="^\s*\[" end="\]"
-syn match  cephComment  "[#;].*$"
+syn match  cephComment  "\s*[#;].*$"
 syn match  cephID       "\$\w\+\>"
 
 " Define the default highlighting.
@@ -39,9 +39,9 @@ if version >= 508 || !exists("did_ceph_syntax_inits")
 
   HiLink cephNumber   Number
   HiLink cephHeader   Special
-  HiLink cephComment  Comment
   HiLink cephLabel    Type
   HiLink cephID       Identifier
+  HiLink cephComment  Comment
 
   delcommand HiLink
 endif
