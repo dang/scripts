@@ -1,0 +1,4 @@
+# vim: ft=sh:
+# Bash completion addons: Debian/Ubuntu
+[ -f /etc/bash_completion ] && ! shopt -oq posix && . /etc/bash_completion
+

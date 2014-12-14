@@ -1,0 +1,16 @@
+# vim: ft=sh:
+# Aliases for debian
+
+me=$(readlink --canonicalize --no-newline $BASH_SOURCE)
+
+source "${SCRIPTS}/functions.sh"
+#source "${SCRIPTS}/flavor/${FLAVOR}/functions.sh"
+
+#
+# Make new source this too
+export ALIASFILES="${ALIASFILES} ${me}"
+
+# dumbed down which...
+alias which="type"
+
+alias apt-get="sudo apt-get"
