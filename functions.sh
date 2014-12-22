@@ -5,6 +5,7 @@
 # if is_interactive; then echo "interactive" fi
 #
 # Check for an interactive shell
+if [ -z "$(declare -F | grep "is_interactive")" ]; then
 is_interactive() {
 	case $- in
 		*i*)
@@ -16,10 +17,12 @@ is_interactive() {
 			;;
 	esac
 }
+fi
 
 # if can_die; then exit
 #
 # Check to see if it's legal to exit during die
+if [ -z "$(declare -F | grep "can_die")" ]; then
 can_die() {
 	if (( BASH_SUBSHELL > 0 )); then
 		echo -e "\t\tbaby shell; exiting"
@@ -30,10 +33,12 @@ can_die() {
 	fi
 	return 1
 }
+fi
 
 # command | die "message"
 #
 # Print a message and exit with failure
+if [ -z "$(declare -F | grep "die")" ]; then
 die() {
 	echo "Failed: $@"
 	if [ ! -z "$(declare -F | grep "DFGcleanup")" ]; then
@@ -43,6 +48,7 @@ die() {
 		exit 1
 	fi
 }
+fi
 
 # How do use die properly to handle both interactive and script useage:
 #testfunc() {
