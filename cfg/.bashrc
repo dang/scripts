@@ -66,10 +66,10 @@ if [ "${USER}" != "root" ]; then
 	if [ -n "${SSH_ONLY_KEYRING}" ]; then
 		KEYRING=$(echo ${SSH_AUTH_SOCK} | grep keyring)
 		if [ -n "${KEYRING}" ]; then
-			[ -x /usr/bin/keychain ] && eval `keychain --quiet --eval`
+			[ -x /usr/bin/keychain ] && eval `keychain --quiet --eval` --agents ssh
 		fi
 	else
-		[ -x /usr/bin/keychain ] && eval `keychain --quiet --eval`
+		[ -x /usr/bin/keychain ] && eval `keychain --quiet --eval` --agents ssh
 	fi
 fi
 
