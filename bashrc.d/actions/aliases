@@ -484,7 +484,11 @@ alias arst="setxkbmap us"
 alias asdf="setxkbmap us -variant colemak; xmodmap ${SCRIPTS}/keymap"
 
 function p0rnget {
-	wget $(curl "$1" 2>/dev/null | grep "_file"  | sed 's/ /\n/g' | grep _file | sed 's/src=//;s/\\x22//g').mp4
+	local container=$(curl "$1" 2>/dev/null | grep "tumblr_video_container"  | sed 's/ /\n/g' | grep "src=" | sed "s/src=//;s/\\x22//g;s/'//g")
+	echo "container: ${container}"
+	local video=$(curl "$container" 2>/dev/null | grep "video_file"  | sed 's/ /\n/g' | grep video_file | sed "s/src=//;s/\\x22//g;s/'//g")
+	echo "video: ${video}"
+	wget ${video}
 }
 
 function hex2dec {
