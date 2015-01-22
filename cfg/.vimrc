@@ -608,3 +608,6 @@ let g:ScreenImpl = 'Tmux'
 let g:syntastic_auto_loc_list=1
 " 10 lines is too big
 let g:syntastic_loc_list_height=5
+
+" netrw - directory browsing (and remote file access)
+let g:netrw_dirhistmax  = 0
