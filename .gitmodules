@@ -1,10 +1,10 @@
-[submodule "luakit/plugins"]
+[submodule "cfg/.config/luakit/plugins"]
 	path = cfg/.config/luakit/plugins
 	url = https://github.com/mason-larobina/luakit-plugins.git
-[submodule "vim/bundle/vim-fugitive"]
+[submodule "cfg/.vim/bundle/vim-fugitive"]
 	path = cfg/.vim/bundle/vim-fugitive
 	url = git://github.com/tpope/vim-fugitive.git
-[submodule "vim/bundle/dwm.vim"]
+[submodule "cfg/.vim/bundle/dwm.vim"]
 	path = cfg/.vim/bundle/dwm.vim
 	url = git://github.com/dang/dwm.vim.git
 	branch = master
@@ -12,15 +12,15 @@
 	path = gtws
 	url = git://github.com/dang/gtws.git
 	branch = master
-[submodule "vim/bundle/nerdcommenter"]
+[submodule "cfg/.vim/bundle/nerdcommenter"]
 	path = cfg/.vim/bundle/nerdcommenter
 	url = https://github.com/scrooloose/nerdcommenter.git
-[submodule "vim/bundle/ultisnips"]
+[submodule "cfg/.vim/bundle/ultisnips"]
 	path = cfg/.vim/bundle/ultisnips
 	url = https://github.com/SirVer/ultisnips
-[submodule "vim/bundle/vimoutliner"]
+[submodule "cfg/.vim/bundle/vimoutliner"]
 	path = cfg/.vim/bundle/vimoutliner
 	url = https://github.com/vimoutliner/vimoutliner.git
-[submodule "vim/bundle/rfc-syntax"]
+[submodule "cfg/.vim/bundle/rfc-syntax"]
 	path = cfg/.vim/bundle/rfc-syntax
 	url = https://github.com/vim-scripts/rfc-syntax
