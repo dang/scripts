@@ -167,18 +167,18 @@ vnoremap <Leader>C  :call NERDComment('x', "uncomment")<cr>
 " Settings for dwm
 "
 
-nmap <C-Left> <Plug>DWMSplit
+nmap <C-S-Left> <Plug>DWMSplit
 nmap [D <Plug>DWMSplit
-nmap <C-Right> <Plug>DWMClose
+nmap <C-S-Right> <Plug>DWMClose
 nmap [C <Plug>DWMClose
-nmap <C-Up> <Plug>DWMGrowMaster
 nmap [A <Plug>DWMGrowMaster
-nmap <C-Down> <Plug>DWMShrinkMaster
 nmap [B <Plug>DWMShrinkMaster
 nmap [E <Plug>DWMResetMaster
 nmap <C-PageDown> <Plug>DWMRotateCounterclockwise
 nmap <C-PageUp> <Plug>DWMRotateClockwise
 nmap OM <Plug>DWMTag
+nmap <C-S-Up> <Plug>DWMTag
+"nmap <C-S-Down> <Plug>DWMShrinkMaster
 
 "
 " Cindent options
