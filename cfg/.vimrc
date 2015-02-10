@@ -98,7 +98,7 @@ while c <= 'z'
   exec "imap \e".c." <A-".c.">"
    let c = nr2char(1+char2nr(c))
 endw
-set ttimeout ttimeoutlen=50
+set ttimeout ttimeoutlen=10
 
 "
 " Behavior settings
