@@ -91,14 +91,31 @@ vnoremap <C-U> <C-B>
 "nnoremap o :
 "nnoremap O :
 
-" Make meta-keys mappable on xfce terminal
-let c='a'
-while c <= 'z'
-  exec "set <A-".c.">=\e".c
-  exec "imap \e".c." <A-".c.">"
-   let c = nr2char(1+char2nr(c))
-endw
-set ttimeout ttimeoutlen=10
+" For mapping meta-keys on XFCE/Gnome terminal, they send <Esc-x> instead of
+" <M-x>.  However, if you actually map <Esc-*>, then vim will wiat for
+" timeoutlen after an <Esc> to see if it's a mapping.  This means that
+" anything mapped to <M-x> will be triggered by <Esc> <x>, which is bloody
+" annoying.  To work around this, set the <Esc-x> to an unused <Fn> key here,
+" and then map the <Fn> key later.  Available keys are:
+" <F13> to <F37>
+" <S-F13> to <S-F37>
+" <xF1> to <xF4>
+" <S-xF1> to <S-xF4>
+set timeout timeoutlen=1000 ttimeoutlen=50
+set <F13>=n
+set <F14>=e
+set <F15>=i
+set <F16>=u
+
+" tmux remappings
+if &term == "screen-256color"
+	set <C-Left>=[D
+	set <C-Right>=[C
+	"set <C-Up>=[A
+	"set <C-Down>=[B
+endif
+" Number-pad enter
+set <F37>=OM
 
 "
 " Behavior settings
@@ -176,21 +193,28 @@ vnoremap <Leader>C  :call NERDComment('x', "uncomment")<cr>
 " Settings for dwm
 "
 
-nmap <C-Left> <Plug>DWMSplit
-nmap <M-n> <Plug>DWMSplit
-nmap [D <Plug>DWMSplit
-nmap <C-Right> <Plug>DWMClose
-nmap <M-i> <Plug>DWMClose
-nmap [C <Plug>DWMClose
-nmap <C-Up> <Plug>DWMGrowMaster
-nmap [A <Plug>DWMGrowMaster
-nmap <C-Down> <Plug>DWMShrinkMaster
-nmap [B <Plug>DWMShrinkMaster
-nmap [E <Plug>DWMResetMaster
-nmap <C-PageDown> <Plug>DWMRotateCounterclockwise
-nmap <C-PageUp> <Plug>DWMRotateClockwise
-nmap OM <Plug>DWMTag
-nmap <M-u> <Plug>DWMTag
+" Number pad mappings
+"nmap <C-Left> <Plug>DWMSplit
+"nmap <C-Right> <Plug>DWMClose
+"nmap <C-Up> <Plug>DWMGrowMaster
+"nmap <C-Down> <Plug>DWMShrinkMaster
+"nmap <C-PageDown> <Plug>DWMRotateCounterclockwise
+"nmap <C-PageUp> <Plug>DWMRotateClockwise
+"nmap <C-Space> <Plug>DWMFocus
+"nmap <F37> <Plug>DWMTag
+
+" Number pad mappings for inside tmux XXX convert to <Fn> mappings
+"nmap [D <Plug>DWMSplit
+"nmap [C <Plug>DWMClose
+"nmap [A <Plug>DWMGrowMaster
+"nmap [B <Plug>DWMShrinkMaster
+"nmap [E <Plug>DWMResetMaster
+
+" Normal keyboard mappings: <M-n>, <M-i>, <M-u>
+nmap <F13> <Plug>DWMSplit
+nmap <F14> <Plug>DWMFocus
+nmap <F15> <Plug>DWMClose
+nmap <F16> <Plug>DWMTag
 
 "
 " Cindent options
