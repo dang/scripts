@@ -106,6 +106,7 @@ set <F13>=n
 set <F14>=e
 set <F15>=i
 set <F16>=u
+set <F17>=\
 
 " tmux remappings
 if &term == "screen-256color"
@@ -272,6 +273,7 @@ if has("cscope")
 	endif
 	set csverb
 	map <C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
+	map <F17> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
 	function Csrebuild()
 		silent !maketags -r
 		set nocsverb
