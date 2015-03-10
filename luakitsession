@@ -6,6 +6,7 @@
 # Set usage output
 USAGE="[-h |--help] <session>"
 LONGUSAGE="\t-h, --help\n\t\tPrint this help message
+\t-d, --delete\n\t\tDelete a session, rather than starting it.
 \t<session>\n\t\tName of session."
 
 # Standard functions
@@ -15,7 +16,7 @@ source ${SCRIPTS}/functions.sh
 ME=$(basename $0)
 
 # Parse arguments
-ARGS=`getopt -o h --long help -n "${ME}" -- "$@"`
+ARGS=`getopt -o hd --long help,delete -n "${ME}" -- "$@"`
 
 if [ $? != 0 ] ; then
 	usage 
@@ -25,6 +26,7 @@ eval set -- "$ARGS"
 while true ; do
 	case "$1" in
 		-h|--help) usage; shift ;;
+		-d|--delete) DELETE=yes; shift ;;
 		--) shift ; break ;;
 		* ) usage "Invalid argument $1";;
 	esac
@@ -43,17 +45,24 @@ OLD_CACHE="${XDG_CACHE_HOME:-${HOME}/.cache}"
 export XDG_DATA_HOME=${OLD_DATA}/sessions/${SESSION}/
 export XDG_CACHE_HOME=${OLD_CACHE}/sessions/${SESSION}/
 
+if [ -n "${DELETE}" ]; then
+	echo "Deleting ${SESSION}"
+	rm -rf "${XDG_DATA_HOME}"
+	rm -rf "${XDG_CACHE_HOME}"
+	exit 0
+fi
+
 if [ ! -d "${XDG_DATA_HOME}" ]; then
 	mkdir -p "${XDG_DATA_HOME}/luakit"
 	mkdir -p "${XDG_CACHE_HOME}"
 	ln -s "${OLD_DATA}/luakit/scripts" "${XDG_DATA_HOME}/luakit/scripts"
-	echo "'# Config for the ${SESSION} session" > "${XDG_DATA_HOME}/config.sh"
+	echo "# Config for the ${SESSION} session" > "${XDG_DATA_HOME}/config.sh"
 fi
 
 source "${XDG_DATA_HOME}/config.sh"
 
 # Update adblock
-#${HOME}/.config/luakit/plugins/tools/adblock-update.sh
+${HOME}/.config/luakit/plugins/tools/adblock-update.sh
 #cd "${XDG_DATA_HOME}/luakit"
 #pwd
 #wget -N https://easylist-downloads.adblockplus.org/easylist.txt
