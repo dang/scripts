@@ -6,7 +6,7 @@
 #
 
 REPO="git://github.com/dang/scripts.git"
-LNFILES="ackrc atoolrc bashrc cvsrc face gitignore gvimrc inputrc lesskey profile tigrc tmux.conf toprc vim vimrc vrapperrc xinitrc"
+LNFILES="ackrc atoolrc bashrc cvsrc face gdbinit gitignore gvimrc inputrc lesskey profile tigrc tmux.conf toprc vim vimrc vrapperrc xinitrc"
 CFGDIRS="awesome luakit xfce4/terminal"
 
 function die {
@@ -22,10 +22,10 @@ function cmd_exists {
 }
 
 for FILE in ${LNFILES}; do
-	rm ".${FILE}" && ln -s "${HOME}/.scripts/cfg/.${FILE}" "${HOME}/.${FILE}"
+	rm -f ".${FILE}" && ln -s "${HOME}/.scripts/cfg/.${FILE}" "${HOME}/.${FILE}"
 done
 for DIR in ${CFGDIRS}; do
-	rm "${HOME}/.config/${DIR}" && ln -s "${HOME}/.scripts/cfg/.config/${DIR}" "${HOME}/.config/${DIR}"
+	rm -f "${HOME}/.config/${DIR}" && ln -s "${HOME}/.scripts/cfg/.config/${DIR}" "${HOME}/.config/${DIR}"
 done
 
 echo "Fixed."
