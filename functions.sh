@@ -5,7 +5,7 @@
 # if is_interactive; then echo "interactive" fi
 #
 # Check for an interactive shell
-if [ -z "$(declare -F | grep "is_interactive")" ]; then
+if [ -z "$(declare -F | grep "\<is_interactive\>")" ]; then
 is_interactive() {
 	case $- in
 		*i*)
@@ -22,7 +22,7 @@ fi
 # if can_die; then exit
 #
 # Check to see if it's legal to exit during die
-if [ -z "$(declare -F | grep "can_die")" ]; then
+if [ -z "$(declare -F | grep "\<can_die\>")" ]; then
 can_die() {
 	if (( BASH_SUBSHELL > 0 )); then
 		echo -e "\t\tbaby shell; exiting"
@@ -38,7 +38,7 @@ fi
 # command | die "message"
 #
 # Print a message and exit with failure
-if [ -z "$(declare -F | grep "die")" ]; then
+if [ -z "$(declare -F | grep "\<die\>")" ]; then
 die() {
 	echo "Failed: $@"
 	if [ ! -z "$(declare -F | grep "DFGcleanup")" ]; then
