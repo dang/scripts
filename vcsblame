@@ -4,10 +4,11 @@
 #
 
 # Set usage output
-USAGE="[-h |--help] [-l <line> | --line=<number>] [-t <tag> | --tag=<tag>] [<file>]"
+USAGE="[-h |--help] [-l <line> | --line=<number>] [-t <tag> | --tag=<tag>] [-p <path> | --path=<path>] [<file>]"
 LONGUSAGE="\t-h, --help\n\t\tPrint this help message
 \t-l <line>, --line=<number>\n\t\tLook up version at <number> and print it's info
 \t-t <tag>, --tag=<tag>\n\t\tUse speecified tag
+\t-p <path>, --path=<path>\n\t\tUse <path> as the working dir (default: .)
 \t<file>\n\t\tFile to annotate"
 
 # Standard functions
@@ -17,7 +18,7 @@ source ${SCRIPTS}/functions.sh
 ME=$(basename $0)
 
 # Parse arguments
-ARGS=`getopt -o hl:t: --long help,line:,tag: -n "${ME}" -- "$@"`
+ARGS=`getopt -o hl:p:t: --long help,line:,path:,tag: -n "${ME}" -- "$@"`
 
 if [ $? != 0 ] ; then
 	usage 
@@ -29,6 +30,7 @@ while true ; do
 		-h|--help) usage; shift ;;
 		-l|--line) LINE=$2 ; shift 2 ;;
 		-t|--tag) TAG=$2 ; shift 2 ;;
+		-p|--path) BASEPATH=$2 ; shift 2 ;;
 		--) shift ; break ;;
 		* ) usage "Invalid argument $1";;
 	esac
@@ -38,6 +40,10 @@ done
 
 if [ -z "$1" ]; then
 	usage
+fi
+
+if [ -n "${BASEPATH}" ]; then
+	cd "${BASEPATH}" || die "failed to CD to ${BASEPATH}"
 fi
 
 vcs_detect

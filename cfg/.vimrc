@@ -107,6 +107,7 @@ set <F14>=e
 set <F15>=i
 set <F16>=u
 set <F17>=\
+"set <F18>=]
 
 " tmux remappings
 if &term == "screen-256color"
@@ -249,7 +250,15 @@ nmap <F16> <Plug>DWMTag
 " Check to see if a file has changed from under us
 command Reload checktime
 " Blame in svn for the current line
-command Vcsblame exe "!vcsblame --line "  . line(".") . " " . expand("%")
+function Vcsblame(...)
+	let cmd="!vcsblame --line "  . line(".")
+	for s in a:000
+		let cmd .= " -p " . s
+	endfor
+	let cmd .= " " . expand("%")
+	exe cmd
+endfunction
+command -nargs=* Vcsblame call Vcsblame(<f-args>)
 "command Vcsblame exe "!tig blame " . expand("%") . " +"  . line(".")
 " Check when a symbol was added to git
 map <Leader>1 :!git log --reverse -p -S <cword> %<cr>
@@ -274,6 +283,7 @@ if has("cscope")
 	set csverb
 	map <C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
 	map <F17> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <F18> <C-]>
 	function Csrebuild()
 		silent !maketags -r
 		set nocsverb
