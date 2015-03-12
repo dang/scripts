@@ -34,5 +34,6 @@
 	renames = copies
 [alias]
 	ls = show --pretty="format:" --name-only
+	patch = apply --stat --reject --apply
 [apply]
 	whitespace = fix
