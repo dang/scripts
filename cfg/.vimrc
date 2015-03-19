@@ -107,7 +107,7 @@ set <F14>=e
 set <F15>=i
 set <F16>=u
 set <F17>=\
-"set <F18>=]
+set <F18>=]
 
 " tmux remappings
 if &term == "screen-256color"
