@@ -355,7 +355,7 @@ command KernLogCleanup call KernLogCleanup()
 let g:pathogen_disabled = []
 
 " Gundo requires at least vim 7.3
-if !has('python')
+if !has('python') && !has('python3')
 	call add(g:pathogen_disabled, 'ultisnips')
 endif
 call pathogen#infect()
