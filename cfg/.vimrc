@@ -106,8 +106,11 @@ set <F13>=n
 set <F14>=e
 set <F15>=i
 set <F16>=u
-set <F17>=\
-set <F18>=]
+set <F17>=h
+set <F18>=o
+set <F19>=,
+set <F20>=\
+set <F21>=]
 
 " tmux remappings
 if &term == "screen-256color"
@@ -217,6 +220,9 @@ nmap <F13> <Plug>DWMSplit
 nmap <F14> <Plug>DWMFocus
 nmap <F15> <Plug>DWMClose
 nmap <F16> <Plug>DWMTag
+nmap <F17> <Plug>DWMGrowMaster
+nmap <F18> <Plug>DWMShrinkMaster
+nmap <F19> <Plug>DWMFocusReset
 
 "
 " Cindent options
@@ -282,8 +288,8 @@ if has("cscope")
 	endif
 	set csverb
 	map <C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
-	map <F17> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
-	nnoremap <F18> <C-]>
+	map <F20> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
+	nnoremap <F21> <C-]>
 	function Csrebuild()
 		silent !maketags -r
 		set nocsverb
