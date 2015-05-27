@@ -83,26 +83,26 @@ function mktbz {
 		echo "Usage: mktbz <directory> [<tbzname>]"
 		return 1
 	fi
-	DIRNAME="$1"
+	local dirname="$1"
 	if [ -n "$2" ]; then
-		TBZNAME="$2"
+		local tbzname="$2"
 	else
-		TBZNAME="${DIRNAME%/}.tar.bz2"
+		local tbzname="${dirname%/}.tar.bz2"
 	fi
-	${SUDO} apack "${TBZNAME}" "${DIRNAME}"
+	${SUDO} apack "${tbzname}" "${dirname}"
 }
 function mktgz {
 	if [ -z "$1" ]; then
 		echo "Usage: mktgz <directory> [<tbzname>]"
 		return 1
 	fi
-	DIRNAME="$1"
+	local dirnames="$1"
 	if [ -n "$2" ]; then
-		TGZNAME="$2"
+		local tgzname="$2"
 	else
-		TGZNAME="${DIRNAME%/}.tar.gz"
+		local tgzname="${dirname%/}.tar.gz"
 	fi
-	${SUDO} apack "${TGZNAME}" "${DIRNAME}"
+	${SUDO} apack "${tgzname}" "${dirname}"
 }
 alias rezip="gunzip *.gz && bzip2 *.tar"
 function manf {
@@ -175,19 +175,19 @@ alias mpj='mpv -alang jpn'
 alias mpsub='mpv -alang eng -slang eng'
 #alias dvd="mp -ni -alang en dvd://"
 function dvd {
-	TITLE=$1
+	local title=$1
 	shift
-	mp -alang en -dvd-device /dev/sr0 dvd://${TITLE} $@
+	mp -alang en -dvd-device /dev/sr0 dvd://${title} $@
 	}
 function dvddeint {
-	TITLE=$1
+	local title=$1
 	shift
-	mp -vf pp=lb -dvd-device /dev/sr0 dvd://${TITLE} $@
+	mp -vf pp=lb -dvd-device /dev/sr0 dvd://${title} $@
 	}
 function dvdiso {
-	TITLE=$1
+	local title=$1
 	shift
-	mp dvd://${TITLE} -dvd-device $@
+	mp dvd://${title} -dvd-device $@
 	}
 alias vcd="mp vcd://1 -ni -alang en"
 #alias vcd="mp -vo xv -ao sdl -vcd 1 -framedrop -ni -nofs"
@@ -278,22 +278,22 @@ function jgrep {
 	find . -name "*.java" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function dgrep {
-	PATTERN=$1
+	local pattern=$1
 	shift
-	if [ -z "${PATTERN}" ]; then
+	if [ -z "${pattern}" ]; then
 		echo "usage: ${FUNCNAME} <file-patten> <regex>"
 		return 1
 	fi
-	find . -type f -name "*${PATTERN}*" -exec egrep --color=auto -H "$@" "{}" ";"
+	find . -type f -name "*${pattern}*" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function igrep {
-	PATTERN=$1
+	local pattern=$1
 	shift
-	if [ -z "${PATTERN}" ]; then
+	if [ -z "${pattern}" ]; then
 		echo "usage: ${FUNCNAME} <file-patten> <regex>"
 		return 1
 	fi
-	find . -type f -iname "*${PATTERN}*" -exec egrep --color=auto -H "$@" "{}" ";"
+	find . -type f -iname "*${pattern}*" -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function grepall {
 	if [ -z "${1}" ]; then
@@ -303,13 +303,13 @@ function grepall {
 	find . -type f -regextype posix-extended ! \( -regex '.*\.ko' -o -regex '.*\.o' -o -regex '.*cscope.*' -o -regex '.*tags.*' -o -regex '.*\.orig' -o -regex '.*\.rej' -o -regex '.*CVS.*' -o -regex '.*\.#maketags.dfg' -o -regex '.*\.svn.*' -o -regex '.*\.git.*' \) -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function grepdir {
-	DIR=$1
+	local dir=$1
 	shift
-	if [ -z "${DIR}" ]; then
+	if [ -z "${dir}" ]; then
 		echo "usage: ${FUNCNAME} <dir> <regex>"
 		return 1
 	fi
-	find ${DIR} -type f -regextype posix-extended ! \( -regex '.*\.ko' -o -regex '.*\.o' -o -regex '.*cscope.*' -o -regex '.*tags.*' -o -regex '.*\.orig' -o -regex '.*\.rej' -o -regex '.*CVS.*' -o -regex '.*\.#maketags.dfg' -o -regex '.*\.svn.*' -o -regex '.*\.git.*' \) -exec egrep --color=auto -H "$@" "{}" ";"
+	find ${dir} -type f -regextype posix-extended ! \( -regex '.*\.ko' -o -regex '.*\.o' -o -regex '.*cscope.*' -o -regex '.*tags.*' -o -regex '.*\.orig' -o -regex '.*\.rej' -o -regex '.*CVS.*' -o -regex '.*\.#maketags.dfg' -o -regex '.*\.svn.*' -o -regex '.*\.git.*' \) -exec egrep --color=auto -H "$@" "{}" ";"
 }
 function cleanuppatch {
 	find . -name "*.orig" -exec rm {} \;
@@ -353,7 +353,7 @@ function reniceX {
 
 # play simialar artists...
 function last_fm_similar {
-	artist=$(echo $* | sed 's/ /+/g')
+	local artist=$(echo $* | sed 's/ /+/g')
 	shell-fm lastfm://artist/${artist}/similarartists
 }
 
@@ -365,15 +365,15 @@ function gpg_get_key {
 }
 
 function screen_named {
-	SCREENNAME=${1}
+	local screenname=${1}
 	shift
-	screen -S ${SCREENNAME} -t ${SCREENNAME} $@
+	screen -S ${screenname} -t ${screenname} $@
 }
 
 function dscreen {
-	SCREENNAME=${1}
+	local screenname=${1}
 	shift
-	dtach -A /tmp/dang-dtach/${SCREENNAME} -r winch dvtm $@
+	dtach -A /tmp/dang-dtach/${screenname} -r winch dvtm $@
 }
 
 # Start a tmux and split it into 3 vertical panes
@@ -423,8 +423,8 @@ alias kernel_drivers="lspci -nnk"
 alias mark="pwd > ${HOME}/.local/.dfg.mark"
 function cdmark ()
 {
-	DIR=$(cat ${HOME}/.local/.dfg.mark)
-	cd "${DIR}"
+	local dir=$(cat ${HOME}/.local/.dfg.mark)
+	cd "${dir}"
 }
 # Mark from the X clipboard
 function xmark ()
@@ -492,8 +492,8 @@ function p0rnget {
 }
 
 function hex2dec {
-	HEX=$(echo "$@" | tr '[:lower:]' '[:upper:]')
-	echo "ibase=16; ${HEX}" | bc
+	local hex=$(echo "$@" | tr '[:lower:]' '[:upper:]')
+	echo "ibase=16; ${hex}" | bc
 }
 function dec2hex {
 	echo "obase=16; $@" | bc
