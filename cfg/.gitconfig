@@ -37,3 +37,6 @@
 	patch = apply --stat --reject --apply
 [apply]
 	whitespace = fix
+[format]
+	signoff = true
+	pretty = fuller
