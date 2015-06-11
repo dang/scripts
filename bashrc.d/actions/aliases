@@ -483,13 +483,14 @@ alias keepassx="/usr/bin/keepassx ~/Dropbox/keepass.kdb"
 alias arst="setxkbmap us"
 alias asdf="setxkbmap us -variant colemak; xmodmap ${SCRIPTS}/keymap"
 
-function p0rnget {
-	local container=$(curl "$1" 2>/dev/null | grep "tumblr_video_container"  | sed 's/ /\n/g' | grep "src=" | sed "s/src=//;s/\\x22//g;s/'//g")
-	echo "container: ${container}"
-	local video=$(curl "$container" 2>/dev/null | grep "video_file"  | sed 's/ /\n/g' | grep video_file | sed "s/src=//;s/\\x22//g;s/'//g")
-	echo "video: ${video}"
-	wget ${video}
-}
+alias p0rnget="youtube-dl -o '%(extractor)s_%(id)s.%(ext)s' "
+#function p0rnget {
+	#local container=$(curl "$1" 2>/dev/null | grep "tumblr_video_container"  | sed 's/ /\n/g' | grep "src=" | sed "s/src=//;s/\\x22//g;s/'//g")
+	#echo "container: ${container}"
+	#local video=$(curl "$container" 2>/dev/null | grep "video_file"  | sed 's/ /\n/g' | grep video_file | sed "s/src=//;s/\\x22//g;s/'//g")
+	#echo "video: ${video}"
+	#wget ${video}
+#}
 
 function hex2dec {
 	local hex=$(echo "$@" | tr '[:lower:]' '[:upper:]')
