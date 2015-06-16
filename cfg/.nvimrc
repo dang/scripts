@@ -8,6 +8,8 @@ set nocompatible
 behave xterm
 " Want status line
 set laststatus=2
+" Want ruler
+set ruler
 
 "
 " Mouse/clipboard settings
