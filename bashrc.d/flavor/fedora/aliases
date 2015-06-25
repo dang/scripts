@@ -12,5 +12,6 @@ export ALIASFILES="${ALIASFILES} ${me}"
 
 alias yum="sudo yum"
 alias rpm="sudo rpm"
+alias dnf="sudo dnf"
 
 alias systemctl="sudo systemctl"
