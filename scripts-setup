@@ -24,7 +24,7 @@ declare -A CPSET=(
 	[".bashrc.d"]="00defaults  prompt  python-virtualenv  user-path"
 )
 
-WANTPROGS="atool tmux udiskie xclip xvkbd"
+WANTPROGS="atool pigz tmux udiskie xclip xvkbd"
 
 umask 0077
 
