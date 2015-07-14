@@ -1,0 +1,56 @@
+#!/bin/bash
+USER=dang
+
+date >> /tmp/output.dfg
+echo "${CONNECTION_ID} - ${CONNECTION_UUID} - $2" >> /tmp/output.dfg
+
+if [[ "$CONNECTION_ID" =~ "fprintf" ]]; then
+	case "$2" in
+		up)
+			sleep 10
+			echo -e "\tmount" >> /tmp/output.dfg
+			mount /storage >> /tmp/output.dfg 2>&1
+			echo -e "\tdone" >> /tmp/output.dfg
+			 ;;
+
+		down)
+			echo -e "\tumount" >> /tmp/output.dfg
+			umount -f /storage
+			echo -e "\tdone" >> /tmp/output.dfg
+			 ;;
+	esac
+elif [ "$CONNECTION_UUID" == "39324a58-9dd2-41b6-b202-57e85722f77d" ]; then
+	case "$2" in
+		up)
+			sleep 10
+			echo -e "\tmount" >> /tmp/output.dfg
+			mount /storage
+			echo -e "\tdone" >> /tmp/output.dfg
+			 ;;
+
+		down)
+			echo -e "\tumount" >> /tmp/output.dfg
+			umount -f /storage
+			echo -e "\tdone" >> /tmp/output.dfg
+			 ;;
+	esac
+fi
+
+#elif [ $CONNECTION_UUID == 78cfd416-9ad7-4ce5-9c54-4fb9b75b0fa7 ]; then
+        #case "$2" in
+
+                #up)
+                   ##sleep 10
+                   #export SSH_AUTH_SOCK=$(find /home/${USER}/.cache/keyring-*/ -type s -name ssh)
+                   #su $USER -c "/usr/bin/sshfs hades.fprintf.net:/storage /storage/"
+                # ;;
+
+                #down)
+                   #fusermount -u /storage
+                # ;;
+        #esac
+#fi
+
+echo -e "\n\n" >> /tmp/output.dfg
+
+exit 0

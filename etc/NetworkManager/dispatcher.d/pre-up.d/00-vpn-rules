@@ -1,0 +1,143 @@
+#!/bin/bash
+#
+# Force all outgoing traffic to transit the VPN
+
+# IPv4 VPN Servers
+v4servers=(
+66.228.39.114 #apollo.fprintf.net
+50.249.189.37 #aa2.linuxbox.com
+)
+# IPv6 VPN Servers
+#v6servers=(
+#2600:3c03::f03c:91ff:fc93:951f #apollo.fprintf.net
+#)
+
+
+date >> /tmp/vpn-only.dfg
+
+con_net=$(echo ${IP4_ADDRESS_0} | awk '{print $1}')
+echo "${CONNECTION_ID} - ${con_net} - $2" >> /tmp/vpn-only.dfg
+
+case "${CONNECTION_ID}" in
+	fprintf?)
+		safe_networks=(
+			${con_net}
+		)
+		;;
+	box)
+		safe_networks=(
+			${con_net}
+			10.0.0.0/8
+		)
+		;;
+	*)
+		;;
+esac
+
+iptables-restore < /etc/iptables/empty.rules #create default rules, overwriting any that may be present already
+
+# Basic IPv4 setup
+iptables -N TCP #TCP user-defined chain used open up ports in the firewall
+iptables -N UDP #UDP user-defined chain used open up ports in the firewall
+iptables -P FORWARD DROP #this is a single PC and not a NAT gateway     
+iptables -P OUTPUT DROP #block all outgoing traffic by default
+iptables -P INPUT DROP #block all incoming traffic by default
+
+# Basic IPv6 setup
+ip6tables -N TCP #TCP user-defined chain used open up ports in the firewall
+ip6tables -N UDP #UDP user-defined chain used open up ports in the firewall
+ip6tables -P FORWARD DROP #this is a single PC and not a NAT gateway     
+ip6tables -P OUTPUT DROP #block all outgoing traffic by default
+ip6tables -P INPUT DROP #block all incoming traffic by default
+
+# Loopback
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+ip6tables -A INPUT -i lo -j ACCEPT
+ip6tables -A OUTPUT -o lo -j ACCEPT
+
+# DHCP
+iptables -I INPUT -i ${DEVICE_IFACE} -p udp --dport 67:68 --sport 67:68 -j ACCEPT
+
+# Need to be able to connect to http on the local net to auth to a browser (v4 only)
+iptables -A OUTPUT -o ${DEVICE_IFACE} -d ${con_net} -p tcp --dport 80 -o ${DEVICE_IFACE} ACCEPT
+iptables -A OUTPUT -o ${DEVICE_IFACE} -d ${con_net} -p tcp --dport 443 -o ${DEVICE_IFACE} ACCEPT
+
+# Safe network rules
+safe_net_count=${#safe_networks[@]} #loop through safe networks
+for (( c = 0; c < $server_count; c++ )); do
+	iptables -A OUTPUT -d ${safe_networks[c]} -j ACCEPT # Can send to safe network
+	ip6tables -A OUTPUT -d ${safe_networks[c]} -j ACCEPT # Can send to safe network
+	iptables -A INPUT -s ${safe_networks[c]} -p tcp --dport 22 -j ACCEPT # Allow incoming ssh
+	ip6tables -A INPUT -s ${safe_networks[c]} -p tcp --dport 22 -j ACCEPT # Allow incoming ssh
+done
+
+# Anythin can go out the VPN
+iptables -A OUTPUT -o tun+ -j ACCEPT
+ip6tables -A OUTPUT -o tun+ -j ACCEPT
+
+# Allow access to the VPN servers
+server_count=${#v4servers[@]} #loop through VPN servers
+for (( c = 0; c < $server_count; c++ )); do
+    #set up out rules for upd    
+    iptables -A OUTPUT -p udp -d ${v4servers[c]} --dport 53  -o ${DEVICE_IFACE} -j ACCEPT
+    iptables -A OUTPUT -p udp -d ${v4servers[c]} --dport 80  -o ${DEVICE_IFACE} -j ACCEPT
+    iptables -A OUTPUT -p udp -d ${v4servers[c]} --dport 443 -o ${DEVICE_IFACE} -j ACCEPT
+
+    #set up out rules for tcp
+    iptables -A OUTPUT -p tcp -d ${v4servers[c]} --dport 53  -o ${DEVICE_IFACE} -j ACCEPT
+    iptables -A OUTPUT -p tcp -d ${v4servers[c]} --dport 80  -o ${DEVICE_IFACE} -j ACCEPT
+    iptables -A OUTPUT -p tcp -d ${v4servers[c]} --dport 443 -o ${DEVICE_IFACE} -j ACCEPT
+done
+server_count=${#v6servers[@]} #loop through VPN servers
+for (( c = 0; c < $server_count; c++ )); do
+    #set up out rules for upd    
+    ip6tables -A OUTPUT -p udp -d ${v6servers[c]} --dport 53  -o ${DEVICE_IFACE} -j ACCEPT
+    ip6tables -A OUTPUT -p udp -d ${v6servers[c]} --dport 80  -o ${DEVICE_IFACE} -j ACCEPT
+    ip6tables -A OUTPUT -p udp -d ${v6servers[c]} --dport 443 -o ${DEVICE_IFACE} -j ACCEPT
+
+    #set up out rules for tcp
+    ip6tables -A OUTPUT -p tcp -d ${v6servers[c]} --dport 53  -o ${DEVICE_IFACE} -j ACCEPT
+    ip6tables -A OUTPUT -p tcp -d ${v6servers[c]} --dport 80  -o ${DEVICE_IFACE} -j ACCEPT
+    ip6tables -A OUTPUT -p tcp -d ${v6servers[c]} --dport 443 -o ${DEVICE_IFACE} -j ACCEPT
+done
+
+# Rate limited ping
+iptables -A INPUT -p icmp --icmp-type echo-request -m limit --limit 30/min --limit-burst 8 -j ACCEPT
+iptables -A INPUT -p icmp --icmp-type echo-request -j DROP
+
+# Allow established sessions to receive traffic:
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+ip6tables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Block INVALID states
+iptables -A INPUT -m state --state INVALID -j DROP
+ip6tables -A INPUT -m state --state INVALID -j DROP
+
+# Attach TCP and UDP chains
+iptables -A INPUT -p udp -m state --state NEW -j UDP
+iptables -A INPUT -p tcp --syn -m state --state NEW -j TCP
+ip6tables -A INPUT -p udp -m state --state NEW -j UDP
+ip6tables -A INPUT -p tcp --syn -m state --state NEW -j TCP
+
+# Block port scanning
+iptables -I TCP -p tcp -m recent --update --seconds 60 --name TCP-PORTSCAN -j REJECT --reject-with tcp-rst
+iptables -A INPUT -p tcp -m recent --set --name TCP-PORTSCAN -j REJECT --reject-with tcp-rst
+iptables -I UDP -p udp -m recent --update --seconds 60 --name UDP-PORTSCAN -j REJECT --reject-with icmp-port-unreachable
+iptables -A INPUT -p udp -m recent --set --name UDP-PORTSCAN -j REJECT --reject-with icmp-port-unreachable
+ip6tables -I TCP -p tcp -m recent --update --seconds 60 --name TCP-PORTSCAN -j REJECT --reject-with tcp-rst
+ip6tables -A INPUT -p tcp -m recent --set --name TCP-PORTSCAN -j REJECT --reject-with tcp-rst
+ip6tables -I UDP -p udp -m recent --update --seconds 60 --name UDP-PORTSCAN -j REJECT --reject-with icmp-port-unreachable
+ip6tables -A INPUT -p udp -m recent --set --name UDP-PORTSCAN -j REJECT --reject-with icmp-port-unreachable
+
+
+# Reject everything else with ICMP unreachable
+#iptables -A INPUT -j REJECT --reject-with icmp-proto-unreachable
+#ip6tables -A INPUT -j REJECT --reject-with icmp-proto-unreachable
+
+#use new rules
+#iptables-save > /etc/iptables/iptables.rules #save rules
+#systemctl start iptables.service && systemctl status iptables.service #check that the rules load correctly
+
+iptables-save > /tmp/vpn-only.rules
+exit 0
