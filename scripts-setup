@@ -1,11 +1,96 @@
 #!/bin/bash
 #
-# Setup a new account with the scripts.  To be run in the directory you want the scripts.
+# Setup or update an account with the scripts.
 #
 # Requires: git, sed
 #
 
 REPO="git://github.com/dang/scripts.git"
+SCRIPTDIR="${HOME}/.scripts"
+
+# Set usage output
+USAGE="[-h |--help] [-f | --fixup] [<directory>]"
+LONGUSAGE="\t-h, --help\n\t\tPrint this help message
+\t-f, --fixup\n\t\tFix up homedir for new links/copies
+\t<directory>\n\t\tScripts directory. Defaults to ${SCRIPTDIR}"
+
+# Standard functions
+is_interactive() {
+	case $- in
+		*i*)
+			# Don't die in interactive shells
+			return 0
+			;;
+		*)
+			return 1
+			;;
+	esac
+}
+can_die() {
+	if (( BASH_SUBSHELL > 0 )); then
+		return 0
+	fi
+	if ! is_interactive; then
+		return 0
+	fi
+	return 1
+}
+die() {
+	echo "Failed: $@"
+	if [ ! -z "$(declare -F | grep "DFGcleanup")" ]; then
+		DFGcleanup "$@"
+	fi
+	if can_die; then
+		exit 1
+	fi
+}
+usage() {
+	local myusage;
+	if [ -n "${USAGE}" ]; then
+		myusage=${USAGE}
+	else
+		myusage="No usage given"
+	fi
+	if [ -n "$1" ]; then
+		echo "$@"
+	fi
+	echo ""
+	echo "Usage:"
+	echo "`basename $0` ${myusage}"
+	if [ -n "${LONGUSAGE}" ]; then
+		echo -e "${LONGUSAGE}"
+	fi
+	exit 1
+}
+
+# Script name
+ME=$(basename $0)
+
+# Parse arguments
+ARGS=`getopt -o hf --long help,fixup -n "${ME}" -- "$@"`
+
+if [ $? != 0 ] ; then
+	usage 
+fi
+eval set -- "$ARGS"
+
+while true ; do
+	case "$1" in
+		-h|--help) usage; shift ;;
+		-f|--fixup) FIXUP="yes"; shift ;;
+		--) shift ; break ;;
+		* ) usage "Invalid argument $1";;
+	esac
+done
+
+# Remaining arguments are in $1, $2, etc. as normal
+if [ -n "${1}" ]; then
+	if [ "$1" == "." ]; then
+		SCRIPTDIR=${PWD}
+	else
+		SCRIPTDIR=$1
+	fi
+fi
 
 # Array formats are: array["<targetpath>"] = "<file> [<file>...]"
 #  Each entry is found in $SCRIPTDIR/cfg/<targetpath>/<file> and is installed into ${HOME}/<targetpath>/<file>
@@ -28,47 +113,6 @@ WANTPROGS="atool pigz tmux udiskie xclip xvkbd"
 
 umask 0077
 
-# if is_interactive; then echo "interactive" fi
-#
-# Check for an interactive shell
-is_interactive() {
-	case $- in
-		*i*)
-			# Don't die in interactive shells
-			return 0
-			;;
-		*)
-			return 1
-			;;
-	esac
-}
-
-# if can_die; then exit
-#
-# Check to see if it's legal to exit during die
-can_die() {
-	if (( BASH_SUBSHELL > 0 )); then
-		return 0
-	fi
-	if ! is_interactive; then
-		return 0
-	fi
-	return 1
-}
-
-# command | die "message"
-#
-# Print a message and exit with failure
-die() {
-	echo "Failed: $@"
-	if [ ! -z "$(declare -F | grep "DFGcleanup")" ]; then
-		DFGcleanup "$@"
-	fi
-	if can_die; then
-		exit 1
-	fi
-}
-
 function cmd_exists {
 	which $1 > /dev/null 2>&1
 	if [ "$?" == "1" ]; then
@@ -76,7 +120,7 @@ function cmd_exists {
 	fi
 }
 
-# checkexists ASSOC_ARRAY
+# checkexists ASSOC_ARRAY || die "failed"
 #
 # Check if the entries in the array exist
 #
@@ -122,8 +166,17 @@ function install {
 			local basedir=$(dirname $base{})
 			mkdir -p "${HOME}/${basedir}"
 			if [ -z "${copy}" ]; then
+				if [ -n "${FIXUP}" ]; then
+					rm "${HOME}/${base}"
+				fi
 				ln -s "${HOME}/.scripts/cfg/${base}" "${HOME}/${base}" || die "failed to link ${base}"
 			else
+				if [ -n "${FIXUP}" ]; then
+					# Skip existing files
+					if [ -e "${HOME}/${base}" ]; then
+						continue
+					fi
+				fi
 				cp -a "${HOME}/.scripts/cfg/${base}" "${HOME}/${base}" || die "failed to copy ${base}"
 			fi
 		done
@@ -134,30 +187,22 @@ function install {
 
 cmd_exists sed
 
-if [ -z "${1}" ]; then
-	echo "no directory given"
-	die "usage: scripts-setup <directory>"
+if [ -z "${FIXUP}" ]; then
+	# Check for conflicts
+	checkexists LNSET || die "Not overriting symlink files"
+	checkexists CPSET || die "Not overriting copy files"
+
+	if [ ! -d "${SCRIPTDIR}/.git" ]; then
+		SAVEDIR=${PWD}
+		cmd_exists git
+		cd $(dirname "${SCRIPTDIR}")
+		git clone ${REPO} $(basename ${SCRIPTDIR})
+		cd $(basename "${SCRIPTDIR}")
+		git submodule update --init --recursive
+		cd "${SAVEDIR}"
+	fi
 fi
 
-if [ "$1" == "." ]; then
-	SCRIPTDIR=${PWD}
-else
-	SCRIPTDIR=$1
-fi
-
-# Check for conflicts
-checkexists LNSET || die "Not overriting symlink files"
-checkexists CPSET || die "Not overriting copy files"
-
-if [ ! -d "${SCRIPTDIR}/.git" ]; then
-	SAVEDIR=${PWD}
-	cmd_exists git
-	cd $(dirname "${SCRIPTDIR}")
-	git clone ${REPO} $(basename ${SCRIPTDIR})
-	cd $(basename "${SCRIPTDIR}")
-	git submodule update --init --recursive
-	cd "${SAVEDIR}"
-fi
 if [ ! -d "${SCRIPTDIR}/.git" ]; then
 	echo "Failed to clone scripts repo from ${REPO}"
 	exit 2
