@@ -21,7 +21,7 @@ declare -A LNSET=(
 declare -A CPSET=(
 	["."]=".gitconfig"
 	[".ssh"]="config"
-	[".bashrc.d"]="00defaults  prompt  python-virtualenv  user-path"
+	[".bashrc.d"]="00defaults aliases prompt  python-virtualenv  user-path"
 )
 
 WANTPROGS="atool pigz tmux udiskie xclip xvkbd"
