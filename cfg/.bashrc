@@ -36,21 +36,23 @@ shopt -s autocd
 
 run_scripts()
 {
-	for script in "$1"/*; do
+	for script in "${SCRIPTS}/bashrc.d/$1"/*; do
+		[ -x "${script}" ] || continue
+		. "${script}"
+	done
+	for script in "${HOME}/.bashrc.d/$1"/*; do
 		[ -x "${script}" ] || continue
 		. "${script}"
 	done
 }
 
-# Run the common env
-run_scripts "${SCRIPTS}/bashrc.d/env"
-# Run the local env
-run_scripts "${HOME}/.bashrc.d"
+# Run the env
+run_scripts "env"
 # Run the actions
-run_scripts "${SCRIPTS}/bashrc.d/actions"
+run_scripts "actions"
 # If there's a flavor, run that
 if [ -d "${SCRIPTS}/bashrc.d/flavor/${FLAVOR}" ]; then
-	run_scripts "${SCRIPTS}/bashrc.d/flavor/${FLAVOR}"
+	run_scripts "flavor/${FLAVOR}"
 fi
 
 # per-box customizations.  These are done *after* all env settings (so those can be overridden) and

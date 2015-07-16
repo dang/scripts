@@ -106,7 +106,17 @@ declare -A LNSET=(
 declare -A CPSET=(
 	["."]=".gitconfig"
 	[".ssh"]="config"
-	[".bashrc.d"]="00defaults aliases prompt  python-virtualenv  user-path"
+	[".bashrc.d/env"]="00defaults prompt  python-virtualenv  user-path"
+	[".bashrc.d/actions"]="aliases"
+)
+
+# These have changed location and need to be moved
+declare -A MVSET=(
+	[".bashrc.d/00defaults"]=".bashrc.d/env/00defaults"
+	[".bashrc.d/prompt"]=".bashrc.d/env/prompt"
+	[".bashrc.d/python-virtualenv"]=".bashrc.d/env/python-virtualenv"
+	[".bashrc.d/user-path"]=".bashrc.d/env/user-path"
+	[".bashrc.d/aliases"]=".bashrc.d/actions/aliases"
 )
 
 WANTPROGS="atool pigz tmux udiskie xclip xvkbd"
@@ -214,6 +224,19 @@ ln -s ${SCRIPTDIR} .scripts
 if [ -h "${SCRIPTDIR}/.scripts" ]; then
 	# installed into .scripts; remove extra symlink
 	rm "${SCRIPTDIR}/.scripts"
+fi
+
+# Special setup: fix moved files
+if [ -n "${FIXUP}" ]; then
+	for k in "${!MVSET[@]}"; do
+		for f in ${MVSET[$k]}; do
+			if [ -e "${HOME}/${k}" ]; then
+				basedir=$(dirname $f{})
+				mkdir -p "${HOME}/${basedir}"
+				mv "${HOME}/${k}" "${HOME}/${f}"
+			fi
+		done
+	done
 fi
 
 # Install files
