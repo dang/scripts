@@ -58,6 +58,7 @@ reader = "luakitsession feeds"
 pr0n = "luakitsession pr0n"
 comics = "uzbl-tabbed http://www.comicagg.com/comics/read/"
 bookmarks = "uzbl-tabbed file:///home/dang/bookmarks.html"
+backlight = { "=10", "=50", "=100" }
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -79,6 +80,7 @@ local layouts =
     awful.layout.suit.max,
     awful.layout.suit.magnifier,
 }
+local mwfacts = { 0.3333333, 0.8 }
 -- }}}
 
 -- {{{ Wallpaper
@@ -90,49 +92,59 @@ end
 -- }}}
 
 -- {{{ Tags
--- This fucking sucks.  But it's not doable in a sane manor anymore.
-names = {}
-names[1] = { "T", "T", "T", "V", 5, 6, 7, "Book", "IM", "T", "T", "M", "E", "B", "F", 16 }
-names[2] = { "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T" }
+-- Properties of my tags
+-- It is an array indexed by screen, each entry of which is a dictionary containing:
+-- names	- Array of tag names indexed by tag
+-- layout	- Array of indices into "layouts", for setting layout, indexed by tag
+-- mwfact	- Array of indices into "mwfactt", for setting mwfact, indexed by tag
+-- bl_vals	- Array of indices into "backlight", for setting backlight values
+-- backlight	- Boolean, whether to set the backlight on screen changes
+local tagprops = {}
+
+-- Screen 1 - Primary display (and builtin on laptop)
+tagprops[1] = {}
+tagprops[1]["names"] =
+	{ "T", "T", "T", "V", "G", "T", "T", "G", "I", "T", "T", "T", "E", "T", "T", "G" }
+tagprops[1]["layout"] =
+	{  2,   2,   2,   1,   1,   2,   2,   1,   2,   2,   2,   2,   8,   2,   2,   8 }
+tagprops[1]["mwfact"] =
+	{  1,   1,   1,   1,   1,   1,   1,   1,   2,   1,   1,   1,   1,   1,   1,   1 }
+tagprops[1]["bl_vals"] =
+	{  2,   2,   2,   1,   1,   2,   2,   1,   1,   2,   2,   2,   1,   2,   2,   1 }
+tagprops[1]["backlight"] = false
+
+-- Screen 2 - Just for development, currently
+tagprops[2] = {}
+tagprops[2]["names"] =
+	{ "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T" }
+tagprops[2]["layout"] =
+	{  2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2 }
+tagprops[2]["mwfact"] =
+	{  1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1 }
+tagprops[2]["bl_vals"] =
+	{  3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3 }
+tagprops[2]["backlight"] = false
 --names[1] = { "Email", "Browser", "IM", "Chrome", "VNC", "Build1", "Build2", "Logs", "Build3", "Build4", "Build5", "Build6", "Music", 14, 15, "GATT" }
 --names[2] = { "Utility", "Dev1", "Dev2", "Dev3", "Dev4", "Dev5", "Dev6", "Dev7", "Consoles", "Config", "C trunk", "C 3.2", "Virtualization1", 14, "C 3.3", "C 3.1" }
 -- Define tags table.
 tags = {}
 ---[[ dang.ghs.com screen layout
 s = 1
-tags[s] = awful.tag(names[1], s, layouts[1])
+tags[s] = awful.tag(tagprops[s]["names"], s, layouts[s])
 -- Set default settings: 3 colums, floating layout
 for i, t in ipairs(tags[s]) do
-	awful.tag.setmwfact(0.3333333, tags[s][i])
-	awful.tag.setncol(3, tags[s][i])
+	awful.layout.set(layouts[tagprops[s]["layout"][i]], t)
+	awful.tag.setmwfact(mwfacts[tagprops[s]["mwfact"][i]], t)
+	awful.tag.setncol(3, t)
 end
--- Fix tags with non-default layout
-t = 1
-awful.layout.set(layouts[1], tags[s][t])
-t = 2
-awful.layout.set(layouts[1], tags[s][t])
-t = 3
-awful.layout.set(layouts[1], tags[s][t])
-t = 9
-awful.layout.set(layouts[1], tags[s][t])
-awful.tag.setmwfact(0.8, tags[s][t])
-t = 10
-awful.layout.set(layouts[1], tags[s][t])
-t = 11
-awful.layout.set(layouts[1], tags[s][t])
-t = 13
-awful.layout.set(layouts[8], tags[s][t])
-t = 14
-awful.layout.set(layouts[8], tags[s][t])
-t = 15
-awful.layout.set(layouts[8], tags[s][t])
 
 if screen.count() == 2 then
 	s = 2
-	tags[s] = awful.tag(names[2], s, layouts[2])
+	tags[s] = awful.tag(tagprops[s]["names"], s, layouts[s])
 	for i, t in ipairs(tags[s]) do
-		awful.tag.setmwfact(0.3333333, tags[s][i])
-		awful.tag.setncol(3, tags[s][i])
+		awful.layout.set(layouts[tagprops[s]["layout"][i]], t)
+		awful.tag.setmwfact(mwfacts[tagprops[s]["mwfact"][i]], t)
+		awful.tag.setncol(3, t)
 	end
 end
 
@@ -553,6 +565,7 @@ function dfg_pick_desktop(direction)
 	local screen = mouse.screen
 	local tag = awful.tag.selected(screen)
 	local found = 0
+	local newindex
 	for i, t in pairs(tags[screen]) do
 		if tag == t then
 			found = i
@@ -563,28 +576,33 @@ function dfg_pick_desktop(direction)
 		-- Can't figure it out; stay here
 		return tag
 	end
+	newindex = found;
 	
 	-- Now pick new direction
 	if direction == "northeast" then
-		return tags[screen][northeast(screen, found)]
+		newindex = northeast(screen, found)
 	elseif direction == "north" then
-		return tags[screen][north(screen, found)]
+		newindex = north(screen, found)
 	elseif direction == "northwest" then
-		return tags[screen][northwest(screen, found)]
+		newindex = northwest(screen, found)
 	elseif direction == "east" then
-		return tags[screen][east(screen, found)]
+		newindex = east(screen, found)
 	elseif direction == "west" then
-		return tags[screen][west(screen, found)]
+		newindex = west(screen, found)
 	elseif direction == "southeast" then
-		return tags[screen][southeast(screen, found)]
+		newindex = southeast(screen, found)
 	elseif direction == "south" then
-		return tags[screen][south(screen, found)]
+		newindex = south(screen, found)
 	elseif direction == "southwest" then
-		return tags[screen][southwest(screen, found)]
-	else
-		-- Don't understand the direction
-		return tag
+		newindex = southwest(screen, found)
 	end
+
+	if tagprops[screen]["backlight"] then
+		cmd = "xbacklight " .. backlight[tagprops[screen]["bl_vals"][newindex]]
+		awful.util.spawn(cmd, false)
+	end
+
+	return tags[screen][newindex]
 end
 
 -- {{{ Key bindings
