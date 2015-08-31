@@ -20,25 +20,25 @@ set selectmode=mouse
 " Hide the mouse pointer while typing
 set mousehide
 " Use the X clipboard for default yanking
-set clipboard=unnamed
+set clipboard=unnamed,unnamedplus
 " Use mouse in terminals; this allows selection inside tmux
-if !empty($DISPLAY) && executable('xsel')
-	if has('mouse')
-		set mouse=a
-		set selectmode=
-	endif
-	function SaveXClip()
-		let reg = getreg('+')
-		if !empty(reg)
-			call system("xsel -ip", reg)
-			call system("xsel -k")
-			call system("cat >> /home/dang/tmp/vimclip.log", getreg('+'))
-		endif
-	endfunction
-	command SaveXClip call SaveXClip()
-	autocmd VimLeave * call SaveXClip()
-	:nnoremap <silent> <C-z> :SaveXClip<CR><C-z>
-endif
+"if !empty($DISPLAY) && executable('xsel')
+	"if has('mouse')
+		"set mouse=a
+		"set selectmode=
+	"endif
+	"function SaveXClip()
+		"let reg = getreg('+')
+		"if !empty(reg)
+			"call system("xsel -ip", reg)
+			"call system("xsel -k")
+			"call system("cat >> /home/dang/tmp/vimclip.log", getreg('+'))
+		"endif
+	"endfunction
+	"command SaveXClip call SaveXClip()
+	"autocmd VimLeave * call SaveXClip()
+	":nnoremap <silent> <C-z> :SaveXClip<CR><C-z>
+"endif
 
 "
 " Key mappings
@@ -254,12 +254,13 @@ nmap ¬ <Plug>DWMFocusReset
 "
 " Special commands
 "
+" term://(<anything>//(digits:)1)1
 
 " Check to see if a file has changed from under us
 command Reload checktime
 " Blame in svn for the current line
 function Vcsblame(...)
-	let cmd="!vcsblame --line "  . line(".")
+	let cmd="vsp | terminal vcsblame --line "  . line(".")
 	for s in a:000
 		let cmd .= " -p " . s
 	endfor
@@ -267,7 +268,7 @@ function Vcsblame(...)
 	exe cmd
 endfunction
 command -nargs=* Vcsblame call Vcsblame(<f-args>)
-"command Vcsblame exe "!tig blame " . expand("%") . " +"  . line(".")
+"command Vcsblame exe "terminal tig blame " . expand("%") . " +"  . line(".")
 " Check when a symbol was added to git
 map <Leader>1 :!git log --reverse -p -S <cword> %<cr>
 nmap ) :tn<cr>
