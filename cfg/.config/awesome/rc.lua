@@ -49,14 +49,14 @@ terminal = "xfce4-terminal"
 backup_terminal = "xterm"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
-browser = "luakitsession browser"
-email = "firefox"
+browser = "firefox -P RedHat"
+email = "thunderbird"
 im = "pidgin"
 music = "chromium"
 ebook = "calibre"
-reader = "luakitsession feeds"
-pr0n = "luakitsession pr0n"
-comics = "uzbl-tabbed http://www.comicagg.com/comics/read/"
+reader = "firefox -P Personal"
+pr0n = "firefox -P Pr0n"
+games = "firefox -P Games"
 bookmarks = "uzbl-tabbed file:///home/dang/bookmarks.html"
 backlight = { "=10", "=50", "=100" }
 
@@ -679,7 +679,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "b", function () awful.util.spawn(browser) end),
     awful.key({ modkey, "Shift"   }, "e", function () awful.util.spawn(email) end),
     awful.key({ modkey, "Shift"   }, "i", function () awful.util.spawn(im) end),
-    awful.key({ modkey,           }, "c", function () awful.util.spawn(comics) end),
+    awful.key({ modkey, "Shift"   }, "g", function () awful.util.spawn(games) end),
     awful.key({ modkey,           }, "m", function () awful.util.spawn(music) end),
     awful.key({ modkey, "Shift"   }, "r", function () awful.util.spawn(reader) end),
     awful.key({ modkey, "Shift"   }, "p", function () awful.util.spawn(pr0n) end),
