@@ -111,7 +111,7 @@ tagprops[1]["mwfact"] =
 	{  1,   1,   1,   1,   1,   1,   1,   1,   2,   1,   1,   1,   1,   1,   1,   1 }
 tagprops[1]["bl_vals"] =
 	{  2,   2,   2,   1,   1,   2,   2,   1,   1,   2,   2,   2,   1,   2,   2,   1 }
-tagprops[1]["backlight"] = false
+tagprops[1]["backlight"] = true
 
 -- Screen 2 - Just for development, currently
 tagprops[2] = {}
