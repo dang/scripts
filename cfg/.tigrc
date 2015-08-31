@@ -38,7 +38,7 @@ bind generic	F	find-prev
 bind generic	j	view-blob
 
 # Option manipulation
-#bind generic	F	toggle-refs
-bind generic	J	toggle-refs
-#bind generic	i	toggle-sort-field
-bind generic	s	toggle-sort-field
+#bind generic	F	:toggle commit-title-refs
+bind generic	J	:toggle toggle-refs
+#bind generic	i	:toggle sort-field
+bind generic	s	:toggle sort-field
