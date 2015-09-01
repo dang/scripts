@@ -55,8 +55,8 @@ if [ -d "${SCRIPTS}/bashrc.d/flavor/${FLAVOR}" ]; then
 	run_scripts "flavor/${FLAVOR}"
 fi
 
-# per-box customizations.  These are done *after* all env settings (so those can be overridden) and
-# *before* any prompt settings, so those can be set up
+# per-box customizations.  These are done *after* all env settings (so those
+# can be overridden) and *before* any prompt settings, so those can be set up
 [ -f ${HOME}/.bash_local ] && . ${HOME}/.bash_local
 
 # Core file size
@@ -84,4 +84,4 @@ if [ -n "${TMUX}" ]; then
 fi
 
 # Run the finals
-run_scripts "${SCRIPTS}/bashrc.d/finals"
+run_scripts "finals"
