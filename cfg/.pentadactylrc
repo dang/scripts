@@ -1,0 +1,74 @@
+" vim: set ft=pentadactyl:
+
+"hg7218
+
+loadplugins '\.(js|penta)$'
+group user
+set cdpath=''
+
+
+map -b -modes=Normal n 4h
+map -b -modes=Normal e 4j
+map -b -modes=Normal i 4l
+map -b -modes=Normal u 4k
+map -b -modes=Normal N H
+map -b -modes=Normal I L
+map -b -modes=Normal f n
+map -b -modes=Normal F N
+map -b -modes=Normal k e
+map -b -modes=Normal K E
+map -b -modes=Normal s gi
+map -b -modes=Normal h u
+map -b -modes=Normal j f
+map -b -modes=Normal J F
+map -b -modes=Normal S I
+map -b -modes=Normal <C-E> <C-F>
+map -b -modes=Normal <C-U> <C-B>
+map -b -modes=Normal d <C-W>
+"map -b -modes=Normal D d
+map -b -modes=Normal G :tabopen https://google.com<CR>
+map -b -modes=Normal w <C-^>
+map -b -modes=Caret n h
+map -b -modes=Caret e j
+map -b -modes=Caret i l
+map -b -modes=Caret u k
+map -b -modes=Caret f n
+map -b -modes=Caret F N
+map -b -modes=Caret k e
+map -b -modes=Caret K E
+map -b -modes=Caret s i
+map -b -modes=Caret h u
+map -b -modes=Caret j f
+map -b -modes=Caret S I
+map -b -modes=Caret <C-E> <C-F>
+map -b -modes=Caret <C-U> <C-B>
+tmap -b n h
+tmap -b e j
+tmap -b i l
+tmap -b u k
+tmap -b f n
+tmap -b F N
+tmap -b k e
+tmap -b K E
+tmap -b s i
+tmap -b h u
+tmap -b j f
+tmap -b S I
+tmap -b <C-E> <C-F>
+tmap -b <C-U> <C-B>
+
+" Don't let *anything* steal my escrpe key
+command! nointercept -js document.addEventListener('keydown', function(e) { if (keyCode===27) { e.stopImmediatePropagation(); } return false;}, true);
+
+" Sites in passthrough mode
+autocmd LocationChange mail.corp.redhat.com :normal! <C-z>
+autocmd LocationChange docs.google.com :normal! <C-z>
+autocmd LocationChange youtube.com :normal! <C-z>
+" autocmd LocationChange '^https?://gryniewicz\.com/tt-rss' :normal! <C-z>
+
+" Specific key passthrough
+set passkeys+=mail.google.com:/in,gi
+set strictfocus+=mail.google.com:despotic
+set passkeys+=pandora.com:/<Space>
+set passkeys+=bluejeans.com:/<Space>
+set passkeys+='^https?://gryniewicz\.com/tt-rss':rtniueogafs
