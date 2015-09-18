@@ -102,28 +102,30 @@ end
 local tagprops = {}
 
 -- Screen 1 - Primary display (and builtin on laptop)
-tagprops[1] = {}
-tagprops[1]["names"] =
+s = 1
+tagprops[s] = {}
+tagprops[s]["names"] =
 	{ "T", "T", "T", "V", "G", "T", "T", "G", "I", "T", "T", "T", "E", "T", "T", "G" }
-tagprops[1]["layout"] =
+tagprops[s]["layout"] =
 	{  2,   2,   2,   1,   1,   2,   2,   1,   2,   2,   2,   2,   8,   2,   2,   8 }
-tagprops[1]["mwfact"] =
+tagprops[s]["mwfact"] =
 	{  1,   1,   1,   1,   1,   1,   1,   1,   2,   1,   1,   1,   1,   1,   1,   1 }
-tagprops[1]["bl_vals"] =
+tagprops[s]["bl_vals"] =
 	{  2,   2,   2,   1,   1,   2,   2,   1,   1,   2,   2,   2,   1,   2,   2,   1 }
-tagprops[1]["backlight"] = true
+tagprops[s]["backlight"] = true
 
 -- Screen 2 - Just for development, currently
-tagprops[2] = {}
-tagprops[2]["names"] =
+s = 2
+tagprops[s] = {}
+tagprops[s]["names"] =
 	{ "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T" }
-tagprops[2]["layout"] =
+tagprops[s]["layout"] =
 	{  2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2 }
-tagprops[2]["mwfact"] =
+tagprops[s]["mwfact"] =
 	{  1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1 }
-tagprops[2]["bl_vals"] =
+tagprops[s]["bl_vals"] =
 	{  3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   3 }
-tagprops[2]["backlight"] = false
+tagprops[s]["backlight"] = false
 --names[1] = { "Email", "Browser", "IM", "Chrome", "VNC", "Build1", "Build2", "Logs", "Build3", "Build4", "Build5", "Build6", "Music", 14, 15, "GATT" }
 --names[2] = { "Utility", "Dev1", "Dev2", "Dev3", "Dev4", "Dev5", "Dev6", "Dev7", "Consoles", "Config", "C trunk", "C 3.2", "Virtualization1", 14, "C 3.3", "C 3.1" }
 -- Define tags table.
