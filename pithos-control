@@ -1,0 +1,49 @@
+#!/bin/bash
+#
+# Control pithos from multimedia keys in XFCE
+#
+
+# Set usage output
+USAGE="[-h |--help] [-p | --pause] [-s | --skip]"
+LONGUSAGE="\t-h, --help\n\t\tPrint this help message
+\t-p, --pause\n\t\t(Un)pause
+\t-s, --skip\n\t\tSkip this song"
+
+# Standard functions
+source ${SCRIPTS}/functions.sh
+
+# Script name
+ME=$(basename $0)
+
+# Parse arguments
+ARGS=`getopt -o hps --long help,pause,skip -n "${ME}" -- "$@"`
+
+if [ $? != 0 ] ; then
+	usage 
+fi
+eval set -- "$ARGS"
+
+while true ; do
+	case "$1" in
+		-h|--help) usage; shift ;;
+		-p|--pause) PAUSE="yes"; shift ;;
+		-s|--skip) SKIP="yes"; shift ;;
+		--) shift ; break ;;
+		* ) usage "Invalid argument $1";;
+	esac
+done
+
+if [ -n "${PAUSE}" -a -n "${SKIP}" ]; then
+	usage "Can't skip and pause at the same time"
+fi
+
+if [ -n "${PAUSE}" ]; then
+	CMD="PlayPause"
+elif [ -n "${SKIP}" ]; then
+	CMD="SkipSong"
+else
+	usage "Must skip or pause"
+fi
+
+echo "${CMD}"
+dbus-send --print-reply --dest=net.kevinmehall.Pithos /net/kevinmehall/Pithos net.kevinmehall.Pithos.${CMD}
