@@ -40,3 +40,5 @@
 [format]
 	signoff = true
 	pretty = fuller
+[fetch]
+	prune = true
