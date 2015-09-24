@@ -381,6 +381,11 @@ function tm3 {
 	tmux new-session $@ \; split-window -v  \; split-window -v  \; select-layout even-horizontal
 }
 
+# Start a tmux and split it into 4 tiled panes
+function tm4 {
+	tmux new-session $@ \; split-window -v  \; split-window -h  \; select-pane -U \; split-window -v \; select-layout tiled
+}
+
 function git_add_modified {
 	git add $(git status | egrep modified | awk '{print $3}')
 }
