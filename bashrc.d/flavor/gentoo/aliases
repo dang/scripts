@@ -60,11 +60,6 @@ function emailstable() {
 # }
 alias meta="equery meta"
 
-# Replace "die" so it doesn't kill my shell
-function die() {
-	echo "$@"
-}
-
 # Changedir to the directory for a package, the shell version
 # Usage: sportcd <packagename>
 # Note: needs eix

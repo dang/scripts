@@ -1,0 +1,12 @@
+# vim: ft=sh:
+# Setup for arch
+
+me=$(readlink --canonicalize --no-newline $BASH_SOURCE)
+
+source "${SCRIPTS}/functions.sh"
+
+WANTPROGS="${WANTPROGS} pigz udiskie xclip"
+
+if [ -n "${SCRIPTS_SETUP}" ]; then
+	# One-time setup operations here
+fi

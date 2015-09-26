@@ -120,7 +120,7 @@ declare -A MVSET=(
 	[".bashrc.d/aliases"]=".bashrc.d/actions/aliases"
 )
 
-WANTPROGS="atool pigz tmux udiskie xclip xvkbd"
+WANTPROGS="atool tmux"
 
 umask 0077
 
@@ -246,6 +246,13 @@ install CPSET "copy" || die "Failed to install copy files"
 
 # Set up less
 lesskey
+
+# Initialize the flavor
+export SCRIPTS_SETUP="yes"
+. ${SCRIPTDIR}/bashrc.d/env/flavor
+if [ -f "${SCRIPTDIR}/bashrc.d/flavor/${FLAVOR}/setup" ]; then
+	. ${SCRIPTDIR}/bashrc.d/flavor/${FLAVOR}/setup
+fi
 
 # Look to see if my desired programs are installed
 for i in ${WANTPROGS}; do

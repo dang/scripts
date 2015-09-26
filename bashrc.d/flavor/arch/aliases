@@ -13,7 +13,7 @@ export ALIASFILES="${ALIASFILES} ${me}"
 alias which=" (alias; declare -f) | /usr/bin/which --tty-only --read-alias --read-functions --show-tilde --show-dot"
 
 alias pacman="sudo pacman"
-alias aurget="aurget --noedit --deps"
+alias pacaur="pacaur -a --noedit"
 alias etc-update='sudo etc-update'
 
 alias uumount="udiskie-umount -2"
