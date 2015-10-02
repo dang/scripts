@@ -57,6 +57,9 @@ tmap -b S I
 tmap -b <C-E> <C-F>
 tmap -b <C-U> <C-B>
 
+" Toggle the URI bar (to display plugin icons)
+nmap -builtin -ex  ,t  :set guioptions!=T
+
 " Don't let *anything* steal my escrpe key
 command! nointercept -js document.addEventListener('keydown', function(e) { if (keyCode===27) { e.stopImmediatePropagation(); } return false;}, true);
 
@@ -67,7 +70,7 @@ autocmd LocationChange youtube.com :normal! <C-z>
 " autocmd LocationChange '^https?://gryniewicz\.com/tt-rss' :normal! <C-z>
 
 " Specific key passthrough
-set passkeys+=mail.google.com:/in,gi
+set passkeys+=mail.google.com:/ind,gi
 set strictfocus+=mail.google.com:despotic
 set passkeys+=pandora.com:/<Space>
 set passkeys+=bluejeans.com:/<Space>
