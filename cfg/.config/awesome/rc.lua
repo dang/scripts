@@ -52,7 +52,7 @@ editor_cmd = terminal .. " -e " .. editor
 browser = "firefox -P RedHat"
 email = "thunderbird"
 im = "pidgin"
-music = "chromium"
+music = "pithos"
 ebook = "calibre"
 reader = "firefox -P Personal"
 pr0n = "firefox -P Pr0n"
@@ -682,7 +682,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "e", function () awful.util.spawn(email) end),
     awful.key({ modkey, "Shift"   }, "i", function () awful.util.spawn(im) end),
     awful.key({ modkey, "Shift"   }, "g", function () awful.util.spawn(games) end),
-    awful.key({ modkey,           }, "m", function () awful.util.spawn(music) end),
+    awful.key({ modkey, "Shift"   }, "m", function () awful.util.spawn(music) end),
     awful.key({ modkey, "Shift"   }, "r", function () awful.util.spawn(reader) end),
     awful.key({ modkey, "Shift"   }, "p", function () awful.util.spawn(pr0n) end),
     -- awful.key({ modkey,           }, "k", function () awful.util.spawn(bookmarks) end),
