@@ -7,6 +7,11 @@ else
 	PCHAR=">"
 fi
 
+is_docker() {
+	grep -q docker /proc/self/cgroup
+	return $?
+}
+
 # Set prompt path to max 2 levels for best compromise of readability and usefulness
 promptpath () {
     realpwd=$(readlink -f "$PWD")
@@ -48,9 +53,15 @@ promptpath () {
 # 	36 - cyan
 # 	37 - white
 if [ -z "${COLOR1}" ]; then
-	# Default colors are blue/red
-	COLOR1=34
-	COLOR2=31
+	if is_docker ; then
+		# Make docker distinct
+		COLOR1=35
+		COLOR2=37
+	else
+		# Default colors are blue/red
+		COLOR1=34
+		COLOR2=31
+	fi
 fi
 PCOLOR1="\[\033[1;${COLOR1}m\]"
 PCOLOR2="\[\033[1;${COLOR2}m\]"
@@ -61,6 +72,8 @@ PCOLORN="\[\033[0m\]"
 #PS1='\[\033[${COLOR1};1m\][\A \h] \[\033[${COLOR2};1m\]\W\[\033[0m\]${PCHAR} '
 #PS1='\[\033[01;${COLOR1}m\][\A \h]\[\033[01;${COLOR2}m\] \W\[\033[00m\]${PCHAR} '
 #PS1='\[\033[01;${COLOR1}m\]\D{%H:%M%S} \h\[\033[01;${COLOR2}m\] \W \[\033[00m\]${PCHAR} '
+
+# Note: Don't indent these.  It screws up the prompt
 if [ -z "${PHOSTNAME}" ]; then
 PS1="${PCOLOR1}[${PCOLOR1}\A${PCOLOR1}\
 ${PCOLOR1} ${PCOLOR1}\h${PCOLOR1}]\

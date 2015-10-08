@@ -18,5 +18,5 @@
 # COLOR2=34
 
 # Prompt hostname.  This overrides the hostname
-# PHOSTNAME="chroot-${HOSTNAME}"
+# PHOSTNAME="chroot-\h"
 
