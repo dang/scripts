@@ -9,10 +9,11 @@ REPO="git://github.com/dang/scripts.git"
 SCRIPTDIR="${HOME}/.scripts"
 
 # Set usage output
-USAGE="[-h |--help] [-f | --fixup] [-b <filename> | --braindead <filename> ] [<directory>]"
+USAGE="[-h |--help] [-f | --fixup] [-b <filename> | --braindead <filename> ] [-r <repo> | --repository <repo>  [<directory>]"
 LONGUSAGE="\t-h, --help\n\t\tPrint this help message
 \t-f, --fixup\n\t\tFix up homedir for new links/copies
 \t-b <filename>, --braindead <filename>\n\t\tGenerate a setup script for braindead systems
+\t-r <repo>, --repository <repo>\n\t\tUse source repo <repo>. Default: ${REPO}
 \t<directory>\n\t\tScripts directory. Defaults to ${SCRIPTDIR}"
 
 # Standard functions
@@ -68,10 +69,10 @@ usage() {
 ME=$(basename $0)
 
 # Parse arguments
-ARGS=`getopt -o hb:f --long help,braindead:fixup -n "${ME}" -- "$@"`
+ARGS=`getopt -o hb:fr: --long help,braindead:,fixup,repository: -n "${ME}" -- "$@"`
 
 if [ $? != 0 ] ; then
-	usage 
+	usage
 fi
 eval set -- "$ARGS"
 
@@ -80,6 +81,7 @@ while true ; do
 		-h|--help) usage; shift ;;
 		-f|--fixup) FIXUP="yes"; shift ;;
 		-b|--braindead) BRAINDEAD="$2"; shift 2 ;;
+		-r|--repository) REPO="$2"; shift 2 ;;
 		--) shift ; break ;;
 		* ) usage "Invalid argument $1";;
 	esac
@@ -99,7 +101,7 @@ fi
 
 # These are items that should be symlinked to the scripts dir, so they're always up-to-date.
 declare -A LNSET=(
-	["."]=".ackrc .atoolrc .bashrc .cvsrc .face .gdbinit .gitignore .gvimrc .inputrc .lesskey .nvimrc .pentadactylrc .profile .tigrc .tmux.conf .toprc .vim .vimrc .vrapperrc .xinitrc" 
+	["."]=".ackrc .atoolrc .bashrc .cvsrc .face .gdbinit .gitignore .gvimrc .inputrc .lesskey .pentadactylrc .profile .tigrc .tmux.conf .toprc .vim .vim:.config/nvim .vimrc .vrapperrc .xinitrc"
 	[".cgdb"]="cgdbrc"
 	[".config"]="awesome luakit"
 	[".config/xfce4"]="terminal"
@@ -133,6 +135,29 @@ function cmd_exists {
 	fi
 }
 
+# getsrcdst ${entry} src dst
+#
+# Get a source/destination pair from a variable of the from "foo[:bar]"
+# Result will be in local variables src and dst
+#
+function getsrcdst {
+	local __entry=$1
+	local  __resultsrc=$2
+	local  __resultdst=$3
+
+	IFS=':' read -ra colon <<< "${__entry}"
+	local __src=${colon[0]}
+	local __dst=${__src}
+	if [ -n "${colon[1]}" ]; then
+		__dst=${colon[1]}
+	fi
+
+	if [[ "$__resultsrc" ]]; then
+		eval $__resultsrc="'${__src}'"
+		eval $__resultdst="'${__dst}'"
+	fi
+}
+
 # checkexists ASSOC_ARRAY || die "failed"
 #
 # Check if the entries in the array exist
@@ -141,14 +166,13 @@ function cmd_exists {
 function checkexists {
 	local _str_arr="$(declare -p $1)"
 	eval "local -A array=${_str_arr#*=}"
+	local src dst
 	for k in "${!array[@]}"; do
 		for f in ${array[$k]}; do
-			local base="$k/$f"
-			if [ "$k" == "." ]; then
-				# no extra ./
-				base="$f"
+			getsrcdst "${f}" src dst
+			if [ -a "${HOME}/${k}/${dst}" ]; then
+				die "${HOME}/${k}/${dst} exists; not continuing" || return 1
 			fi
-			[ -a "${HOME}/${base}" ] && die "${HOME}/${base} exists; not continuing" || return 1
 		done
 	done
 }
@@ -169,24 +193,26 @@ function braindead {
 		die "No outfile" || return 1
 	fi
 	for k in "${!array[@]}"; do
+		local base="${k}/"
+		if [ "$k" == "." ]; then
+			# no extra ./
+			base=""
+		fi
 		for f in ${array[$k]}; do
-			local base="$k/$f"
-			if [ "$k" == "." ]; then
-				# no extra ./
-				base="$f"
-			fi
-			local basedir=$(dirname $base{})
+			local src dst
+			getsrcdst "${f}" src dst
+			local basedir=$(dirname ${base}${dst}})
 			echo mkdir -p "${HOME}/${basedir}" >> "${outfile}"
 			if [ -z "${copy}" ]; then
 				if [ -n "${FIXUP}" ]; then
-					echo rm "${HOME}/${base}" >> "${outfile}"
+					echo rm "${HOME}/${base}${dst}}" >> "${outfile}"
 				fi
-				echo ln -s "${HOME}/.scripts/cfg/${base}" "${HOME}/${base}" \|\| die "failed to link ${base}" >> "${outfile}"
+				echo ln -s "${HOME}/.scripts/cfg/${base}${src}" "${HOME}/${base}${dst}}" \|\| die "failed to link ${base}${src}" >> "${outfile}"
 			else
 				if [ -n "${FIXUP}" ]; then
 					# Skip existing files
-					echo if [ ! -e "${HOME}/${base}" ]\; then >> "${outfile}"
-					echo cp -a "${HOME}/.scripts/cfg/${base}" "${HOME}/${base}" \|\| die "failed to copy ${base}" >> "${outfile}"
+					echo if [ ! -e "${HOME}/${base}${dst}}" ]\; then >> "${outfile}"
+					echo cp -a "${HOME}/.scripts/cfg/${base}${src}" "${HOME}/${base}${dst}}" \|\| die "failed to copy ${base}${src}" >> "${outfile}"
 					echo fi >> "${outfile}"
 				fi
 			fi
@@ -206,27 +232,29 @@ function install {
 	eval "local -A array=${_str_arr#*=}"
 	local copy=$2
 	for k in "${!array[@]}"; do
+		local base="${k}/"
+		if [ "$k" == "." ]; then
+			# no extra ./
+			base=""
+		fi
 		for f in ${array[$k]}; do
-			local base="$k/$f"
-			if [ "$k" == "." ]; then
-				# no extra ./
-				base="$f"
-			fi
-			local basedir=$(dirname $base{})
+			local src dst
+			getsrcdst "${f}" src dst
+			local basedir=$(dirname ${base}${src})
 			mkdir -p "${HOME}/${basedir}"
 			if [ -z "${copy}" ]; then
 				if [ -n "${FIXUP}" ]; then
-					rm "${HOME}/${base}"
+					rm "${HOME}/${base}${dst}"
 				fi
-				ln -s "${HOME}/.scripts/cfg/${base}" "${HOME}/${base}" || die "failed to link ${base}" || return 1
+				ln -s "${HOME}/.scripts/cfg/${base}${src}" "${HOME}/${base}${dst}" || die "failed to link ${base}${src}" || return 1
 			else
 				if [ -n "${FIXUP}" ]; then
 					# Skip existing files
-					if [ -e "${HOME}/${base}" ]; then
+					if [ -e "${HOME}/${base}${dst}" ]; then
 						continue
 					fi
 				fi
-				cp -a "${HOME}/.scripts/cfg/${base}" "${HOME}/${base}" || die "failed to copy ${base}" || return 1
+				cp -a "${HOME}/.scripts/cfg/${base}${src}" "${HOME}/${base}${dst}" || die "failed to copy ${base}${src}" || return 1
 			fi
 		done
 	done
