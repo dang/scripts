@@ -12,7 +12,15 @@ export ALIASFILES="${ALIASFILES} ${me}"
 
 alias which=" (alias; declare -f) | /usr/bin/which --tty-only --read-alias --read-functions --show-tilde --show-dot"
 
-alias pacman="sudo pacman"
+function pacman {
+	if [ "$1" == "-Syu" ]; then
+		echo "Full upgrade; refreshing keys"
+		sudo pacman-key --refresh-keys
+	fi
+
+	sudo pacman "$@"
+}
+#alias pacman="sudo pacman"
 alias pacaur="pacaur -a --noedit"
 alias etc-update='sudo etc-update'
 
