@@ -130,6 +130,10 @@ set <F37>=OM
 
 " While typing a search, jump to matches
 set incsearch
+" Ignore case for searches
+set ignorecase
+" But override that if uppercase letters are in the search
+set smartcase
 " Wrap searches around the end of the file
 set wrapscan
 " Don't include gated.log files in viminfo
