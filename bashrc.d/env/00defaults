@@ -16,6 +16,8 @@ export FIGNORE=".o:.swp:.swo"
 export NOCONFIGURE=yes
 # Set your window manager here!
 export WINDOW_MANAGER=awesome
+# Use the system libvirt
+export VIRSH_DEFAULT_CONNECT_URI="qemu:///system"
 
 if [ -z "${USER}" ]; then
 	export USER=$(whoami)
