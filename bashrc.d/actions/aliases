@@ -74,6 +74,7 @@ alias slay="echo use pkill"
 alias nuke="kill -9"
 alias x="exit"
 alias lo="logout"
+alias fdisk="sudo fdisk"
 #
 # utilities
 alias md="mkdir -p"
