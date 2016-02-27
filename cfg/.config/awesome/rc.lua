@@ -49,16 +49,19 @@ terminal = "xfce4-terminal"
 backup_terminal = "xterm"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
-browser = "firefox -P RedHat"
+browser = "firefox -P Personal"
 email = "thunderbird"
 im = "pidgin"
 music = "pithos"
 ebook = "calibre"
-reader = "firefox -P Personal"
+reader = "firefox -P RedHat"
 pr0n = "firefox -P Pr0n"
 games = "firefox -P Games"
 bookmarks = "uzbl-tabbed file:///home/dang/bookmarks.html"
-backlight = { "=10", "=50", "=100" }
+lightval = 1
+backlight = {}
+backlight[1] = { "=10", "=50", "=100" }
+backlight[2] = { "=75", "=100", "=100" }
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -600,11 +603,37 @@ function dfg_pick_desktop(direction)
 	end
 
 	if tagprops[screen]["backlight"] then
-		cmd = "xbacklight " .. backlight[tagprops[screen]["bl_vals"][newindex]]
+		cmd = "xbacklight " .. backlight[lightval][tagprops[screen]["bl_vals"][newindex]]
 		awful.util.spawn(cmd, false)
 	end
 
 	return tags[screen][newindex]
+end
+
+--- Filter out window that we do not want handled by focus.
+-- Override the global function, also filtering notifications
+-- not registered and cannot get focus.
+-- @param c A client.
+-- @return The same client if it's ok, nil otherwise.
+function focus_filter(c)
+	if not awful.client.focus.filter(c) then
+		return nil
+	end
+	if c.type == "desktop"
+		or c.type == "dock"
+		or c.type == "splash"
+		or not c.focusable then
+		return nil
+	end
+    return c
+end
+
+--- Increment the base backlight values
+function lightval_inc(c)
+	lightval = lightval + 1
+	if lightval > 2 then
+		lightval = 1
+	end
 end
 
 -- {{{ Key bindings
@@ -697,6 +726,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
     awful.key({ modkey, "Shift"   }, "n", awful.client.restore),
+    -- Backlight
+    awful.key({ modkey, "Shift"   }, "b", lightval_inc),
 
     -- Prompt
     awful.key({ modkey, "Mod1"    }, "r",     function () mypromptbox[mouse.screen]:run() end),
@@ -817,7 +848,7 @@ client.connect_signal("manage", function (c, startup)
     -- Enable sloppy focus
     c:connect_signal("mouse::enter", function(c)
         if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-            and awful.client.focus.filter(c) then
+            and focus_filter(c) then
             client.focus = c
         end
     end)
