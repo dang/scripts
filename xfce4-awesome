@@ -4,4 +4,6 @@
 #
 
 killall xfwm4
-exec awesome
+mkdir -p ~/.cache/awesome
+exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
+#exec awesome

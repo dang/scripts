@@ -616,6 +616,7 @@ end
 -- @param c A client.
 -- @return The same client if it's ok, nil otherwise.
 function focus_filter(c)
+	--print("DFG: type: ", c.type)
 	if not awful.client.focus.filter(c) then
 		return nil
 	end
@@ -833,6 +834,8 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
+    { rule = { class = "Xfce4-notifyd" },
+      properties = { focus = false } },
       ---- Force uzbl to be on my browser page
      --{ rule = { class = "Uzbl-tabbed" },
        --properties = { tag = tags[1][14] } },
