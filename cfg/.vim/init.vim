@@ -222,13 +222,14 @@ vnoremap <Leader>C  :call NERDComment('x', "uncomment")<cr>
 "nmap [E <Plug>DWMResetMaster
 
 " Normal keyboard mappings: <M-n>, <M-i>, <M-u>
-nmap î <Plug>DWMSplit
-nmap å <Plug>DWMFocus
-nmap é <Plug>DWMClose
-nmap õ <Plug>DWMTag
-nmap è <Plug>DWMGrowMaster
-nmap ï <Plug>DWMShrinkMaster
-nmap ¬ <Plug>DWMFocusReset
+"nmap î <Plug>DWMSplit
+nmap <M-n> <Plug>DWMSplit
+nmap <M-e> <Plug>DWMFocus
+nmap <M-i> <Plug>DWMClose
+nmap <M-u> <Plug>DWMTag
+nmap <M-l> <Plug>DWMGrowMaster
+nmap <M-y> <Plug>DWMShrinkMaster
+nmap <M-,> <Plug>DWMFocusReset
 
 "
 " Cindent options
@@ -294,8 +295,9 @@ if has("cscope")
 	    cs add $CSCOPE_DB
 	endif
 	set csverb
-	map <C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
-	map Ü :cs find 0 <C-R>=expand("<cword>")<CR><CR>
+	map <C-\> :cs find s <C-R>=expand("<cword>")<CR><CR>
+	map Ü :cs find s <C-R>=expand("<cword>")<CR><CR>
+	map ì :cs find c <C-R>=expand("<cword>")<CR><CR>
 	nnoremap Ý <C-]>
 	function Csrebuild()
 		silent !maketags -r
