@@ -505,3 +505,5 @@ function hex2dec {
 function dec2hex {
 	echo "obase=16; $@" | bc
 }
+
+alias wget="curl -O"
