@@ -174,6 +174,16 @@ alias ripcd="rip cd rip --offset 103"
 alias mp='mpv -alang eng'
 alias mpj='mpv -alang jpn'
 alias mpsub='mpv -alang eng -slang eng'
+function mprand {
+	local ext=${1:-"mp4"}
+	local randfile=$(/bin/ls *${ext} 2>/dev/null | sort -R | tail -n1)
+	if [ ! -f "${randfile}" ]; then
+		echo "No files matching *${ext}"
+		return 1
+	fi
+	mp "${randfile}"
+	MPRANDFILE="${randfile}"
+}
 #alias dvd="mp -ni -alang en dvd://"
 function dvd {
 	local title=$1
