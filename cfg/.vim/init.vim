@@ -53,7 +53,7 @@ nmap <F2> :nohlsearch<CR>
 " I accidentally hit F1 when aiming for escape.  Map F1 to escape in insert mode
 imap <F1> <esc>
 " Append a semicolon
-nmap ; A;
+"nmap ; A;
 " Re-syntax long files
 noremap <F12> :syntax sync fromstart<CR>
 
