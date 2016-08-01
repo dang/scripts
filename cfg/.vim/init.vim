@@ -195,6 +195,8 @@ let g:is_bash=1
 let g:NERDCreateDefaultMappings='0'
 let g:NERDRemoveExtraSpaces='1'
 let g:NERDCompactSexyComs='1'
+let g:NERDTrimTrailingWhitespace='1'
+let g:NERDCommentEmptyLines='1'
 nnoremap <Leader>c  :call NERDComment('n', "comment")<cr>
 vnoremap <Leader>c  :call NERDComment('x', "comment")<cr>
 nnoremap <Leader>C  :call NERDComment('n', "uncomment")<cr>
