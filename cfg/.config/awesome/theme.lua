@@ -92,5 +92,12 @@ theme.layout_dwindle = "/usr/share/awesome/themes/default/layouts/dwindlew.png"
 
 theme.awesome_icon = "/usr/share/awesome/icons/awesome16.png"
 
+--{{{ APW volume widget
+theme.apw_fg_color = {type = 'linear', from = {0, 0}, to={40,0}, stops={{0, "#3a6073"}, {1.0, "#3a7bd5"}}}
+theme.apw_bg_color = "#333333"
+theme.apw_mute_fg_color = "#CC9393"
+theme.apw_mute_bg_color = "#663333"
+--}}}
+
 return theme
 -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=80

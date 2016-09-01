@@ -44,6 +44,9 @@ end
 -- Themes define colours, icons, and wallpapers
 beautiful.init(awful.util.getdir("config") .. "/theme.lua")
 
+-- Load volume widget (must be done after beautiful init)
+local APW = require("apw/widget")
+
 -- This is used later as the default terminal and editor to run.
 terminal = "xfce4-terminal"
 backup_terminal = "xterm"
@@ -258,6 +261,7 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+    if s == 1 then right_layout:add(APW) end
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
@@ -740,6 +744,10 @@ globalkeys = awful.util.table.join(
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
               end),
+    -- Volume widget
+    awful.key({ }, "XF86AudioRaiseVolume",  APW.Up),
+    awful.key({ }, "XF86AudioLowerVolume",  APW.Down),
+    awful.key({ }, "XF86AudioMute",         APW.ToggleMute),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end)
 )
@@ -911,4 +919,10 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+-- }}}
+
+-- {{{ APW update timer
+APWTimer = timer({ timeout = 1.0 }) -- set update interval in s
+APWTimer:connect_signal("timeout", APW.Update)
+APWTimer:start()
 -- }}}

@@ -24,3 +24,6 @@
 [submodule "cfg/.vim/bundle/rfc-syntax"]
 	path = cfg/.vim/bundle/rfc-syntax
 	url = https://github.com/vim-scripts/rfc-syntax
+[submodule "cfg/.config/awesome/apw"]
+	path = cfg/.config/awesome/apw
+	url = https://github.com/mokasin/apw.git
