@@ -448,6 +448,22 @@ function xmark ()
 	echo $(xclip -o) > ${HOME}/.local/.dfg.mark
 }
 
+function cmount {
+	local file=$1
+
+	sudo losetup /dev/loop0 ${file}
+	sudo cryptsetup --type luks open /dev/loop0 ${file}
+	sudo mount -t ext3 /dev/mapper/${file} /mnt
+}
+
+function cumount {
+	local file=$1
+
+	sudo umount /mnt
+	sudo cryptsetup close ${file}
+	sudo losetup -d /dev/loop0
+}
+
 # cp + progress bar
 # cp_p()
 # {
