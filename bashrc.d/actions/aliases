@@ -19,7 +19,7 @@ shopt -s extglob
 alias cd..="cd .."
 #
 # ls
-alias ls="/bin/ls -s -h --color=auto"
+alias ls="/bin/ls -N -s -h --color=auto"
 alias la="ls -A"
 alias ll="ls -al"
 #
@@ -511,7 +511,7 @@ function  dsu {
 }
 
 
-alias keepassx="/usr/bin/keepassx ~/Dropbox/keepass.kdb"
+alias keepassx="/usr/bin/keepassx ~/Dropbox/keepass.kdbx"
 alias arst="setxkbmap us"
 alias asdf="setxkbmap us -variant colemak; xmodmap ${SCRIPTS}/keymap"
 
