@@ -8,7 +8,7 @@ local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
 -- Notification library
---local naughty = require("naughty")
+local naughty = require("naughty")
 local menubar = require("menubar")
 -- For layout stuff
 --local tag = require("awful.tag")
@@ -48,21 +48,21 @@ beautiful.init(awful.util.getdir("config") .. "/theme.lua")
 local APW = require("apw/widget")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xfce4-terminal"
-backup_terminal = "xterm"
-editor = os.getenv("EDITOR") or "nano"
-editor_cmd = terminal .. " -e " .. editor
-browser = "firefox -P Personal"
-email = "thunderbird"
-im = "pidgin"
-music = "pithos"
-ebook = "calibre"
-reader = "firefox -P RedHat"
-pr0n = "firefox -P Pr0n"
-games = "firefox -P Games"
-bookmarks = "uzbl-tabbed file:///home/dang/bookmarks.html"
-lightval = 1
-backlight = {}
+local terminal = "xfce4-terminal"
+local backup_terminal = "xterm"
+local editor = os.getenv("EDITOR") or "nano"
+local editor_cmd = terminal .. " -e " .. editor
+local browser = "firefox -P Personal"
+local email = "thunderbird"
+local im = "pidgin"
+local music = "pithos"
+local ebook = "calibre"
+local reader = "firefox -P RedHat"
+local pr0n = "firefox -P Pr0n"
+local games = "firefox -P Games"
+local bookmarks = "uzbl-tabbed file:///home/dang/bookmarks.html"
+local lightval = 1
+local backlight = {}
 backlight[1] = { "=10", "=50", "=100" }
 backlight[2] = { "=75", "=100", "=100" }
 
@@ -71,7 +71,7 @@ backlight[2] = { "=75", "=100", "=100" }
 -- If you do not like this or do not have such a key,
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
-modkey = "Mod4"
+local modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts =
@@ -108,7 +108,7 @@ end
 local tagprops = {}
 
 -- Screen 1 - Primary display (and builtin on laptop)
-s = 1
+local s = 1
 tagprops[s] = {}
 tagprops[s]["names"] =
 	{ "T", "T", "T", "V", "G", "T", "T", "G", "I", "T", "T", "T", "E", "T", "T", "G" }
@@ -124,9 +124,9 @@ tagprops[s]["backlight"] = true
 s = 2
 tagprops[s] = {}
 tagprops[s]["names"] =
-	{ "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T" }
+	{ "B", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T", "T" }
 tagprops[s]["layout"] =
-	{  2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2 }
+	{  1,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2 }
 tagprops[s]["mwfact"] =
 	{  1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1 }
 tagprops[s]["bl_vals"] =
@@ -135,15 +135,15 @@ tagprops[s]["backlight"] = false
 --names[1] = { "Email", "Browser", "IM", "Chrome", "VNC", "Build1", "Build2", "Logs", "Build3", "Build4", "Build5", "Build6", "Music", 14, 15, "GATT" }
 --names[2] = { "Utility", "Dev1", "Dev2", "Dev3", "Dev4", "Dev5", "Dev6", "Dev7", "Consoles", "Config", "C trunk", "C 3.2", "Virtualization1", 14, "C 3.3", "C 3.1" }
 -- Define tags table.
-tags = {}
+local tags = {}
 ---[[ dang.ghs.com screen layout
 s = 1
 tags[s] = awful.tag(tagprops[s]["names"], s, layouts[s])
 -- Set default settings: 3 colums, floating layout
 for i, t in ipairs(tags[s]) do
 	awful.layout.set(layouts[tagprops[s]["layout"][i]], t)
-	awful.tag.setmwfact(mwfacts[tagprops[s]["mwfact"][i]], t)
-	awful.tag.setncol(3, t)
+	t.master_width_factor = mwfacts[tagprops[s]["mwfact"][i]]
+	t.column_count = 3
 end
 
 if screen.count() == 2 then
@@ -151,8 +151,8 @@ if screen.count() == 2 then
 	tags[s] = awful.tag(tagprops[s]["names"], s, layouts[s])
 	for i, t in ipairs(tags[s]) do
 		awful.layout.set(layouts[tagprops[s]["layout"][i]], t)
-		awful.tag.setmwfact(mwfacts[tagprops[s]["mwfact"][i]], t)
-		awful.tag.setncol(3, t)
+		t.master_width_factor = mwfacts[tagprops[s]["mwfact"][i]]
+		t.column_count = 3
 	end
 end
 
@@ -182,7 +182,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 
 -- {{{ Wibox
 -- Create a textclock widget
-mytextclock = awful.widget.textclock()
+mytextclock = wibox.widget.textclock()
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -249,8 +249,8 @@ for s = 1, screen.count() do
     -- Create a tasklist widget
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
-    -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s })
+    -- Create the wibar
+    mywibox[s] = awful.wibar({ position = "top", screen = s })
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
@@ -572,10 +572,11 @@ end
 -- So, if you're on 5 and you go right, you get to 8.
 function dfg_pick_desktop(direction)
 	local screen = mouse.screen
-	local tag = awful.tag.selected(screen)
+	local tag = screen.selected_tag
 	local found = 0
+	local index = screen.index
 	local newindex
-	for i, t in pairs(tags[screen]) do
+	for i, t in ipairs(screen.tags) do
 		if tag == t then
 			found = i
 			break
@@ -589,29 +590,29 @@ function dfg_pick_desktop(direction)
 	
 	-- Now pick new direction
 	if direction == "northeast" then
-		newindex = northeast(screen, found)
+		newindex = northeast(index, found)
 	elseif direction == "north" then
-		newindex = north(screen, found)
+		newindex = north(index, found)
 	elseif direction == "northwest" then
-		newindex = northwest(screen, found)
+		newindex = northwest(index, found)
 	elseif direction == "east" then
-		newindex = east(screen, found)
+		newindex = east(index, found)
 	elseif direction == "west" then
-		newindex = west(screen, found)
+		newindex = west(index, found)
 	elseif direction == "southeast" then
-		newindex = southeast(screen, found)
+		newindex = southeast(index, found)
 	elseif direction == "south" then
-		newindex = south(screen, found)
+		newindex = south(index, found)
 	elseif direction == "southwest" then
-		newindex = southwest(screen, found)
+		newindex = southwest(index, found)
 	end
 
-	if tagprops[screen]["backlight"] then
-		cmd = "xbacklight " .. backlight[lightval][tagprops[screen]["bl_vals"][newindex]]
+	if tagprops[index]["backlight"] then
+		cmd = "xbacklight " .. backlight[lightval][tagprops[index]["bl_vals"][newindex]]
 		awful.util.spawn(cmd, false)
 	end
 
-	return tags[screen][newindex]
+	return tags[index][newindex]
 end
 
 --- Filter out window that we do not want handled by focus.
