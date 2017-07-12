@@ -259,6 +259,18 @@ nmap <M-,> <Plug>DWMFocusReset
 "set tabstop=8
 
 "
+" Get the current visual selection
+function! VisualSelection()
+	try
+		let a_save = @a
+		normal! gv"ay
+		return @a
+	finally
+		let @a = a_save
+	endtry
+endfunction
+
+"
 " Special commands
 "
 " term://(<anything>//(digits:)1)1
@@ -297,7 +309,11 @@ if has("cscope")
 	    cs add $CSCOPE_DB
 	endif
 	set csverb
-	map <C-\> :cs find s <C-R>=expand("<cword>")<CR><CR>
+	function CsVfind()
+		execute ':cs find s ' . VisualSelection()
+	endfunction
+	nnoremap <C-\> :cs find s <C-R>=expand("<cword>")<CR><CR>
+	vnoremap <C-\> :call CsVfind()<CR>
 	map Ü :cs find s <C-R>=expand("<cword>")<CR><CR>
 	map ì :cs find c <C-R>=expand("<cword>")<CR><CR>
 	nnoremap Ý <C-]>
