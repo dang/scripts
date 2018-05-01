@@ -18,6 +18,8 @@ export NOCONFIGURE=yes
 export WINDOW_MANAGER=awesome
 # Use the system libvirt
 export VIRSH_DEFAULT_CONNECT_URI="qemu:///system"
+# Stop scp from completing random hostnames
+export COMP_KNOWN_HOSTS_WITH_HOSTFILE=""
 
 if [ -z "${USER}" ]; then
 	export USER=$(whoami)
