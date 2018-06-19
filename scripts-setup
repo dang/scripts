@@ -124,15 +124,12 @@ declare -A MVSET=(
 	[".bashrc.d/aliases"]=".bashrc.d/actions/aliases"
 )
 
-WANTPROGS="atool tmux"
+WANTPROGS="atool tmux clipit nvim"
 
 umask 0077
 
 function cmd_exists {
 	which $1 > /dev/null 2>&1
-	if [ "$?" == "1" ]; then
-		die "You don't have $1 installed, sorry"
-	fi
 }
 
 # getsrcdst ${entry} src dst
@@ -260,7 +257,7 @@ function install {
 	done
 }
 
-cmd_exists sed
+cmd_exists sed || die "You don't have sed installed, sorry"
 
 if [ -n "${BRAINDEAD}" ]; then
 	rm "${BRAINDEAD}"
@@ -279,7 +276,7 @@ if [ -z "${FIXUP}" ]; then
 
 	if [ ! -d "${SCRIPTDIR}/.git" ]; then
 		SAVEDIR=${PWD}
-		cmd_exists git
+		cmd_exists git || die "You don't have git installed, sorry"
 		cd $(dirname "${SCRIPTDIR}")
 		git clone ${REPO} $(basename ${SCRIPTDIR})
 		cd $(basename "${SCRIPTDIR}")
@@ -330,10 +327,7 @@ fi
 
 # Look to see if my desired programs are installed
 for i in ${WANTPROGS}; do
-	which $i > /dev/null 2>&1
-	if [ "$?" == "1" ]; then
-		NEEDPROGS="$i ${NEEDPROGS}"
-	fi
+	cmd_exists || NEEDPROGS="$i ${NEEDPROGS}"
 done
 
 echo "Done."
