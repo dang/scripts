@@ -243,6 +243,9 @@ function install {
 				if [ -n "${FIXUP}" ]; then
 					rm "${HOME}/${base}${dst}"
 				fi
+				# Makes sure any target directories exist
+				local tgtdir=$(dirname ${dst})
+				mkdir -p "${HOME}/${base}/${tgtdir}"
 				ln -s "${HOME}/.scripts/cfg/${base}${src}" "${HOME}/${base}${dst}" || die "failed to link ${base}${src}" || return 1
 			else
 				if [ -n "${FIXUP}" ]; then
