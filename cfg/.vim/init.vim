@@ -232,6 +232,8 @@ nmap <M-u> <Plug>DWMTag
 nmap <M-l> <Plug>DWMGrowMaster
 nmap <M-y> <Plug>DWMShrinkMaster
 nmap <M-,> <Plug>DWMFocusReset
+nmap <M-m> <Plug>DWMZoom
+nmap <M-.> <Plug>DWMResetMaster
 
 "
 " Cindent options
