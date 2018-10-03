@@ -503,11 +503,14 @@ function suspend {
 #alias suspend="sudo /home/dang/bin/suspend"
 alias wakeup="sudo kbdrate -r 30"
 function  dsu {
-	local dsu_wsdir=""
+	local dsu_args=""
 	if [ -n "${GTWS_WSPATH}" ]; then
-		dsu_wsdir="--workspace-dir ${GTWS_WSPATH}"
+		dsu_args="--workspace-dir ${GTWS_WSPATH}"
 	fi
-	sudo ${SCRIPTS}/dsu-helper ${dsu_wsdir} ${HOME}
+	if [ -n "${GTWS_TAG}" ]; then
+		dsu_args="${dsu_args} --tag ${GTWS_TAG}-root"
+	fi
+	sudo ${SCRIPTS}/dsu-helper ${dsu_args} ${HOME}
 }
 
 

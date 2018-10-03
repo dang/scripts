@@ -2,6 +2,7 @@
 # Enter a workspace if DSU asks us to
 
 function dsu_wsdir_helper {
+	local __args=
 
 	if [ "${USER}" != "root" ]; then
 		# Only useful if we're root
@@ -21,8 +22,12 @@ function dsu_wsdir_helper {
 		return
 	fi
 
+	if [ -n "${DSU_TAG}" ]; then
+		__args="-t ${DSU_TAG}"
+	fi
+
 	cd "${__dsu_wsdir}"
-	exec startws
+	exec startws ${__args}
 }
 
 
