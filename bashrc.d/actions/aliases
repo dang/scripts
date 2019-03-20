@@ -216,9 +216,9 @@ alias gp="gst123"
 # These are just useful aliases, in no specific order
 # alias edit="vim"
 alias vim="nvim"
-alias view="vim -R"
-alias :e="vim"
-alias :ta="vim -t"
+alias view="nvim -R"
+alias :e="nvim"
+alias :ta="nvim -t"
 alias gvim="gvim -geometry 90x53"
 function html {
                 curl $@ | html2text -width 1000
