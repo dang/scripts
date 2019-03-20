@@ -215,7 +215,8 @@ alias gp="gst123"
 #
 # These are just useful aliases, in no specific order
 # alias edit="vim"
-alias vim="TERM=xterm-256color vim"
+alias vim="nvim"
+alias view="vim -R"
 alias :e="vim"
 alias :ta="vim -t"
 alias gvim="gvim -geometry 90x53"
