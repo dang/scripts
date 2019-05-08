@@ -533,7 +533,7 @@ function hex2dec {
 	echo "ibase=16; ${hex}" | bc
 }
 function dec2hex {
-	echo "obase=16; $@" | bc
+	echo "obase=16; $@" | bc | tr '[:upper:]' '[:lower:]'
 }
 
 alias wget="curl -O"
