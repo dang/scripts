@@ -97,7 +97,7 @@ function mktgz {
 		echo "Usage: mktgz <directory> [<tbzname>]"
 		return 1
 	fi
-	local dirnames="$1"
+	local dirname="$1"
 	if [ -n "$2" ]; then
 		local tgzname="$2"
 	else
