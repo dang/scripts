@@ -219,6 +219,8 @@ alias vim="nvim"
 alias view="nvim -R"
 alias :e="nvim"
 alias :ta="nvim -t"
+alias vimdiff="nvim -d"
+alias view="nvim -R"
 alias gvim="gvim -geometry 90x53"
 function html {
                 curl $@ | html2text -width 1000
