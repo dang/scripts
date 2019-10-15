@@ -2,7 +2,7 @@
 " My modifications to C syntax
 
 " C uses doxygen
-UltiSnipsAddFiletypes c.doxygen
+"UltiSnipsAddFiletypes c.doxygen
 
 let wsconf=$GTWS_WSPATH."/.project.vim"
 
