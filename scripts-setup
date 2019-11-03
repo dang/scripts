@@ -101,7 +101,7 @@ fi
 
 # These are items that should be symlinked to the scripts dir, so they're always up-to-date.
 declare -A LNSET=(
-	["."]=".ackrc .atoolrc .bashrc .cvsrc .face .gdbinit .gitignore .gvimrc .inputrc .lesskey .pentadactylrc .profile .tigrc .tmux.conf .toprc .vim .vim:.config/nvim .vimrc .vrapperrc .xinitrc"
+	["."]=".ackrc .atoolrc .bashrc .cvsrc .face .gdbinit .gitignore .gvimrc .inputrc .lesskey .pentadactylrc .profile .rpmmacros .tigrc .tmux.conf .toprc .vim .vim:.config/nvim .vimrc .vrapperrc .xinitrc"
 	[".cgdb"]="cgdbrc"
 	[".config"]="awesome luakit"
 	[".config/xfce4"]="terminal"
