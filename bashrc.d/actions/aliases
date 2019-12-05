@@ -543,7 +543,11 @@ function dec2hex {
 alias wget="curl -O"
 
 function urlsend {
-	xsel -o | ssh apollo.fprintf.net "cat > url.dfg"
+	local url="$@"
+	if [ -z "${url}" ]; then
+		url=$(xsel -o)
+	fi
+	echo "$url" | ssh apollo.fprintf.net "cat > url.dfg"
 }
 function urlrecv {
 	ssh apollo.fprintf.net "cat url.dfg" | xsel -i
