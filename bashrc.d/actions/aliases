@@ -222,7 +222,7 @@ alias :ta="nvim -t"
 alias vimdiff="nvim -d"
 alias view="nvim -R"
 alias gvim="gvim -geometry 90x53"
-alias vimpager "${HOME}/bundle/vimpager/vimpager"
+alias vimpager="${HOME}/.config/nvim/bundle/vimpager/vimpager"
 function html {
                 curl $@ | html2text -width 1000
 		}
