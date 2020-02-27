@@ -402,6 +402,16 @@ function tm4 {
 	tmux new-session $@ \; split-window -v  \; split-window -h  \; select-pane -U \; split-window -v \; select-layout tiled
 }
 
+# Start a session that looks like my gtws sessions
+function tm5 {
+	tmux new-session -n "Edit" "$@" \; \
+		new-window -n "Build" \; \
+		split-window \; \
+		split-window \; \
+		select-layout even-horizontal \; \
+		select-window -t :0
+}
+
 function git_add_modified {
 	git add $(git status | egrep modified | awk '{print $3}')
 }
@@ -538,6 +548,10 @@ function hex2dec {
 }
 function dec2hex {
 	echo "obase=16; $@" | bc | tr '[:upper:]' '[:lower:]'
+}
+function hex2bin {
+	local hex=$(echo "$@" | tr '[:lower:]' '[:upper:]')
+	echo "ibase=16; obase=2; ${hex}" | bc
 }
 
 alias wget="curl -O"
