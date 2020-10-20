@@ -63,8 +63,8 @@ local games = "firefox -P Games"
 local bookmarks = "uzbl-tabbed file:///home/dang/bookmarks.html"
 local lightval = 1
 local backlight = {}
-backlight[1] = { "=10", "=50", "=100" }
-backlight[2] = { "=75", "=100", "=100" }
+backlight[1] = { "20", "40", "70" }
+backlight[2] = { "75", "100", "100" }
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -608,7 +608,7 @@ function dfg_pick_desktop(direction)
 	end
 
 	if tagprops[index]["backlight"] then
-		cmd = "xbacklight " .. backlight[lightval][tagprops[index]["bl_vals"][newindex]]
+		cmd = "dbacklight " .. backlight[lightval][tagprops[index]["bl_vals"][newindex]]
 		awful.util.spawn(cmd, false)
 	end
 

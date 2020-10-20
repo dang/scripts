@@ -1,0 +1,47 @@
+#!/bin/bash
+#
+# Script that sets backlight brightness to a percentage
+#
+
+BLDIR="/sys/class/backlight/intel_backlight"
+
+# Set usage output
+USAGE="[-h |--help] <percentage>"
+LONGUSAGE="\t-h, --help\n\t\tPrint this help message
+\t<percentage>\n\t\tPercentage of max to set"
+
+# Standard functions
+source ${SCRIPTS}/functions.sh
+
+# Script name
+ME=$(basename $0)
+
+# Parse arguments
+ARGS=`getopt -o h --long help -n "${ME}" -- "$@"`
+
+if [ $? != 0 ] ; then
+	usage
+fi
+eval set -- "$ARGS"
+
+while true ; do
+	case "$1" in
+		-h|--help) usage; shift ;;
+		--) shift ; break ;;
+		* ) usage "Invalid argument $1";;
+	esac
+done
+
+#Remaining arguments are in $1, $2, etc. as normal
+
+PER=$1
+if [ -z "${PER}" ]; then
+	die "Must give a percentage"
+fi
+
+MAX=$(cat "${BLDIR}/max_brightness")
+
+TARGET=$((${MAX} * ${PER} / 100))
+
+echo ${TARGET} | sudo tee "${BLDIR}/brightness" > /dev/null
+
