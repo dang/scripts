@@ -15,4 +15,9 @@ elif [ -f "/etc/system-release" ]; then
 	FLAVOR=${f,,}
 fi
 
+# If our flavor is archarm, make it arch
+if [ "$FLAVOR" == "archarm" ]; then
+	FLAVOR="arch"
+fi
+
 export FLAVOR
