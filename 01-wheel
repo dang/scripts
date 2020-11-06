@@ -1,0 +1,11 @@
+#
+# Allow wheel to have sudo access
+%wheel ALL=(ALL) NOPASSWD: ALL
+
+# Locale settings
+Defaults env_keep += "EDITOR LANG LANGUAGE LINGUAS LC_* _XKB_CHARSET"
+#
+# Run X applications through sudo; HOME is used to find the
+# .Xauthority file.  Note that other programs use HOME to find   
+# configuration files and this may lead to privilege escalation!
+Defaults env_keep += "HOME"
