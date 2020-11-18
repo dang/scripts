@@ -542,13 +542,14 @@ highlight PreProc	ctermfg=magenta
 highlight Type		ctermfg=green 
 highlight Underlined	ctermfg=red 
 highlight Ignore	ctermfg=white 
+highlight Visual        ctermfg=black           ctermbg=gray
 highlight Error		ctermfg=black		ctermbg=red
 highlight Todo		ctermfg=black		ctermbg=yellow
 highlight Search	ctermfg=black		ctermbg=blue
-highlight DiffAdd	ctermfg=black		ctermbg=blue
-highlight DiffChange	ctermfg=black		ctermbg=darkmagenta
-highlight DiffDelete	ctermfg=black		ctermbg=darkcyan
-highlight DiffText	ctermfg=black		ctermbg=darkred
+highlight DiffAdd	ctermfg=blue		ctermbg=black
+highlight DiffChange	ctermfg=darkmagenta	ctermbg=black
+highlight DiffDelete	ctermfg=darkcyan	ctermbg=black
+highlight DiffText	ctermfg=darkred		ctermbg=black
 highlight Folded	ctermfg=grey		ctermbg=darkblue
 highlight FoldColumn	ctermfg=darkblue	ctermbg=gray
 highlight Pmenu		ctermfg=black	ctermbg=13
