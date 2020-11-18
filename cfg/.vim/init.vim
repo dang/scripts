@@ -234,6 +234,7 @@ nmap <M-y> <Plug>DWMShrinkMaster
 nmap <M-,> <Plug>DWMFocusReset
 nmap <M-m> <Plug>DWMZoom
 nmap <M-.> <Plug>DWMResetMaster
+nmap <M-h> <Plug>DWMBottom
 
 "
 " Cindent options
