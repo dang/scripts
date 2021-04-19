@@ -6,16 +6,26 @@
 # <COLOR1>[<time/> <hostname/>]</COLOR1> <COLOR2><directory/></COLOR2> \>
 
 # Colors:
-# 	30 - grey
-# 	31 - red
-# 	32 - green
-# 	33 - yellow
-# 	34 - blue
-# 	35 - purple
-# 	36 - cyan
-# 	37 - white
-# COLOR1=32
-# COLOR2=34
+#	BLACK
+#	RED
+#	GREEN
+#	ORANGE
+#	BLUE
+#	PURPLE
+#	CYAN
+#	LIGHTGRAY
+#	DARKGRAY
+#	LIGHTRED
+#	LIGHTGREEN
+#	YELLOW
+#	LIGHTBLUE
+#	LIGHTPURPLE
+#	LIGHTCYAN
+#	WHITE
+#   Note: Use the light colors, except for GRAY
+
+# COLOR1="${LIGHTGREEN}"
+# COLOR2="${LIGHTBLUE}"
 
 # Prompt hostname.  This overrides the hostname
 # PHOSTNAME="chroot-\h"
