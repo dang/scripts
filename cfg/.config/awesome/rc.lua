@@ -713,7 +713,7 @@ globalkeys = awful.util.table.join(
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
-    awful.key({ modkey,           }, "b", function () awful.util.spawn(browser) end),
+    awful.key({ modkey, "Shift"   }, "b", function () awful.util.spawn(browser) end),
     awful.key({ modkey, "Shift"   }, "e", function () awful.util.spawn(email) end),
     awful.key({ modkey, "Shift"   }, "i", function () awful.util.spawn(im) end),
     awful.key({ modkey, "Shift"   }, "g", function () awful.util.spawn(games) end),
