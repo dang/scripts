@@ -207,7 +207,7 @@ mytasklist.buttons = awful.util.table.join(
                                                   -- :isvisible() makes no sense
                                                   c.minimized = false
                                                   if not c:isvisible() then
-                                                      awful.tag.viewonly(c:tags()[1])
+                                                      c:tags()[1]:view_only()
                                                   end
                                                   -- This will also un-minimize
                                                   -- the client, if needed
@@ -609,7 +609,7 @@ function dfg_pick_desktop(direction)
 
 	if tagprops[index]["backlight"] then
 		cmd = "dbacklight " .. backlight[lightval][tagprops[index]["bl_vals"][newindex]]
-		awful.util.spawn(cmd, false)
+		awful.spawn(cmd, false)
 	end
 
 	return tags[index][newindex]
@@ -645,34 +645,34 @@ end
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
-    awful.key({ "Control", }, "Left", function() awful.tag.viewonly(dfg_pick_desktop("west")) end),
-    awful.key({ "Control", }, "Right", function() awful.tag.viewonly(dfg_pick_desktop("east")) end),
-    awful.key({ "Control", }, "Up", function() awful.tag.viewonly(dfg_pick_desktop("north")) end),
-    awful.key({ "Control", }, "Down", function() awful.tag.viewonly(dfg_pick_desktop("south")) end),
+    awful.key({ "Control", }, "Left", function() dfg_pick_desktop("west"):view_only() end),
+    awful.key({ "Control", }, "Right", function() dfg_pick_desktop("east"):view_only() end),
+    awful.key({ "Control", }, "Up", function() dfg_pick_desktop("north"):view_only() end),
+    awful.key({ "Control", }, "Down", function() dfg_pick_desktop("south"):view_only() end),
     awful.key({ modkey, "Control", "Shift", }, "Left", function()
-    		t = dfg_pick_desktop("west")
+	        t = dfg_pick_desktop("west")
 		awful.client.movetotag(t)
-		awful.tag.viewonly(t)
+		t:view_only()
 	end),
     awful.key({ modkey, "Control", "Shift", }, "Right", function()
-   		t = dfg_pick_desktop("east")
+	        t = dfg_pick_desktop("east")
 		awful.client.movetotag(t)
-		awful.tag.viewonly(t)
+		t:view_only()
 	end),
     awful.key({ modkey, "Control", "Shift", }, "Up", function()
-    		t = dfg_pick_desktop("north")
+	        t = dfg_pick_desktop("north")
 		awful.client.movetotag(t)
-		awful.tag.viewonly(t)
+		t:view_only()
 	end),
     awful.key({ modkey, "Control", "Shift", }, "Down", function()
-    		t = dfg_pick_desktop("south")
+	        t = dfg_pick_desktop("south")
 		awful.client.movetotag(t)
-		awful.tag.viewonly(t)
+		t:view_only()
 	end),
-    awful.key({ modkey, "Control", }, "n", function() awful.tag.viewonly(dfg_pick_desktop("west")) end),
-    awful.key({ modkey, "Control", }, "i", function() awful.tag.viewonly(dfg_pick_desktop("east")) end),
-    awful.key({ modkey, "Control", }, "u", function() awful.tag.viewonly(dfg_pick_desktop("north")) end),
-    awful.key({ modkey, "Control", }, "e", function() awful.tag.viewonly(dfg_pick_desktop("south")) end),
+    awful.key({ modkey, "Control", }, "n", function() dfg_pick_desktop("west"):view_only() end),
+    awful.key({ modkey, "Control", }, "i", function() dfg_pick_desktop("east"):view_only() end),
+    awful.key({ modkey, "Control", }, "u", function() dfg_pick_desktop("north"):view_only() end),
+    awful.key({ modkey, "Control", }, "e", function() dfg_pick_desktop("south"):view_only() end),
 
 
     awful.key({ modkey,           }, "e",
@@ -713,7 +713,7 @@ globalkeys = awful.util.table.join(
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
-    awful.key({ modkey, "Shift"   }, "b", function () awful.util.spawn(browser) end),
+    awful.key({ modkey,           }, "b", function () awful.util.spawn(browser) end),
     awful.key({ modkey, "Shift"   }, "e", function () awful.util.spawn(email) end),
     awful.key({ modkey, "Shift"   }, "i", function () awful.util.spawn(im) end),
     awful.key({ modkey, "Shift"   }, "g", function () awful.util.spawn(games) end),
@@ -793,7 +793,7 @@ for i = 1, keynumber do
                   function ()
                         local screen = mouse.screen
                         if tags[screen][i] then
-                            awful.tag.viewonly(tags[screen][i])
+                            tags[screen][i]:view_only()
                         end
                   end),
         awful.key({ modkey, "Control" }, "#" .. i + 9,
