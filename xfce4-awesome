@@ -3,6 +3,7 @@
 # Kill xfwm4 and run awesome
 #
 
+killall xfce4-panel
 killall xfwm4
 mkdir -p ~/.cache/awesome
 exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
