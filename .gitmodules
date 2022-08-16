@@ -3,14 +3,14 @@
 	url = https://github.com/mason-larobina/luakit-plugins.git
 [submodule "cfg/.vim/bundle/vim-fugitive"]
 	path = cfg/.vim/bundle/vim-fugitive
-	url = git://github.com/tpope/vim-fugitive.git
+	url = https://github.com/tpope/vim-fugitive.git
 [submodule "cfg/.vim/bundle/dwm.vim"]
 	path = cfg/.vim/bundle/dwm.vim
-	url = git://github.com/dang/dwm.vim.git
+	url = https://github.com/dang/dwm.vim.git
 	branch = master
 [submodule "gtws"]
 	path = gtws
-	url = git://github.com/dang/gtws.git
+	url = https://github.com/dang/gtws.git
 	branch = master
 [submodule "cfg/.vim/bundle/nerdcommenter"]
 	path = cfg/.vim/bundle/nerdcommenter
