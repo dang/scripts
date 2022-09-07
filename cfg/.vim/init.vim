@@ -197,10 +197,11 @@ let g:NERDRemoveExtraSpaces='1'
 let g:NERDCompactSexyComs='1'
 let g:NERDTrimTrailingWhitespace='1'
 let g:NERDCommentEmptyLines='1'
-nnoremap <Leader>c  :call NERDComment('n', "comment")<cr>
-vnoremap <Leader>c  :call NERDComment('x', "comment")<cr>
-nnoremap <Leader>C  :call NERDComment('n', "uncomment")<cr>
-vnoremap <Leader>C  :call NERDComment('x', "uncomment")<cr>
+
+nnoremap <Leader>c  :call nerdcommenter#Comment('n', "Comment")<cr>
+vnoremap <Leader>c  :call nerdcommenter#Comment('x', "Comment")<cr>
+nnoremap <Leader>C  :call nerdcommenter#Comment('n', "Uncomment")<cr>
+vnoremap <Leader>C  :call nerdcommenter#Comment('x', "Uncomment")<cr>
 
 "
 " Settings for dwm
