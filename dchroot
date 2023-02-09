@@ -139,7 +139,7 @@ function start()
 
 function stop() 
 {
-	SCREENUP=$(screen -ls | egrep "\.${CHROOTNAME}[[:space:]]" | awk '{print $1}')
+	SCREENUP=$(screen -ls | grep -e "\.${CHROOTNAME}[[:space:]]" | awk '{print $1}')
 	if [ -n "${SCREENUP}" ]; then
 		screen -S ${SCREENUP} -X quit
 	fi

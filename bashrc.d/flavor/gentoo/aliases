@@ -27,7 +27,7 @@ function echeck {
 	else
 		TARGET="$1"
 	fi
-	emerge -puvDN ${TARGET} | egrep "=>0"
+	emerge -puvDN ${TARGET} | grep -e "=>0"
 }
 alias etc-update='sudo etc-update'
 alias edistmon='DISTCC_DIR=/home/portage/portage/.distcc distccmon-gnome'
@@ -38,7 +38,7 @@ alias schediso='schedtool -I -e'
 alias genpatch="svnpatchset /home/portage/overlays/gentopia/ /home/dang/tmp/gentopia-patches"
 
 function emailstable() {
-	egrep KEYWORD $1 | sed 's/KEYWORDS="//' | sed 's/"//' | sed 's/ /\n/g' | awk '(/~/) {printf "%s@gentoo.org, ", $0} END {printf "\n"}' | sed 's/~//g'
+	grep -e KEYWORD $1 | sed 's/KEYWORDS="//' | sed 's/"//' | sed 's/ /\n/g' | awk '(/~/) {printf "%s@gentoo.org, ", $0} END {printf "\n"}' | sed 's/~//g'
 }
 
 
@@ -55,8 +55,8 @@ function emailstable() {
 #         if [ ! -f "${metafile}" ]; then
 #                 die "No metadata file ${metafile}"
 #         fi
-#         egrep --color=auto "herd" ${metafile}
-#         egrep --color=auto "email" ${metafile}
+#         grep -e --color=auto "herd" ${metafile}
+#         grep -e --color=auto "email" ${metafile}
 # }
 alias meta="equery meta"
 
@@ -195,7 +195,7 @@ alias devel-chroots-maemo="TERM=xterm linux32 screen -c /dev/null sudo devel-chr
 # Recursively grep through ebuilds
 # Usage: ebgrep <pattern>
 function ebgrep {
-		find -L . -iname "*.ebuild" -exec egrep --color=auto -H "$@" "{}" ";"
+		find -L . -iname "*.ebuild" -exec grep -e --color=auto -H "$@" "{}" ";"
 }
 
 #
