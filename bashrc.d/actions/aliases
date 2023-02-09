@@ -30,7 +30,7 @@ alias cp="cp --sparse=always"
 alias df="df -Th"
 #
 # grep
-alias grep='grep -e --color=auto'
+alias grep='grep --color=auto'
 alias egrep='grep -e --color=auto'
 #
 # du
