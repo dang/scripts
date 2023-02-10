@@ -566,3 +566,12 @@ function urlsend {
 function urlrecv {
 	ssh apollo.fprintf.net "cat url.dfg" | xsel -i
 }
+
+function battery {
+	case "$1" in
+		full) sudo tlp fullcharge ;;
+		once) sudo tlp chargeonce ;;
+		save) sudo tlp setcharge 70 80 ;;
+		*) echo "full: charge to full; once: charge to configured max; save: set to low recharge" ;;
+	esac
+}
