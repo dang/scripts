@@ -2,3 +2,4 @@
 # ignore generated vim files
 vim/spell/*
 vim/.netrwhist
+cfg/.vim/plugin/packer_compiled.lua

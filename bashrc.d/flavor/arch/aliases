@@ -13,10 +13,10 @@ export ALIASFILES="${ALIASFILES} ${me}"
 alias which=" (alias; declare -f) | /usr/bin/which --tty-only --read-alias --read-functions --show-tilde --show-dot"
 
 function pacman {
-	if [ "$1" == "-Syu" ]; then
-		echo "Full upgrade; refreshing keys"
-		sudo pacman-key --refresh-keys
-	fi
+	#if [ "$1" == "-Syu" ]; then
+		#echo "Full upgrade; refreshing keys"
+		#sudo pacman-key --refresh-keys
+	#fi
 
 	sudo pacman "$@"
 }

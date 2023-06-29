@@ -531,7 +531,17 @@ function  dsu {
 
 alias keepassx="/usr/bin/keepassx ~/Dropbox/keepass.kdbx"
 alias arst="setxkbmap us"
-alias asdf="setxkbmap us -variant colemak; xmodmap ${SCRIPTS}/keymap"
+#alias asdf="setxkbmap us -variant colemak; xmodmap ${SCRIPTS}/keymap"
+function asdf {
+	setxkbmap us
+	setxkbmap us -variant colemak
+	xmodmap /home/dang/.scripts/keymap
+	synclient PalmDetect=1
+	synclient PalmMinWidth=6
+	synclient TapButton2=2 TapButton3=3
+	synclient PalmMinZ=100
+	synclient AreaRightEdge=1059
+}
 
 alias p0rnget="youtube-dl -o '%(extractor)s_%(id)s.%(ext)s' "
 #function p0rnget {
@@ -569,9 +579,9 @@ function urlrecv {
 
 function battery {
 	case "$1" in
-		full) sudo tlp fullcharge ;;
-		once) sudo tlp chargeonce ;;
-		save) sudo tlp setcharge 70 80 ;;
+		full) sudo tlp fullcharge BAT1 ;;
+		once) sudo tlp chargeonce BAT1 ;;
+		save) sudo tlp setcharge 70 80 BAT1 ;;
 		*) echo "full: charge to full; once: charge to configured max; save: set to low recharge" ;;
 	esac
 }
