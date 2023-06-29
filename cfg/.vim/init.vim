@@ -294,8 +294,9 @@ command -nargs=* Vcsblame call Vcsblame(<f-args>)
 "command Vcsblame exe "terminal tig blame " . expand("%") . " +"  . line(".")
 " Check when a symbol was added to git
 map <Leader>1 :!git log --reverse -p -S <cword> %<cr>
-nmap ) :tn<cr>
-nmap ( :tp<cr>
+" These were tn and tp for the tag stack, move them to the quicklist
+nmap ) :cn<cr>
+nmap ( :cp<cr>
 
 "
 " cscope settings
@@ -556,6 +557,7 @@ highlight FoldColumn	ctermfg=darkblue	ctermbg=gray
 highlight Pmenu		ctermfg=black	ctermbg=13
 highlight PmenuSel	ctermfg=white 	ctermbg=242
 "highlight PreProc ctermfg=Red
+highlight! link cStorageClass	Statement
 
 "
 " Automatically read gzipped files
@@ -697,3 +699,6 @@ let g:syntastic_loc_list_height=5
 
 " netrw - directory browsing (and remote file access)
 let g:netrw_dirhistmax  = 0
+
+" Load lua config
+lua require('config')

@@ -1,1 +1,13 @@
 extends c
+
+snippet su "std::unique_ptr" !b
+std::unique_ptr<${1:type}> 
+endsnippet
+
+snippet rs "rgw::sal" !b
+rgw::sal::${1:type} 
+endsnippet
+
+snippet surs "std::unique_ptr<rgw::sal::>" !b
+std::unique_ptr<rgw::sal::${1:type}> 
+endsnippet
