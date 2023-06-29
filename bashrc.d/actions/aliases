@@ -31,7 +31,7 @@ alias df="df -Th"
 #
 # grep
 alias grep='grep --color=auto'
-alias egrep='grep -e --color=auto'
+alias egrep='grep -E --color=auto'
 #
 # du
 alias diskusage='sudo du -hax --max-depth 1 . | sort -h'
@@ -45,7 +45,7 @@ function psg {
 		}
 #function psg {
 #                ps auwwx | head -1;
-#                ps auwwx | grep -e $* | grep -e -v grep -e;
+#                ps auwwx | grep -E $* | grep -E -v grep -E;
 #		}
 function psu {
 				ps --pid $(pgrep -d, -u $*)
@@ -68,7 +68,7 @@ function schedretype {
 	sudo schedtool ${MODE} $(pgrep -d, -f $*)
 	}
 #function slay {
-#                set j=`ps ax|grep -e $*|head -1`; kill -9 `echo $j[1]`;
+#                set j=`ps ax|grep -E $*|head -1`; kill -9 `echo $j[1]`;
 #							}
 alias slay="echo use pkill"
 alias nuke="kill -9"
@@ -249,49 +249,49 @@ function cppgrep {
 		echo "usage: ${FUNCNAME} <regex>"
 		return 1
 	fi
-	find . "(" -name "*.c" -or -name "*.cc" -or -name "*.cpp" ")" -exec grep -e --color=auto -H "$@" "{}" ";"
+	find . "(" -name "*.c" -or -name "*.cc" -or -name "*.cpp" ")" -exec grep -E --color=auto -H "$@" "{}" ";"
 }
 function hppgrep {
 	if [ -z "${1}" ]; then
 		echo "usage: ${FUNCNAME} <regex>"
 		return 1
 	fi
-	find . "(" -name "*.h" -or -name "*.hpp" ")" -exec grep -e --color=auto -H "$@" "{}" ";"
+	find . "(" -name "*.h" -or -name "*.hpp" ")" -exec grep -E --color=auto -H "$@" "{}" ";"
 }
 function chppgrep {
 	if [ -z "${1}" ]; then
 		echo "usage: ${FUNCNAME} <regex>"
 		return 1
 	fi
-	find . "(" -name "*.[ch]" -or -name "*.cc" -or -name "*.[ch]pp" ")" -exec grep -e --color=auto -H "$@" "{}" ";"
+	find . "(" -name "*.[ch]" -or -name "*.cc" -or -name "*.[ch]pp" ")" -exec grep -E --color=auto -H "$@" "{}" ";"
 }
 function cgrep {
 	if [ -z "${1}" ]; then
 		echo "usage: ${FUNCNAME} <regex>"
 		return 1
 	fi
-	find . -name "*.c" -exec grep -e --color=auto -H "$@" "{}" ";"
+	find . -name "*.c" -exec grep -E --color=auto -H "$@" "{}" ";"
 }
 function chgrep {
 	if [ -z "${1}" ]; then
 		echo "usage: ${FUNCNAME} <regex>"
 		return 1
 	fi
-	find . -name "*.[ch]" -exec grep -e --color=auto -H "$@" "{}" ";"
+	find . -name "*.[ch]" -exec grep -E --color=auto -H "$@" "{}" ";"
 }
 function hgrep {
 	if [ -z "${1}" ]; then
 		echo "usage: ${FUNCNAME} <regex>"
 		return 1
 	fi
-	find . -name "*.h" -exec grep -e --color=auto -H "$@" "{}" ";"
+	find . -name "*.h" -exec grep -E --color=auto -H "$@" "{}" ";"
 }
 function jgrep {
 	if [ -z "${1}" ]; then
 		echo "usage: ${FUNCNAME} <regex>"
 		return 1
 	fi
-	find . -name "*.java" -exec grep -e --color=auto -H "$@" "{}" ";"
+	find . -name "*.java" -exec grep -E --color=auto -H "$@" "{}" ";"
 }
 function dgrep {
 	local pattern=$1
@@ -300,7 +300,7 @@ function dgrep {
 		echo "usage: ${FUNCNAME} <file-patten> <regex>"
 		return 1
 	fi
-	find . -type f -name "*${pattern}*" -exec grep -e --color=auto -H "$@" "{}" ";"
+	find . -type f -name "*${pattern}*" -exec grep -E --color=auto -H "$@" "{}" ";"
 }
 function igrep {
 	local pattern=$1
@@ -309,14 +309,14 @@ function igrep {
 		echo "usage: ${FUNCNAME} <file-patten> <regex>"
 		return 1
 	fi
-	find . -type f -iname "*${pattern}*" -exec grep -e --color=auto -H "$@" "{}" ";"
+	find . -type f -iname "*${pattern}*" -exec grep -E --color=auto -H "$@" "{}" ";"
 }
 function grepall {
 	if [ -z "${1}" ]; then
 		echo "usage: ${FUNCNAME} <regex>"
 		return 1
 	fi
-	find . -type f -regextype posix-extended ! \( -regex '.*\.ko' -o -regex '.*\.o' -o -regex '.*cscope.*' -o -regex '.*tags.*' -o -regex '.*\.orig' -o -regex '.*\.rej' -o -regex '.*CVS.*' -o -regex '.*\.#maketags.dfg' -o -regex '.*\.svn.*' -o -regex '.*\.git.*' \) -exec grep -e --color=auto -H "$@" "{}" ";"
+	find . -type f -regextype posix-extended ! \( -regex '.*\.ko' -o -regex '.*\.o' -o -regex '.*cscope.*' -o -regex '.*tags.*' -o -regex '.*\.orig' -o -regex '.*\.rej' -o -regex '.*CVS.*' -o -regex '.*\.#maketags.dfg' -o -regex '.*\.svn.*' -o -regex '.*\.git.*' \) -exec grep -E --color=auto -H "$@" "{}" ";"
 }
 function grepdir {
 	local dir=$1
@@ -325,7 +325,7 @@ function grepdir {
 		echo "usage: ${FUNCNAME} <dir> <regex>"
 		return 1
 	fi
-	find ${dir} -type f -regextype posix-extended ! \( -regex '.*\.ko' -o -regex '.*\.o' -o -regex '.*cscope.*' -o -regex '.*tags.*' -o -regex '.*\.orig' -o -regex '.*\.rej' -o -regex '.*CVS.*' -o -regex '.*\.#maketags.dfg' -o -regex '.*\.svn.*' -o -regex '.*\.git.*' \) -exec grep -e --color=auto -H "$@" "{}" ";"
+	find ${dir} -type f -regextype posix-extended ! \( -regex '.*\.ko' -o -regex '.*\.o' -o -regex '.*cscope.*' -o -regex '.*tags.*' -o -regex '.*\.orig' -o -regex '.*\.rej' -o -regex '.*CVS.*' -o -regex '.*\.#maketags.dfg' -o -regex '.*\.svn.*' -o -regex '.*\.git.*' \) -exec grep -E --color=auto -H "$@" "{}" ";"
 }
 function cleanuppatch {
 	find . -name "*.orig" -exec rm {} \;
@@ -413,7 +413,7 @@ function tm5 {
 }
 
 function git_add_modified {
-	git add $(git status | grep -e modified | awk '{print $3}')
+	git add $(git status | grep -E modified | awk '{print $3}')
 }
 
 function git_tar ()
@@ -506,7 +506,7 @@ function suspend {
 	# Lock the screen (must be done as me)
 	#gnome-screensaver-command -l
 	#sudo /home/dang/bin/suspend
-	if grep -e storage /proc/mounts  2>&1 > /dev/null; then
+	if grep -E storage /proc/mounts  2>&1 > /dev/null; then
 		sudo umount -f /storage || return
 	fi
 	sudo nmcli nm wifi off
