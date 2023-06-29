@@ -56,7 +56,7 @@ def main():
     print("Splitting " + str(len(args.files)) + " files into " + str(args.columns) + " columns");
     cl = get_command_line(args.files, args.columns);
     print(cl);
-    os.execvp("vim", cl);
+    os.execvp("nvim", cl);
 
 
 if __name__ == "__main__":
