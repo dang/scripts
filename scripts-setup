@@ -5,7 +5,7 @@
 # Requires: git, sed
 #
 
-REPO="git://github.com/dang/scripts.git"
+REPO="https://github.com/dang/scripts.git"
 SCRIPTDIR="${HOME}/.scripts"
 
 # Set usage output
