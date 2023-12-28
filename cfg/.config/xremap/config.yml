@@ -1,0 +1,11 @@
+#modmap:
+  #- name: Grave to Underscore
+    #remap:
+      #KEY_GRAVE: KEY_MINUS
+      #KEY_MINUS: KEY_GRAVE
+keymap:
+  - name: Grave to Underscore
+    remap:
+      Grave: Shift-Minus
+      Shift-Minus: Grave
+      Shift-Grave: Shift-Grave
