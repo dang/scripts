@@ -5,7 +5,8 @@
 " Don't need to be vi compatible
 set nocompatible
 " Act like we're in an xterm
-behave xterm
+"behave xterm
+set mousemodel=extend
 " Want status line
 set laststatus=2
 " Want ruler
@@ -20,7 +21,8 @@ set selectmode=mouse
 " Hide the mouse pointer while typing
 set mousehide
 " Use the X clipboard for default yanking
-set clipboard=unnamed,unnamedplus
+"set clipboard=unnamed,unnamedplus
+set clipboard+=unnamed
 " Use mouse in terminals; this allows selection inside tmux
 "if !empty($DISPLAY) && executable('xsel')
 	"if has('mouse')
@@ -143,7 +145,7 @@ set autoindent
 " Keep tabs as tabs
 set noexpandtab
 " Backspace across lines
-set backspace=2
+set backspace=indent,eol,start
 "set guioptions+=T
 " Don't let visualbell flash my screen
 set visualbell t_vb=
@@ -520,6 +522,9 @@ if exists("syntax_on")
 " Reset syntax highlighing
 	syntax reset
 endif
+
+" Use the vim colorschemes
+colorscheme vim
 
 " Actual color settings for terminals (gvim color schemes in .vim/colors/)
 " Colors:	00 = black
