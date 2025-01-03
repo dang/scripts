@@ -524,7 +524,7 @@ if exists("syntax_on")
 endif
 
 " Use the vim colorschemes
-colorscheme vim
+colorscheme dang
 
 " Actual color settings for terminals (gvim color schemes in .vim/colors/)
 " Colors:	00 = black
@@ -539,30 +539,30 @@ colorscheme vim
 "highlight Normal ctermbg=black ctermfg=lightgrey
 "highlight NonText ctermfg=lightred
 "highlight Statement ctermfg=lightblue 
-highlight Cursor	ctermfg=black		ctermbg=Yellow
-highlight Comment	ctermfg=blue
-highlight Constant	ctermfg=darkred
-highlight Special	ctermfg=darkmagenta
-highlight Identifier	ctermfg=darkcyan	cterm=NONE
-highlight Statement	ctermfg=yellow 
-highlight PreProc	ctermfg=magenta 
-highlight Type		ctermfg=green 
-highlight Underlined	ctermfg=red 
-highlight Ignore	ctermfg=white 
-highlight Visual        ctermfg=black           ctermbg=gray
-highlight Error		ctermfg=black		ctermbg=red
-highlight Todo		ctermfg=black		ctermbg=yellow
-highlight Search	ctermfg=black		ctermbg=blue
-highlight DiffAdd	ctermfg=blue		ctermbg=black
-highlight DiffChange	ctermfg=darkmagenta	ctermbg=black
-highlight DiffDelete	ctermfg=darkcyan	ctermbg=black
-highlight DiffText	ctermfg=darkred		ctermbg=black
-highlight Folded	ctermfg=grey		ctermbg=darkblue
-highlight FoldColumn	ctermfg=darkblue	ctermbg=gray
-highlight Pmenu		ctermfg=black	ctermbg=13
-highlight PmenuSel	ctermfg=white 	ctermbg=242
-"highlight PreProc ctermfg=Red
-highlight! link cStorageClass	Statement
+"highlight Cursor	ctermfg=black		ctermbg=Yellow
+"highlight Comment	ctermfg=blue
+"highlight Constant	ctermfg=darkred
+"highlight Special	ctermfg=darkmagenta
+"highlight Identifier	ctermfg=darkcyan	cterm=NONE
+"highlight Statement	ctermfg=yellow
+"highlight PreProc	ctermfg=magenta
+"highlight Type		ctermfg=green
+"highlight Underlined	ctermfg=red
+"highlight Ignore	ctermfg=white
+"highlight Visual        ctermfg=black           ctermbg=gray
+"highlight Error		ctermfg=black		ctermbg=red
+"highlight Todo		ctermfg=black		ctermbg=yellow
+"highlight Search	ctermfg=black		ctermbg=blue
+"highlight DiffAdd	ctermfg=blue		ctermbg=black
+"highlight DiffChange	ctermfg=darkmagenta	ctermbg=black
+"highlight DiffDelete	ctermfg=darkcyan	ctermbg=black
+"highlight DiffText	ctermfg=darkred		ctermbg=black
+"highlight Folded	ctermfg=grey		ctermbg=darkblue
+"highlight FoldColumn	ctermfg=darkblue	ctermbg=gray
+"highlight Pmenu		ctermfg=black	ctermbg=13
+"highlight PmenuSel	ctermfg=white 	ctermbg=242
+""highlight PreProc ctermfg=Red
+"highlight! link cStorageClass	Statement
 
 "
 " Automatically read gzipped files
