@@ -35,6 +35,25 @@ lspconfig.clangd.setup{}
 --	Python
 lspconfig.pyright.setup{}
 
+-- add a  floating window diagnostic
+-- format the message such that it shows source, message and
+-- the error code. Show the message with <space>e
+vim.diagnostic.config({
+	virtual_text = true,
+	signs = true,
+	float = {
+		border = "single",
+		format = function(diagnostic)
+			return string.format(
+				"%s (%s) [%s]",
+				diagnostic.message,
+				diagnostic.source,
+				diagnostic.code or diagnostic.user_data.lsp.code
+			)
+		end,
+	},
+})
+
 
 --	Mappings
 -- Use LspAttach autocommand to only map the following keys
@@ -67,10 +86,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<space>f', function()
       vim.lsp.buf.format { async = true }
     end, opts)
+    vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
   end,
 })
 
 -- Highlighting
-vim.api.nvim_set_hl(0, '@lsp.type.parameter', { ctermfg='darkgreen' })
-vim.api.nvim_set_hl(0, '@lsp.type.variable', { ctermfg='darkgray' })
-vim.api.nvim_set_hl(0, '@lsp.type.property', { ctermfg='brown' })
+--vim.api.nvim_set_hl(0, '@lsp.type.parameter', { ctermfg='darkgreen' })
+--vim.api.nvim_set_hl(0, '@lsp.type.variable', { ctermfg='darkgray' })
+--vim.api.nvim_set_hl(0, '@lsp.type.property', { ctermfg='brown' })

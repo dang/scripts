@@ -523,8 +523,14 @@ if exists("syntax_on")
 	syntax reset
 endif
 
+if exists('$TMUX')
+	set termguicolors
+endif
+
 " Use the vim colorschemes
 colorscheme dang
+" Need to convert to gui highlight attributes instead of cterm
+"set notermguicolors
 
 " Actual color settings for terminals (gvim color schemes in .vim/colors/)
 " Colors:	00 = black

@@ -3,28 +3,36 @@ highlight clear
 let g:colors_name = 'dang'
 
 " cterm settings
-"highlight Cursor			ctermfg=black		ctermbg=Yellow
-"highlight Comment	cterm=bold	ctermfg=blue
-"highlight Constant			ctermfg=darkred
-"highlight Special			ctermfg=darkmagenta
-"highlight Identifier	cterm=NONE	ctermfg=darkcyan
-"highlight Statement			ctermfg=yellow
-"highlight PreProc			ctermfg=magenta
-"highlight Type				ctermfg=green
-"highlight Underlined			ctermfg=red
-"highlight Ignore			ctermfg=white
-"highlight Error				ctermfg=black		ctermbg=red
-"highlight Todo				ctermfg=black		ctermbg=yellow
-"highlight Search			ctermfg=black		ctermbg=blue
-"highlight DiffAdd			ctermfg=black		ctermbg=blue
-"highlight DiffChange			ctermfg=black		ctermbg=darkmagenta
-"highlight DiffDelete			ctermfg=black		ctermbg=darkcyan
-"highlight DiffText			ctermfg=black		ctermbg=darkred
-"highlight Folded			ctermfg=darkblue	ctermbg=gray
-"highlight FoldColumn			ctermfg=darkblue	ctermbg=gray
+highlight Normal ctermbg=black ctermfg=lightgrey
+highlight NonText ctermfg=lightred
+highlight Statement ctermfg=lightblue
+highlight Cursor	ctermfg=black		ctermbg=Yellow
+highlight Comment	ctermfg=blue
+highlight Constant	ctermfg=darkred
+highlight Special	ctermfg=darkmagenta
+highlight Identifier	ctermfg=darkcyan	cterm=NONE
+highlight Statement	ctermfg=yellow
+highlight PreProc	ctermfg=magenta
+highlight Type		ctermfg=green
+highlight Underlined	ctermfg=red
+highlight Ignore	ctermfg=white
+highlight Visual        ctermfg=black           ctermbg=gray
+highlight Error		ctermfg=black		ctermbg=red
+highlight Todo		ctermfg=black		ctermbg=yellow
+highlight Search	ctermfg=black		ctermbg=blue
+highlight DiffAdd	ctermfg=blue		ctermbg=black
+highlight DiffChange	ctermfg=darkmagenta	ctermbg=black
+highlight DiffDelete	ctermfg=darkcyan	ctermbg=black
+highlight DiffText	ctermfg=darkred		ctermbg=black
+highlight Folded	ctermfg=grey		ctermbg=darkblue
+highlight FoldColumn	ctermfg=darkblue	ctermbg=gray
+highlight Pmenu		ctermfg=black	ctermbg=13
+highlight PmenuSel	ctermfg=white 	ctermbg=242
+"highlight PreProc ctermfg=Red
+highlight! link cStorageClass	Statement
 
 " GUI settings
-highlight Normal	guifg=#B0B0B0		guibg=#002B36
+highlight Normal	guifg=#B0B0B0		guibg=#002B36		ctermbg=NONE
 highlight Comment	guifg=#62A0EA		guibg=NONE
 highlight Constant	guifg=#FF5555		guibg=NONE
 highlight Identifier	guifg=#00AAAA		guibg=NONE		gui=NONE
