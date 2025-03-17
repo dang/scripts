@@ -7,7 +7,7 @@
     // Choose the order of the modules
     "modules-left": ["hyprland/workspaces", "hyprland/mode"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["idle_inhibitor", "tray", "pulseaudio", "memory", "battery", "clock"],
+    "modules-right": ["custom/audio_idle_inhibitor", "tray", "pulseaudio", "backlight", "memory", "battery", "clock"],
     // Modules configuration
     // "sway/workspaces": {
     //     "disable-scroll": true,
@@ -76,6 +76,18 @@
             "activated": "",
             "deactivated": ""
         }
+    },
+    "custom/audio_idle_inhibitor": {
+	"format": "{icon}",
+	"exec": "sway-audio-idle-inhibit --dry-print-both-waybar",
+	"exec-if": "which sway-audio-idle-inhibit",
+	"return-type": "json",
+	"format-icons": {
+	    "output": "",
+	    "input": "",
+	    "output-input": "  ",
+	    "none": ""
+	}
     },
     "tray": {
         // "icon-size": 21,
