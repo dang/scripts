@@ -124,7 +124,7 @@ declare -A MVSET=(
 	[".bashrc.d/aliases"]=".bashrc.d/actions/aliases"
 )
 
-WANTPROGS="atool tmux clipit nvim"
+WANTPROGS="atool tmux clipit nvim wl-copy wl-paste"
 
 umask 0077
 
@@ -330,7 +330,7 @@ fi
 
 # Look to see if my desired programs are installed
 for i in ${WANTPROGS}; do
-	cmd_exists || NEEDPROGS="$i ${NEEDPROGS}"
+	cmd_exists $i || NEEDPROGS="$i ${NEEDPROGS}"
 done
 
 echo "Done."

@@ -12,4 +12,12 @@ complicated install method.  It consists of:
 
 See http://apollo.fprintf.net/scripts/ for installation.
 
-TODO - Move this to a github .md file with instal instructions
+TODO - Move this to a github .md file with install instructions
+
+Things to do to setup my env in hyprland:
+
+1. Enable ssh-agent local service:
+	systemctl enable --user ssh-agent.service
+
+2. nvim copy/paste integration
+	install wl-clipboard
